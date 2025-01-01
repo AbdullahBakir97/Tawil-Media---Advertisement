@@ -30,6 +30,9 @@ The system is designed to be modular, following Django's app-based architecture,
 
 ## Features
 
+![2025-01-01](https://github.com/user-attachments/assets/e0e1ee76-a96a-492b-b803-07dc7ade3412)
+
+
 ### Core Features
 - **Media Content Management**: Manage articles, news, and media attachments (images/videos).
 - **Advertisement Management**: Ad campaigns with targeting, tracking (impressions/clicks), and placements.
