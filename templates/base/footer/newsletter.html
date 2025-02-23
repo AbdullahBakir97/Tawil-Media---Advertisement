@@ -1,0 +1,130 @@
+{% load static %}
+
+<div class="newsletter-section bg-primary-900 text-white py-12">
+    <div class="container">
+        <div class="max-w-3xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-4">Stay Informed with Tawil Media</h2>
+            <p class="text-lg text-primary-200 mb-8">
+                Get the latest news, articles, and updates delivered straight to your inbox.
+            </p>
+
+            <form class="newsletter-form max-w-md mx-auto"
+                  hx-post="{% url 'newsletter:subscribe' %}"
+                  hx-target="#newsletter-response"
+                  hx-swap="innerHTML"
+                  hx-indicator=".newsletter-loading">
+                
+                <div class="flex space-x-2">
+                    <div class="relative flex-1">
+                        <!-- Email Input -->
+                        <input type="email"
+                               name="email"
+                               required
+                               class="form-input w-full pl-10 pr-4 py-3 rounded-lg bg-primary-800 border-primary-700 text-white placeholder-primary-400 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                               placeholder="Enter your email address">
+                        
+                        <!-- Email Icon -->
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+
+                        <!-- Loading Indicator -->
+                        <div class="newsletter-loading absolute inset-y-0 right-0 pr-3 flex items-center htmx-indicator">
+                            <svg class="animate-spin h-5 w-5 text-primary-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit"
+                            class="btn btn-secondary px-6 py-3 rounded-lg font-medium transition-transform transform hover:scale-105">
+                        Subscribe
+                    </button>
+                </div>
+
+                <!-- Response Message -->
+                <div id="newsletter-response" class="mt-4 text-center"></div>
+            </form>
+
+            <!-- Features -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+                <div class="flex items-center space-x-3">
+                    <svg class="h-6 w-6 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2.5 2.5 0 00-2.5-2.5H14"/>
+                    </svg>
+                    <span class="text-primary-200">Weekly Digest</span>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <svg class="h-6 w-6 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                    </svg>
+                    <span class="text-primary-200">Exclusive Content</span>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <svg class="h-6 w-6 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                    </svg>
+                    <span class="text-primary-200">Instant Updates</span>
+                </div>
+            </div>
+
+            <!-- Privacy Notice -->
+            <p class="text-sm text-primary-400 mt-8">
+                By subscribing, you agree to our 
+                <a href="{% url 'privacy' %}" class="underline hover:text-white">Privacy Policy</a> and 
+                <a href="{% url 'terms' %}" class="underline hover:text-white">Terms of Service</a>.
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('htmx:afterRequest', function(evt) {
+        if (evt.detail.target.id === 'newsletter-response') {
+            const form = evt.detail.target.closest('form');
+            if (evt.detail.successful) {
+                form.reset();
+                
+                // Show success message
+                evt.detail.target.innerHTML = `
+                    <div class="bg-primary-800 text-primary-200 p-4 rounded-lg">
+                        Thank you for subscribing! Please check your email to confirm your subscription.
+                    </div>
+                `;
+            } else {
+                // Show error message
+                evt.detail.target.innerHTML = `
+                    <div class="bg-red-900 text-red-200 p-4 rounded-lg">
+                        An error occurred. Please try again later.
+                    </div>
+                `;
+            }
+        }
+    });
+</script>
+
+<style>
+    .newsletter-section {
+        background-image: linear-gradient(135deg, var(--color-primary-900) 0%, var(--color-primary-800) 100%);
+    }
+
+    .newsletter-form input:focus {
+        box-shadow: 0 0 0 2px var(--color-primary-500);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+        .newsletter-form button:hover {
+            transition-duration: 150ms;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .newsletter-form button:hover {
+            transform: none;
+        }
+    }
+</style>

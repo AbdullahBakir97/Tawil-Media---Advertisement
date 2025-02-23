@@ -1,0 +1,160 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}Login - Tawil Media{% endblock %}
+
+{% block meta_description %}Sign in to your Tawil Media account to access premium content, manage your subscriptions, and more.{% endblock %}
+
+{% block content %}
+<div class="container max-w-md mx-auto px-4">
+    <div class="bg-secondary rounded-lg shadow-lg p-8">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-2xl font-bold mb-2">Welcome Back</h1>
+            <p class="text-tertiary">Sign in to your account</p>
+        </div>
+
+        <!-- Social Login -->
+        <div class="space-y-3 mb-6">
+            <button type="button" 
+                    class="w-full flex items-center justify-center gap-3 px-4 py-2 bg-white text-gray-700 rounded-md border border-gray-300 hover:bg-gray-50 transition-colors">
+                <img src="{% static 'img/icons/google.svg' %}" alt="Google" class="w-5 h-5">
+                Continue with Google
+            </button>
+            <button type="button"
+                    class="w-full flex items-center justify-center gap-3 px-4 py-2 bg-[#1877F2] text-white rounded-md hover:bg-[#1865F2] transition-colors">
+                <img src="{% static 'img/icons/facebook.svg' %}" alt="Facebook" class="w-5 h-5">
+                Continue with Facebook
+            </button>
+        </div>
+
+        <!-- Divider -->
+        <div class="relative my-6">
+            <div class="absolute inset-0 flex items-center">
+                <div class="w-full border-t border-primary"></div>
+            </div>
+            <div class="relative flex justify-center text-sm">
+                <span class="px-2 bg-secondary text-tertiary">Or continue with</span>
+            </div>
+        </div>
+
+        <!-- Login Form -->
+        <form hx-post="{% url 'login' %}" 
+              hx-swap="outerHTML"
+              class="space-y-6">
+            {% csrf_token %}
+            
+            <!-- Error Messages -->
+            {% if form.errors %}
+            <div class="bg-error/10 border border-error/20 text-error rounded-md p-4 mb-6" role="alert">
+                {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                {% else %}
+                    Please correct the errors below.
+                {% endif %}
+            </div>
+            {% endif %}
+
+            <!-- Email Field -->
+            <div>
+                <label for="email" class="block text-sm font-medium mb-2">Email Address</label>
+                <input type="email" 
+                       id="email" 
+                       name="email" 
+                       required
+                       class="w-full px-4 py-2 rounded-md bg-tertiary border border-primary focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-shadow"
+                       {% if form.email.value %}value="{{ form.email.value }}"{% endif %}
+                >
+                {% if form.email.errors %}
+                <p class="mt-1 text-sm text-error">{{ form.email.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Password Field -->
+            <div>
+                <div class="flex items-center justify-between mb-2">
+                    <label for="password" class="block text-sm font-medium">Password</label>
+                    <a href="{% url 'password_reset' %}" 
+                       class="text-sm text-primary-600 hover:text-primary-500">
+                        Forgot password?
+                    </a>
+                </div>
+                <input type="password" 
+                       id="password" 
+                       name="password" 
+                       required
+                       class="w-full px-4 py-2 rounded-md bg-tertiary border border-primary focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-shadow"
+                >
+                {% if form.password.errors %}
+                <p class="mt-1 text-sm text-error">{{ form.password.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Remember Me -->
+            <div class="flex items-center">
+                <input type="checkbox" 
+                       id="remember" 
+                       name="remember" 
+                       class="h-4 w-4 rounded border-primary text-primary-600 focus:ring-primary-500">
+                <label for="remember" class="ml-2 block text-sm">
+                    Remember me
+                </label>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit"
+                    class="w-full bg-primary-600 text-white py-2 px-4 rounded-md hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-colors">
+                <span class="htmx-indicator">
+                    <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Signing in...
+                </span>
+                <span class="htmx-default">Sign in</span>
+            </button>
+        </form>
+
+        <!-- Sign Up Link -->
+        <p class="mt-8 text-center text-sm">
+            Don't have an account?
+            <a href="{% url 'register' %}" class="text-primary-600 hover:text-primary-500">
+                Create one now
+            </a>
+        </p>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .htmx-indicator {
+        display: none;
+    }
+    .htmx-request .htmx-indicator {
+        display: inline-flex;
+    }
+    .htmx-request .htmx-default {
+        display: none;
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script type="module">
+    // Focus email field on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('email').focus();
+    });
+
+    // Handle form submission feedback
+    document.body.addEventListener('htmx:afterRequest', function(evt) {
+        if (evt.detail.successful && evt.detail.xhr.responseURL) {
+            // Redirect on successful login
+            window.location.href = evt.detail.xhr.responseURL;
+        }
+    });
+</script>
+{% endblock %}

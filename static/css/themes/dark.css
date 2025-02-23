@@ -1,0 +1,126 @@
+/* Dark Theme */
+[data-theme="dark"] {
+  /* Background Colors */
+  --bg-primary: var(--color-gray-900);
+  --bg-secondary: var(--color-gray-800);
+  --bg-tertiary: var(--color-gray-700);
+  
+  /* Text Colors */
+  --text-primary: var(--color-gray-100);
+  --text-secondary: var(--color-gray-300);
+  --text-tertiary: var(--color-gray-400);
+  
+  /* Border Colors */
+  --border-primary: var(--color-gray-700);
+  --border-secondary: var(--color-gray-600);
+  
+  /* Shadow Colors */
+  --shadow-color: rgb(0 0 0 / 0.3);
+  --shadow-color-darker: rgb(0 0 0 / 0.4);
+  
+  /* Component Colors */
+  --card-bg: var(--color-gray-800);
+  --card-border: var(--border-primary);
+  
+  --input-bg: var(--color-gray-800);
+  --input-border: var(--border-primary);
+  --input-focus-border: var(--color-primary);
+  --input-placeholder: var(--color-gray-500);
+  
+  --button-primary-bg: var(--color-primary);
+  --button-primary-text: var(--color-white);
+  --button-secondary-bg: var(--color-gray-700);
+  --button-secondary-text: var(--color-gray-100);
+  
+  /* Navigation Colors */
+  --nav-bg: var(--color-gray-900);
+  --nav-border: var(--border-primary);
+  --nav-text: var(--text-secondary);
+  --nav-text-hover: var(--text-primary);
+  
+  /* Sidebar Colors */
+  --sidebar-bg: var(--color-gray-900);
+  --sidebar-border: var(--border-primary);
+  --sidebar-text: var(--text-secondary);
+  
+  /* Table Colors */
+  --table-header-bg: var(--color-gray-800);
+  --table-border: var(--border-primary);
+  --table-row-hover: var(--color-gray-800);
+  
+  /* Form Colors */
+  --form-bg: var(--color-gray-800);
+  --form-border: var(--border-primary);
+  --form-focus-border: var(--color-primary);
+  --form-error: var(--color-error);
+  --form-success: var(--color-success);
+  
+  /* Modal Colors */
+  --modal-bg: var(--color-gray-800);
+  --modal-border: var(--border-primary);
+  --modal-overlay: rgba(0, 0, 0, 0.7);
+  
+  /* Toast Colors */
+  --toast-bg: var(--color-gray-800);
+  --toast-border: var(--border-primary);
+  --toast-shadow: var(--shadow-xl);
+  
+  /* Code Colors */
+  --code-bg: var(--color-gray-800);
+  --code-text: var(--color-gray-100);
+  --code-border: var(--border-primary);
+  
+  /* Selection Colors */
+  --selection-bg: var(--color-primary);
+  --selection-text: var(--color-white);
+  
+  /* Custom Dark Theme Shadows */
+  --shadow-sm: 0 1px 2px 0 var(--shadow-color);
+  --shadow-base: 0 1px 3px 0 var(--shadow-color),
+                0 1px 2px -1px var(--shadow-color);
+  --shadow-md: 0 4px 6px -1px var(--shadow-color),
+               0 2px 4px -2px var(--shadow-color);
+  --shadow-lg: 0 10px 15px -3px var(--shadow-color),
+               0 4px 6px -4px var(--shadow-color);
+  --shadow-xl: 0 20px 25px -5px var(--shadow-color),
+               0 8px 10px -6px var(--shadow-color);
+  
+  /* Scrollbar Colors */
+  scrollbar-color: var(--color-gray-600) var(--color-gray-800);
+  scrollbar-width: thin;
+}
+
+/* Dark Theme Scrollbar for Webkit Browsers */
+[data-theme="dark"] ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-track {
+  background: var(--color-gray-800);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background-color: var(--color-gray-600);
+  border-radius: 4px;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-gray-500);
+}
+
+/* Dark Theme Selection */
+[data-theme="dark"] ::selection {
+  background-color: var(--selection-bg);
+  color: var(--selection-text);
+}
+
+/* Dark Theme Image Adjustments */
+[data-theme="dark"] img {
+  opacity: 0.8;
+  transition: opacity 0.2s ease-in-out;
+}
+
+[data-theme="dark"] img:hover {
+  opacity: 1;
+}

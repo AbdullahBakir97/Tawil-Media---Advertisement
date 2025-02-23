@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" 
+      x-data="{ theme: $store.theme.current }" 
+      :data-theme="theme"
+      :class="{ 'dark': theme === 'dark' }">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}Tawil Media{% endblock %}</title>
+    
+    <!-- Meta Tags -->
+    <meta name="description" content="{% block meta_description %}Tawil Media - Professional Media and Advertisement Platform{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}media, advertising, content management{% endblock %}">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=Noto+Serif:wght@400;700&family=Noto+Sans+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Critical CSS Variables -->
+    <style>
+        :root {
+            /* Brand Colors */
+            --color-primary-50: #f0f9ff;
+            --color-primary-100: #e0f2fe;
+            --color-primary-200: #bae6fd;
+            --color-primary-300: #7dd3fc;
+            --color-primary-400: #38bdf8;
+            --color-primary-500: #0ea5e9;
+            --color-primary-600: #0284c7;
+            --color-primary-700: #0369a1;
+            --color-primary-800: #075985;
+            --color-primary-900: #0c4a6e;
+
+            /* Gray Scale */
+            --color-gray-50: #f9fafb;
+            --color-gray-100: #f3f4f6;
+            --color-gray-200: #e5e7eb;
+            --color-gray-300: #d1d5db;
+            --color-gray-400: #9ca3af;
+            --color-gray-500: #6b7280;
+            --color-gray-600: #4b5563;
+            --color-gray-700: #374151;
+            --color-gray-800: #1f2937;
+            --color-gray-900: #111827;
+
+            /* Semantic Colors */
+            --color-success: #10b981;
+            --color-warning: #f59e0b;
+            --color-error: #ef4444;
+            --color-info: #3b82f6;
+
+            /* Typography */
+            --font-sans: 'Noto Sans', sans-serif;
+            --font-serif: 'Noto Serif', serif;
+            --font-arabic: 'Noto Sans Arabic', sans-serif;
+
+            /* Spacing */
+            --spacing-px: 1px;
+            --spacing-0: 0;
+            --spacing-1: 0.25rem;
+            --spacing-2: 0.5rem;
+            --spacing-3: 0.75rem;
+            --spacing-4: 1rem;
+            --spacing-6: 1.5rem;
+            --spacing-8: 2rem;
+            --spacing-12: 3rem;
+            --spacing-16: 4rem;
+
+            /* Transitions */
+            --transition-fast: 150ms;
+            --transition-normal: 250ms;
+            --transition-slow: 350ms;
+        }
+
+        /* Light Theme Variables */
+        :root {
+            --bg-primary: var(--color-gray-50);
+            --bg-secondary: white;
+            --bg-tertiary: var(--color-gray-100);
+            
+            --text-primary: var(--color-gray-900);
+            --text-secondary: var(--color-gray-600);
+            --text-tertiary: var(--color-gray-500);
+            
+            --border-primary: var(--color-gray-200);
+            --border-secondary: var(--color-gray-300);
+        }
+
+        /* Dark Theme Variables */
+        :root.dark {
+            --bg-primary: var(--color-gray-900);
+            --bg-secondary: var(--color-gray-800);
+            --bg-tertiary: var(--color-gray-700);
+            
+            --text-primary: white;
+            --text-secondary: var(--color-gray-300);
+            --text-tertiary: var(--color-gray-400);
+            
+            --border-primary: var(--color-gray-700);
+            --border-secondary: var(--color-gray-600);
+        }
+    </style>
+    
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    
+    <!-- HTMX (load first) -->
+    <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+    
+    <!-- Alpine.js -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <!-- Alpine.js Store & Theme Setup -->
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.store('theme', {
+                current: localStorage.getItem('theme') || 
+                         (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'),
+                
+                init() {
+                    // Set initial theme
+                    this.current = this.current;
+                    document.documentElement.classList.toggle('dark', this.current === 'dark');
+                    
+                    // Watch for system theme changes
+                    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+                        if (!localStorage.getItem('theme')) {
+                            this.current = e.matches ? 'dark' : 'light';
+                            document.documentElement.classList.toggle('dark', e.matches);
+                        }
+                    });
+                },
+                
+                toggle() {
+                    this.current = this.current === 'dark' ? 'light' : 'dark';
+                    document.documentElement.classList.toggle('dark');
+                    localStorage.setItem('theme', this.current);
+                }
+            });
+        });
+    </script>
+    
+    <!-- Custom Styles -->
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="transition-colors duration-200 bg-primary text-primary antialiased" 
+      {% if user.is_authenticated %}data-user-authenticated{% endif %} 
+      {% if debug %}data-debug{% endif %}>
+    <!-- Skip to main content -->
+    <a href="#main-content" class="sr-only focus:not-sr-only">
+        Skip to main content
+    </a>
+    
+    <!-- Header -->
+    <header class="bg-secondary shadow-sm">
+        <div class="container">
+            <nav class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <a href="{% url 'home' %}" class="flex items-center space-x-2">
+                    <img src="{% static 'img/logo.svg' %}" alt="Tawil Media Logo" class="h-8 w-auto">
+                    <span class="text-xl font-bold">Tawil Media</span>
+                </a>
+                
+                <!-- Main Navigation -->
+                {% include "base/header/navigation.html" %}
+                
+                <!-- User Menu -->
+                {% include "base/header/user-menu.html" %}
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main id="main-content" class="min-h-screen py-8 bg-primary">
+        {% if messages %}
+        <div class="container mb-8">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" role="alert">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        {% block content %}{% endblock %}
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-secondary text-white py-12">
+        <div class="container">
+            {% include "base/footer/main.html" %}
+        </div>
+    </footer>
+    
+    <!-- Core Scripts -->
+    <script type="module" src="{% static 'js/core/utils.js' %}"></script>
+    <script type="module" src="{% static 'js/core/state.js' %}"></script>
+    <script type="module" src="{% static 'js/core/htmx-conf.js' %}"></script>
+    
+    <!-- Component Scripts -->
+    <script type="module" src="{% static 'js/components/search.js' %}"></script>
+    <script type="module" src="{% static 'js/components/infinite-scroll.js' %}"></script>
+    <script type="module" src="{% static 'js/components/lazy-load.js' %}"></script>
+    
+    <!-- Analytics Scripts -->
+    {% if not debug %}
+    <script type="module" src="{% static 'js/analytics/tracking.js' %}"></script>
+    <script type="module" src="{% static 'js/analytics/performance.js' %}"></script>
+    {% endif %}
+    
+    <!-- Main App Script -->
+    <script type="module" src="{% static 'js/app.js' %}"></script>
+    
+    <!-- Custom Scripts -->
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

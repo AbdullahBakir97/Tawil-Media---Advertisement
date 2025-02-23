@@ -22,6 +22,10 @@ class Category(TimeStampedModel):
         if not self.slug:
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
+        
+    def get_related_articles(self):
+        """Fetch all articles related to this category."""
+        return self.article_categories.all()
 
 
 class Tag(TimeStampedModel):

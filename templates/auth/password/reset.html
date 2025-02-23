@@ -1,0 +1,128 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}Reset Password - Tawil Media{% endblock %}
+
+{% block meta_description %}Reset your Tawil Media account password securely.{% endblock %}
+
+{% block content %}
+<div class="container max-w-md mx-auto px-4 py-8">
+    <div class="bg-secondary rounded-xl shadow-xl p-8 animate-scale-in">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <div class="inline-block p-3 bg-primary-100 rounded-full mb-4 animate-fade-in delay-100">
+                <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path>
+                </svg>
+            </div>
+            <h1 class="text-2xl font-bold mb-2 animate-fade-in delay-150">Reset Your Password</h1>
+            <p class="text-tertiary animate-fade-in delay-200">Enter your email address and we'll send you instructions to reset your password.</p>
+        </div>
+
+        <!-- Form -->
+        <form hx-post="{% url 'password_reset' %}"
+              hx-swap="outerHTML"
+              x-data="{ email: '', submitted: false }"
+              x-on:submit="submitted = true"
+              class="space-y-6 animate-slide-in-up delay-200">
+            {% csrf_token %}
+
+            <!-- Success Message -->
+            {% if messages %}
+            <div class="bg-success/10 border border-success/20 text-success rounded-md p-4 animate-scale-in" role="alert">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- Error Messages -->
+            {% if form.errors %}
+            <div class="bg-error/10 border border-error/20 text-error rounded-md p-4 animate-scale-in" role="alert">
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- Email Field -->
+            <div>
+                <label for="email" class="block text-sm font-medium mb-2">Email Address</label>
+                <input type="email" 
+                       id="email" 
+                       name="email" 
+                       x-model="email"
+                       required
+                       :class="{ 'animate-pulse': submitted }"
+                       class="w-full px-4 py-2 rounded-md bg-tertiary border border-primary focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200">
+                {% if form.email.errors %}
+                <p class="mt-1 text-sm text-error animate-fade-in">{{ form.email.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit"
+                    :disabled="submitted"
+                    class="w-full bg-primary-600 text-white py-2 px-4 rounded-md hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
+                <span class="htmx-indicator">
+                    <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Sending...
+                </span>
+                <span class="htmx-default">Send Reset Link</span>
+            </button>
+        </form>
+
+        <!-- Back to Login -->
+        <div class="mt-8 text-center animate-fade-in delay-300">
+            <a href="{% url 'login' %}" 
+               class="text-sm text-primary-600 hover:text-primary-500 transition-colors duration-200">
+                ← Back to Login
+            </a>
+        </div>
+
+        <!-- Security Note -->
+        <div class="mt-8 p-4 bg-tertiary rounded-md text-sm text-tertiary animate-fade-in delay-400">
+            <div class="flex items-center mb-2">
+                <svg class="w-5 h-5 mr-2 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span class="font-medium">Security Note</span>
+            </div>
+            <p>For your security, the reset link will expire in 24 hours. If you don't receive an email, please check your spam folder.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Focus email field
+        document.getElementById('email').focus();
+    });
+
+    // Handle form submission feedback
+    document.body.addEventListener('htmx:afterRequest', function(evt) {
+        if (evt.detail.successful) {
+            // Show success message with animation
+            const form = evt.detail.elt;
+            const success = document.createElement('div');
+            success.className = 'bg-success/10 border border-success/20 text-success rounded-md p-4 animate-scale-in';
+            success.innerHTML = `
+                <div class="flex items-center">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    <p>Check your email for password reset instructions.</p>
+                </div>
+            `;
+            form.parentNode.insertBefore(success, form);
+            form.classList.add('animate-fade-out');
+            setTimeout(() => form.remove(), 300);
+        }
+    });
+</script>
+{% endblock %}

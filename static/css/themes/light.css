@@ -1,0 +1,76 @@
+/* Light Theme */
+[data-theme="light"] {
+  /* Background Colors */
+  --bg-primary: var(--color-white);
+  --bg-secondary: var(--color-gray-50);
+  --bg-tertiary: var(--color-gray-100);
+  
+  /* Text Colors */
+  --text-primary: var(--color-gray-900);
+  --text-secondary: var(--color-gray-700);
+  --text-tertiary: var(--color-gray-500);
+  
+  /* Border Colors */
+  --border-primary: var(--color-gray-200);
+  --border-secondary: var(--color-gray-300);
+  
+  /* Shadow Colors */
+  --shadow-color: rgb(0 0 0 / 0.1);
+  --shadow-color-darker: rgb(0 0 0 / 0.15);
+  
+  /* Component Colors */
+  --card-bg: var(--color-white);
+  --card-border: var(--border-primary);
+  
+  --input-bg: var(--color-white);
+  --input-border: var(--border-primary);
+  --input-focus-border: var(--color-primary);
+  --input-placeholder: var(--color-gray-400);
+  
+  --button-primary-bg: var(--color-primary);
+  --button-primary-text: var(--color-white);
+  --button-secondary-bg: var(--color-gray-100);
+  --button-secondary-text: var(--color-gray-900);
+  
+  /* Navigation Colors */
+  --nav-bg: var(--color-white);
+  --nav-border: var(--border-primary);
+  --nav-text: var(--text-secondary);
+  --nav-text-hover: var(--text-primary);
+  
+  /* Sidebar Colors */
+  --sidebar-bg: var(--color-white);
+  --sidebar-border: var(--border-primary);
+  --sidebar-text: var(--text-secondary);
+  
+  /* Table Colors */
+  --table-header-bg: var(--color-gray-50);
+  --table-border: var(--border-primary);
+  --table-row-hover: var(--color-gray-50);
+  
+  /* Form Colors */
+  --form-bg: var(--color-white);
+  --form-border: var(--border-primary);
+  --form-focus-border: var(--color-primary);
+  --form-error: var(--color-error);
+  --form-success: var(--color-success);
+  
+  /* Modal Colors */
+  --modal-bg: var(--color-white);
+  --modal-border: var(--border-primary);
+  --modal-overlay: rgba(0, 0, 0, 0.5);
+  
+  /* Toast Colors */
+  --toast-bg: var(--color-white);
+  --toast-border: var(--border-primary);
+  --toast-shadow: var(--shadow-lg);
+  
+  /* Code Colors */
+  --code-bg: var(--color-gray-100);
+  --code-text: var(--color-gray-900);
+  --code-border: var(--border-primary);
+  
+  /* Selection Colors */
+  --selection-bg: var(--color-primary);
+  --selection-text: var(--color-white);
+}

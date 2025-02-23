@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 BACKENDS = [
     "source.apps.users",
     "source.apps.core",
+    "source.apps.archives",
     "source.apps.content",
     "source.apps.advertisements",
     "source.apps.subscriptions",

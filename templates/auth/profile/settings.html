@@ -1,0 +1,315 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}Account Settings - Tawil Media{% endblock %}
+
+{% block meta_description %}Manage your account settings and preferences on Tawil Media.{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-tertiary py-8" x-data="settings()">
+    <div class="container mx-auto px-4">
+        <!-- Settings Header -->
+        <header class="mb-8 animate-fade-in">
+            <h1 class="text-3xl font-bold mb-2">Account Settings</h1>
+            <p class="text-tertiary">Manage your account preferences and settings</p>
+        </header>
+
+        <!-- Settings Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            <!-- Settings Navigation -->
+            <nav class="lg:col-span-1">
+                <div class="bg-secondary rounded-xl shadow-lg p-4 animate-slide-in-left">
+                    <ul class="space-y-2">
+                        <template x-for="(tab, index) in tabs" :key="index">
+                            <li>
+                                <button @click="activeTab = tab.id"
+                                        class="w-full px-4 py-2 rounded-lg text-left transition-all duration-200"
+                                        :class="activeTab === tab.id ? 'bg-primary-600 text-white' : 'hover:bg-tertiary'">
+                                    <div class="flex items-center space-x-3">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" x-html="tab.icon"></svg>
+                                        <span x-text="tab.name"></span>
+                                    </div>
+                                </button>
+                            </li>
+                        </template>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Settings Forms -->
+            <div class="lg:col-span-3">
+                <div class="bg-secondary rounded-xl shadow-lg p-6 animate-slide-in-right">
+                    <!-- Profile Settings -->
+                    <div x-show="activeTab === 'profile'" x-cloak>
+                        <form hx-post="{% url 'update_profile' %}"
+                              hx-swap="outerHTML"
+                              class="space-y-6">
+                            {% csrf_token %}
+                            
+                            <!-- Profile Image -->
+                            <div class="flex items-center space-x-6">
+                                <div class="relative">
+                                    <div class="w-24 h-24 rounded-full bg-primary-100 flex items-center justify-center animate-scale-in">
+                                        {% if user.profile_image %}
+                                        <img src="{{ user.profile_image.url }}" 
+                                             alt="{{ user.get_full_name }}"
+                                             class="w-24 h-24 rounded-full object-cover">
+                                        {% else %}
+                                        <span class="text-4xl font-bold text-primary-600">
+                                            {{ user.get_full_name|first }}
+                                        </span>
+                                        {% endif %}
+                                    </div>
+                                    <button type="button"
+                                            @click="$refs.imageInput.click()"
+                                            class="absolute bottom-0 right-0 bg-primary-600 text-white p-2 rounded-full shadow-lg hover:bg-primary-700 transition-colors duration-200">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        </svg>
+                                    </button>
+                                    <input type="file" 
+                                           x-ref="imageInput"
+                                           name="profile_image"
+                                           accept="image/*"
+                                           class="hidden">
+                                </div>
+                                <div>
+                                    <h3 class="font-medium">Profile Photo</h3>
+                                    <p class="text-sm text-tertiary">Upload a new profile photo</p>
+                                </div>
+                            </div>
+
+                            <!-- Name Fields -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="first_name" class="block text-sm font-medium mb-2">First Name</label>
+                                    <input type="text"
+                                           id="first_name"
+                                           name="first_name"
+                                           value="{{ user.first_name }}"
+                                           class="w-full px-4 py-2 rounded-md bg-tertiary border border-primary focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200">
+                                </div>
+                                <div>
+                                    <label for="last_name" class="block text-sm font-medium mb-2">Last Name</label>
+                                    <input type="text"
+                                           id="last_name"
+                                           name="last_name"
+                                           value="{{ user.last_name }}"
+                                           class="w-full px-4 py-2 rounded-md bg-tertiary border border-primary focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200">
+                                </div>
+                            </div>
+
+                            <!-- Email Field -->
+                            <div>
+                                <label for="email" class="block text-sm font-medium mb-2">Email Address</label>
+                                <input type="email"
+                                       id="email"
+                                       name="email"
+                                       value="{{ user.email }}"
+                                       class="w-full px-4 py-2 rounded-md bg-tertiary border border-primary focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200">
+                            </div>
+
+                            <!-- Bio Field -->
+                            <div>
+                                <label for="bio" class="block text-sm font-medium mb-2">Bio</label>
+                                <textarea id="bio"
+                                          name="bio"
+                                          rows="4"
+                                          class="w-full px-4 py-2 rounded-md bg-tertiary border border-primary focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200"
+                                          >{{ user.bio }}</textarea>
+                            </div>
+
+                            <button type="submit"
+                                    class="w-full md:w-auto bg-primary-600 text-white py-2 px-6 rounded-md hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]">
+                                Save Changes
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Security Settings -->
+                    <div x-show="activeTab === 'security'" x-cloak>
+                        <form hx-post="{% url 'update_security' %}"
+                              hx-swap="outerHTML"
+                              class="space-y-6">
+                            {% csrf_token %}
+
+                            <!-- Two-Factor Authentication -->
+                            <div class="border-b border-tertiary pb-6">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h3 class="font-medium">Two-Factor Authentication</h3>
+                                        <p class="text-sm text-tertiary">Add an extra layer of security to your account</p>
+                                    </div>
+                                    <button type="button"
+                                            x-on:click="toggle2FA"
+                                            class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out"
+                                            :class="twoFactorEnabled ? 'bg-success' : 'bg-tertiary'">
+                                        <span class="sr-only">Toggle 2FA</span>
+                                        <span class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
+                                              :class="twoFactorEnabled ? 'translate-x-5' : 'translate-x-0'"></span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Session Management -->
+                            <div class="space-y-4">
+                                <h3 class="font-medium">Active Sessions</h3>
+                                <div class="space-y-4">
+                                    <template x-for="(session, index) in activeSessions" :key="index">
+                                        <div class="flex items-center justify-between p-4 bg-tertiary rounded-lg animate-fade-in"
+                                             :style="{ 'animation-delay': `${index * 100}ms` }">
+                                            <div class="flex items-center space-x-4">
+                                                <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" x-html="session.icon"></svg>
+                                                <div>
+                                                    <p class="font-medium" x-text="session.device"></p>
+                                                    <p class="text-sm text-tertiary">
+                                                        <span x-text="session.location"></span> •
+                                                        <span x-text="session.lastActive"></span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <button type="button"
+                                                    @click="terminateSession(index)"
+                                                    class="text-error hover:text-error-dark transition-colors duration-200">
+                                                Terminate
+                                            </button>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Notification Settings -->
+                    <div x-show="activeTab === 'notifications'" x-cloak>
+                        <form hx-post="{% url 'update_notifications' %}"
+                              hx-swap="outerHTML"
+                              class="space-y-6">
+                            {% csrf_token %}
+
+                            <template x-for="(category, index) in notificationSettings" :key="index">
+                                <div class="border-b border-tertiary pb-6 animate-fade-in"
+                                     :style="{ 'animation-delay': `${index * 100}ms` }">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <div>
+                                            <h3 class="font-medium" x-text="category.name"></h3>
+                                            <p class="text-sm text-tertiary" x-text="category.description"></p>
+                                        </div>
+                                        <button type="button"
+                                                @click="category.enabled = !category.enabled"
+                                                class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out"
+                                                :class="category.enabled ? 'bg-success' : 'bg-tertiary'">
+                                            <span class="sr-only" x-text="'Toggle ' + category.name"></span>
+                                            <span class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
+                                                  :class="category.enabled ? 'translate-x-5' : 'translate-x-0'"></span>
+                                        </button>
+                                    </div>
+                                    <div class="space-y-4 pl-6">
+                                        <template x-for="(option, optIndex) in category.options" :key="optIndex">
+                                            <label class="flex items-center space-x-3">
+                                                <input type="checkbox"
+                                                       :checked="option.enabled"
+                                                       @change="option.enabled = !option.enabled"
+                                                       class="form-checkbox h-5 w-5 text-primary-600 transition duration-150 ease-in-out">
+                                                <span class="text-sm" x-text="option.name"></span>
+                                            </label>
+                                        </template>
+                                    </div>
+                                </div>
+                            </template>
+
+                            <button type="submit"
+                                    class="w-full md:w-auto bg-primary-600 text-white py-2 px-6 rounded-md hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]">
+                                Save Preferences
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function settings() {
+        return {
+            activeTab: 'profile',
+            twoFactorEnabled: false,
+            tabs: [
+                {
+                    id: 'profile',
+                    name: 'Profile',
+                    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>'
+                },
+                {
+                    id: 'security',
+                    name: 'Security',
+                    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>'
+                },
+                {
+                    id: 'notifications',
+                    name: 'Notifications',
+                    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>'
+                }
+            ],
+            activeSessions: [
+                {
+                    device: 'Chrome on Windows',
+                    location: 'London, UK',
+                    lastActive: 'Active now',
+                    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>'
+                },
+                {
+                    device: 'Safari on iPhone',
+                    location: 'Paris, FR',
+                    lastActive: '2 hours ago',
+                    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>'
+                }
+            ],
+            notificationSettings: [
+                {
+                    name: 'Campaign Updates',
+                    description: 'Get notified about your campaign performance',
+                    enabled: true,
+                    options: [
+                        { name: 'Campaign start and end', enabled: true },
+                        { name: 'Performance milestones', enabled: true },
+                        { name: 'Budget alerts', enabled: true }
+                    ]
+                },
+                {
+                    name: 'Account Activity',
+                    description: 'Receive notifications about your account activity',
+                    enabled: true,
+                    options: [
+                        { name: 'New login attempts', enabled: true },
+                        { name: 'Password changes', enabled: true },
+                        { name: 'Profile updates', enabled: false }
+                    ]
+                },
+                {
+                    name: 'Marketing Updates',
+                    description: 'Stay informed about new features and updates',
+                    enabled: false,
+                    options: [
+                        { name: 'Product updates', enabled: false },
+                        { name: 'Newsletter', enabled: false },
+                        { name: 'Tips and tutorials', enabled: false }
+                    ]
+                }
+            ],
+            toggle2FA() {
+                this.twoFactorEnabled = !this.twoFactorEnabled;
+                // Add your 2FA setup logic here
+            },
+            terminateSession(index) {
+                this.activeSessions.splice(index, 1);
+                // Add your session termination logic here
+            }
+        }
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,201 @@
+{% load static %}
+
+{% comment %}
+Spinner Loading Component
+Usage:
+    {% include "base/components/loaders/spinner.html" with 
+        size="md"
+        color="primary"
+        type="border"
+        label="Loading..."
+        center=True %}
+
+Parameters:
+    - size: xs, sm, md, lg, xl (default: md)
+    - color: primary, secondary, white (default: primary)
+    - type: border, grow, dots (default: border)
+    - label: Loading text (optional)
+    - center: Center the spinner (default: False)
+{% endcomment %}
+
+<div class="spinner-wrapper {% if center %}flex justify-center items-center{% endif %}"
+     role="status">
+    
+    {% if type == "grow" %}
+        <!-- Growing Spinner -->
+        <div class="spinner-grow {{ size|default:'md' }} {{ color|default:'primary' }}"
+             aria-hidden="true">
+            <span class="sr-only">{{ label|default:"Loading..." }}</span>
+        </div>
+
+    {% elif type == "dots" %}
+        <!-- Dots Spinner -->
+        <div class="spinner-dots {{ size|default:'md' }} {{ color|default:'primary' }}"
+             aria-hidden="true">
+            <div></div>
+            <div></div>
+            <div></div>
+            <span class="sr-only">{{ label|default:"Loading..." }}</span>
+        </div>
+
+    {% else %}
+        <!-- Border Spinner (default) -->
+        <div class="spinner-border {{ size|default:'md' }} {{ color|default:'primary' }}"
+             aria-hidden="true">
+            <span class="sr-only">{{ label|default:"Loading..." }}</span>
+        </div>
+    {% endif %}
+
+    {% if label %}
+        <span class="spinner-label ml-2">{{ label }}</span>
+    {% endif %}
+</div>
+
+<style>
+    /* Base Spinner Styles */
+    .spinner-border,
+    .spinner-grow,
+    .spinner-dots {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    /* Border Spinner */
+    .spinner-border {
+        border-style: solid;
+        border-width: 2px;
+        border-right-color: transparent;
+        border-radius: 50%;
+        animation: spinner-border 0.75s linear infinite;
+    }
+
+    @keyframes spinner-border {
+        100% { transform: rotate(360deg); }
+    }
+
+    /* Growing Spinner */
+    .spinner-grow {
+        background-color: currentColor;
+        border-radius: 50%;
+        opacity: 0;
+        animation: spinner-grow 0.75s linear infinite;
+    }
+
+    @keyframes spinner-grow {
+        0% { transform: scale(0); opacity: 0; }
+        50% { opacity: 1; }
+        100% { transform: scale(1); opacity: 0; }
+    }
+
+    /* Dots Spinner */
+    .spinner-dots {
+        position: relative;
+    }
+
+    .spinner-dots div {
+        position: absolute;
+        top: 0;
+        width: 0.5em;
+        height: 0.5em;
+        border-radius: 50%;
+        background-color: currentColor;
+        animation: spinner-dots 1s infinite ease-in-out;
+    }
+
+    .spinner-dots div:nth-child(1) { left: -1em; animation-delay: -0.32s; }
+    .spinner-dots div:nth-child(2) { left: 0; animation-delay: -0.16s; }
+    .spinner-dots div:nth-child(3) { left: 1em; }
+
+    @keyframes spinner-dots {
+        0%, 80%, 100% { transform: scale(0); }
+        40% { transform: scale(1); }
+    }
+
+    /* Sizes */
+    /* XS */
+    .spinner-border.xs { width: 1rem; height: 1rem; border-width: 2px; }
+    .spinner-grow.xs { width: 1rem; height: 1rem; }
+    .spinner-dots.xs { width: 2rem; height: 0.5rem; }
+    .spinner-dots.xs div { width: 0.25rem; height: 0.25rem; }
+
+    /* SM */
+    .spinner-border.sm { width: 1.5rem; height: 1.5rem; border-width: 2px; }
+    .spinner-grow.sm { width: 1.5rem; height: 1.5rem; }
+    .spinner-dots.sm { width: 3rem; height: 0.75rem; }
+    .spinner-dots.sm div { width: 0.375rem; height: 0.375rem; }
+
+    /* MD (default) */
+    .spinner-border.md { width: 2rem; height: 2rem; border-width: 3px; }
+    .spinner-grow.md { width: 2rem; height: 2rem; }
+    .spinner-dots.md { width: 4rem; height: 1rem; }
+    .spinner-dots.md div { width: 0.5rem; height: 0.5rem; }
+
+    /* LG */
+    .spinner-border.lg { width: 3rem; height: 3rem; border-width: 4px; }
+    .spinner-grow.lg { width: 3rem; height: 3rem; }
+    .spinner-dots.lg { width: 6rem; height: 1.5rem; }
+    .spinner-dots.lg div { width: 0.75rem; height: 0.75rem; }
+
+    /* XL */
+    .spinner-border.xl { width: 4rem; height: 4rem; border-width: 5px; }
+    .spinner-grow.xl { width: 4rem; height: 4rem; }
+    .spinner-dots.xl { width: 8rem; height: 2rem; }
+    .spinner-dots.xl div { width: 1rem; height: 1rem; }
+
+    /* Colors */
+    /* Primary */
+    .spinner-border.primary { border-color: var(--color-primary-500); border-right-color: transparent; }
+    .spinner-grow.primary,
+    .spinner-dots.primary div { background-color: var(--color-primary-500); }
+
+    /* Secondary */
+    .spinner-border.secondary { border-color: var(--color-gray-500); border-right-color: transparent; }
+    .spinner-grow.secondary,
+    .spinner-dots.secondary div { background-color: var(--color-gray-500); }
+
+    /* White */
+    .spinner-border.white { border-color: white; border-right-color: transparent; }
+    .spinner-grow.white,
+    .spinner-dots.white div { background-color: white; }
+
+    /* Label */
+    .spinner-label {
+        color: inherit;
+        font-size: 0.875rem;
+        vertical-align: middle;
+    }
+
+    /* Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+        .spinner-border,
+        .spinner-grow,
+        .spinner-dots div {
+            animation-duration: 1.5s;
+        }
+    }
+</style>
+
+<script>
+    // Optional: Add functionality to show/hide spinner
+    window.Spinner = {
+        show(wrapper) {
+            const el = document.querySelector(wrapper);
+            if (el) el.style.display = 'flex';
+        },
+        hide(wrapper) {
+            const el = document.querySelector(wrapper);
+            if (el) el.style.display = 'none';
+        }
+    };
+
+    // HTMX Integration
+    document.addEventListener('htmx:beforeRequest', e => {
+        const indicator = e.target.querySelector('[data-loading]');
+        if (indicator) Spinner.show(indicator);
+    });
+
+    document.addEventListener('htmx:afterRequest', e => {
+        const indicator = e.target.querySelector('[data-loading]');
+        if (indicator) Spinner.hide(indicator);
+    });
+</script>

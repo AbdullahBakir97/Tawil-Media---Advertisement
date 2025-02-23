@@ -1,0 +1,103 @@
+/* Color System */
+:root {
+  /* Brand Colors - Light Theme */
+  --brand-50: #eff6ff;
+  --brand-100: #dbeafe;
+  --brand-200: #bfdbfe;
+  --brand-300: #93c5fd;
+  --brand-400: #60a5fa;
+  --brand-500: #3b82f6;
+  --brand-600: #2563eb;
+  --brand-700: #1d4ed8;
+  --brand-800: #1e40af;
+  --brand-900: #1e3a8a;
+  
+  /* Surface Colors */
+  --surface-0: var(--color-white);
+  --surface-50: var(--color-gray-50);
+  --surface-100: var(--color-gray-100);
+  --surface-200: var(--color-gray-200);
+  --surface-300: var(--color-gray-300);
+  --surface-400: var(--color-gray-400);
+  
+  /* Semantic Colors - Light */
+  --success-light: #d1fae5;
+  --success-base: #10b981;
+  --success-dark: #059669;
+  
+  --error-light: #fee2e2;
+  --error-base: #ef4444;
+  --error-dark: #dc2626;
+  
+  --warning-light: #fef3c7;
+  --warning-base: #f59e0b;
+  --warning-dark: #d97706;
+  
+  --info-light: #dbeafe;
+  --info-base: #3b82f6;
+  --info-dark: #2563eb;
+}
+
+/* Color Utilities */
+.bg-brand-50 { background-color: var(--brand-50); }
+.bg-brand-100 { background-color: var(--brand-100); }
+.bg-brand-200 { background-color: var(--brand-200); }
+.bg-brand-300 { background-color: var(--brand-300); }
+.bg-brand-400 { background-color: var(--brand-400); }
+.bg-brand-500 { background-color: var(--brand-500); }
+.bg-brand-600 { background-color: var(--brand-600); }
+.bg-brand-700 { background-color: var(--brand-700); }
+.bg-brand-800 { background-color: var(--brand-800); }
+.bg-brand-900 { background-color: var(--brand-900); }
+
+.text-brand-50 { color: var(--brand-50); }
+.text-brand-100 { color: var(--brand-100); }
+.text-brand-200 { color: var(--brand-200); }
+.text-brand-300 { color: var(--brand-300); }
+.text-brand-400 { color: var(--brand-400); }
+.text-brand-500 { color: var(--brand-500); }
+.text-brand-600 { color: var(--brand-600); }
+.text-brand-700 { color: var(--brand-700); }
+.text-brand-800 { color: var(--brand-800); }
+.text-brand-900 { color: var(--brand-900); }
+
+/* Status Colors */
+.bg-success { background-color: var(--success-base); }
+.bg-success-light { background-color: var(--success-light); }
+.bg-success-dark { background-color: var(--success-dark); }
+
+.bg-error { background-color: var(--error-base); }
+.bg-error-light { background-color: var(--error-light); }
+.bg-error-dark { background-color: var(--error-dark); }
+
+.bg-warning { background-color: var(--warning-base); }
+.bg-warning-light { background-color: var(--warning-light); }
+.bg-warning-dark { background-color: var(--warning-dark); }
+
+.bg-info { background-color: var(--info-base); }
+.bg-info-light { background-color: var(--info-light); }
+.bg-info-dark { background-color: var(--info-dark); }
+
+/* Surface Colors */
+.bg-surface-0 { background-color: var(--surface-0); }
+.bg-surface-50 { background-color: var(--surface-50); }
+.bg-surface-100 { background-color: var(--surface-100); }
+.bg-surface-200 { background-color: var(--surface-200); }
+.bg-surface-300 { background-color: var(--surface-300); }
+.bg-surface-400 { background-color: var(--surface-400); }
+
+/* Gradient Utilities */
+.gradient-brand {
+  background: linear-gradient(to right, var(--brand-600), var(--brand-400));
+}
+
+.gradient-surface {
+  background: linear-gradient(to bottom, var(--surface-0), var(--surface-100));
+}
+
+/* Border Colors */
+.border-brand { border-color: var(--brand-500); }
+.border-success { border-color: var(--success-base); }
+.border-error { border-color: var(--error-base); }
+.border-warning { border-color: var(--warning-base); }
+.border-info { border-color: var(--info-base); }

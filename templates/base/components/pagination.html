@@ -1,0 +1,177 @@
+{% load static %}
+
+{% comment %}
+Pagination Component
+Usage:
+    {% include "base/components/pagination.html" with 
+        page=page_obj
+        url_pattern="/path/to/page/?page="
+        show_first_last=True
+        align="center" %}
+
+Parameters:
+    - page: Django Paginator page object
+    - url_pattern: Base URL pattern for pagination links
+    - show_first_last: Show/hide first/last page buttons (default: True)
+    - align: Alignment of pagination (left, center, right) (default: center)
+{% endcomment %}
+
+<nav class="pagination-nav" 
+     role="navigation" 
+     aria-label="Pagination"
+     x-data="{ 
+         currentPage: {{ page.number }},
+         totalPages: {{ page.paginator.num_pages }},
+         goToPage(pageNum) {
+             if (pageNum >= 1 && pageNum <= this.totalPages) {
+                 window.location.href = '{{ url_pattern }}' + pageNum;
+             }
+         }
+     }">
+    
+    <div class="flex items-center justify-{{ align|default:'center' }} space-x-2">
+        <!-- First Page -->
+        {% if show_first_last|default:True and page.has_previous and page.number > 2 %}
+            <a href="{{ url_pattern }}1"
+               class="pagination-link"
+               aria-label="Go to first page">
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
+                </svg>
+            </a>
+        {% endif %}
+
+        <!-- Previous Page -->
+        {% if page.has_previous %}
+            <a href="{{ url_pattern }}{{ page.previous_page_number }}"
+               class="pagination-link"
+               aria-label="Go to previous page">
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                </svg>
+            </a>
+        {% endif %}
+
+        <!-- Page Numbers -->
+        {% with ''|center:page.paginator.num_pages as range %}
+            {% for _ in range %}
+                {% with forloop.counter as page_number %}
+                    {% if page_number == page.number %}
+                        <span class="pagination-current">{{ page_number }}</span>
+                    {% elif page_number == 1 or page_number == page.paginator.num_pages or page_number|add:"-1" <= page.number and page_number|add:"1" >= page.number %}
+                        <a href="{{ url_pattern }}{{ page_number }}"
+                           class="pagination-link"
+                           aria-label="Go to page {{ page_number }}">
+                            {{ page_number }}
+                        </a>
+                    {% elif page_number|add:"-2" == page.number or page_number|add:"2" == page.number %}
+                        <span class="pagination-ellipsis">&hellip;</span>
+                    {% endif %}
+                {% endwith %}
+            {% endfor %}
+        {% endwith %}
+
+        <!-- Next Page -->
+        {% if page.has_next %}
+            <a href="{{ url_pattern }}{{ page.next_page_number }}"
+               class="pagination-link"
+               aria-label="Go to next page">
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </a>
+        {% endif %}
+
+        <!-- Last Page -->
+        {% if show_first_last|default:True and page.has_next and page.number < page.paginator.num_pages|add:"-1" %}
+            <a href="{{ url_pattern }}{{ page.paginator.num_pages }}"
+               class="pagination-link"
+               aria-label="Go to last page">
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"/>
+                </svg>
+            </a>
+        {% endif %}
+    </div>
+
+    <!-- Page Jump (for large page counts) -->
+    {% if page.paginator.num_pages > 10 %}
+        <div class="mt-4 flex items-center justify-center space-x-2">
+            <label for="page-jump" class="text-sm text-gray-600 dark:text-gray-400">Go to page:</label>
+            <input type="number"
+                   id="page-jump"
+                   class="form-input w-16 text-sm"
+                   min="1"
+                   max="{{ page.paginator.num_pages }}"
+                   x-model="currentPage"
+                   @keydown.enter="goToPage(currentPage)">
+            <span class="text-sm text-gray-600 dark:text-gray-400">of {{ page.paginator.num_pages }}</span>
+            <button class="btn btn-secondary btn-sm"
+                    @click="goToPage(currentPage)">
+                Go
+            </button>
+        </div>
+    {% endif %}
+</nav>
+
+<style>
+    .pagination-nav {
+        margin: 2rem 0;
+    }
+
+    .pagination-link {
+        @apply inline-flex items-center justify-center min-w-[2.5rem] h-10 px-3 rounded-lg border border-gray-300 dark:border-gray-600 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors;
+    }
+
+    .pagination-current {
+        @apply inline-flex items-center justify-center min-w-[2.5rem] h-10 px-3 rounded-lg bg-primary-600 text-white font-medium text-sm;
+    }
+
+    .pagination-ellipsis {
+        @apply inline-flex items-center justify-center min-w-[2.5rem] h-10 px-3 text-gray-500 dark:text-gray-400;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 640px) {
+        .pagination-nav {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 1rem;
+        }
+
+        .pagination-link,
+        .pagination-current,
+        .pagination-ellipsis {
+            min-width: 2rem;
+            height: 2rem;
+            padding: 0 0.5rem;
+        }
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+        .pagination-link {
+            transition: none;
+        }
+    }
+
+    /* Print styles */
+    @media print {
+        .pagination-nav {
+            display: none;
+        }
+    }
+</style>
+
+<script>
+    // Optional: Add keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        if (document.activeElement.tagName === 'INPUT') return;
+
+        if (e.key === 'ArrowLeft' && {{ page.has_previous|yesno:"true,false" }}) {
+            window.location.href = '{{ url_pattern }}{{ page.previous_page_number }}';
+        } else if (e.key === 'ArrowRight' && {{ page.has_next|yesno:"true,false" }}) {
+            window.location.href = '{{ url_pattern }}{{ page.next_page_number }}';
+        }
+    });
+</script>

@@ -1,0 +1,133 @@
+{% load static %}
+
+<div class="search-component relative" x-data="{ isOpen: false }">
+    <!-- Search Input -->
+    <div class="relative">
+        <input type="search" 
+               id="search-input"
+               class="form-input w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-200"
+               placeholder="Search articles, magazines..."
+               @focus="isOpen = true"
+               hx-get="{% url 'search:suggestions' %}"
+               hx-trigger="keyup changed delay:300ms, search"
+               hx-target="#search-suggestions"
+               hx-indicator=".search-indicator">
+        
+        <!-- Search Icon -->
+        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+        </div>
+        
+        <!-- Loading Indicator -->
+        <div class="search-indicator absolute inset-y-0 right-0 pr-3 flex items-center htmx-indicator">
+            <svg class="animate-spin h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Search Suggestions -->
+    <div id="search-suggestions" 
+         class="absolute z-50 w-full mt-1 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700"
+         x-show="isOpen"
+         @click.away="isOpen = false"
+         x-transition:enter="transition ease-out duration-200"
+         x-transition:enter-start="opacity-0 transform -translate-y-2"
+         x-transition:enter-end="opacity-100 transform translate-y-0"
+         x-transition:leave="transition ease-in duration-150"
+         x-transition:leave-start="opacity-100 transform translate-y-0"
+         x-transition:leave-end="opacity-0 transform -translate-y-2"
+         style="display: none;">
+        
+        <!-- Recent Searches -->
+        <div class="p-4 border-b dark:border-gray-700">
+            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Recent Searches</h3>
+            <div class="space-y-2" id="recent-searches">
+                <!-- Populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Live Suggestions -->
+        <div class="p-4">
+            <div class="space-y-4">
+                <template x-if="!$store.search.loading && !$store.search.results.length">
+                    <div class="text-center text-gray-500 dark:text-gray-400 py-4">
+                        No results found
+                    </div>
+                </template>
+                
+                <template x-for="result in $store.search.results" :key="result.id">
+                    <a :href="result.url" class="block hover:bg-gray-50 dark:hover:bg-gray-700 -mx-4 px-4 py-2">
+                        <div class="flex items-center space-x-4">
+                            <img :src="result.thumbnail" :alt="result.title" class="h-12 w-12 object-cover rounded">
+                            <div>
+                                <h4 class="text-sm font-medium text-gray-900 dark:text-white" x-text="result.title"></h4>
+                                <p class="text-sm text-gray-500 dark:text-gray-400" x-text="result.excerpt"></p>
+                            </div>
+                        </div>
+                    </a>
+                </template>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="module">
+    import { SearchManager } from '{% static "js/components/search.js" %}';
+    
+    // Initialize search component
+    const searchManager = new SearchManager({
+        inputSelector: '#search-input',
+        suggestionsSelector: '#search-suggestions',
+        recentSearchesSelector: '#recent-searches',
+        maxRecentSearches: 5
+    });
+
+    // Initialize Alpine.js store
+    document.addEventListener('alpine:init', () => {
+        Alpine.store('search', {
+            loading: false,
+            results: [],
+            setLoading(value) {
+                this.loading = value;
+            },
+            setResults(results) {
+                this.results = results;
+            }
+        });
+    });
+</script>
+
+<style>
+    .search-component {
+        /* Custom search component styles */
+        --search-height: 2.5rem;
+        --search-border-radius: 0.5rem;
+    }
+
+    .search-component input[type="search"] {
+        height: var(--search-height);
+        border-radius: var(--search-border-radius);
+    }
+
+    .search-component input[type="search"]::-webkit-search-decoration,
+    .search-component input[type="search"]::-webkit-search-cancel-button,
+    .search-component input[type="search"]::-webkit-search-results-button,
+    .search-component input[type="search"]::-webkit-search-results-decoration {
+        display: none;
+    }
+
+    /* Dark mode styles */
+    .dark .search-component input[type="search"] {
+        background-color: var(--color-gray-800);
+        border-color: var(--color-gray-700);
+        color: var(--color-white);
+    }
+
+    .dark .search-component input[type="search"]::placeholder {
+        color: var(--color-gray-400);
+    }
+</style>
