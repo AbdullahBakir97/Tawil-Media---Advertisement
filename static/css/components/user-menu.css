@@ -1,0 +1,135 @@
+/* User Menu Variables */
+:root {
+    --user-menu-bg: var(--color-white);
+    --user-menu-text: var(--color-gray-700);
+    --user-menu-hover: var(--color-gray-100);
+    --user-menu-border: var(--color-gray-200);
+    --user-menu-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --user-menu-icon: var(--color-gray-400);
+    --notification-badge: var(--color-red-400);
+}
+
+/* Dark Mode Variables */
+.dark {
+    --user-menu-bg: var(--color-gray-800);
+    --user-menu-text: var(--color-gray-200);
+    --user-menu-hover: var(--color-gray-700);
+    --user-menu-border: var(--color-gray-700);
+    --user-menu-icon: var(--color-gray-400);
+}
+
+/* User Menu Container */
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    padding: 0.5rem;
+    border-radius: 9999px;
+    color: var(--user-menu-text);
+    transition: background-color 0.2s ease;
+}
+
+.theme-toggle:hover {
+    background-color: var(--user-menu-hover);
+}
+
+/* Notification Button */
+.notification-btn {
+    position: relative;
+    padding: 0.5rem;
+    border-radius: 9999px;
+    color: var(--user-menu-text);
+    transition: background-color 0.2s ease;
+}
+
+.notification-btn:hover {
+    background-color: var(--user-menu-hover);
+}
+
+/* Notification Badge */
+.notification-badge {
+    position: absolute;
+    top: 0.25rem;
+    right: 0.25rem;
+    height: 0.5rem;
+    width: 0.5rem;
+    border-radius: 9999px;
+    background-color: var(--notification-badge);
+    border: 2px solid var(--user-menu-bg);
+}
+
+/* Notification Dropdown */
+.notification-dropdown {
+    position: absolute;
+    right: 0;
+    margin-top: 0.5rem;
+    width: 20rem;
+    border-radius: 0.5rem;
+    background-color: var(--user-menu-bg);
+    border: 1px solid var(--user-menu-border);
+    box-shadow: var(--user-menu-shadow);
+}
+
+/* User Profile Button */
+.user-profile-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem;
+    border-radius: 9999px;
+    transition: all 0.2s ease;
+}
+
+.user-profile-btn:hover {
+    background-color: var(--user-menu-hover);
+}
+
+.user-profile-btn img {
+    height: 2rem;
+    width: 2rem;
+    border-radius: 9999px;
+    object-fit: cover;
+}
+
+/* User Menu Dropdown */
+.user-menu-dropdown {
+    position: absolute;
+    right: 0;
+    margin-top: 0.5rem;
+    width: 12rem;
+    border-radius: 0.5rem;
+    background-color: var(--user-menu-bg);
+    border: 1px solid var(--user-menu-border);
+    box-shadow: var(--user-menu-shadow);
+}
+
+/* User Menu Items */
+.user-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    color: var(--user-menu-text);
+    transition: background-color 0.2s ease;
+}
+
+.user-menu-item:hover {
+    background-color: var(--user-menu-hover);
+}
+
+.user-menu-item svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: var(--user-menu-icon);
+}
+
+/* Auth Buttons */
+.auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}

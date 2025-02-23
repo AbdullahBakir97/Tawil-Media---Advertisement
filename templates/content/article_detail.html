@@ -1,0 +1,152 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}{{ article.title }} - Tawil Media{% endblock %}
+
+{% block meta_description %}{{ article.content|truncatewords:50 }}{% endblock %}
+{% block meta_keywords %}{{ article.tags.names|join:", " }}{% endblock %}
+
+{% block content %}
+<article class="container mx-auto px-4 py-8">
+    <!-- Breadcrumbs -->
+    {% include "base/components/breadcrumbs.html" with items=breadcrumbs %}
+
+    <!-- Article Header -->
+    <header class="max-w-4xl mx-auto mb-8">
+        <div class="flex items-center gap-2 mb-4">
+            {% for category in article.categories.all %}
+            <a href="{% url 'category_detail' category.slug %}" 
+               class="px-3 py-1 bg-primary-100 text-primary-700 rounded-full text-sm hover:bg-primary-200 transition-colors">
+                {{ category.name }}
+            </a>
+            {% endfor %}
+        </div>
+        
+        <h1 class="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
+            {{ article.title }}
+        </h1>
+
+        <!-- Article Meta -->
+        <div class="flex items-center justify-between py-4 border-y border-gray-200 dark:border-gray-700">
+            <div class="flex items-center gap-4">
+                {% if article.author.profile_picture %}
+                <img src="{{ article.author.profile_picture.url }}" 
+                     alt="{{ article.author.get_full_name }}"
+                     class="w-12 h-12 rounded-full">
+                {% endif %}
+                <div>
+                    <div class="font-medium text-gray-900 dark:text-white">
+                        {{ article.author.get_full_name }}
+                    </div>
+                    <div class="text-sm text-gray-500 dark:text-gray-400">
+                        Published on {{ article.published_at|date:"F d, Y" }}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Share Buttons -->
+            <div class="flex items-center gap-2" x-data="{ showShareMenu: false }">
+                <button @click="showShareMenu = !showShareMenu"
+                        class="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                              d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"/>
+                    </svg>
+                </button>
+                <div x-show="showShareMenu" 
+                     @click.away="showShareMenu = false"
+                     class="absolute mt-2 py-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700">
+                    <a href="#" class="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
+                        Share on Twitter
+                    </a>
+                    <a href="#" class="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
+                        Share on Facebook
+                    </a>
+                    <a href="#" class="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
+                        Share on LinkedIn
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Featured Image -->
+    {% if article.media.first %}
+    <figure class="max-w-4xl mx-auto mb-8">
+        <img src="{{ article.media.first.file.url }}" 
+             alt="{{ article.media.first.alt_text }}"
+             class="w-full rounded-lg shadow-lg">
+        {% if article.media.first.alt_text %}
+        <figcaption class="mt-2 text-center text-sm text-gray-500 dark:text-gray-400">
+            {{ article.media.first.alt_text }}
+        </figcaption>
+        {% endif %}
+    </figure>
+    {% endif %}
+
+    <!-- Article Content -->
+    <div class="max-w-4xl mx-auto prose prose-lg dark:prose-invert">
+        {{ article.content|safe }}
+    </div>
+
+    <!-- Tags -->
+    {% if article.tags.all %}
+    <div class="max-w-4xl mx-auto mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
+        <h2 class="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Tags</h2>
+        <div class="flex flex-wrap gap-2">
+            {% for tag in article.tags.all %}
+            <a href="{% url 'tag_detail' tag.slug %}" 
+               class="px-3 py-1 bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300 rounded-full text-sm hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                #{{ tag.name }}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Related Articles -->
+    {% if related_articles %}
+    <div class="max-w-4xl mx-auto mt-12">
+        <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Related Articles</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {% for related in related_articles %}
+            <article class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+                {% if related.media.first %}
+                <img src="{{ related.media.first.file.url }}" 
+                     alt="{{ related.media.first.alt_text }}"
+                     class="w-full h-48 object-cover">
+                {% endif %}
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">
+                        <a href="{% url 'article_detail' related.slug %}" 
+                           class="text-gray-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400">
+                            {{ related.title }}
+                        </a>
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 line-clamp-2">
+                        {{ related.content|truncatewords:20 }}
+                    </p>
+                    <span class="text-sm text-gray-500 dark:text-gray-400">
+                        {{ related.published_at|date:"M d, Y" }}
+                    </span>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</article>
+
+<!-- Newsletter Section -->
+{% include "base/footer/newsletter.html" %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('articleDetail', () => ({
+            // Add any article-specific interactivity here
+        }))
+    })
+</script>
+{% endblock %}

@@ -14,7 +14,70 @@
 @import './components/forms.css';
 @import './components/cards.css';
 @import './components/modals.css';
+@import './components/header.css';
+@import './components/header-components.css';
+@import './components/navigation.css';
+@import './components/search.css';
+@import './components/user-menu.css';
+@import './components/sitemap.css';
 
 /* Theme Styles */
 @import './themes/light.css';
 @import './themes/dark.css';
+
+/* Global Styles */
+:root {
+    --z-header: 1000;
+    --z-dropdown: 1100;
+    --z-modal: 1200;
+    --z-toast: 1300;
+
+    /* Colors */
+    --color-primary: var(--color-primary-600);
+    --color-primary-hover: var(--color-primary-700);
+    --color-secondary: var(--color-gray-600);
+    --color-secondary-hover: var(--color-gray-700);
+    
+    /* Backgrounds */
+    --bg-primary: var(--color-white);
+    --bg-secondary: var(--color-gray-50);
+    --bg-hover: var(--color-gray-100);
+    
+    /* Text */
+    --text-primary: var(--color-gray-900);
+    --text-secondary: var(--color-gray-600);
+    
+    /* Borders */
+    --border-primary: var(--color-gray-200);
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+}
+
+/* Dark Mode */
+.dark {
+    --bg-primary: var(--color-gray-900);
+    --bg-secondary: var(--color-gray-800);
+    --bg-hover: var(--color-gray-700);
+    
+    --text-primary: var(--color-white);
+    --text-secondary: var(--color-gray-400);
+    
+    --border-primary: var(--color-gray-700);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-sans);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* Add padding to account for fixed header */
+main {
+    padding-top: var(--header-height);
+    min-height: calc(100vh - var(--header-height));
+}

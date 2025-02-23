@@ -1,16 +1,22 @@
 /* Color System */
 :root {
-  /* Brand Colors - Light Theme */
-  --brand-50: #eff6ff;
-  --brand-100: #dbeafe;
-  --brand-200: #bfdbfe;
-  --brand-300: #93c5fd;
-  --brand-400: #60a5fa;
-  --brand-500: #3b82f6;
-  --brand-600: #2563eb;
-  --brand-700: #1d4ed8;
-  --brand-800: #1e40af;
-  --brand-900: #1e3a8a;
+  /* Light Theme (default) */
+  --bg-primary: var(--color-white, #ffffff);
+  --bg-secondary: var(--color-gray-50);
+  --bg-tertiary: var(--color-gray-100);
+  
+  --text-primary: var(--color-gray-900);
+  --text-secondary: var(--color-gray-600);
+  --text-tertiary: var(--color-gray-500);
+  
+  --border-primary: var(--color-gray-200);
+  --border-secondary: var(--color-gray-300);
+  
+  --brand-50: var(--color-primary-50);
+  --brand-100: var(--color-primary-100);
+  --brand-500: var(--color-primary-500);
+  --brand-600: var(--color-primary-600);
+  --brand-700: var(--color-primary-700);
   
   /* Surface Colors */
   --surface-0: var(--color-white);
@@ -38,28 +44,32 @@
   --info-dark: #2563eb;
 }
 
+/* Dark Theme */
+.dark {
+  --bg-primary: var(--color-gray-900);
+  --bg-secondary: var(--color-gray-800);
+  --bg-tertiary: var(--color-gray-700);
+  
+  --text-primary: var(--color-gray-100);
+  --text-secondary: var(--color-gray-300);
+  --text-tertiary: var(--color-gray-400);
+  
+  --border-primary: var(--color-gray-700);
+  --border-secondary: var(--color-gray-600);
+}
+
 /* Color Utilities */
 .bg-brand-50 { background-color: var(--brand-50); }
 .bg-brand-100 { background-color: var(--brand-100); }
-.bg-brand-200 { background-color: var(--brand-200); }
-.bg-brand-300 { background-color: var(--brand-300); }
-.bg-brand-400 { background-color: var(--brand-400); }
 .bg-brand-500 { background-color: var(--brand-500); }
 .bg-brand-600 { background-color: var(--brand-600); }
 .bg-brand-700 { background-color: var(--brand-700); }
-.bg-brand-800 { background-color: var(--brand-800); }
-.bg-brand-900 { background-color: var(--brand-900); }
 
 .text-brand-50 { color: var(--brand-50); }
 .text-brand-100 { color: var(--brand-100); }
-.text-brand-200 { color: var(--brand-200); }
-.text-brand-300 { color: var(--brand-300); }
-.text-brand-400 { color: var(--brand-400); }
 .text-brand-500 { color: var(--brand-500); }
 .text-brand-600 { color: var(--brand-600); }
 .text-brand-700 { color: var(--brand-700); }
-.text-brand-800 { color: var(--brand-800); }
-.text-brand-900 { color: var(--brand-900); }
 
 /* Status Colors */
 .bg-success { background-color: var(--success-base); }
@@ -88,7 +98,7 @@
 
 /* Gradient Utilities */
 .gradient-brand {
-  background: linear-gradient(to right, var(--brand-600), var(--brand-400));
+  background: linear-gradient(to right, var(--brand-600), var(--brand-500));
 }
 
 .gradient-surface {

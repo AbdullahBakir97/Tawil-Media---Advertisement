@@ -1,0 +1,203 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}Search Results{% if query %} - {{ query }}{% endif %}{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <!-- Search Header -->
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold mb-4">
+            {% if query %}
+                Search Results for "{{ query }}"
+            {% else %}
+                Search Our Content
+            {% endif %}
+        </h1>
+        
+        <!-- Search Statistics -->
+        {% if query %}
+            <div class="text-gray-600 dark:text-gray-400">
+                Found {{ statistics.total_results }} results
+                {% if statistics.total_results > 0 %}
+                    ({{ statistics.article_count }} articles, 
+                    {{ statistics.magazine_count }} magazines, 
+                    {{ statistics.archive_count }} archive items)
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Search Form -->
+    <div class="mb-8 bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+        <form method="GET" action="{% url 'core:search:search' %}" class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Search Input -->
+                <div class="lg:col-span-2">
+                    <label for="q" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Search Query</label>
+                    <input type="search" 
+                           name="q" 
+                           id="q"
+                           value="{{ query }}"
+                           class="form-input w-full"
+                           placeholder="Enter your search terms...">
+                </div>
+
+                <!-- Content Type Filter -->
+                <div>
+                    <label for="type" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Content Type</label>
+                    <select name="type" id="type" class="form-select w-full">
+                        <option value="">All Types</option>
+                        <option value="article" {% if content_type == 'article' %}selected{% endif %}>Articles</option>
+                        <option value="magazine" {% if content_type == 'magazine' %}selected{% endif %}>Magazines</option>
+                        <option value="archive" {% if content_type == 'archive' %}selected{% endif %}>Archives</option>
+                    </select>
+                </div>
+
+                <!-- Date Range -->
+                <div>
+                    <label for="start_date" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Date Range</label>
+                    <div class="grid grid-cols-2 gap-2">
+                        <input type="date" 
+                               name="start_date" 
+                               id="start_date"
+                               value="{{ start_date }}"
+                               class="form-input"
+                               placeholder="From">
+                        <input type="date" 
+                               name="end_date" 
+                               id="end_date"
+                               value="{{ end_date }}"
+                               class="form-input"
+                               placeholder="To">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search Button -->
+            <div class="flex justify-end">
+                <button type="submit" class="btn btn-primary">
+                    Search
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Search Results -->
+    {% if query %}
+        {% if results %}
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {% for result in results %}
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                        <!-- Result Header -->
+                        <div class="relative">
+                            {% if result.thumbnail %}
+                                <img src="{{ result.thumbnail }}" 
+                                     alt="{{ result.title }}"
+                                     class="w-full h-48 object-cover">
+                            {% else %}
+                                <div class="w-full h-48 bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                                    <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                    </svg>
+                                </div>
+                            {% endif %}
+                            <div class="absolute top-0 right-0 m-2">
+                                <span class="px-2 py-1 text-xs font-medium bg-gray-900 bg-opacity-75 text-white rounded">
+                                    {{ result.type|title }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Result Content -->
+                        <div class="p-4">
+                            <h3 class="text-lg font-semibold mb-2">
+                                <a href="{{ result.url }}" class="hover:text-primary-600 dark:hover:text-primary-400">
+                                    {{ result.title }}
+                                </a>
+                            </h3>
+                            
+                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">
+                                {{ result.description }}
+                            </p>
+
+                            <!-- Result Metadata -->
+                            <div class="text-sm text-gray-500 dark:text-gray-400">
+                                <div class="flex items-center space-x-4">
+                                    <span>{{ result.date|date:"M d, Y" }}</span>
+                                    
+                                    {% if result.type == 'magazine' %}
+                                        <span>{{ result.articles_count }} articles</span>
+                                    {% endif %}
+                                    
+                                    {% if result.type == 'archive' %}
+                                        <span>{{ result.edition }}</span>
+                                    {% endif %}
+                                </div>
+
+                                {% if result.categories %}
+                                    <div class="mt-2 flex flex-wrap gap-2">
+                                        {% for category in result.categories %}
+                                            <span class="px-2 py-1 text-xs bg-gray-100 dark:bg-gray-700 rounded">
+                                                {{ category }}
+                                            </span>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <!-- Pagination -->
+            {% if results.has_other_pages %}
+                <div class="mt-8 flex justify-center">
+                    <nav class="flex items-center space-x-2">
+                        {% if results.has_previous %}
+                            <a href="?q={{ query }}&page={{ results.previous_page_number }}{% if content_type %}&type={{ content_type }}{% endif %}{% if start_date %}&start_date={{ start_date }}{% endif %}{% if end_date %}&end_date={{ end_date }}{% endif %}"
+                               class="btn btn-secondary btn-sm">
+                                Previous
+                            </a>
+                        {% endif %}
+
+                        {% for page_num in page_range %}
+                            {% if page_num == results.number %}
+                                <span class="btn btn-primary btn-sm">{{ page_num }}</span>
+                            {% elif page_num == '...' %}
+                                <span class="px-3 py-2">...</span>
+                            {% else %}
+                                <a href="?q={{ query }}&page={{ page_num }}{% if content_type %}&type={{ content_type }}{% endif %}{% if start_date %}&start_date={{ start_date }}{% endif %}{% if end_date %}&end_date={{ end_date }}{% endif %}"
+                                   class="btn btn-secondary btn-sm">
+                                    {{ page_num }}
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if results.has_next %}
+                            <a href="?q={{ query }}&page={{ results.next_page_number }}{% if content_type %}&type={{ content_type }}{% endif %}{% if start_date %}&start_date={{ start_date }}{% endif %}{% if end_date %}&end_date={{ end_date }}{% endif %}"
+                               class="btn btn-secondary btn-sm">
+                                Next
+                            </a>
+                        {% endif %}
+                    </nav>
+                </div>
+            {% endif %}
+        {% else %}
+            <div class="text-center py-12">
+                <div class="text-gray-400 dark:text-gray-500 mb-4">
+                    <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-medium text-gray-900 dark:text-gray-100 mb-2">
+                    No results found
+                </h3>
+                <p class="text-gray-600 dark:text-gray-400">
+                    Try adjusting your search terms or filters
+                </p>
+            </div>
+        {% endif %}
+    {% endif %}
+</div>
+{% endblock %}

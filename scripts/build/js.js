@@ -116,25 +116,30 @@ async function watch() {
         await createBundleIndexFiles();
 
         const buildOptions = initBuildOptions();
-        buildOptions.watch = {
-            onRebuild: async (error, result) => {
-                if (error) {
-                    console.error('\nWatch build failed:', error);
-                } else {
-                    // Recreate bundle index files on changes
-                    await createBundleIndexFiles();
-                    console.log('\n✓ Build succeeded');
-                    if (result.warnings.length > 0) {
-                        console.warn('Warnings:', result.warnings);
-                    }
-                }
-            }
-        };
-
+        
         // Start esbuild watch mode
-        const context = await esbuild.context(buildOptions);
-        await context.watch();
+        const ctx = await esbuild.context({
+            ...buildOptions,
+            plugins: [
+                {
+                    name: 'watch-plugin',
+                    setup(build) {
+                        build.onEnd(result => {
+                            if (result.errors.length > 0) {
+                                console.error('\nWatch build failed:', result.errors);
+                            } else {
+                                console.log('\n✓ Build succeeded');
+                                if (result.warnings.length > 0) {
+                                    console.warn('Warnings:', result.warnings);
+                                }
+                            }
+                        });
+                    },
+                },
+            ],
+        });
 
+        await ctx.watch();
         console.log('\nWaiting for changes...');
     } catch (error) {
         console.error('Watch mode failed:', error);

@@ -1,0 +1,170 @@
+{% load static %}
+{% load humanize %}
+
+<div class="notifications-container" 
+     x-data="notificationsHandler()"
+     @notification-received.window="handleNewNotification($event.detail)">
+    
+    <!-- Header -->
+    <div class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Notifications</h3>
+        {% if notifications %}
+            <button @click="markAllAsRead" 
+                    class="text-sm text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300">
+                Mark all as read
+            </button>
+        {% endif %}
+    </div>
+
+    <!-- Notifications List -->
+    <div class="divide-y divide-gray-200 dark:divide-gray-700 max-h-[400px] overflow-y-auto">
+        {% if notifications %}
+            {% for notification in notifications %}
+                <div class="notification-item {% if not notification.read %}unread bg-primary-50 dark:bg-primary-900/10{% endif %} p-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                     x-data="{ notificationId: {{ notification.id }} }"
+                     @click="markAsRead(notificationId)">
+                    <div class="flex items-start">
+                        <!-- Notification Icon -->
+                        <div class="flex-shrink-0">
+                            {% if notification.type == 'success' %}
+                                <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            {% elif notification.type == 'error' %}
+                                <svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            {% elif notification.type == 'warning' %}
+                                <svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                                </svg>
+                            {% else %}
+                                <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            {% endif %}
+                        </div>
+
+                        <!-- Notification Content -->
+                        <div class="ml-3 flex-1">
+                            <p class="text-sm font-medium text-gray-900 dark:text-white">
+                                {{ notification.title }}
+                            </p>
+                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                                {{ notification.message }}
+                            </p>
+                            <p class="mt-1 text-xs text-gray-400 dark:text-gray-500">
+                                {{ notification.created_at|naturaltime }}
+                            </p>
+                        </div>
+
+                        {% if not notification.read %}
+                            <div class="ml-3 flex-shrink-0">
+                                <div class="h-2 w-2 rounded-full bg-primary-600"></div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="p-4 text-center text-sm text-gray-500 dark:text-gray-400">
+                No notifications
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+function notificationsHandler() {
+    return {
+        socket: null,
+        
+        init() {
+            this.connectWebSocket();
+        },
+
+        connectWebSocket() {
+            this.socket = new WebSocket(
+                `${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}/ws/notifications/`
+            );
+
+            this.socket.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                if (data.type === 'notification') {
+                    this.handleNewNotification(data);
+                } else if (data.type === 'unread_count') {
+                    this.updateUnreadCount(data.count);
+                }
+            };
+
+            this.socket.onclose = () => {
+                setTimeout(() => this.connectWebSocket(), 1000);
+            };
+        },
+
+        markAsRead(notificationId) {
+            if (this.socket && this.socket.readyState === WebSocket.OPEN) {
+                this.socket.send(JSON.stringify({
+                    action: 'mark_read',
+                    notification_id: notificationId
+                }));
+            }
+        },
+
+        markAllAsRead() {
+            if (this.socket && this.socket.readyState === WebSocket.OPEN) {
+                this.socket.send(JSON.stringify({
+                    action: 'mark_all_read'
+                }));
+            }
+        },
+
+        handleNewNotification(data) {
+            // Dispatch event for other components
+            window.dispatchEvent(new CustomEvent('notification-update', {
+                detail: { unreadCount: data.unreadCount }
+            }));
+
+            // Update UI if needed
+            if (data.notification) {
+                // Add new notification to the list
+                const container = document.querySelector('.notifications-container');
+                if (container) {
+                    // Update the UI with the new notification
+                    // You might want to use a template engine or HTML template for this
+                }
+            }
+        },
+
+        updateUnreadCount(count) {
+            // Update the unread count badge
+            const badge = document.querySelector('#notification-badge');
+            if (badge) {
+                badge.textContent = count;
+                badge.classList.toggle('hidden', count === 0);
+            }
+        }
+    };
+}</script>
+
+<style>
+.notification-item {
+    cursor: pointer;
+}
+
+.notification-item.unread {
+    position: relative;
+}
+
+.notification-item.unread::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background-color: theme('colors.primary.600');
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+</style>

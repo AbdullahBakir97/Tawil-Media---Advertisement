@@ -1,0 +1,168 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'vendor/chart.js/chart.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/archive-browse.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="archive-container">
+    <!-- Hero Section -->
+    <section class="archive-hero">
+        <div class="hero-content">
+            <h1>Digital Archive</h1>
+            <p>Explore our comprehensive collection of digital content</p>
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="Quick search archives...">
+                <button type="button" class="advanced-search-toggle" data-bs-toggle="modal" data-bs-target="#advancedSearchModal">
+                    <i class="fas fa-sliders-h"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Dashboard -->
+    <section class="archive-stats">
+        <div class="stats-grid">
+            <div class="stats-card total-items">
+                <h3>Total Items</h3>
+                <div class="stat-value" id="total-items">0</div>
+            </div>
+            <div class="stats-card digitized">
+                <h3>Digitized</h3>
+                <div class="stat-value" id="digitized-count">0</div>
+            </div>
+            <div class="stats-card categories">
+                <h3>Categories</h3>
+                <div class="stat-value" id="category-count">0</div>
+            </div>
+            <div class="stats-card years">
+                <h3>Year Range</h3>
+                <div class="stat-value" id="year-range">-</div>
+            </div>
+        </div>
+
+        <div class="charts-container">
+            <div class="chart-wrapper">
+                <h3>Content by Category</h3>
+                <canvas id="category-chart"></canvas>
+            </div>
+            <div class="chart-wrapper">
+                <h3>Content Type Distribution</h3>
+                <canvas id="content-type-chart"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Results -->
+    <section class="archive-results">
+        <div class="results-header">
+            <h2>Archive Contents</h2>
+            <div class="view-controls">
+                <button class="view-toggle grid-view active" data-view="grid">
+                    <i class="fas fa-th-large"></i>
+                </button>
+                <button class="view-toggle list-view" data-view="list">
+                    <i class="fas fa-list"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="results-grid" id="results-container">
+            <!-- Results will be populated by JavaScript -->
+        </div>
+
+        <div class="load-more-container">
+            <button class="load-more-btn">Load More</button>
+        </div>
+    </section>
+</div>
+
+<!-- Advanced Search Modal -->
+<div class="modal fade" id="advancedSearchModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Advanced Search</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="advanced-search-form">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Year Range</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" name="startDate" placeholder="From">
+                                <input type="number" class="form-control" name="endDate" placeholder="To">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Categories</label>
+                            <select class="form-select" name="categories" multiple>
+                                {% for category in categories %}
+                                <option value="{{ category.id }}">{{ category.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Content Type</label>
+                            <select class="form-select" name="contentType">
+                                <option value="">All Types</option>
+                                <option value="magazine">Magazine</option>
+                                <option value="article">Article</option>
+                                <option value="image">Image</option>
+                                <option value="document">Document</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Language</label>
+                            <select class="form-select" name="language">
+                                <option value="">All Languages</option>
+                                <option value="en">English</option>
+                                <option value="ar">Arabic</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="isDigitized" id="isDigitized">
+                                <label class="form-check-label" for="isDigitized">
+                                    Show only digitized content
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="reset" form="advanced-search-form" class="btn btn-outline-secondary">Reset</button>
+                <button type="submit" form="advanced-search-form" class="btn btn-primary">Search</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Result Item Template -->
+<template id="result-item-template">
+    <div class="archive-item">
+        <div class="item-thumbnail">
+            <img src="" alt="">
+        </div>
+        <div class="item-content">
+            <h3 class="item-title"></h3>
+            <div class="item-meta">
+                <span class="item-date"></span>
+                <span class="item-type"></span>
+            </div>
+            <p class="item-description"></p>
+            <div class="item-categories"></div>
+        </div>
+    </div>
+</template>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'vendor/chart.js/chart.min.js' %}"></script>
+<script type="module" src="{% static 'js/archive-stats.js' %}"></script>
+{% endblock %}

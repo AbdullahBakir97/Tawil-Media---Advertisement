@@ -142,3 +142,48 @@ Contributions are welcome! Please follow these steps:
 
 This project is licensed under the MIT License. See the `LICENSE` file for more details.
 
+
+
+I've set up the build system with the following features:
+
+Package Management:
+Created package.json with necessary dependencies
+Added build scripts for CSS and JS
+Included development dependencies for optimization
+CSS Processing:
+PostCSS configuration with plugins
+Tailwind CSS configuration with custom design system
+CSS Variables support
+Dark mode support
+Custom spacing and typography
+JavaScript Building:
+ESBuild configuration for modern JS
+Module bundling
+Code splitting
+Development and production modes
+Asset Pipeline:
+Source maps for development
+Minification for production
+Watch mode for development
+Asset optimization
+To get started with development:
+
+Install dependencies:
+bash
+CopyInsert in Terminal
+npm install
+Start development mode:
+bash
+CopyInsert in Terminal
+npm run watch
+For production build:
+bash
+CopyInsert in Terminal
+npm run build
+The build system will:
+
+Process CSS with PostCSS and Tailwind
+Bundle JavaScript with ESBuild
+Optimize assets for production
+Generate source maps in development
+Watch for changes during development

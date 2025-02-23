@@ -1,0 +1,59 @@
+{% load static %}
+
+<div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+    <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Popular Tags</h2>
+    
+    <div class="flex flex-wrap gap-2">
+        {% for tag in tags %}
+        <a href="{% url 'articles:tag' tag.slug %}"
+           class="inline-flex items-center px-3 py-1 rounded-full text-sm
+                  {% if tag.is_popular %}
+                      bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300
+                      hover:bg-primary-200 dark:hover:bg-primary-800
+                  {% else %}
+                      bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300
+                      hover:bg-gray-200 dark:hover:bg-gray-600
+                  {% endif %}">
+            #{{ tag.name }}
+            {% if show_counts %}
+            <span class="ml-2 text-xs opacity-75">{{ tag.article_count }}</span>
+            {% endif %}
+        </a>
+        {% endfor %}
+    </div>
+    
+    {% if trending_tags %}
+    <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+            Trending Now
+        </h3>
+        
+        <div class="space-y-3">
+            {% for tag in trending_tags %}
+            <a href="{% url 'articles:tag' tag.slug %}"
+               class="flex items-center justify-between group">
+                <span class="text-gray-700 dark:text-gray-300 group-hover:text-primary-600 dark:group-hover:text-primary-400">
+                    #{{ tag.name }}
+                </span>
+                
+                <div class="flex items-center text-sm">
+                    {% if tag.trend_direction == 'up' %}
+                    <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                    </svg>
+                    {% elif tag.trend_direction == 'down' %}
+                    <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0v-8m0 8l-8-8-4 4-6-6"></path>
+                    </svg>
+                    {% endif %}
+                    
+                    <span class="ml-2 text-gray-500 dark:text-gray-400">
+                        {{ tag.trend_percentage }}%
+                    </span>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>

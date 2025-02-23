@@ -1,0 +1,47 @@
+{% load static %}
+
+<article class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-transform hover:scale-[1.02]">
+    {% if article.featured_image %}
+    <div class="relative aspect-video">
+        <img src="{{ article.featured_image.url }}" 
+             alt="{{ article.title }}"
+             class="absolute inset-0 w-full h-full object-cover">
+        {% if article.category %}
+        <span class="absolute top-4 left-4 bg-primary-600 text-white px-3 py-1 rounded-full text-sm">
+            {{ article.category.name }}
+        </span>
+        {% endif %}
+    </div>
+    {% endif %}
+    
+    <div class="p-6">
+        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 line-clamp-2">
+            <a href="{{ article.get_absolute_url }}" class="hover:text-primary-600 dark:hover:text-primary-400">
+                {{ article.title }}
+            </a>
+        </h3>
+        
+        <p class="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
+            {{ article.excerpt }}
+        </p>
+        
+        {% include "content/articles/components/meta.html" with article=article %}
+        
+        <div class="mt-4 flex items-center justify-between">
+            <a href="{{ article.get_absolute_url }}" 
+               class="text-primary-600 dark:text-primary-400 hover:underline font-medium">
+                Read More
+            </a>
+            
+            {% if article.reading_time %}
+            <span class="text-gray-500 dark:text-gray-400 text-sm flex items-center">
+                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                {{ article.reading_time }} min read
+            </span>
+            {% endif %}
+        </div>
+    </div>
+</article>

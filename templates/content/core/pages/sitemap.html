@@ -1,0 +1,112 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}Sitemap - Tawil Media{% endblock %}
+
+{% block content %}
+<section class="sitemap">
+    <div class="sitemap-container">
+        <h1 class="sitemap-title">Sitemap</h1>
+        <p class="sitemap-subtitle">Find your way around Tawil Media</p>
+        
+        <div class="sitemap-grid">
+            <!-- Main Navigation -->
+            <div class="sitemap-section">
+                <h2>Main Navigation</h2>
+                <ul class="sitemap-list">
+                    <li>
+                        <a href="{% url 'core:home' %}" class="sitemap-link">
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'core:about' %}" class="sitemap-link">
+                            About Us
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'core:contact' %}" class="sitemap-link">
+                            Contact
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'core:advertise' %}" class="sitemap-link">
+                            Advertise
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Content -->
+            <div class="sitemap-section">
+                <h2>Content</h2>
+                <ul class="sitemap-list">
+                    <li>
+                        <a href="{% url 'content:article_list' %}" class="sitemap-link">
+                            Articles
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'content:magazine_list' %}" class="sitemap-link">
+                            Magazines
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'archives:browse' %}" class="sitemap-link">
+                            Archives
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'core:search' %}" class="sitemap-link">
+                            Search
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Legal -->
+            <div class="sitemap-section">
+                <h2>Legal</h2>
+                <ul class="sitemap-list">
+                    <li>
+                        <a href="{% url 'core:terms' %}" class="sitemap-link">
+                            Terms of Service
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'core:privacy' %}" class="sitemap-link">
+                            Privacy Policy
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'core:cookies' %}" class="sitemap-link">
+                            Cookie Policy
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Support -->
+            <div class="sitemap-section">
+                <h2>Support</h2>
+                <ul class="sitemap-list">
+                    <li>
+                        <a href="{% url 'core:help' %}" class="sitemap-link">
+                            Help Center
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'core:careers' %}" class="sitemap-link">
+                            Careers
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/components/sitemap.css' %}">
+{% endblock %}

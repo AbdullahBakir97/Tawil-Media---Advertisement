@@ -1,0 +1,154 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}Cookie Policy - Tawil Media{% endblock %}
+
+{% block meta_description %}Learn about how Tawil Media uses cookies and similar technologies to enhance your browsing experience.{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <!-- Breadcrumbs -->
+    {% include "base/components/breadcrumbs.html" with items=breadcrumbs %}
+
+    <!-- Hero Section -->
+    <div class="bg-gradient-to-r from-primary-700 to-primary-900 rounded-lg shadow-lg p-12 mb-12 text-white text-center">
+        <h1 class="text-5xl font-bold mb-4">Cookie Policy</h1>
+        <p class="text-xl opacity-90 max-w-2xl mx-auto">
+            Understanding how we use cookies to improve your experience
+        </p>
+    </div>
+
+    <div class="max-w-3xl mx-auto">
+        <div class="prose dark:prose-invert max-w-none">
+            <h2>What Are Cookies?</h2>
+            <p>
+                Cookies are small text files that are placed on your device when you visit our website. They help us provide you with a better experience by remembering your preferences, analyzing site usage, and personalizing content.
+            </p>
+
+            <h2>Types of Cookies We Use</h2>
+            
+            <h3>Essential Cookies</h3>
+            <p>These cookies are necessary for the website to function properly. They enable basic functions like page navigation and access to secure areas of the website.</p>
+            
+            <h3>Analytics Cookies</h3>
+            <p>We use analytics cookies to understand how visitors interact with our website. This helps us improve our website's functionality and content.</p>
+            
+            <h3>Functionality Cookies</h3>
+            <p>These cookies enable enhanced functionality and personalization, such as remembering your preferences and settings.</p>
+            
+            <h3>Advertising Cookies</h3>
+            <p>We may use these cookies to deliver advertisements more relevant to you and your interests.</p>
+
+            <h2>Managing Cookies</h2>
+            <p>You can control and/or delete cookies as you wish. You can delete all cookies that are already on your computer and you can set most browsers to prevent them from being placed.</p>
+            
+            <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg my-8">
+                <h3 class="text-xl font-bold mb-4">Cookie Settings</h3>
+                <form id="cookie-preferences" class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <label class="font-medium">Essential Cookies</label>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Required for basic website functionality</p>
+                        </div>
+                        <div class="relative">
+                            <input type="checkbox" checked disabled class="toggle toggle-primary">
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <label for="analytics" class="font-medium">Analytics Cookies</label>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Help us improve our website</p>
+                        </div>
+                        <div class="relative">
+                            <input type="checkbox" id="analytics" name="analytics" class="toggle toggle-primary">
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <label for="functionality" class="font-medium">Functionality Cookies</label>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Remember your preferences</p>
+                        </div>
+                        <div class="relative">
+                            <input type="checkbox" id="functionality" name="functionality" class="toggle toggle-primary">
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <label for="advertising" class="font-medium">Advertising Cookies</label>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Personalize advertisements</p>
+                        </div>
+                        <div class="relative">
+                            <input type="checkbox" id="advertising" name="advertising" class="toggle toggle-primary">
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-end space-x-4">
+                        <button type="button" 
+                                class="btn btn-secondary"
+                                onclick="resetCookiePreferences()">
+                            Reset Preferences
+                        </button>
+                        <button type="submit" 
+                                class="btn btn-primary">
+                            Save Preferences
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <h2>Updates to This Policy</h2>
+            <p>We may update this Cookie Policy from time to time. The latest version will always be available on this page.</p>
+
+            <h2>Contact Us</h2>
+            <p>If you have any questions about our Cookie Policy, please contact us at <a href="mailto:privacy@tawilmedia.com">privacy@tawilmedia.com</a>.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('cookie-preferences').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const preferences = Object.fromEntries(formData);
+        
+        // Save preferences to localStorage
+        localStorage.setItem('cookiePreferences', JSON.stringify(preferences));
+        
+        // Show success message
+        const message = document.createElement('div');
+        message.className = 'fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg';
+        message.textContent = 'Cookie preferences saved successfully!';
+        document.body.appendChild(message);
+        
+        setTimeout(() => message.remove(), 3000);
+    });
+
+    function resetCookiePreferences() {
+        document.getElementById('cookie-preferences').reset();
+        localStorage.removeItem('cookiePreferences');
+        
+        // Show reset message
+        const message = document.createElement('div');
+        message.className = 'fixed bottom-4 right-4 bg-blue-500 text-white px-6 py-3 rounded-lg shadow-lg';
+        message.textContent = 'Cookie preferences have been reset.';
+        document.body.appendChild(message);
+        
+        setTimeout(() => message.remove(), 3000);
+    }
+
+    // Load saved preferences
+    document.addEventListener('DOMContentLoaded', function() {
+        const savedPreferences = localStorage.getItem('cookiePreferences');
+        if (savedPreferences) {
+            const preferences = JSON.parse(savedPreferences);
+            Object.entries(preferences).forEach(([key, value]) => {
+                const input = document.getElementById(key);
+                if (input) input.checked = value === 'on';
+            });
+        }
+    });
+</script>
+{% endblock %}

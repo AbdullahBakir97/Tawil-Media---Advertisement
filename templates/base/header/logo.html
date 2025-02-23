@@ -1,0 +1,18 @@
+{% load static %}
+
+<div class="header-logo">
+    <a href="{% url 'core:home' %}" class="logo-link" aria-label="Tawil Media Home">
+        {% if logo_image %}
+            <img src="{% static logo_image %}" alt="Tawil Media Logo" class="logo-image">
+        {% else %}
+            <svg class="logo-image" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <text x="10" y="40" fill="currentColor" font-family="Arial, sans-serif" font-size="32" font-weight="bold">
+                    TAWIL
+                </text>
+                <text x="120" y="40" fill="currentColor" font-family="Arial, sans-serif" font-size="24">
+                    Media
+                </text>
+            </svg>
+        {% endif %}
+    </a>
+</div>

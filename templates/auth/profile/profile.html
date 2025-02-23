@@ -1,0 +1,80 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Profile - {{ user.get_full_name|default:user.username }}{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-tertiary py-8">
+    <div class="container mx-auto px-4">
+        <!-- Profile Header -->
+        <div class="bg-secondary rounded-xl shadow-lg p-6 mb-8 animate-fade-in">
+            <div class="flex flex-col md:flex-row items-center gap-6">
+                <!-- Profile Image -->
+                <div class="relative">
+                    <div class="w-32 h-32 rounded-full bg-primary-100 flex items-center justify-center">
+                        {% if user.profile_image %}
+                        <img src="{{ user.profile_image.url }}" 
+                             alt="{{ user.get_full_name }}"
+                             class="w-32 h-32 rounded-full object-cover">
+                        {% else %}
+                        <span class="text-5xl font-bold text-primary-600">
+                            {{ user.get_full_name|first }}
+                        </span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Profile Info -->
+                <div class="text-center md:text-left">
+                    <h1 class="text-3xl font-bold mb-2">{{ user.get_full_name }}</h1>
+                    <p class="text-tertiary mb-4">{{ user.email }}</p>
+                    <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+                        <a href="{% url 'users:settings' %}" 
+                           class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            Edit Profile
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Content -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- About Section -->
+            <div class="md:col-span-2">
+                <div class="bg-secondary rounded-xl shadow-lg p-6 animate-slide-in-left">
+                    <h2 class="text-xl font-bold mb-4">About</h2>
+                    <p class="text-tertiary">
+                        {% if profile.bio %}
+                            {{ profile.bio }}
+                        {% else %}
+                            No bio provided yet.
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="md:col-span-1">
+                <div class="bg-secondary rounded-xl shadow-lg p-6 animate-slide-in-right">
+                    <h2 class="text-xl font-bold mb-4">Stats</h2>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-tertiary">Member since</span>
+                            <span class="font-medium">{{ user.date_joined|date:"M d, Y" }}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-tertiary">Last login</span>
+                            <span class="font-medium">{{ user.last_login|date:"M d, Y" }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

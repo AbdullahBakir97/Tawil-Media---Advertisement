@@ -1,0 +1,328 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}Digital Magazines - Tawil Media{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <!-- Breadcrumbs -->
+    {% include "base/components/breadcrumbs.html" with items=breadcrumbs %}
+    
+    <div class="grid grid-cols-12 gap-8">
+        <!-- Main Content -->
+        <main class="col-span-12 lg:col-span-9">
+            <!-- Header with Search and Filters -->
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-8">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                    <h1 class="text-3xl font-bold text-gray-900 dark:text-white">
+                        Digital Magazines
+                    </h1>
+                    
+                    <!-- Search Bar -->
+                    <div class="relative">
+                        <input type="search"
+                               class="w-full md:w-64 pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                               placeholder="Search magazines..."
+                               hx-get="{% url 'magazines:search' %}"
+                               hx-trigger="keyup changed delay:500ms"
+                               hx-target="#magazines-grid"
+                               hx-indicator="#search-indicator">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </div>
+                        <div id="search-indicator" 
+                             class="htmx-indicator absolute inset-y-0 right-0 pr-3 flex items-center">
+                            <svg class="animate-spin h-5 w-5 text-primary-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Filters -->
+                <div class="flex flex-wrap gap-4" x-data="{ activeFilters: [] }">
+                    <!-- Year Filter -->
+                    <div class="relative" x-data="{ open: false }">
+                        <button @click="open = !open"
+                                class="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            <span>Year</span>
+                            <svg class="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        
+                        <div x-show="open"
+                             @click.away="open = false"
+                             class="absolute z-10 mt-2 w-48 rounded-lg bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5">
+                            <div class="py-1" role="menu">
+                                {% for year in years %}
+                                <a href="?year={{ year }}"
+                                   class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                                   role="menuitem">
+                                    {{ year }}
+                                </a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Category Filter -->
+                    <div class="relative" x-data="{ open: false }">
+                        <button @click="open = !open"
+                                class="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            <span>Category</span>
+                            <svg class="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        
+                        <div x-show="open"
+                             @click.away="open = false"
+                             class="absolute z-10 mt-2 w-48 rounded-lg bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5">
+                            <div class="py-1" role="menu">
+                                {% for category in categories %}
+                                <a href="?category={{ category.slug }}"
+                                   class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                                   role="menuitem">
+                                    {{ category.name }}
+                                </a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Active Filters -->
+                    <div class="flex flex-wrap gap-2">
+                        <template x-for="filter in activeFilters" :key="filter">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300">
+                                <span x-text="filter"></span>
+                                <button @click="activeFilters = activeFilters.filter(f => f !== filter)"
+                                        class="ml-2 text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-200">
+                                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                </button>
+                            </span>
+                        </template>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Featured Magazine -->
+            {% if featured_magazine %}
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-2">
+                    <div class="relative aspect-[3/4] md:aspect-auto">
+                        <img src="{{ featured_magazine.cover_image.url }}"
+                             alt="{{ featured_magazine.title }}"
+                             class="absolute inset-0 w-full h-full object-cover">
+                    </div>
+                    <div class="p-8">
+                        <span class="inline-block bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 px-3 py-1 rounded-full text-sm mb-4">
+                            Latest Issue
+                        </span>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                            {{ featured_magazine.title }}
+                        </h2>
+                        <p class="text-gray-600 dark:text-gray-300 mb-6">
+                            {{ featured_magazine.description }}
+                        </p>
+                        <div class="flex items-center gap-4">
+                            <a href="{{ featured_magazine.get_absolute_url }}"
+                               class="inline-flex items-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-primary-600 hover:bg-primary-700">
+                                Read Now
+                            </a>
+                            <button class="inline-flex items-center text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
+                                    @click="$dispatch('open-preview-modal', { magazineId: '{{ featured_magazine.id }}' })">
+                                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                </svg>
+                                Preview
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            
+            <!-- Magazines Grid -->
+            <div id="magazines-grid" 
+                 class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {% for magazine in magazines %}
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden group">
+                    <div class="relative aspect-[3/4]">
+                        <img src="{{ magazine.cover_image.url }}"
+                             alt="{{ magazine.title }}"
+                             class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300">
+                        {% if magazine.is_premium %}
+                        <div class="absolute top-4 right-4">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-yellow-100 text-yellow-800">
+                                <svg class="h-4 w-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M5 2a2 2 0 00-2 2v14l3.5-2 3.5 2 3.5-2 3.5 2V4a2 2 0 00-2-2H5zm4.707 3.707a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L8.414 9H10a3 3 0 013 3v1a1 1 0 102 0v-1a5 5 0 00-5-5H8.414l1.293-1.293z" clip-rule="evenodd"></path>
+                                </svg>
+                                Premium
+                            </span>
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                            {{ magazine.title }}
+                        </h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 line-clamp-2">
+                            {{ magazine.description }}
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-500 dark:text-gray-400">
+                                {{ magazine.publication_date|date:"F Y" }}
+                            </span>
+                            <div class="flex items-center space-x-2">
+                                <button class="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
+                                        @click="$dispatch('open-preview-modal', { magazineId: '{{ magazine.id }}' })">
+                                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                    </svg>
+                                </button>
+                                <a href="{{ magazine.get_absolute_url }}"
+                                   class="inline-flex items-center px-4 py-2 border border-transparent rounded-lg text-sm font-medium text-white bg-primary-600 hover:bg-primary-700">
+                                    Read Now
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-span-full text-center py-12">
+                    <p class="text-gray-600 dark:text-gray-400">No magazines found matching your criteria.</p>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <!-- Pagination -->
+            {% if magazines.has_other_pages %}
+                {% include "base/components/pagination.html" with page_obj=magazines %}
+            {% endif %}
+        </main>
+        
+        <!-- Sidebar -->
+        <aside class="col-span-12 lg:col-span-3 space-y-8">
+            <!-- Advertisement Zone -->
+            {% include "ads/zones/sidebar.html" %}
+            
+            <!-- Categories -->
+            {% include "content/shared/category-nav.html" %}
+            
+            <!-- Subscribe CTA -->
+            <div class="bg-gradient-to-br from-primary-600 to-primary-800 rounded-lg shadow-lg p-6 text-white">
+                <h2 class="text-xl font-bold mb-4">Subscribe Today</h2>
+                <p class="mb-6 opacity-90">
+                    Get unlimited access to all our premium magazines and exclusive content.
+                </p>
+                <a href="{% url 'subscriptions:plans' %}"
+                   class="block w-full text-center px-6 py-3 border-2 border-white rounded-lg font-medium hover:bg-white hover:text-primary-600 transition-colors">
+                    View Plans
+                </a>
+            </div>
+        </aside>
+    </div>
+</div>
+
+<!-- Preview Modal -->
+<div x-data="{ 
+    isOpen: false,
+    magazineId: null,
+    pages: [],
+    currentPage: 0,
+    
+    init() {
+        this.$watch('magazineId', value => {
+            if (value) {
+                this.fetchPreview(value);
+            }
+        });
+    },
+    
+    async fetchPreview(id) {
+        try {
+            const response = await fetch(`/api/magazines/${id}/preview/`);
+            const data = await response.json();
+            this.pages = data.pages;
+        } catch (error) {
+            console.error('Error fetching preview:', error);
+        }
+    },
+    
+    nextPage() {
+        this.currentPage = (this.currentPage + 1) % this.pages.length;
+    },
+    
+    previousPage() {
+        this.currentPage = (this.currentPage - 1 + this.pages.length) % this.pages.length;
+    }
+}"
+     @open-preview-modal.window="isOpen = true; magazineId = $event.detail.magazineId"
+     x-show="isOpen"
+     class="fixed inset-0 z-50 overflow-y-auto"
+     x-cloak>
+    <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+        <!-- Background overlay -->
+        <div class="fixed inset-0 transition-opacity" @click="isOpen = false">
+            <div class="absolute inset-0 bg-black opacity-75"></div>
+        </div>
+        
+        <!-- Modal panel -->
+        <div class="inline-block align-bottom bg-white dark:bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full">
+            <div class="bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <!-- Preview Content -->
+                <div class="relative aspect-[4/3]">
+                    <template x-if="pages.length > 0">
+                        <img :src="pages[currentPage]"
+                             class="absolute inset-0 w-full h-full object-contain"
+                             alt="Magazine preview">
+                    </template>
+                    
+                    <!-- Navigation Buttons -->
+                    <button @click="previousPage"
+                            class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                    </button>
+                    
+                    <button @click="nextPage"
+                            class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                    
+                    <!-- Page Indicator -->
+                    <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full text-sm">
+                        <span x-text="currentPage + 1"></span>
+                        <span>/</span>
+                        <span x-text="pages.length"></span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-gray-50 dark:bg-gray-700 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                <a :href="`/magazines/${magazineId}/`"
+                   class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-primary-600 text-base font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 sm:ml-3 sm:w-auto sm:text-sm">
+                    Read Full Magazine
+                </a>
+                <button @click="isOpen = false"
+                        type="button"
+                        class="mt-3 sm:mt-0 w-full inline-flex justify-center rounded-md border border-gray-300 dark:border-gray-600 shadow-sm px-4 py-2 bg-white dark:bg-gray-800 text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 sm:ml-3 sm:w-auto sm:text-sm">
+                    Close Preview
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

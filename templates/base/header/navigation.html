@@ -1,81 +1,109 @@
 {% load static %}
 
-<nav class="flex items-center space-x-6">
+<nav class="nav-container">
     <!-- Primary Navigation -->
-    <div class="hidden md:flex items-center space-x-6">
-        <a href="{% url 'home' %}" class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+    <div class="nav-section" x-data="{ mobileMenuOpen: false, moreMenuOpen: false }">
+        <a href="{% url 'core:home' %}" class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
             Home
         </a>
-        <a href="{% url 'articles:list' %}" class="nav-link {% if 'articles' in request.resolver_match.app_name %}active{% endif %}">
+        <a href="{% url 'content:article_list' %}" class="nav-link {% if 'articles' in request.path %}active{% endif %}">
             Articles
         </a>
-        <a href="{% url 'magazines:list' %}" class="nav-link {% if 'magazines' in request.resolver_match.app_name %}active{% endif %}">
+        <a href="{% url 'content:magazine_list' %}" class="nav-link {% if 'magazines' in request.path %}active{% endif %}">
             Magazines
         </a>
         <a href="{% url 'archives:browse' %}" class="nav-link {% if 'archives' in request.resolver_match.app_name %}active{% endif %}">
             Archives
         </a>
-        <div class="relative group">
-            <button class="nav-link flex items-center space-x-1">
+        
+        <!-- More Menu -->
+        <div class="relative" @click.away="moreMenuOpen = false">
+            <button 
+                @click="moreMenuOpen = !moreMenuOpen" 
+                class="nav-link flex items-center gap-1" 
+                aria-haspopup="true" 
+                :aria-expanded="moreMenuOpen"
+            >
                 <span>More</span>
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg 
+                    class="w-4 h-4 transition-transform duration-200" 
+                    :class="{ 'rotate-180': moreMenuOpen }"
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                >
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                 </svg>
             </button>
-            <div class="absolute left-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 hidden group-hover:block">
-                <a href="{% url 'about' %}" class="nav-dropdown-item">
+            
+            <div 
+                x-show="moreMenuOpen"
+                x-transition:enter="transition ease-out duration-100"
+                x-transition:enter-start="transform opacity-0 scale-95"
+                x-transition:enter-end="transform opacity-100 scale-100"
+                x-transition:leave="transition ease-in duration-75"
+                x-transition:leave-start="transform opacity-100 scale-100"
+                x-transition:leave-end="transform opacity-0 scale-95"
+                class="nav-dropdown"
+                style="display: none;"
+            >
+                <a href="{% url 'core:about' %}" class="nav-dropdown-item">
                     About Us
                 </a>
-                <a href="{% url 'contact' %}" class="nav-dropdown-item">
+                <a href="{% url 'core:contact' %}" class="nav-dropdown-item">
                     Contact
                 </a>
-                <a href="{% url 'advertise' %}" class="nav-dropdown-item">
+                <a href="{% url 'core:advertise' %}" class="nav-dropdown-item">
                     Advertise
                 </a>
             </div>
         </div>
     </div>
 
-    <!-- Search Bar -->
-    <div class="hidden md:block flex-1 max-w-lg">
-        <form action="{% url 'search' %}" method="GET" class="relative">
-            <input type="search" 
-                   name="q" 
-                   placeholder="Search articles, magazines..."
-                   class="form-input w-full pl-10 pr-4"
-                   hx-get="{% url 'search:suggestions' %}"
-                   hx-trigger="keyup changed delay:500ms"
-                   hx-target="#search-suggestions"
-                   hx-indicator=".search-indicator">
-            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                </svg>
-            </div>
-            <div class="search-indicator htmx-indicator absolute inset-y-0 right-0 pr-3 flex items-center">
-                <svg class="animate-spin h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-            </div>
-        </form>
-        <div id="search-suggestions" class="absolute z-50 w-full mt-1 bg-white dark:bg-gray-800 rounded-md shadow-lg"></div>
-    </div>
-
     <!-- Mobile Menu Button -->
-    <button class="md:hidden mobile-menu-button" aria-label="Open menu">
-        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+    <button 
+        class="mobile-menu-button md:hidden"
+        @click="mobileMenuOpen = !mobileMenuOpen"
+        aria-label="Toggle mobile menu"
+    >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path 
+                x-show="!mobileMenuOpen" 
+                stroke-linecap="round" 
+                stroke-linejoin="round" 
+                stroke-width="2" 
+                d="M4 6h16M4 12h16M4 18h16"
+            ></path>
+            <path 
+                x-show="mobileMenuOpen" 
+                stroke-linecap="round" 
+                stroke-linejoin="round" 
+                stroke-width="2" 
+                d="M6 18L18 6M6 6l12 12"
+            ></path>
         </svg>
     </button>
 
     <!-- Mobile Navigation -->
-    <div class="mobile-menu hidden fixed inset-0 z-50 bg-gray-900 bg-opacity-50">
+    <div 
+        x-show="mobileMenuOpen"
+        x-transition:enter="transition ease-out duration-100"
+        x-transition:enter-start="transform opacity-0 scale-95"
+        x-transition:enter-end="transform opacity-100 scale-100"
+        x-transition:leave="transition ease-in duration-75"
+        x-transition:leave-start="transform opacity-100 scale-100"
+        x-transition:leave-end="transform opacity-0 scale-95"
+        class="mobile-menu fixed inset-0 z-50"
+    >
         <div class="absolute right-0 top-0 bottom-0 w-64 bg-white dark:bg-gray-800 shadow-xl">
             <div class="p-4 border-b dark:border-gray-700">
                 <div class="flex items-center justify-between">
                     <h2 class="text-xl font-semibold">Menu</h2>
-                    <button class="mobile-menu-close" aria-label="Close menu">
+                    <button 
+                        class="mobile-menu-button" 
+                        @click="mobileMenuOpen = false"
+                        aria-label="Close menu"
+                    >
                         <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
@@ -83,82 +111,26 @@
                 </div>
             </div>
             <nav class="p-4">
-                <a href="{% url 'home' %}" class="mobile-nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+                <a href="{% url 'core:home' %}" class="mobile-nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
                     Home
                 </a>
-                <a href="{% url 'articles:list' %}" class="mobile-nav-link {% if 'articles' in request.resolver_match.app_name %}active{% endif %}">
+                <a href="{% url 'content:article_list' %}" class="mobile-nav-link {% if 'articles' in request.path %}active{% endif %}">
                     Articles
                 </a>
-                <a href="{% url 'magazines:list' %}" class="mobile-nav-link {% if 'magazines' in request.resolver_match.app_name %}active{% endif %}">
+                <a href="{% url 'content:magazine_list' %}" class="mobile-nav-link {% if 'magazines' in request.path %}active{% endif %}">
                     Magazines
                 </a>
                 <a href="{% url 'archives:browse' %}" class="mobile-nav-link {% if 'archives' in request.resolver_match.app_name %}active{% endif %}">
                     Archives
                 </a>
                 <div class="border-t dark:border-gray-700 my-4"></div>
-                <a href="{% url 'about' %}" class="mobile-nav-link">About Us</a>
-                <a href="{% url 'contact' %}" class="mobile-nav-link">Contact</a>
-                <a href="{% url 'advertise' %}" class="mobile-nav-link">Advertise</a>
+                <a href="{% url 'core:about' %}" class="mobile-nav-link">About Us</a>
+                <a href="{% url 'core:contact' %}" class="mobile-nav-link">Contact</a>
+                <a href="{% url 'core:advertise' %}" class="mobile-nav-link">Advertise</a>
             </nav>
         </div>
     </div>
 </nav>
-
-<style>
-    /* Navigation Styles */
-    .nav-link {
-        display: inline-flex;
-        align-items: center;
-        padding: 0.5rem;
-        color: var(--nav-text);
-        font-weight: 500;
-        border-radius: var(--radius-md);
-        transition: var(--transition-base);
-    }
-
-    .nav-link:hover {
-        color: var(--nav-text-hover);
-        background-color: var(--bg-secondary);
-    }
-
-    .nav-link.active {
-        color: var(--color-primary);
-        background-color: var(--brand-50);
-    }
-
-    /* Dropdown Styles */
-    .nav-dropdown-item {
-        display: block;
-        padding: 0.5rem 1rem;
-        color: var(--text-secondary);
-        transition: var(--transition-base);
-    }
-
-    .nav-dropdown-item:hover {
-        background-color: var(--bg-secondary);
-        color: var(--text-primary);
-    }
-
-    /* Mobile Navigation */
-    .mobile-nav-link {
-        display: block;
-        padding: 0.75rem;
-        color: var(--text-secondary);
-        font-weight: 500;
-        border-radius: var(--radius-md);
-        transition: var(--transition-base);
-    }
-
-    .mobile-nav-link:hover {
-        color: var(--text-primary);
-        background-color: var(--bg-secondary);
-    }
-
-    .mobile-nav-link.active {
-        color: var(--color-primary);
-        background-color: var(--brand-50);
-    }
-</style>
 
 <script>
     // Mobile Menu Toggle

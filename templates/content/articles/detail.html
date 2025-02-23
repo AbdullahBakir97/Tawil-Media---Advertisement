@@ -1,0 +1,165 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}{{ article.title }} - Tawil Media{% endblock %}
+
+{% block meta_description %}{{ article.excerpt }}{% endblock %}
+
+{% block content %}
+<article class="container mx-auto px-4 py-8">
+    <!-- Breadcrumbs -->
+    {% include "base/components/breadcrumbs.html" with items=breadcrumbs %}
+    
+    <div class="grid grid-cols-12 gap-8">
+        <!-- Main Content -->
+        <main class="col-span-12 lg:col-span-8">
+            <!-- Article Header -->
+            <header class="mb-8">
+                {% if article.category %}
+                <a href="{{ article.category.get_absolute_url }}" 
+                   class="inline-block bg-primary-600 text-white px-4 py-1 rounded-full text-sm mb-4 hover:bg-primary-700">
+                    {{ article.category.name }}
+                </a>
+                {% endif %}
+                
+                <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                    {{ article.title }}
+                </h1>
+                
+                {% include "content/articles/components/meta.html" with article=article %}
+            </header>
+            
+            {% if article.featured_image %}
+            <!-- Featured Image -->
+            <figure class="mb-8">
+                <img src="{{ article.featured_image.url }}" 
+                     alt="{{ article.title }}"
+                     class="w-full rounded-lg shadow-lg">
+                {% if article.featured_image_caption %}
+                <figcaption class="mt-2 text-center text-sm text-gray-500 dark:text-gray-400">
+                    {{ article.featured_image_caption }}
+                </figcaption>
+                {% endif %}
+            </figure>
+            {% endif %}
+            
+            <!-- Article Content -->
+            <div class="prose dark:prose-invert max-w-none mb-8">
+                {{ article.content|safe }}
+            </div>
+            
+            <!-- Tags -->
+            {% if article.tags.exists %}
+            <div class="mb-8">
+                <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Tags</h2>
+                <div class="flex flex-wrap gap-2">
+                    {% for tag in article.tags.all %}
+                    <a href="{% url 'articles:tag' tag.slug %}"
+                       class="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-3 py-1 rounded-full text-sm hover:bg-gray-200 dark:hover:bg-gray-600">
+                        #{{ tag.name }}
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            
+            <!-- Author Bio -->
+            {% if article.author %}
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 mb-8">
+                <div class="flex items-center space-x-4">
+                    {% if article.author.avatar %}
+                    <img src="{{ article.author.avatar.url }}" 
+                         alt="{{ article.author.get_full_name }}"
+                         class="w-16 h-16 rounded-full">
+                    {% endif %}
+                    <div>
+                        <h2 class="text-xl font-bold text-gray-900 dark:text-white">
+                            {{ article.author.get_full_name }}
+                        </h2>
+                        {% if article.author.title %}
+                        <p class="text-gray-600 dark:text-gray-400">
+                            {{ article.author.title }}
+                        </p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% if article.author.bio %}
+                <p class="mt-4 text-gray-600 dark:text-gray-300">
+                    {{ article.author.bio }}
+                </p>
+                {% endif %}
+            </div>
+            {% endif %}
+            
+            <!-- Related Articles -->
+            {% if related_articles %}
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                    Related Articles
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {% for related_article in related_articles|slice:":2" %}
+                        {% include "content/articles/components/card.html" with article=related_article %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            
+            <!-- Comments Section -->
+            {% if article.allow_comments %}
+            <section class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                    Comments
+                </h2>
+                <div id="comments-container"
+                     hx-get="{% url 'articles:comments' article.slug %}"
+                     hx-trigger="load"
+                     hx-swap="innerHTML">
+                    <div class="animate-pulse">
+                        <div class="h-20 bg-gray-200 dark:bg-gray-700 rounded mb-4"></div>
+                        <div class="h-20 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                    </div>
+                </div>
+            </section>
+            {% endif %}
+        </main>
+        
+        <!-- Sidebar -->
+        <aside class="col-span-12 lg:col-span-4 space-y-8">
+            <!-- Advertisement Zone -->
+            {% include "ads/zones/sidebar.html" %}
+            
+            <!-- Newsletter Signup -->
+            {% include "base/components/newsletter-signup.html" %}
+            
+            <!-- Popular Articles -->
+            {% if popular_articles %}
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">
+                    Popular Articles
+                </h2>
+                <div class="space-y-4">
+                    {% for popular_article in popular_articles %}
+                    <a href="{{ popular_article.get_absolute_url }}" 
+                       class="block group">
+                        <h3 class="text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 font-medium mb-1">
+                            {{ popular_article.title }}
+                        </h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                            {{ popular_article.published_date|date:"F j, Y" }}
+                        </p>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            
+            <!-- Category Navigation -->
+            {% include "content/shared/category-nav.html" %}
+            
+            <!-- Tag Cloud -->
+            {% include "content/shared/tag-cloud.html" %}
+        </aside>
+    </div>
+</article>
+{% endblock %}

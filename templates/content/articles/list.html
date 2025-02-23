@@ -1,0 +1,116 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}Articles - Tawil Media{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <!-- Breadcrumbs -->
+    {% include "base/components/breadcrumbs.html" with items=breadcrumbs %}
+    
+    <div class="grid grid-cols-12 gap-8">
+        <!-- Main Content -->
+        <main class="col-span-12 lg:col-span-8">
+            <!-- Header -->
+            <div class="mb-8">
+                <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                    {% if category %}
+                        {{ category.name }}
+                    {% elif tag %}
+                        Articles tagged with "{{ tag.name }}"
+                    {% else %}
+                        Latest Articles
+                    {% endif %}
+                </h1>
+                
+                {% if category and category.description %}
+                <p class="text-gray-600 dark:text-gray-300">
+                    {{ category.description }}
+                </p>
+                {% endif %}
+            </div>
+            
+            <!-- View Toggle & Sort -->
+            <div class="flex items-center justify-between mb-6"
+                 x-data="{ view: localStorage.getItem('article_view') || 'grid' }">
+                <!-- View Toggle -->
+                <div class="flex items-center space-x-2">
+                    <button @click="view = 'grid'; localStorage.setItem('article_view', 'grid')"
+                            :class="{'text-primary-600 dark:text-primary-400': view === 'grid',
+                                    'text-gray-400 dark:text-gray-600': view !== 'grid'}"
+                            class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                  d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+                        </svg>
+                    </button>
+                    <button @click="view = 'list'; localStorage.setItem('article_view', 'list')"
+                            :class="{'text-primary-600 dark:text-primary-400': view === 'list',
+                                    'text-gray-400 dark:text-gray-600': view !== 'list'}"
+                            class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                  d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Sort Dropdown -->
+                <div class="relative" x-data="{ open: false }">
+                    <button @click="open = !open"
+                            class="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
+                        <span>Sort by</span>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    
+                    <div x-show="open"
+                         @click.away="open = false"
+                         class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg py-2 z-10">
+                        <a href="?sort=latest" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                            Latest First
+                        </a>
+                        <a href="?sort=oldest" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                            Oldest First
+                        </a>
+                        <a href="?sort=popular" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                            Most Popular
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Articles Grid/List -->
+            <div x-data 
+                 :class="{'grid grid-cols-1 md:grid-cols-2 gap-6': view === 'grid',
+                         'space-y-6': view === 'list'}">
+                {% for article in articles %}
+                    {% include "content/articles/components/card.html" with article=article %}
+                {% empty %}
+                    <div class="text-center py-12">
+                        <p class="text-gray-600 dark:text-gray-400">No articles found.</p>
+                    </div>
+                {% endfor %}
+            </div>
+            
+            <!-- Pagination -->
+            {% if articles.has_other_pages %}
+                {% include "base/components/pagination.html" with page_obj=articles %}
+            {% endif %}
+        </main>
+        
+        <!-- Sidebar -->
+        <aside class="col-span-12 lg:col-span-4 space-y-8">
+            <!-- Category Navigation -->
+            {% include "content/shared/category-nav.html" %}
+            
+            <!-- Popular Tags -->
+            {% include "content/shared/tag-cloud.html" %}
+            
+            <!-- Advertisement Zone -->
+            {% include "ads/zones/sidebar.html" %}
+        </aside>
+    </div>
+</div>
+{% endblock %}

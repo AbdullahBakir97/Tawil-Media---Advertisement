@@ -1,0 +1,145 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}Careers - Tawil Media{% endblock %}
+
+{% block meta_description %}Join our team at Tawil Media and help shape the future of media and advertising in the Middle East and beyond.{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <!-- Breadcrumbs -->
+    {% include "base/components/breadcrumbs.html" with items=breadcrumbs %}
+
+    <!-- Hero Section -->
+    <div class="bg-gradient-to-r from-primary-700 to-primary-900 rounded-lg shadow-lg p-12 mb-12 text-white text-center">
+        <h1 class="text-5xl font-bold mb-4">Join Our Team</h1>
+        <p class="text-xl opacity-90 max-w-2xl mx-auto">
+            Help shape the future of media and advertising in the Middle East and beyond
+        </p>
+    </div>
+
+    <!-- Why Join Us Section -->
+    <section class="mb-16">
+        <h2 class="text-3xl font-bold mb-8 text-center">Why Join Tawil Media?</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="text-center">
+                <div class="w-16 h-16 mx-auto bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mb-4">
+                    <svg class="w-8 h-8 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Innovation</h3>
+                <p class="text-gray-600 dark:text-gray-300">
+                    Be part of a team that's pushing the boundaries of media and technology.
+                </p>
+            </div>
+            <div class="text-center">
+                <div class="w-16 h-16 mx-auto bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mb-4">
+                    <svg class="w-8 h-8 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Growth</h3>
+                <p class="text-gray-600 dark:text-gray-300">
+                    Continuous learning and development opportunities.
+                </p>
+            </div>
+            <div class="text-center">
+                <div class="w-16 h-16 mx-auto bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mb-4">
+                    <svg class="w-8 h-8 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Impact</h3>
+                <p class="text-gray-600 dark:text-gray-300">
+                    Make a real difference in the media landscape.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="mb-16 bg-gray-50 dark:bg-gray-800 rounded-lg p-8">
+        <h2 class="text-3xl font-bold mb-8 text-center">Benefits & Perks</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow">
+                <h3 class="font-bold mb-2">Health & Wellness</h3>
+                <ul class="space-y-2 text-gray-600 dark:text-gray-300">
+                    <li>Comprehensive health insurance</li>
+                    <li>Dental and vision coverage</li>
+                    <li>Wellness programs</li>
+                </ul>
+            </div>
+            <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow">
+                <h3 class="font-bold mb-2">Work-Life Balance</h3>
+                <ul class="space-y-2 text-gray-600 dark:text-gray-300">
+                    <li>Flexible working hours</li>
+                    <li>Remote work options</li>
+                    <li>Paid time off</li>
+                </ul>
+            </div>
+            <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow">
+                <h3 class="font-bold mb-2">Professional Development</h3>
+                <ul class="space-y-2 text-gray-600 dark:text-gray-300">
+                    <li>Learning allowance</li>
+                    <li>Conference attendance</li>
+                    <li>Career mentorship</li>
+                </ul>
+            </div>
+            <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow">
+                <h3 class="font-bold mb-2">Additional Benefits</h3>
+                <ul class="space-y-2 text-gray-600 dark:text-gray-300">
+                    <li>Performance bonuses</li>
+                    <li>Stock options</li>
+                    <li>Team events</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Open Positions -->
+    <section class="mb-16">
+        <h2 class="text-3xl font-bold mb-8 text-center">Open Positions</h2>
+        <div class="space-y-6">
+            {% for position in positions|default:[] %}
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                    <div>
+                        <h3 class="text-xl font-bold mb-2">{{ position.title }}</h3>
+                        <div class="flex items-center space-x-4 text-gray-600 dark:text-gray-300">
+                            <span>{{ position.location }}</span>
+                            <span>•</span>
+                            <span>{{ position.type }}</span>
+                        </div>
+                    </div>
+                    <a href="{{ position.apply_url }}" class="btn btn-primary mt-4 md:mt-0">
+                        Apply Now
+                    </a>
+                </div>
+            </div>
+            {% empty %}
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                <div class="text-center">
+                    <h3 class="text-xl font-bold mb-2">No Open Positions</h3>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        We don't have any open positions right now, but we're always looking for talented individuals.
+                        Send your resume to <a href="mailto:careers@tawilmedia.com" class="text-primary-600 hover:text-primary-700">careers@tawilmedia.com</a>
+                    </p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="text-center">
+        <h2 class="text-3xl font-bold mb-4">Don't See a Perfect Fit?</h2>
+        <p class="text-gray-600 dark:text-gray-300 mb-6">
+            We're always looking for talented individuals to join our team. Send us your resume and let us know how you can contribute.
+        </p>
+        <a href="mailto:careers@tawilmedia.com" class="btn btn-primary">
+            Contact HR Team
+        </a>
+    </section>
+</div>
+{% endblock %}

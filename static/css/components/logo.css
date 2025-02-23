@@ -1,0 +1,63 @@
+/* Logo Variables */
+:root {
+    --logo-height: 2rem;
+    --logo-padding: var(--spacing-2);
+    --logo-color: currentColor;
+    --logo-z-index: 1000; /* Increased z-index */
+}
+
+/* Logo Container */
+.header-logo {
+    flex-shrink: 0;
+    position: relative;
+    z-index: var(--logo-z-index);
+    margin-right: var(--spacing-4);
+    width: auto;
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
+}
+
+/* Logo Link */
+.logo-link {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: var(--logo-padding) 0;
+    transition: opacity 0.2s ease;
+    color: var(--text-primary);
+    text-decoration: none;
+    position: relative;
+    z-index: var(--logo-z-index);
+}
+
+.logo-link:hover {
+    opacity: 0.9;
+}
+
+/* Logo Image/SVG */
+.logo-image {
+    height: var(--logo-height);
+    width: auto;
+    display: block;
+    object-fit: contain;
+    position: relative;
+    z-index: var(--logo-z-index);
+}
+
+svg.logo-image {
+    width: auto;
+    height: var(--logo-height);
+    color: var(--logo-color);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    :root {
+        --logo-height: 1.75rem;
+    }
+    
+    .header-logo {
+        margin-right: var(--spacing-2);
+    }
+}

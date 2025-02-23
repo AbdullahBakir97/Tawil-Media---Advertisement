@@ -1,0 +1,196 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}Archives - Tawil Media{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <!-- Breadcrumbs -->
+    {% include "base/components/breadcrumbs.html" with items=breadcrumbs %}
+
+    <!-- Hero Section -->
+    <div class="bg-gradient-to-r from-primary-700 to-primary-900 rounded-lg shadow-lg p-12 mb-12 text-white text-center">
+        <h1 class="text-5xl font-bold mb-4">Archives</h1>
+        <p class="text-xl opacity-90 max-w-2xl mx-auto">
+            Explore our complete collection of articles and magazines, organized by date and category.
+        </p>
+    </div>
+
+    <!-- Archive Navigation -->
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-12">
+        <div class="flex flex-wrap gap-4" x-data="{ activeTab: 'articles' }">
+            <button @click="activeTab = 'articles'"
+                    :class="{ 'bg-primary-100 text-primary-700': activeTab === 'articles', 'hover:bg-gray-100 dark:hover:bg-gray-700': activeTab !== 'articles' }"
+                    class="px-4 py-2 rounded-md transition-colors">
+                Articles
+            </button>
+            <button @click="activeTab = 'magazines'"
+                    :class="{ 'bg-primary-100 text-primary-700': activeTab === 'magazines', 'hover:bg-gray-100 dark:hover:bg-gray-700': activeTab !== 'magazines' }"
+                    class="px-4 py-2 rounded-md transition-colors">
+                Magazines
+            </button>
+        </div>
+
+        <!-- Search and Filters -->
+        <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- Search -->
+            <div class="relative">
+                <input type="search"
+                       placeholder="Search archives..."
+                       class="form-input w-full pl-10 pr-4 py-2"
+                       hx-get="{% url 'archives:search' %}"
+                       hx-trigger="keyup changed delay:500ms"
+                       hx-target="#archive-results">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Year Filter -->
+            <div>
+                <select class="form-select w-full"
+                        hx-get="{% url 'archives:filter' %}"
+                        hx-trigger="change"
+                        hx-target="#archive-results"
+                        name="year">
+                    <option value="">All Years</option>
+                    {% for year in years %}
+                    <option value="{{ year }}">{{ year }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Category Filter -->
+            <div>
+                <select class="form-select w-full"
+                        hx-get="{% url 'archives:filter' %}"
+                        hx-trigger="change"
+                        hx-target="#archive-results"
+                        name="category">
+                    <option value="">All Categories</option>
+                    {% for category in categories %}
+                    <option value="{{ category.slug }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- Archive Results -->
+    <div id="archive-results">
+        <!-- Articles Tab -->
+        <div x-show="activeTab === 'articles'" class="space-y-12">
+            {% regroup articles by published_at|date:"Y" as articles_by_year %}
+            {% for year in articles_by_year %}
+            <section>
+                <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">{{ year.grouper }}</h2>
+                <div class="space-y-6">
+                    {% regroup year.list by published_at|date:"F" as articles_by_month %}
+                    {% for month in articles_by_month %}
+                    <div>
+                        <h3 class="text-lg font-medium text-gray-700 dark:text-gray-300 mb-4">{{ month.grouper }}</h3>
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow">
+                            {% for article in month.list %}
+                            <article class="p-6 {% if not forloop.last %}border-b border-gray-200 dark:border-gray-700{% endif %}">
+                                <div class="flex items-start gap-4">
+                                    {% if article.featured_image %}
+                                    <img src="{{ article.featured_image.url }}" 
+                                         alt="{{ article.title }}"
+                                         class="w-24 h-24 object-cover rounded">
+                                    {% endif %}
+                                    <div class="flex-1">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <time class="text-sm text-gray-500 dark:text-gray-400">
+                                                {{ article.published_at|date:"M j, Y" }}
+                                            </time>
+                                            <span class="text-sm text-gray-500 dark:text-gray-400">
+                                                {{ article.reading_time }} min read
+                                            </span>
+                                        </div>
+                                        <h4 class="text-xl font-medium text-gray-900 dark:text-white mb-2">
+                                            <a href="{% url 'articles:detail' article.slug %}" 
+                                               class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                                                {{ article.title }}
+                                            </a>
+                                        </h4>
+                                        <p class="text-gray-600 dark:text-gray-300 line-clamp-2">
+                                            {{ article.excerpt }}
+                                        </p>
+                                        <div class="mt-4 flex items-center gap-4">
+                                            <div class="flex items-center gap-2">
+                                                {% if article.author.profile_image %}
+                                                <img src="{{ article.author.profile_image.url }}" 
+                                                     alt="{{ article.author.get_full_name }}"
+                                                     class="w-6 h-6 rounded-full">
+                                                {% endif %}
+                                                <span class="text-sm text-gray-600 dark:text-gray-300">
+                                                    {{ article.author.get_full_name }}
+                                                </span>
+                                            </div>
+                                            {% for category in article.categories.all %}
+                                            <a href="{% url 'categories:detail' category.slug %}" 
+                                               class="text-sm text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300">
+                                                {{ category.name }}
+                                            </a>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+            {% endfor %}
+        </div>
+
+        <!-- Magazines Tab -->
+        <div x-show="activeTab === 'magazines'" class="space-y-12">
+            {% regroup magazines by publication_date|date:"Y" as magazines_by_year %}
+            {% for year in magazines_by_year %}
+            <section>
+                <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">{{ year.grouper }}</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {% for magazine in year.list %}
+                    <article class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+                        <a href="{% url 'magazines:detail' magazine.slug %}" class="block">
+                            {% if magazine.cover_image %}
+                            <div class="relative h-64">
+                                <img src="{{ magazine.cover_image.url }}" 
+                                     alt="{{ magazine.title }} Cover"
+                                     class="absolute inset-0 w-full h-full object-cover">
+                            </div>
+                            {% endif %}
+                            <div class="p-6">
+                                <div class="flex items-center gap-2 mb-3">
+                                    <span class="px-3 py-1 bg-primary-100 text-primary-700 dark:bg-primary-900 dark:text-primary-100 rounded-full text-sm">
+                                        Issue {{ magazine.issue_number }}
+                                    </span>
+                                    <time class="text-sm text-gray-500 dark:text-gray-400">
+                                        {{ magazine.publication_date|date:"F Y" }}
+                                    </time>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                                    {{ magazine.title }}
+                                </h3>
+                                <p class="text-gray-600 dark:text-gray-300 line-clamp-2">
+                                    {{ magazine.description }}
+                                </p>
+                            </div>
+                        </a>
+                    </article>
+                    {% endfor %}
+                </div>
+            </section>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Newsletter Section -->
+{% include "base/footer/newsletter.html" %}
+{% endblock %}

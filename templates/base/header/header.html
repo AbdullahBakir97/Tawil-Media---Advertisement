@@ -1,0 +1,23 @@
+{% load static %}
+
+<header class="header">
+    <div class="header-container">
+        <!-- Logo -->
+        {% include "base/header/logo.html" %}
+
+        <!-- Main Navigation -->
+        <nav class="header-nav">
+            {% include "base/header/navigation.html" %}
+        </nav>
+
+        <!-- Search -->
+        <div class="header-search">
+            {% include "base/header/search.html" %}
+        </div>
+
+        <!-- User Menu -->
+        <div class="header-user">
+            {% include "base/header/user-menu.html" %}
+        </div>
+    </div>
+</header>

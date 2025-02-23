@@ -1,0 +1,190 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}{{ magazine.title }} - Tawil Media{% endblock %}
+
+{% block meta_description %}{{ magazine.description|truncatewords:50 }}{% endblock %}
+{% block meta_keywords %}{{ magazine.tags.names|join:", " }}{% endblock %}
+
+{% block content %}
+<article class="container mx-auto px-4 py-8">
+    <!-- Breadcrumbs -->
+    {% include "base/components/breadcrumbs.html" with items=breadcrumbs %}
+
+    <!-- Magazine Header -->
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden mb-12">
+        <div class="grid grid-cols-1 lg:grid-cols-2">
+            <!-- Cover Image -->
+            {% if magazine.cover_image %}
+            <div class="relative h-96 lg:h-[600px]">
+                <img src="{{ magazine.cover_image.url }}" 
+                     alt="{{ magazine.title }} Cover"
+                     class="absolute inset-0 w-full h-full object-cover">
+            </div>
+            {% endif %}
+
+            <!-- Magazine Info -->
+            <div class="p-8 lg:p-12 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="px-4 py-1 bg-primary-100 text-primary-700 dark:bg-primary-900 dark:text-primary-100 rounded-full text-sm">
+                            Issue {{ magazine.issue_number }}
+                        </span>
+                        <time class="text-gray-500 dark:text-gray-400">
+                            {{ magazine.publication_date|date:"F Y" }}
+                        </time>
+                    </div>
+
+                    <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                        {{ magazine.title }}
+                    </h1>
+
+                    <p class="text-lg text-gray-600 dark:text-gray-300 mb-8">
+                        {{ magazine.description }}
+                    </p>
+
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                            </svg>
+                            <span class="text-gray-600 dark:text-gray-300">{{ magazine.page_count }} Pages</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                            </svg>
+                            <span class="text-gray-600 dark:text-gray-300">{{ magazine.file_size|filesizeformat }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-wrap gap-4 mt-8">
+                    {% if user.is_authenticated %}
+                        {% if user.has_subscription %}
+                            <a href="{{ magazine.pdf_file.url }}" 
+                               class="btn btn-primary flex-1 text-center"
+                               download>
+                                Download PDF
+                            </a>
+                            <button class="btn btn-secondary flex-1"
+                                    hx-get="{% url 'magazines:read' magazine.id %}"
+                                    hx-target="#reader-modal"
+                                    hx-trigger="click">
+                                Read Online
+                            </button>
+                        {% else %}
+                            <a href="{% url 'subscription:plans' %}" 
+                               class="btn btn-primary flex-1 text-center">
+                                Subscribe to Read
+                            </a>
+                        {% endif %}
+                    {% else %}
+                        <a href="{% url 'login' %}?next={{ request.path }}" 
+                           class="btn btn-primary flex-1 text-center">
+                            Login to Read
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table of Contents -->
+    <section class="mb-12">
+        <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">In This Issue</h2>
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+            <div class="space-y-4">
+                {% for article in magazine.articles.all %}
+                <article class="border-b border-gray-200 dark:border-gray-700 last:border-0 pb-4 last:pb-0">
+                    <a href="{% url 'articles:detail' article.slug %}" 
+                       class="group block">
+                        <div class="flex items-start gap-4">
+                            {% if article.featured_image %}
+                            <img src="{{ article.featured_image.url }}" 
+                                 alt="{{ article.title }}"
+                                 class="w-20 h-20 object-cover rounded">
+                            {% endif %}
+                            <div>
+                                <h3 class="text-lg font-medium text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                                    {{ article.title }}
+                                </h3>
+                                <p class="text-gray-500 dark:text-gray-400 line-clamp-2">
+                                    {{ article.excerpt }}
+                                </p>
+                                <div class="flex items-center gap-4 mt-2">
+                                    <span class="text-sm text-gray-500 dark:text-gray-400">
+                                        By {{ article.author.get_full_name }}
+                                    </span>
+                                    <span class="text-sm text-gray-500 dark:text-gray-400">
+                                        {{ article.reading_time }} min read
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Magazines -->
+    <section>
+        <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">More Issues</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for related in related_magazines %}
+            <article class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transform transition-transform duration-200 hover:scale-105">
+                <a href="{% url 'magazines:detail' related.slug %}" class="block">
+                    {% if related.cover_image %}
+                    <div class="relative h-64">
+                        <img src="{{ related.cover_image.url }}" 
+                             alt="{{ related.title }} Cover"
+                             class="absolute inset-0 w-full h-full object-cover">
+                    </div>
+                    {% endif %}
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="px-3 py-1 bg-primary-100 text-primary-700 dark:bg-primary-900 dark:text-primary-100 rounded-full text-sm">
+                                Issue {{ related.issue_number }}
+                            </span>
+                            <time class="text-sm text-gray-500 dark:text-gray-400">
+                                {{ related.publication_date|date:"F Y" }}
+                            </time>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                            {{ related.title }}
+                        </h3>
+                        <p class="text-gray-600 dark:text-gray-300 line-clamp-2">
+                            {{ related.description }}
+                        </p>
+                    </div>
+                </a>
+            </article>
+            {% endfor %}
+        </div>
+    </section>
+</article>
+
+<!-- Reader Modal -->
+<div id="reader-modal" class="modal">
+    <!-- Content loaded via HTMX -->
+</div>
+
+<!-- Newsletter Section -->
+{% include "base/footer/newsletter.html" %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.store('magazine', {
+            isReaderOpen: false,
+            toggleReader() {
+                this.isReaderOpen = !this.isReaderOpen;
+            }
+        });
+    });
+</script>
+{% endblock %}

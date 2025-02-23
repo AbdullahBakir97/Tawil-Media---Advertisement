@@ -1,0 +1,129 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}{{ category.name }} - Tawil Media{% endblock %}
+
+{% block meta_description %}Browse articles in {{ category.name }} category - {{ category.description|truncatewords:20 }}{% endblock %}
+{% block meta_keywords %}{{ category.name }}, {{ category.tags.names|join:", " }}{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <!-- Breadcrumbs -->
+    {% include "base/components/breadcrumbs.html" with items=breadcrumbs %}
+
+    <!-- Category Header -->
+    <div class="bg-gradient-to-r from-primary-600 to-primary-800 rounded-lg shadow-lg p-8 mb-12 text-white">
+        <h1 class="text-4xl font-bold mb-4">{{ category.name }}</h1>
+        {% if category.description %}
+        <p class="text-lg opacity-90 max-w-3xl">{{ category.description }}</p>
+        {% endif %}
+        <div class="mt-4 text-sm opacity-80">
+            {{ article_count }} articles in this category
+        </div>
+    </div>
+
+    <!-- Filters and Sort -->
+    <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+        <!-- Sort Options -->
+        <div class="flex items-center gap-2">
+            <label for="sort" class="text-sm font-medium text-gray-700 dark:text-gray-300">Sort by:</label>
+            <select id="sort" 
+                    class="form-select bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:border-primary-500 focus:ring-primary-500"
+                    hx-get="{% url 'categories:detail' category.slug %}"
+                    hx-target="#articles-grid"
+                    hx-trigger="change"
+                    hx-include="[name='time_filter']">
+                <option value="recent">Most Recent</option>
+                <option value="popular">Most Popular</option>
+                <option value="trending">Trending</option>
+            </select>
+        </div>
+
+        <!-- Time Filter -->
+        <div class="flex items-center gap-2">
+            <label for="time_filter" class="text-sm font-medium text-gray-700 dark:text-gray-300">Time:</label>
+            <select id="time_filter" 
+                    name="time_filter"
+                    class="form-select bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:border-primary-500 focus:ring-primary-500"
+                    hx-get="{% url 'categories:detail' category.slug %}"
+                    hx-target="#articles-grid"
+                    hx-trigger="change"
+                    hx-include="[id='sort']">
+                <option value="all">All Time</option>
+                <option value="week">This Week</option>
+                <option value="month">This Month</option>
+                <option value="year">This Year</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Articles Grid -->
+    <div id="articles-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% for article in articles %}
+        <article class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+            <a href="{% url 'articles:detail' article.slug %}" class="block">
+                {% if article.featured_image %}
+                <div class="relative h-48">
+                    <img src="{{ article.featured_image.url }}" 
+                         alt="{{ article.title }}"
+                         class="absolute inset-0 w-full h-full object-cover">
+                </div>
+                {% endif %}
+                <div class="p-6">
+                    <div class="flex items-center gap-2 mb-3">
+                        <time class="text-sm text-gray-500 dark:text-gray-400">
+                            {{ article.published_at|date:"M j, Y" }}
+                        </time>
+                        <span class="text-sm text-gray-500 dark:text-gray-400">
+                            {{ article.reading_time }} min read
+                        </span>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                        {{ article.title }}
+                    </h2>
+                    <p class="text-gray-600 dark:text-gray-300 line-clamp-3">
+                        {{ article.excerpt }}
+                    </p>
+                    <div class="mt-4 flex items-center gap-3">
+                        {% if article.author.profile_image %}
+                        <img src="{{ article.author.profile_image.url }}" 
+                             alt="{{ article.author.get_full_name }}"
+                             class="w-8 h-8 rounded-full">
+                        {% endif %}
+                        <span class="text-sm text-gray-600 dark:text-gray-300">
+                            By {{ article.author.get_full_name }}
+                        </span>
+                    </div>
+                </div>
+            </a>
+        </article>
+        {% empty %}
+        <div class="col-span-full text-center py-12">
+            <h3 class="text-xl font-medium text-gray-900 dark:text-white mb-2">No articles found</h3>
+            <p class="text-gray-600 dark:text-gray-300">
+                There are no articles in this category yet. Check back later!
+            </p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if articles.has_other_pages %}
+    {% include "base/components/pagination.html" with page_obj=articles %}
+    {% endif %}
+</div>
+
+<!-- Newsletter Section -->
+{% include "base/footer/newsletter.html" %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('htmx:afterSwap', function(evt) {
+        if (evt.detail.target.id === 'articles-grid') {
+            // Scroll to top of grid after content update
+            evt.detail.target.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+</script>
+{% endblock %}

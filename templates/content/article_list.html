@@ -1,0 +1,97 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}Articles - Tawil Media{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <!-- Hero Section -->
+    <div class="bg-gradient-to-r from-primary-600 to-primary-800 rounded-lg shadow-lg p-8 mb-8 text-white">
+        <h1 class="text-4xl font-bold mb-4">Latest Articles</h1>
+        <p class="text-lg opacity-90">Discover our latest news, insights, and stories</p>
+    </div>
+
+    <!-- Categories Filter -->
+    <div class="mb-8 flex flex-wrap gap-2" x-data="{ activeCategory: 'all' }">
+        <button 
+            @click="activeCategory = 'all'"
+            :class="{ 'bg-primary-600 text-white': activeCategory === 'all', 'bg-gray-100 text-gray-700 hover:bg-gray-200': activeCategory !== 'all' }"
+            class="px-4 py-2 rounded-full transition-colors duration-200">
+            All
+        </button>
+        {% for category in categories %}
+        <button 
+            @click="activeCategory = '{{ category.slug }}'"
+            :class="{ 'bg-primary-600 text-white': activeCategory === '{{ category.slug }}', 'bg-gray-100 text-gray-700 hover:bg-gray-200': activeCategory !== '{{ category.slug }}' }"
+            class="px-4 py-2 rounded-full transition-colors duration-200">
+            {{ category.name }}
+        </button>
+        {% endfor %}
+    </div>
+
+    <!-- Articles Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% for article in articles %}
+        <article class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-transform duration-200 hover:transform hover:scale-105">
+            {% if article.media.first %}
+            <img src="{{ article.media.first.file.url }}" 
+                 alt="{{ article.media.first.alt_text }}"
+                 class="w-full h-48 object-cover">
+            {% endif %}
+            <div class="p-6">
+                <div class="flex items-center gap-2 mb-4">
+                    {% for category in article.categories.all %}
+                    <span class="px-3 py-1 bg-primary-100 text-primary-700 rounded-full text-sm">
+                        {{ category.name }}
+                    </span>
+                    {% endfor %}
+                </div>
+                <h2 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">
+                    <a href="{% url 'article_detail' article.slug %}" class="hover:text-primary-600">
+                        {{ article.title }}
+                    </a>
+                </h2>
+                <p class="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
+                    {{ article.content|truncatewords:30 }}
+                </p>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        {% if article.author.profile_picture %}
+                        <img src="{{ article.author.profile_picture.url }}" 
+                             alt="{{ article.author.get_full_name }}"
+                             class="w-8 h-8 rounded-full">
+                        {% endif %}
+                        <span class="text-sm text-gray-600 dark:text-gray-400">
+                            {{ article.author.get_full_name }}
+                        </span>
+                    </div>
+                    <span class="text-sm text-gray-500 dark:text-gray-400">
+                        {{ article.published_at|date:"M d, Y" }}
+                    </span>
+                </div>
+            </div>
+        </article>
+        {% empty %}
+        <div class="col-span-full text-center py-12">
+            <p class="text-gray-600 dark:text-gray-400">No articles found.</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% include "base/components/pagination.html" %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('articleList', () => ({
+            activeCategory: 'all',
+            filterArticles() {
+                // Implementation for client-side filtering if needed
+            }
+        }))
+    })
+</script>
+{% endblock %}

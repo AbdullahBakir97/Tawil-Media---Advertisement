@@ -1,0 +1,28 @@
+{
+  "name": "tawil-media",
+  "version": "1.0.0",
+  "description": "Professional Media and Advertisement Platform",
+  "scripts": {
+    "build": "node scripts/build/build.js",
+    "build:css": "node scripts/build/css.js",
+    "build:js": "node scripts/build/js.js",
+    "watch": "node scripts/build/build.js --watch",
+    "optimize": "node scripts/optimize/assets.js"
+  },
+  "dependencies": {
+    "alpinejs": "^3.13.3",
+    "chart.js": "^4.4.8",
+    "htmx.org": "^1.9.6"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.16",
+    "chokidar": "^3.5.3",
+    "cssnano": "^6.0.2",
+    "esbuild": "^0.25.0",
+    "glob": "^10.3.10",
+    "postcss": "^8.4.32",
+    "postcss-import": "^15.1.0",
+    "postcss-nested": "^6.0.1",
+    "tailwindcss": "^3.4.0"
+  }
+}

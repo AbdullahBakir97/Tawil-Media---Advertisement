@@ -1,0 +1,224 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}{{ magazine.title }} - Tawil Media{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'vendor/pdf-viewer/pdf-viewer.css' %}">
+<script src="{% static 'vendor/pdf-viewer/pdf.js' %}"></script>
+<script src="{% static 'vendor/pdf-viewer/pdf-viewer.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-100 dark:bg-gray-900"
+     x-data="{ 
+         sidebarOpen: true,
+         currentPage: 1,
+         totalPages: {{ magazine.total_pages }},
+         zoom: 100,
+         isFullscreen: false,
+         
+         toggleSidebar() {
+             this.sidebarOpen = !this.sidebarOpen;
+         },
+         
+         nextPage() {
+             if (this.currentPage < this.totalPages) {
+                 this.currentPage++;
+                 this.loadPage(this.currentPage);
+             }
+         },
+         
+         previousPage() {
+             if (this.currentPage > 1) {
+                 this.currentPage--;
+                 this.loadPage(this.currentPage);
+             }
+         },
+         
+         zoomIn() {
+             if (this.zoom < 200) {
+                 this.zoom += 25;
+                 this.updateZoom();
+             }
+         },
+         
+         zoomOut() {
+             if (this.zoom > 50) {
+                 this.zoom -= 25;
+                 this.updateZoom();
+             }
+         },
+         
+         updateZoom() {
+             const viewer = document.querySelector('#pdf-viewer');
+             viewer.style.transform = `scale(${this.zoom / 100})`;
+         },
+         
+         toggleFullscreen() {
+             if (!document.fullscreenElement) {
+                 document.documentElement.requestFullscreen();
+                 this.isFullscreen = true;
+             } else {
+                 document.exitFullscreen();
+                 this.isFullscreen = false;
+             }
+         },
+         
+         async loadPage(pageNumber) {
+             try {
+                 const response = await fetch(`/api/magazines/{{ magazine.id }}/pages/${pageNumber}/`);
+                 const data = await response.json();
+                 const viewer = document.querySelector('#pdf-viewer');
+                 viewer.src = data.page_url;
+             } catch (error) {
+                 console.error('Error loading page:', error);
+             }
+         }
+     }">
+    
+    <!-- Top Navigation Bar -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-gray-800 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Left Section -->
+                <div class="flex items-center">
+                    <button @click="toggleSidebar"
+                            class="p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                    
+                    <h1 class="ml-4 text-lg font-medium text-gray-900 dark:text-white truncate max-w-md">
+                        {{ magazine.title }}
+                    </h1>
+                </div>
+                
+                <!-- Center Section - Page Navigation -->
+                <div class="flex items-center space-x-4">
+                    <button @click="previousPage"
+                            :disabled="currentPage === 1"
+                            :class="{'opacity-50 cursor-not-allowed': currentPage === 1}"
+                            class="p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                    </button>
+                    
+                    <div class="flex items-center space-x-2">
+                        <input type="number"
+                               x-model="currentPage"
+                               @change="loadPage($event.target.value)"
+                               class="w-16 px-2 py-1 text-center border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                        <span class="text-gray-600 dark:text-gray-300">/ <span x-text="totalPages"></span></span>
+                    </div>
+                    
+                    <button @click="nextPage"
+                            :disabled="currentPage === totalPages"
+                            :class="{'opacity-50 cursor-not-allowed': currentPage === totalPages}"
+                            class="p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Right Section - Tools -->
+                <div class="flex items-center space-x-2">
+                    <button @click="zoomOut"
+                            class="p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
+                        </svg>
+                    </button>
+                    
+                    <span class="text-gray-600 dark:text-gray-300" x-text="`${zoom}%`"></span>
+                    
+                    <button @click="zoomIn"
+                            class="p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                        </svg>
+                    </button>
+                    
+                    <div class="h-6 w-px bg-gray-300 dark:bg-gray-600"></div>
+                    
+                    <button @click="toggleFullscreen"
+                            class="p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <svg x-show="!isFullscreen" class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-5V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5"></path>
+                        </svg>
+                        <svg x-show="isFullscreen" class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h16v16H4V4zm4 4v8m8-8v8M4 12h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Sidebar -->
+    <aside x-show="sidebarOpen"
+           x-transition:enter="transition ease-out duration-300"
+           x-transition:enter-start="-translate-x-full"
+           x-transition:enter-end="translate-x-0"
+           x-transition:leave="transition ease-in duration-300"
+           x-transition:leave-start="translate-x-0"
+           x-transition:leave-end="-translate-x-full"
+           class="fixed top-16 left-0 bottom-0 w-64 bg-white dark:bg-gray-800 shadow-lg transform z-40">
+        
+        <!-- Table of Contents -->
+        <div class="p-4">
+            <h2 class="text-lg font-medium text-gray-900 dark:text-white mb-4">
+                Table of Contents
+            </h2>
+            
+            <nav class="space-y-1">
+                {% for section in magazine.table_of_contents %}
+                <a href="#"
+                   @click.prevent="currentPage = {{ section.page }}; loadPage({{ section.page }})"
+                   class="block px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 {% if section.is_current %}bg-primary-50 dark:bg-primary-900 text-primary-700 dark:text-primary-300{% endif %}">
+                    {{ section.title }}
+                    <span class="text-sm text-gray-500 dark:text-gray-400 ml-2">p.{{ section.page }}</span>
+                </a>
+                {% endfor %}
+            </nav>
+        </div>
+        
+        <!-- Thumbnails -->
+        <div class="border-t border-gray-200 dark:border-gray-700 p-4">
+            <h2 class="text-lg font-medium text-gray-900 dark:text-white mb-4">
+                Page Thumbnails
+            </h2>
+            
+            <div class="grid grid-cols-2 gap-4">
+                {% for thumbnail in magazine.thumbnails %}
+                <button @click="currentPage = {{ forloop.counter }}; loadPage({{ forloop.counter }})"
+                        class="relative aspect-[3/4] rounded-lg overflow-hidden hover:ring-2 hover:ring-primary-500 focus:outline-none {% if forloop.counter == 1 %}ring-2 ring-primary-500{% endif %}">
+                    <img src="{{ thumbnail.url }}"
+                         alt="Page {{ forloop.counter }}"
+                         class="absolute inset-0 w-full h-full object-cover">
+                    <div class="absolute bottom-0 right-0 bg-black bg-opacity-50 text-white text-xs px-2 py-1">
+                        {{ forloop.counter }}
+                    </div>
+                </button>
+                {% endfor %}
+            </div>
+        </div>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="pt-16"
+          :class="{'ml-64': sidebarOpen}">
+        <div class="h-screen overflow-auto bg-gray-100 dark:bg-gray-900 flex items-center justify-center">
+            <div id="pdf-viewer-container" class="relative">
+                <img id="pdf-viewer"
+                     src="{{ magazine.pages.first.url }}"
+                     alt="Magazine page"
+                     class="max-h-screen transform origin-center transition-transform duration-200">
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock %}

@@ -1,0 +1,338 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Browse Magazines - Tawil Media{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/magazine-browse.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="magazine-browse">
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>Digital Magazine Collection</h1>
+            <div class="search-container">
+                <input type="search" 
+                       placeholder="Search magazines..." 
+                       hx-get="{% url 'magazines:search' %}"
+                       hx-trigger="input changed delay:500ms, search"
+                       hx-target="#magazine-grid"
+                       class="search-input">
+                <div class="search-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M21 21L16.5 16.5M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" 
+                              stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <button @click="$dispatch('open-advanced-search')" class="advanced-search-btn">Advanced Search</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="magazine-content">
+        <!-- Filters Sidebar -->
+        <aside class="filters-sidebar">
+            <div class="filters-header">
+                <h3>Filters</h3>
+                <button class="clear-filters" 
+                        hx-get="{% url 'magazines:browse' %}"
+                        hx-target="#magazine-grid">
+                    Clear All
+                </button>
+            </div>
+
+            <!-- Categories -->
+            <div class="filter-section">
+                <h4>Categories</h4>
+                <div class="filter-options">
+                    {% for category in categories %}
+                    <label class="filter-option">
+                        <input type="checkbox" 
+                               name="category" 
+                               value="{{ category.slug }}"
+                               hx-get="{% url 'magazines:filter' %}"
+                               hx-target="#magazine-grid"
+                               hx-include="[name='category']">
+                        <span>{{ category.name }}</span>
+                        <span class="count">({{ category.count }})</span>
+                    </label>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Date Range -->
+            <div class="filter-section">
+                <h4>Publication Date</h4>
+                <div class="date-range">
+                    <input type="month" 
+                           name="date_from" 
+                           hx-get="{% url 'magazines:filter' %}"
+                           hx-target="#magazine-grid"
+                           hx-include="[name='category'],[name='date_from'],[name='date_to']">
+                    <span>to</span>
+                    <input type="month" 
+                           name="date_to"
+                           hx-get="{% url 'magazines:filter' %}"
+                           hx-target="#magazine-grid"
+                           hx-include="[name='category'],[name='date_from'],[name='date_to']">
+                </div>
+            </div>
+
+            <!-- Language -->
+            <div class="filter-section">
+                <h4>Language</h4>
+                <div class="filter-options">
+                    {% for lang in languages %}
+                    <label class="filter-option">
+                        <input type="checkbox" 
+                               name="language" 
+                               value="{{ lang.code }}"
+                               hx-get="{% url 'magazines:filter' %}"
+                               hx-target="#magazine-grid"
+                               hx-include="[name='language']">
+                        <span>{{ lang.name }}</span>
+                        <span class="count">({{ lang.count }})</span>
+                    </label>
+                    {% endfor %}
+                </div>
+            </div>
+        </aside>
+
+        <!-- Magazine Grid -->
+        <main class="magazine-grid-container">
+            <div class="grid-header">
+                <div class="view-options">
+                    <button class="view-btn grid-view active" aria-label="Grid view">
+                        <svg width="24" height="24" viewBox="0 0 24 24">
+                            <path d="M3 3H10V10H3V3Z M13 3H20V10H13V3Z M3 13H10V20H3V13Z M13 13H20V20H13V13Z" 
+                                  stroke="currentColor" fill="none" stroke-width="2"/>
+                        </svg>
+                    </button>
+                    <button class="view-btn list-view" aria-label="List view">
+                        <svg width="24" height="24" viewBox="0 0 24 24">
+                            <path d="M3 4H21V8H3V4Z M3 10H21V14H3V10Z M3 16H21V20H3V16Z" 
+                                  stroke="currentColor" fill="none" stroke-width="2"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="sort-options">
+                    <select name="sort" 
+                            hx-get="{% url 'magazines:sort' %}"
+                            hx-target="#magazine-grid">
+                        <option value="newest">Newest First</option>
+                        <option value="oldest">Oldest First</option>
+                        <option value="title">Title A-Z</option>
+                        <option value="popular">Most Popular</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="magazine-grid" class="magazine-grid">
+                {% for magazine in magazines %}
+                <article class="magazine-card" 
+                         hx-get="{% url 'magazines:preview' magazine.id %}"
+                         hx-target="#preview-modal"
+                         hx-trigger="click">
+                    <div class="card-image">
+                        <img src="{{ magazine.cover_image.url }}" 
+                             alt="{{ magazine.title }}"
+                             loading="lazy">
+                        {% if magazine.is_new %}
+                        <span class="new-badge">New</span>
+                        {% endif %}
+                    </div>
+                    <div class="card-content">
+                        <h3 class="magazine-title">{{ magazine.title }}</h3>
+                        <p class="magazine-info">
+                            <span class="issue">Issue {{ magazine.issue_number }}</span>
+                            <span class="date">{{ magazine.publication_date|date:"F Y" }}</span>
+                        </p>
+                        <div class="card-footer">
+                            <span class="category">{{ magazine.category.name }}</span>
+                            <button class="read-btn">Read Now</button>
+                        </div>
+                    </div>
+                </article>
+                {% empty %}
+                <div class="no-results">
+                    <svg width="64" height="64" viewBox="0 0 24 24">
+                        <path d="M19 11H5M19 11C20.1046 11 21 11.8954 21 13V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V13C3 11.8954 3.89543 11 5 11M19 11V9C19 7.89543 18.1046 7 17 7M5 11V9C5 7.89543 5.89543 7 7 7M7 7V5C7 3.89543 7.89543 3 9 3H15C16.1046 3 17 3.89543 17 5V7M7 7H17" 
+                              stroke="currentColor" fill="none" stroke-width="2"/>
+                    </svg>
+                    <h3>No magazines found</h3>
+                    <p>Try adjusting your filters or search terms</p>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Load More Button -->
+            {% if has_more %}
+            <div class="load-more">
+                <button hx-get="{% url 'magazines:load_more' %}?page={{ next_page }}"
+                        hx-target="#magazine-grid"
+                        hx-swap="beforeend"
+                        class="load-more-btn">
+                    Load More
+                </button>
+            </div>
+            {% endif %}
+        </main>
+    </div>
+
+    <!-- Advanced Search Modal -->
+    <div id="advanced-search-modal" 
+         class="modal"
+         x-data="{ open: false }"
+         x-show="open"
+         @open-advanced-search.window="open = true"
+         @close-advanced-search.window="open = false"
+         @keydown.escape.window="open = false">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Advanced Search</h2>
+                <button @click="open = false" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="advanced-search-form"
+                      hx-get="{% url 'api:archives-search' %}"
+                      hx-target="#magazine-grid"
+                      hx-trigger="submit"
+                      hx-indicator="#search-indicator">
+                    
+                    <!-- Text Search -->
+                    <div class="form-group">
+                        <label for="search-query">Search Text</label>
+                        <input type="text" 
+                               id="search-query" 
+                               name="q" 
+                               placeholder="Enter keywords...">
+                    </div>
+                    
+                    <!-- Date Range -->
+                    <div class="form-group date-range">
+                        <label>Publication Date Range</label>
+                        <div class="flex gap-4">
+                            <input type="date" name="start_date">
+                            <span>to</span>
+                            <input type="date" name="end_date">
+                        </div>
+                    </div>
+                    
+                    <!-- Categories -->
+                    <div class="form-group">
+                        <label>Categories</label>
+                        <div class="checkbox-group">
+                            {% for category in categories %}
+                            <label class="checkbox-label">
+                                <input type="checkbox" 
+                                       name="categories" 
+                                       value="{{ category.id }}">
+                                {{ category.name }}
+                            </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <!-- Content Type -->
+                    <div class="form-group">
+                        <label for="content-type">Content Type</label>
+                        <select id="content-type" name="content_type">
+                            <option value="">All Types</option>
+                            <option value="article">Articles</option>
+                            <option value="editorial">Editorials</option>
+                            <option value="interview">Interviews</option>
+                            <option value="gallery">Photo Galleries</option>
+                            <option value="advertisement">Advertisements</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Language -->
+                    <div class="form-group">
+                        <label for="language">Language</label>
+                        <select id="language" name="language">
+                            <option value="">All Languages</option>
+                            <option value="ar">Arabic</option>
+                            <option value="en">English</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Digitization Status -->
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="is_digitized" value="true">
+                            Show only digitized content
+                        </label>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="search-btn">Search</button>
+                        <button type="reset" class="reset-btn">Reset</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Archive Statistics -->
+    <div id="archive-stats" 
+         class="stats-panel"
+         x-data="archiveStats()"
+         x-init="loadStats()">
+        <div class="stats-header">
+            <h3>Archive Statistics</h3>
+            <button @click="togglePanel" class="toggle-btn">
+                <span x-text="expanded ? 'Hide' : 'Show'"></span>
+            </button>
+        </div>
+        
+        <div x-show="expanded" class="stats-content">
+            <!-- Years Overview -->
+            <div class="stat-section">
+                <h4>Years Overview</h4>
+                <div class="stat-grid">
+                    <div class="stat-item">
+                        <span class="stat-label">Total Years</span>
+                        <span class="stat-value" x-text="stats.total_years"></span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Total Editions</span>
+                        <span class="stat-value" x-text="stats.total_editions"></span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Digitized</span>
+                        <span class="stat-value" x-text="stats.total_digitized"></span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Category Distribution -->
+            <div class="stat-section">
+                <h4>Content by Category</h4>
+                <div class="chart-container">
+                    <canvas id="category-chart"></canvas>
+                </div>
+            </div>
+            
+            <!-- Content Type Distribution -->
+            <div class="stat-section">
+                <h4>Content by Type</h4>
+                <div class="chart-container">
+                    <canvas id="content-type-chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Preview Modal -->
+    <div id="preview-modal" class="modal">
+        <!-- Modal content will be loaded here -->
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/magazine-browse.js' %}" defer></script>
+{% endblock %}
