@@ -185,7 +185,7 @@
     // Handle form submission feedback
     document.body.addEventListener('htmx:afterRequest', function(evt) {
         if (evt.detail.successful) {
-            window.location.href = '{% url "login" %}?reset=success';
+            window.location.href = '{% url "users:login" %}?reset=success';
         }
     });
 </script>

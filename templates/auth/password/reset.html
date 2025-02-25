@@ -20,7 +20,7 @@
         </div>
 
         <!-- Form -->
-        <form hx-post="{% url 'password_reset' %}"
+        <form hx-post="{% url 'users:password_reset' %}"
               hx-swap="outerHTML"
               x-data="{ email: '', submitted: false }"
               x-on:submit="submitted = true"
@@ -77,7 +77,7 @@
 
         <!-- Back to Login -->
         <div class="mt-8 text-center animate-fade-in delay-300">
-            <a href="{% url 'login' %}" 
+            <a href="{% url 'users:login' %}" 
                class="text-sm text-primary-600 hover:text-primary-500 transition-colors duration-200">
                 ← Back to Login
             </a>

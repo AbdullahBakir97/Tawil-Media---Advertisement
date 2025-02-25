@@ -155,7 +155,6 @@
         Skip to main content
     </a>
     
-    <!-- Header -->
     {% include "base/header/header.html" %}
     
     <!-- Main Content -->
@@ -196,6 +195,8 @@
     <script type="module" src="{% static 'js/app.js' %}"></script>
     
     <!-- Custom Scripts -->
-    {% block extra_js %}{% endblock %}
+    {% block extra_js %}
+    <script src="{% static 'js/components/nav-animation.js' %}"></script>
+    {% endblock %}
 </body>
 </html>

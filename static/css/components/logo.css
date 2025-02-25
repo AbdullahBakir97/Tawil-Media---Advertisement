@@ -1,63 +1,96 @@
 /* Logo Variables */
 :root {
-    --logo-height: 2rem;
-    --logo-padding: var(--spacing-2);
+    --logo-height: 100px;
+    --secondary-logo-height: 35px;
+    --logo-spacing: var(--spacing-4);
     --logo-color: currentColor;
     --logo-z-index: 1000; /* Increased z-index */
 }
 
 /* Logo Container */
 .header-logo {
-    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
     position: relative;
     z-index: var(--logo-z-index);
+    padding: var(--logo-spacing);
     margin-right: var(--spacing-4);
-    width: auto;
-    height: var(--header-height);
-    display: flex;
-    align-items: center;
 }
 
 /* Logo Link */
 .logo-link {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    padding: var(--logo-padding) 0;
-    transition: opacity 0.2s ease;
-    color: var(--text-primary);
+    display: block;
     text-decoration: none;
+    color: inherit;
     position: relative;
     z-index: var(--logo-z-index);
 }
 
-.logo-link:hover {
-    opacity: 0.9;
-}
-
-/* Logo Image/SVG */
+/* Logo Images */
 .logo-image {
-    height: var(--logo-height);
+    height: 100px;
     width: auto;
     display: block;
     object-fit: contain;
     position: relative;
     z-index: var(--logo-z-index);
+    filter: brightness(0) invert(1); /* Makes the logo white */
+    transition: all 0.5s ease;
 }
 
 svg.logo-image {
     width: auto;
-    height: var(--logo-height);
+    height: 100px;
     color: var(--logo-color);
 }
 
+.logo-link:hover .logo-image {
+    transform: scale(1.02);
+    filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+}
+
+.secondary-logo {
+    height: 35px;
+    width: auto;
+    display: block;
+    object-fit: contain;
+}
+
+/* Logo Text */
+.logo-text {
+    font-size: var(--text-xl);
+    font-weight: 600;
+    color: var(--color-primary-900);
+    margin-top: var(--spacing-2);
+}
+
 /* Responsive Adjustments */
+@media (max-width: 1200px) {
+    .logo-image {
+        height: 100px;
+    }
+}
+
 @media (max-width: 768px) {
     :root {
-        --logo-height: 1.75rem;
+        --logo-height: 80px;
+        --secondary-logo-height: 30px;
     }
     
     .header-logo {
-        margin-right: var(--spacing-2);
+        justify-content: center;
+        margin-bottom: 1rem;
+        padding: var(--spacing-2);
+        align-items: center;
+        text-align: center;
+    }
+    
+    .logo-image {
+        height: 80px;
+    }
+    
+    .secondary-logo {
+        height: 30px;
     }
 }

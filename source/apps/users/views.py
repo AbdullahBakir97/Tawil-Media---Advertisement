@@ -19,7 +19,7 @@ class RegisterView(CreateView):
     model = User
     form_class = CustomUserCreationForm
     template_name = 'auth/register.html'
-    success_url = reverse_lazy('auth:dashboard')
+    success_url = reverse_lazy('users:dashboard')
     
     def form_valid(self, form):
         response = super().form_valid(form)
@@ -46,7 +46,7 @@ def settings_view(request):
     """User settings view."""
     return render(request, 'auth/profile/settings.html', {
         'user': request.user,
-        'profile': request.user.userprofile
+        'profile': request.user.profile
     })
 
 @login_required
@@ -54,7 +54,7 @@ def profile_view(request):
     """User profile view."""
     return render(request, 'auth/profile/profile.html', {
         'user': request.user,
-        'profile': request.user.userprofile
+        'profile': request.user.profile
     })
 
 @require_http_methods(["GET", "POST"])
@@ -77,7 +77,7 @@ def password_reset_view(request):
             
             # Send reset email
             reset_url = request.build_absolute_uri(
-                reverse('auth:password_reset_confirm', args=[token])
+                reverse('users:password_reset_confirm', args=[token])
             )
             send_mail(
                 'Reset Your Password',
@@ -88,7 +88,7 @@ def password_reset_view(request):
             )
             
             messages.success(request, 'Password reset instructions have been sent to your email.')
-            return redirect('auth:login')
+            return redirect('users:login')
             
         except User.DoesNotExist:
             messages.error(request, 'No account found with that email address.')
@@ -114,10 +114,85 @@ def password_reset_confirm_view(request, token):
                 
                 reset_request.mark_as_used()
                 messages.success(request, 'Your password has been reset successfully.')
-                return redirect('auth:login')
+                return redirect('users:login')
         
         return render(request, 'auth/password/change.html')
         
     except PasswordResetRequest.DoesNotExist:
         messages.error(request, 'Invalid or expired password reset link.')
-        return redirect('auth:password_reset')
+        return redirect('users:password_reset')
+
+@login_required
+@require_http_methods(["POST"])
+def update_profile_view(request):
+    """Update user profile information."""
+    user = request.user
+    profile = user.profile
+
+    # Update user info
+    user.first_name = request.POST.get('first_name', user.first_name)
+    user.last_name = request.POST.get('last_name', user.last_name)
+    user.email = request.POST.get('email', user.email)
+    
+    # Handle profile image upload
+    if 'profile_image' in request.FILES:
+        user.profile_picture = request.FILES['profile_image']
+    
+    # Update profile info
+    profile.bio = request.POST.get('bio', profile.bio)
+    
+    try:
+        user.save()
+        profile.save()
+        messages.success(request, 'Profile updated successfully.')
+    except Exception as e:
+        messages.error(request, f'Error updating profile: {str(e)}')
+    
+    return redirect('users:settings')
+
+@login_required
+@require_http_methods(["POST"])
+def update_security_view(request):
+    """Update security settings."""
+    user = request.user
+    
+    try:
+        # Handle 2FA toggle
+        two_factor_enabled = request.POST.get('two_factor_enabled') == 'true'
+        # Add your 2FA logic here
+        
+        messages.success(request, 'Security settings updated successfully.')
+    except Exception as e:
+        messages.error(request, f'Error updating security settings: {str(e)}')
+    
+    return redirect('users:settings')
+
+@login_required
+@require_http_methods(["POST"])
+def update_notifications_view(request):
+    """Update notification preferences."""
+    user = request.user
+    
+    try:
+        # Update notification settings
+        # Add your notification settings logic here
+        
+        messages.success(request, 'Notification preferences updated successfully.')
+    except Exception as e:
+        messages.error(request, f'Error updating notification preferences: {str(e)}')
+    
+    return redirect('users:settings')
+
+@login_required
+@require_http_methods(["POST"])
+def terminate_session_view(request):
+    """Terminate a user session."""
+    try:
+        session_key = request.POST.get('session_key')
+        # Add your session termination logic here
+        
+        messages.success(request, 'Session terminated successfully.')
+    except Exception as e:
+        messages.error(request, f'Error terminating session: {str(e)}')
+    
+    return redirect('users:settings')

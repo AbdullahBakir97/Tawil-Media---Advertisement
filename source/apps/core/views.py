@@ -12,7 +12,7 @@ from django.contrib.auth.decorators import login_required
 
 def home_view(request):
     """Home page view."""
-    return render(request, 'content/core/home.html')
+    return render(request, 'core/home.html')
 
 def about_view(request):
     """About page view."""
@@ -53,7 +53,7 @@ def cookies_view(request):
 
 def sitemap_view(request):
     """Sitemap page view."""
-    return render(request, 'content/core/pages/sitemap.html')
+    return render(request, 'core/pages/sitemap.html')
 
 def search_view(request):
     """Global search view."""
@@ -154,7 +154,7 @@ def privacy_view(request):
 @login_required
 def profile_view(request):
     """User profile view."""
-    return render(request, 'content/core/profile.html', {
+    return render(request, 'core/profile.html', {
         'user': request.user,
         'profile': request.user.userprofile
     })
@@ -205,7 +205,7 @@ def notifications_dropdown_view(request):
 def settings_view(request):
     """View for user settings page."""
     if not request.user.is_authenticated:
-        return redirect('login')
+        return redirect('users:login')
     
     context = {
         'user': request.user,

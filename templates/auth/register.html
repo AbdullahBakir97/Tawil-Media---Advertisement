@@ -25,7 +25,7 @@
         </div>
 
         <!-- Form -->
-        <form hx-post="{% url 'register' %}"
+        <form hx-post="{% url 'users:register' %}"
               hx-swap="outerHTML"
               x-data="registerForm()"
               x-on:submit="return validateStep(step)"
@@ -194,9 +194,9 @@
                         <span class="ml-3">
                             <span class="block text-sm">
                                 I agree to the 
-                                <a href="{% url 'terms' %}" class="text-primary-600 hover:text-primary-500">Terms of Service</a>
+                                <a href="{% url 'core:terms' %}" class="text-primary-600 hover:text-primary-500">Terms of Service</a>
                                 and
-                                <a href="{% url 'privacy' %}" class="text-primary-600 hover:text-primary-500">Privacy Policy</a>
+                                <a href="{% url 'core:privacy' %}" class="text-primary-600 hover:text-primary-500">Privacy Policy</a>
                             </span>
                         </span>
                     </label>
@@ -237,7 +237,7 @@
         <!-- Sign In Link -->
         <p class="mt-8 text-center text-sm">
             Already have an account?
-            <a href="{% url 'login' %}" class="text-primary-600 hover:text-primary-500">
+            <a href="{% url 'users:login' %}" class="text-primary-600 hover:text-primary-500">
                 Sign in instead
             </a>
         </p>

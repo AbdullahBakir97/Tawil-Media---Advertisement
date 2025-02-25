@@ -41,7 +41,7 @@
                 <div class="bg-secondary rounded-xl shadow-lg p-6 animate-slide-in-right">
                     <!-- Profile Settings -->
                     <div x-show="activeTab === 'profile'" x-cloak>
-                        <form hx-post="{% url 'update_profile' %}"
+                        <form hx-post="{% url 'users:update_profile' %}"
                               hx-swap="outerHTML"
                               class="space-y-6">
                             {% csrf_token %}
@@ -129,7 +129,7 @@
 
                     <!-- Security Settings -->
                     <div x-show="activeTab === 'security'" x-cloak>
-                        <form hx-post="{% url 'update_security' %}"
+                        <form hx-post="{% url 'users:update_security' %}"
                               hx-swap="outerHTML"
                               class="space-y-6">
                             {% csrf_token %}
@@ -183,7 +183,7 @@
 
                     <!-- Notification Settings -->
                     <div x-show="activeTab === 'notifications'" x-cloak>
-                        <form hx-post="{% url 'update_notifications' %}"
+                        <form hx-post="{% url 'users:update_notifications' %}"
                               hx-swap="outerHTML"
                               class="space-y-6">
                             {% csrf_token %}

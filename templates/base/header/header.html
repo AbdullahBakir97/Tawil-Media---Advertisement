@@ -1,23 +1,17 @@
 {% load static %}
+{% load i18n %}
 
 <header class="header">
-    <div class="header-container">
-        <!-- Logo -->
-        {% include "base/header/logo.html" %}
-
-        <!-- Main Navigation -->
-        <nav class="header-nav">
-            {% include "base/header/navigation.html" %}
-        </nav>
-
-        <!-- Search -->
-        <div class="header-search">
-            {% include "base/header/search.html" %}
-        </div>
-
-        <!-- User Menu -->
-        <div class="header-user">
-            {% include "base/header/user-menu.html" %}
+    <div class="header-content">
+        <div class="header-main">
+            <div class="header-main-container">
+                {% include "base/header/logo.html" %}
+                {% include "base/header/navigation.html" %}
+                <div class="header-actions">
+                    {% include "base/header/search.html" %}
+                    {% include "base/header/user-menu.html" %}
+                </div>
+            </div>
         </div>
     </div>
 </header>
