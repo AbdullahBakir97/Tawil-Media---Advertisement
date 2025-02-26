@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Partner Icon 3 - Globe -->
+    <circle cx="30" cy="30" r="29" 
+            fill="url(#partner3-gradient)"
+            stroke="rgba(255,255,255,0.3)"
+            stroke-width="2"/>
+    
+    <!-- Globe Grid -->
+    <circle cx="30" cy="30" r="15" 
+            fill="none"
+            stroke="rgba(255,255,255,0.9)"
+            stroke-width="2"/>
+    
+    <!-- Latitude Lines -->
+    <path d="M15 30H45" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+    <path d="M17 24H43" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+    <path d="M17 36H43" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+    
+    <!-- Longitude Lines -->
+    <path d="M30 15C34 20 34 40 30 45" stroke="rgba(255,255,255,0.5)" stroke-width="1" fill="none"/>
+    <path d="M22 17C26 22 26 38 22 43" stroke="rgba(255,255,255,0.5)" stroke-width="1" fill="none"/>
+    <path d="M38 17C34 22 34 38 38 43" stroke="rgba(255,255,255,0.5)" stroke-width="1" fill="none"/>
+    
+    <defs>
+        <linearGradient id="partner3-gradient" x1="30" y1="0" x2="30" y2="60">
+            <stop offset="0%" stop-color="rgba(255,255,255,0.2)"/>
+            <stop offset="100%" stop-color="rgba(255,255,255,0.05)"/>
+        </linearGradient>
+    </defs>
+</svg>

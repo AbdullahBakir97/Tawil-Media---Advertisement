@@ -1,0 +1,48 @@
+{% load static %}
+
+<div class="magazine-slider-container">
+    <h3 class="slider-title">Latest Editions</h3>
+    <div class="magazine-carousel" x-data="{ currentSlide: 0 }">
+        <div class="carousel-items">
+            <div class="carousel-item" x-show="currentSlide === 0">
+                <img src="{% static 'img/magazines/latest-1.jpg' %}" alt="Latest Magazine 1" class="magazine-cover">
+                <div class="magazine-info">
+                    <h4>Winter Edition 2025</h4>
+                    <p>Exploring the future of media</p>
+                </div>
+            </div>
+            <div class="carousel-item" x-show="currentSlide === 1">
+                <img src="{% static 'img/magazines/latest-2.jpg' %}" alt="Latest Magazine 2" class="magazine-cover">
+                <div class="magazine-info">
+                    <h4>Special Issue</h4>
+                    <p>Innovation in Advertising</p>
+                </div>
+            </div>
+            <div class="carousel-item" x-show="currentSlide === 2">
+                <img src="{% static 'img/magazines/latest-3.jpg' %}" alt="Latest Magazine 3" class="magazine-cover">
+                <div class="magazine-info">
+                    <h4>Industry Insights</h4>
+                    <p>Trends and Analysis</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="carousel-controls">
+            <button @click="currentSlide = (currentSlide - 1 + 3) % 3" class="control-btn prev">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                </svg>
+            </button>
+            <div class="carousel-indicators">
+                <button @click="currentSlide = 0" :class="{ 'active': currentSlide === 0 }" class="indicator"></button>
+                <button @click="currentSlide = 1" :class="{ 'active': currentSlide === 1 }" class="indicator"></button>
+                <button @click="currentSlide = 2" :class="{ 'active': currentSlide === 2 }" class="indicator"></button>
+            </div>
+            <button @click="currentSlide = (currentSlide + 1) % 3" class="control-btn next">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>

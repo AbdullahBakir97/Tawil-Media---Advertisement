@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Main Shield -->
+    <path d="M40 4L10 16V36C10 54.56 22.72 71.84 40 76C57.28 71.84 70 54.56 70 36V16L40 4Z" 
+          fill="url(#shield-gradient)"
+          stroke="rgba(255,255,255,0.5)"
+          stroke-width="2"/>
+    
+    <!-- Inner Decorative Lines -->
+    <path d="M40 8L15 18V35C15 51.16 25.84 66.24 40 70" 
+          stroke="rgba(255,255,255,0.3)"
+          stroke-width="1"
+          fill="none"/>
+    
+    <path d="M40 8L65 18V35C65 51.16 54.16 66.24 40 70" 
+          stroke="rgba(255,255,255,0.3)"
+          stroke-width="1"
+          fill="none"/>
+    
+    <!-- Center Circle -->
+    <circle cx="40" cy="40" r="15" 
+            fill="url(#circle-gradient)"
+            stroke="rgba(255,255,255,0.6)"
+            stroke-width="2"/>
+    
+    <!-- Gradients -->
+    <defs>
+        <linearGradient id="shield-gradient" x1="40" y1="4" x2="40" y2="76">
+            <stop offset="0%" stop-color="rgba(255,255,255,0.2)"/>
+            <stop offset="100%" stop-color="rgba(255,255,255,0.05)"/>
+        </linearGradient>
+        
+        <linearGradient id="circle-gradient" x1="40" y1="25" x2="40" y2="55">
+            <stop offset="0%" stop-color="rgba(255,255,255,0.3)"/>
+            <stop offset="100%" stop-color="rgba(255,255,255,0.1)"/>
+        </linearGradient>
+    </defs>
+</svg>
