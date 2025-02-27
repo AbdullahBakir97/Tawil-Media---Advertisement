@@ -150,10 +150,7 @@
 <body class="transition-colors duration-200 bg-primary text-primary antialiased" 
       {% if user.is_authenticated %}data-user-authenticated{% endif %} 
       {% if debug %}data-debug{% endif %}>
-    <!-- Skip to main content -->
-    <a href="#main-content" class="sr-only focus:not-sr-only">
-        Skip to main content
-    </a>
+
     
     {% include "base/header/header.html" %}
     

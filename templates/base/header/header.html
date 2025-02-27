@@ -9,19 +9,20 @@
     
     <!-- Main Header Window -->
     <div class="main-header-window">
-        <!-- Navigation Bar -->
-        <div class="header-nav-container">
-            <div class="nav-center">
-                {% include "base/header/navigation.html" %}
-            </div>
-            <div class="nav-right">
-                {% include "base/header/search.html" %}
-                {% include "base/header/user-menu.html" %}
-            </div>
-        </div>
-
         <!-- Content Area with Split Effect -->
         <div class="header-content">
+            
+            <!-- Navigation Bar -->
+            <div class="header-nav-container">
+                <div class="nav-center">
+                    {% include "base/header/navigation.html" %}
+                </div>
+                <div class="nav-right">
+                    {% include "base/header/search.html" %}
+                    {% include "base/header/user-menu.html" %}
+                </div>
+            </div>
+
             <!-- Left Half - Glass Effect -->
             <div class="header-left glass-effect">
                 <div class="glass-panel">
