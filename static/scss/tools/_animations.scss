@@ -1,0 +1,456 @@
+/**
+ * Animation keyframes and mixins
+ * Enhanced with premium animations for Tawil Media platform
+ */
+
+// Animation timing variables
+$animation-duration-fast: 0.2s;
+$animation-duration-default: 0.3s;
+$animation-duration-slow: 0.5s;
+$animation-duration-very-slow: 0.8s;
+
+// Animation easing variables
+$ease-in-out-quad: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+$ease-out-back: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+$ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1);
+$ease-in-out-quart: cubic-bezier(0.77, 0, 0.175, 1);
+$ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+
+// Fade in animation
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+// Fade out animation
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+// Slide in from top
+@keyframes slideInFromTop {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+// Slide in from bottom
+@keyframes slideInFromBottom {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+// Slide in from left
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+// Slide in from right
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+// Pulse animation
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(var(--color-primary-rgb), 0.4);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(var(--color-primary-rgb), 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(var(--color-primary-rgb), 0);
+  }
+}
+
+// Bounce animation
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+// Spin animation
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// 3D Spin animation
+@keyframes spin3d {
+  0% {
+    transform: rotate3d(1, 1, 1, 0deg);
+  }
+  100% {
+    transform: rotate3d(1, 1, 1, 360deg);
+  }
+}
+
+// Shimmer animation (for loading states)
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+// Advanced shimmer with diagonal movement
+@keyframes advancedShimmer {
+  0% {
+    background-position: -200% -100%;
+  }
+  100% {
+    background-position: 200% 100%;
+  }
+}
+
+// Float animation
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+// Glow pulse animation
+@keyframes glowPulse {
+  0% {
+    box-shadow: 0 0 5px rgba(var(--color-primary-rgb), 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(var(--color-primary-rgb), 0.8);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(var(--color-primary-rgb), 0.5);
+  }
+}
+
+// 3D flip animation
+@keyframes flip {
+  0% {
+    transform: perspective(400px) rotateY(0);
+  }
+  100% {
+    transform: perspective(400px) rotateY(180deg);
+  }
+}
+
+// Staggered fade in
+@keyframes staggerFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Modal entrance animation
+@keyframes modalEnter {
+  from {
+    opacity: 0;
+    transform: perspective(1000px) rotateX(-10deg) translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(1000px) rotateX(0) translateY(0) scale(1);
+  }
+}
+
+// Progress bar animation
+@keyframes progressGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+// Text gradient animation
+@keyframes textGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+// Header underline animation
+@keyframes headerUnderline {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    width: 100%;
+    opacity: 1;
+  }
+}
+
+// Animation mixins
+@mixin animate($animation, $duration: 0.3s, $timing: ease, $delay: 0s, $iteration: 1, $direction: normal, $fill-mode: forwards) {
+  animation-name: $animation;
+  animation-duration: $duration;
+  animation-timing-function: $timing;
+  animation-delay: $delay;
+  animation-iteration-count: $iteration;
+  animation-direction: $direction;
+  animation-fill-mode: $fill-mode;
+}
+
+// Transition mixin
+@mixin transition($properties: all, $duration: $animation-duration-default, $timing: $ease-in-out-cubic, $delay: 0s) {
+  transition-property: $properties;
+  transition-duration: $duration;
+  transition-timing-function: $timing;
+  transition-delay: $delay;
+}
+
+// Common animation presets
+@mixin fade-in($duration: 0.3s, $delay: 0s) {
+  @include animate(fadeIn, $duration, $ease-in-out-cubic, $delay);
+}
+
+@mixin fade-out($duration: 0.3s, $delay: 0s) {
+  @include animate(fadeOut, $duration, $ease-in-out-cubic, $delay);
+}
+
+@mixin slide-in-top($duration: 0.3s, $delay: 0s) {
+  @include animate(slideInFromTop, $duration, $ease-out-back, $delay);
+}
+
+@mixin slide-in-bottom($duration: 0.3s, $delay: 0s) {
+  @include animate(slideInFromBottom, $duration, $ease-out-back, $delay);
+}
+
+@mixin slide-in-left($duration: 0.3s, $delay: 0s) {
+  @include animate(slideInFromLeft, $duration, $ease-out-back, $delay);
+}
+
+@mixin slide-in-right($duration: 0.3s, $delay: 0s) {
+  @include animate(slideInFromRight, $duration, $ease-out-back, $delay);
+}
+
+// Staggered animation for lists
+@mixin staggered-animation($animation, $items: 10, $initial-delay: 0s, $stagger-delay: 0.1s) {
+  @for $i from 1 through $items {
+    &:nth-child(#{$i}) {
+      animation-delay: $initial-delay + ($i - 1) * $stagger-delay;
+    }
+  }
+}
+
+// 3D card effect
+@mixin card-3d($depth: 10px, $perspective: 1000px) {
+  transform-style: preserve-3d;
+  perspective: $perspective;
+  transition: transform 0.5s $ease-out-expo;
+  
+  &:hover {
+    transform: rotateY(5deg) rotateX(5deg);
+    
+    &::before {
+      opacity: 1;
+    }
+  }
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.3) 0%,
+      rgba(255, 255, 255, 0) 50%,
+      rgba(0, 0, 0, 0.1) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.5s $ease-in-out-cubic;
+    z-index: 1;
+    pointer-events: none;
+  }
+}
+
+// Skeleton loading animation
+@mixin skeleton-loading($bg-color-light: #f0f0f0, $bg-color-dark: #e0e0e0, $duration: 1.5s) {
+  background: linear-gradient(
+    90deg,
+    $bg-color-light 0%,
+    $bg-color-dark 50%,
+    $bg-color-light 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer $duration infinite;
+  border-radius: 4px;
+}
+
+// Advanced skeleton loading with diagonal movement
+@mixin advanced-skeleton-loading($bg-color-light: #f0f0f0, $bg-color-dark: #e0e0e0, $duration: 1.5s) {
+  background: linear-gradient(
+    135deg,
+    $bg-color-light 0%,
+    $bg-color-dark 50%,
+    $bg-color-light 100%
+  );
+  background-size: 400% 400%;
+  animation: advancedShimmer $duration infinite linear;
+  border-radius: 4px;
+}
+
+// Floating animation
+@mixin float-animation($duration: 3s, $height: 10px) {
+  animation: float $duration ease-in-out infinite;
+}
+
+// Glow effect
+@mixin glow-effect($color: var(--color-primary), $intensity: 0.5) {
+  box-shadow: 0 0 10px rgba($color, $intensity);
+  transition: box-shadow 0.3s $ease-in-out-cubic;
+  
+  &:hover {
+    box-shadow: 0 0 20px rgba($color, $intensity * 1.5);
+  }
+}
+
+// Gradient text
+@mixin gradient-text($gradient, $animate: false) {
+  background: $gradient;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  
+  @if $animate {
+    background-size: 200% auto;
+    animation: textGradient 3s $ease-in-out-cubic infinite;
+  }
+}
+
+// Progress bar with gradient
+@mixin gradient-progress-bar($gradient, $duration: 2s) {
+  background: $gradient;
+  background-size: 200% 100%;
+  animation: progressGradient $duration linear infinite;
+}
+
+// Modal entrance animation
+@mixin modal-entrance($duration: 0.5s) {
+  @include animate(modalEnter, $duration, $ease-out-back);
+}
+
+// Header underline animation
+@mixin animated-underline($color: var(--color-primary), $height: 2px, $duration: 0.3s) {
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: $height;
+    background-color: $color;
+    transition: width $duration $ease-out-expo;
+  }
+  
+  &:hover::after {
+    width: 100%;
+  }
+}
+
+// Reduced motion
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+// Scroll-triggered animation base
+@mixin scroll-triggered-animation($animation: fadeIn, $duration: 0.5s, $delay: 0s) {
+  opacity: 0;
+  
+  &.visible {
+    @include animate($animation, $duration, $ease-out-back, $delay);
+  }
+}
+
+// Multi-layered animations
+@mixin multi-layer-animation($base-animation, $overlay-animation, $base-duration: 0.5s, $overlay-duration: 0.8s, $base-delay: 0s, $overlay-delay: 0.2s) {
+  position: relative;
+  @include animate($base-animation, $base-duration, $ease-in-out-cubic, $base-delay);
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    @include animate($overlay-animation, $overlay-duration, $ease-out-expo, $overlay-delay);
+    pointer-events: none;
+  }
+}

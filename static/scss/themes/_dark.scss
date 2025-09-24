@@ -1,0 +1,155 @@
+/**
+ * Dark Theme
+ * CSS variables for dark mode
+ */
+
+@use '../settings/colors' as colors;
+@use '../settings/variables' as vars;
+@use 'sass:map';
+@use 'sass:color';
+
+.dark-theme {
+  // Base colors
+  --color-background: #{colors.$color-gray-900};
+  --color-text: #{colors.$color-gray-100};
+  --color-text-secondary: #{colors.$color-gray-400};
+  
+  // Primary colors
+  --color-primary: #{colors.$color-primary-500};
+  --color-primary-light: #{colors.$color-primary-400};
+  --color-primary-dark: #{colors.$color-primary-600};
+  --color-primary-50: #{colors.$color-primary-900};
+  --color-primary-100: #{colors.$color-primary-800};
+  --color-primary-200: #{colors.$color-primary-700};
+  --color-primary-300: #{colors.$color-primary-600};
+  --color-primary-400: #{colors.$color-primary-500};
+  --color-primary-500: #{colors.$color-primary-400};
+  --color-primary-600: #{colors.$color-primary-300};
+  --color-primary-700: #{colors.$color-primary-200};
+  --color-primary-800: #{colors.$color-primary-100};
+  --color-primary-900: #{colors.$color-primary-50};
+  --color-primary-950: #{colors.$color-primary-50};
+  
+  // Secondary colors
+  --color-secondary: #{colors.$color-secondary-500};
+  --color-secondary-light: #{colors.$color-secondary-400};
+  --color-secondary-dark: #{colors.$color-secondary-600};
+  --color-secondary-50: #{colors.$color-secondary-900};
+  --color-secondary-100: #{colors.$color-secondary-800};
+  --color-secondary-200: #{colors.$color-secondary-700};
+  --color-secondary-300: #{colors.$color-secondary-600};
+  --color-secondary-400: #{colors.$color-secondary-500};
+  --color-secondary-500: #{colors.$color-secondary-400};
+  --color-secondary-600: #{colors.$color-secondary-300};
+  --color-secondary-700: #{colors.$color-secondary-200};
+  --color-secondary-800: #{colors.$color-secondary-100};
+  --color-secondary-900: #{colors.$color-secondary-50};
+  --color-secondary-950: #{colors.$color-secondary-50};
+  
+  // Gray scale
+  --color-gray-50: #{colors.$color-gray-900};
+  --color-gray-100: #{colors.$color-gray-800};
+  --color-gray-200: #{colors.$color-gray-700};
+  --color-gray-300: #{colors.$color-gray-600};
+  --color-gray-400: #{colors.$color-gray-500};
+  --color-gray-500: #{colors.$color-gray-400};
+  --color-gray-600: #{colors.$color-gray-300};
+  --color-gray-700: #{colors.$color-gray-200};
+  --color-gray-800: #{colors.$color-gray-100};
+  --color-gray-900: #{colors.$color-gray-50};
+  --color-gray-950: #{colors.$color-gray-50};
+  
+  // Semantic colors
+  --color-success: #{colors.$color-success};
+  --color-warning: #{colors.$color-warning};
+  --color-error: #{colors.$color-error};
+  --color-info: #{colors.$color-info};
+  --color-success-50: #{color.adjust(colors.$color-success-50, $lightness: -40%)};
+  --color-success-100: #{color.adjust(colors.$color-success-100, $lightness: -30%)};
+  --color-success-500: #{colors.$color-success-500};
+  --color-success-700: #{color.adjust(colors.$color-success-700, $lightness: 10%)};
+  --color-warning-50: #{color.adjust(colors.$color-warning-50, $lightness: -40%)};
+  --color-warning-100: #{color.adjust(colors.$color-warning-100, $lightness: -30%)};
+  --color-warning-500: #{colors.$color-warning-500};
+  --color-warning-700: #{color.adjust(colors.$color-warning-700, $lightness: 10%)};
+  --color-danger-50: #{color.adjust(colors.$color-danger-50, $lightness: -40%)};
+  --color-danger-100: #{color.adjust(colors.$color-danger-100, $lightness: -30%)};
+  --color-danger-500: #{colors.$color-danger-500};
+  --color-danger-700: #{color.adjust(colors.$color-danger-700, $lightness: 10%)};
+  --color-info-50: #{color.adjust(colors.$color-info-50, $lightness: -40%)};
+  --color-info-100: #{color.adjust(colors.$color-info-100, $lightness: -30%)};
+  --color-info-500: #{colors.$color-info-500};
+  --color-info-700: #{color.adjust(colors.$color-info-700, $lightness: 10%)};
+  
+  // Border colors
+  --color-border: #{colors.$color-gray-700};
+  --color-border-light: #{colors.$color-gray-600};
+  
+  // Header specific
+  --header-bg-start: #{colors.$header-bg-start};
+  --header-bg-end: #{colors.$header-bg-end};
+  
+  // Card colors
+  --card-bg: #{colors.$color-gray-800};
+  --card-border: #{colors.$color-gray-700};
+  
+  // Input colors
+  --input-bg: #{colors.$color-gray-800};
+  --input-border: #{colors.$color-gray-600};
+  --input-text: #{colors.$color-gray-300};
+  --input-placeholder: #{colors.$color-gray-500};
+  
+  // Button colors
+  --button-primary-bg: #{colors.$color-primary-600};
+  --button-primary-text: #{colors.$color-gray-100};
+  --button-secondary-bg: #{colors.$color-gray-700};
+  --button-secondary-text: #{colors.$color-gray-300};
+  
+  // Typography
+  --font-sans: #{vars.$font-family-sans};
+  --font-serif: #{vars.$font-family-serif};
+  --font-mono: #{vars.$font-family-mono};
+  --font-arabic: #{vars.$font-family-arabic};
+  --font-display: #{vars.$font-family-display};
+  
+  --font-size-xs: #{vars.$font-size-xs};
+  --font-size-sm: #{vars.$font-size-sm};
+  --font-size-base: #{vars.$font-size-base};
+  --font-size-lg: #{vars.$font-size-lg};
+  --font-size-xl: #{vars.$font-size-xl};
+  --font-size-2xl: #{vars.$font-size-2xl};
+  --font-size-3xl: #{vars.$font-size-3xl};
+  --font-size-4xl: #{vars.$font-size-4xl};
+  --font-size-5xl: #{vars.$font-size-5xl};
+  
+  // Spacing
+  --spacing-px: 1px;
+  --spacing-0: 0;
+  --spacing-1: #{map.get(vars.$spacing-scale, 1)};
+  --spacing-2: #{map.get(vars.$spacing-scale, 2)};
+  --spacing-3: #{map.get(vars.$spacing-scale, 3)};
+  --spacing-4: #{map.get(vars.$spacing-scale, 4)};
+  --spacing-5: #{map.get(vars.$spacing-scale, 5)};
+  --spacing-6: #{map.get(vars.$spacing-scale, 6)};
+  --spacing-8: #{map.get(vars.$spacing-scale, 8)};
+  --spacing-10: #{map.get(vars.$spacing-scale, 10)};
+  --spacing-12: 3rem;
+  --spacing-16: 4rem;
+  
+  // Border radius
+  --radius-sm: #{vars.$border-radius-sm};
+  --radius-md: #{vars.$border-radius-md};
+  --radius-lg: #{vars.$border-radius-lg};
+  --radius-xl: #{vars.$border-radius-xl};
+  
+  // Shadows
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+  
+  // Transitions
+  --transition-fast: #{vars.$transition-fast};
+  --transition-normal: #{vars.$transition-normal};
+  --transition-slow: #{vars.$transition-slow};
+}

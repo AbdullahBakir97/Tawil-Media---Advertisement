@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tawil Media - Layout Style Guide</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <style>
+        .style-guide-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .style-guide-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            background-color: var(--bg-secondary);
+            box-shadow: var(--shadow-md);
+        }
+        .style-guide-subsection {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            background-color: var(--bg-primary);
+            box-shadow: var(--shadow-sm);
+        }
+        .style-guide-example {
+            margin-top: 1rem;
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border-primary);
+        }
+        .style-guide-code {
+            margin-top: 0.5rem;
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            background-color: var(--color-gray-800);
+            color: var(--color-gray-100);
+            font-family: var(--font-mono);
+            font-size: var(--text-sm);
+            overflow-x: auto;
+        }
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 100;
+        }
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .layout-box {
+            padding: 1rem;
+            background-color: var(--color-primary-100);
+            border: 1px solid var(--color-primary-300);
+            border-radius: var(--radius-md);
+            color: var(--color-primary-800);
+            text-align: center;
+        }
+        .layout-box-alt {
+            padding: 1rem;
+            background-color: var(--color-secondary-100);
+            border: 1px solid var(--color-secondary-300);
+            border-radius: var(--radius-md);
+            color: var(--color-secondary-800);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-toggle">
+        <button class="btn btn-primary" onclick="document.body.classList.toggle('dark')">Toggle Dark Mode</button>
+    </div>
+
+    <div class="style-guide-container">
+        <header>
+            <h1>Tawil Media - Layout Style Guide</h1>
+            <p>A comprehensive guide to the layout systems available in the Tawil Media platform.</p>
+            
+            <div class="nav-links">
+                <a href="{% url 'core:style_guide' %}" class="btn btn-outline btn-primary">Base Styles</a>
+                <a href="{% url 'core:style_guide_components' %}" class="btn btn-outline btn-primary">Components</a>
+                <a href="{% url 'core:style_guide_layouts' %}" class="btn btn-primary">Layouts</a>
+                <a href="{% url 'core:style_guide_pages' %}" class="btn btn-outline btn-primary">Page Examples</a>
+            </div>
+        </header>
+
+        <main>
+            <!-- Layout Styles Section -->
+            <section class="style-guide-section" id="layout-styles">
+                <h2>Layout Styles</h2>
+                <p>Systems for creating responsive layouts and positioning elements.</p>
+                
+                <!-- Grid Subsection -->
+                <div class="style-guide-subsection" id="grid">
+                    <h3>Grid Layout</h3>
+                    <p>CSS Grid layout system for two-dimensional layouts.</p>
+                    
+                    <div class="style-guide-example">
+                        <h4>Basic Grid</h4>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem;">
+                            <div class="layout-box">Column 1</div>
+                            <div class="layout-box">Column 2</div>
+                            <div class="layout-box">Column 3</div>
+                        </div>
+                        
+                        <div class="style-guide-code">
+                            <pre>display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 1rem;</pre>
+                        </div>
+                    </div>
+                    
+                    <div class="style-guide-example">
+                        <h4>Grid Areas</h4>
+                        <div style="display: grid; grid-template-areas: 'header header header' 'sidebar main main' 'footer footer footer'; grid-template-columns: 1fr 2fr 1fr; gap: 1rem; margin-bottom: 2rem;">
+                            <div class="layout-box" style="grid-area: header;">Header</div>
+                            <div class="layout-box" style="grid-area: sidebar;">Sidebar</div>
+                            <div class="layout-box" style="grid-area: main;">Main Content</div>
+                            <div class="layout-box" style="grid-area: footer;">Footer</div>
+                        </div>
+                        
+                        <div class="style-guide-code">
+                            <pre>display: grid;
+grid-template-areas: 
+  'header header header'
+  'sidebar main main'
+  'footer footer footer';
+grid-template-columns: 1fr 2fr 1fr;
+gap: 1rem;</pre>
+                        </div>
+                    </div>
+                    
+                    <div class="style-guide-example">
+                        <h4>Responsive Grid</h4>
+                        <p>Resize the browser to see how the grid adapts.</p>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+                            <div class="layout-box">Item 1</div>
+                            <div class="layout-box">Item 2</div>
+                            <div class="layout-box">Item 3</div>
+                            <div class="layout-box">Item 4</div>
+                            <div class="layout-box">Item 5</div>
+                            <div class="layout-box">Item 6</div>
+                        </div>
+                        
+                        <div class="style-guide-code">
+                            <pre>display: grid;
+grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+gap: 1rem;</pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Flex Subsection -->
+                <div class="style-guide-subsection" id="flex">
+                    <h3>Flexbox Layout</h3>
+                    <p>CSS Flexbox layout for one-dimensional layouts.</p>
+                    
+                    <div class="style-guide-example">
+                        <h4>Basic Flex Row</h4>
+                        <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
+                            <div class="layout-box" style="flex: 1;">Item 1</div>
+                            <div class="layout-box" style="flex: 1;">Item 2</div>
+                            <div class="layout-box" style="flex: 1;">Item 3</div>
+                        </div>
+                        
+                        <div class="style-guide-code">
+                            <pre>display: flex;
+gap: 1rem;</pre>
+                        </div>
+                    </div>
+                    
+                    <div class="style-guide-example">
+                        <h4>Flex Column</h4>
+                        <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem;">
+                            <div class="layout-box">Item 1</div>
+                            <div class="layout-box">Item 2</div>
+                            <div class="layout-box">Item 3</div>
+                        </div>
+                        
+                        <div class="style-guide-code">
+                            <pre>display: flex;
+flex-direction: column;
+gap: 1rem;</pre>
+                        </div>
+                    </div>
+                    
+                    <div class="style-guide-example">
+                        <h4>Flex Alignment</h4>
+                        <h5>Justify Content</h5>
+                        <div style="display: flex; justify-content: space-between; gap: 1rem; margin-bottom: 2rem;">
+                            <div class="layout-box">Left</div>
+                            <div class="layout-box">Center</div>
+                            <div class="layout-box">Right</div>
+                        </div>
+                        
+                        <h5>Align Items</h5>
+                        <div style="display: flex; align-items: center; height: 100px; margin-bottom: 2rem;">
+                            <div class="layout-box" style="height: 30px;">Short</div>
+                            <div class="layout-box" style="height: 60px;">Medium</div>
+                            <div class="layout-box" style="height: 90px;">Tall</div>
+                        </div>
+                        
+                        <div class="style-guide-code">
+                            <pre>/* Justify Content */
+display: flex;
+justify-content: space-between;
+gap: 1rem;
+
+/* Align Items */
+display: flex;
+align-items: center;
+height: 100px;</pre>
+                        </div>
+                    </div>
+                    
+                    <div class="style-guide-example">
+                        <h4>Flex Wrap</h4>
+                        <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem;">
+                            <div class="layout-box" style="width: 150px;">Item 1</div>
+                            <div class="layout-box" style="width: 150px;">Item 2</div>
+                            <div class="layout-box" style="width: 150px;">Item 3</div>
+                            <div class="layout-box" style="width: 150px;">Item 4</div>
+                            <div class="layout-box" style="width: 150px;">Item 5</div>
+                            <div class="layout-box" style="width: 150px;">Item 6</div>
+                        </div>
+                        
+                        <div class="style-guide-code">
+                            <pre>display: flex;
+flex-wrap: wrap;
+gap: 1rem;</pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Positioning Subsection -->
+                <div class="style-guide-subsection" id="positioning">
+                    <h3>Positioning</h3>
+                    <p>CSS positioning techniques for precise control over element placement.</p>
+                    
+                    <div class="style-guide-example">
+                        <h4>Relative & Absolute Positioning</h4>
+                        <div style="position: relative; height: 200px; background-color: var(--color-gray-100); border-radius: var(--radius-md); padding: 1rem; margin-bottom: 2rem;">
+                            <div class="layout-box" style="position: absolute; top: 20px; left: 20px;">Top Left</div>
+                            <div class="layout-box" style="position: absolute; top: 20px; right: 20px;">Top Right</div>
+                            <div class="layout-box" style="position: absolute; bottom: 20px; left: 20px;">Bottom Left</div>
+                            <div class="layout-box" style="position: absolute; bottom: 20px; right: 20px;">Bottom Right</div>
+                        </div>
+                        
+                        <div class="style-guide-code">
+                            <pre>/* Parent */
+position: relative;
+height: 200px;
+
+/* Children */
+position: absolute;
+top: 20px;
+left: 20px;
+
+position: absolute;
+top: 20px;
+right: 20px;
+
+position: absolute;
+bottom: 20px;
+left: 20px;
+
+position: absolute;
+bottom: 20px;
+right: 20px;</pre>
+                        </div>
+                    </div>
+                    
+                    <div class="style-guide-example">
+                        <h4>Sticky Positioning</h4>
+                        <p>Scroll this container to see the sticky header in action.</p>
+                        <div style="height: 200px; overflow-y: auto; border: 1px solid var(--border-primary); border-radius: var(--radius-md); margin-bottom: 2rem;">
+                            <div class="layout-box" style="position: sticky; top: 0; z-index: 10;">Sticky Header</div>
+                            <div style="height: 500px; padding: 1rem;">
+                                <p>Scroll down to see the sticky header remain at the top.</p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris.</p>
+                                <p>Vivamus suscipit tortor eget felis porttitor volutpat.</p>
+                                <p>Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.</p>
+                                <p>Pellentesque in ipsum id orci porta dapibus.</p>
+                                <p>Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="style-guide-code">
+                            <pre>position: sticky;
+top: 0;
+z-index: 10;</pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Spacing Subsection -->
+                <div class="style-guide-subsection" id="spacing">
+                    <h3>Spacing</h3>
+                    <p>Margin and padding utilities for consistent spacing.</p>
+                    
+                    <div class="style-guide-example">
+                        <h4>Margin Examples</h4>
+                        <div style="background-color: var(--color-gray-100); border-radius: var(--radius-md); padding: 1rem; margin-bottom: 2rem;">
+                            <div class="layout-box" style="margin-bottom: var(--spacing-4);">Margin Bottom 4 (1rem)</div>
+                            <div class="layout-box" style="margin-bottom: var(--spacing-8);">Margin Bottom 8 (2rem)</div>
+                            <div class="layout-box">No Margin</div>
+                        </div>
+                        
+                        <div class="style-guide-code">
+                            <pre>margin-bottom: var(--spacing-4);  /* 1rem */
+margin-bottom: var(--spacing-8);  /* 2rem */</pre>
+                        </div>
+                    </div>
+                    
+                    <div class="style-guide-example">
+                        <h4>Padding Examples</h4>
+                        <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
+                            <div class="layout-box" style="padding: var(--spacing-2);">Padding 2 (0.5rem)</div>
+                            <div class="layout-box" style="padding: var(--spacing-4);">Padding 4 (1rem)</div>
+                            <div class="layout-box" style="padding: var(--spacing-8);">Padding 8 (2rem)</div>
+                        </div>
+                        
+                        <div class="style-guide-code">
+                            <pre>padding: var(--spacing-2);  /* 0.5rem */
+padding: var(--spacing-4);  /* 1rem */
+padding: var(--spacing-8);  /* 2rem */</pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Responsive Subsection -->
+                <div class="style-guide-subsection" id="responsive">
+                    <h3>Responsive Design</h3>
+                    <p>Media queries and responsive utilities for adapting to different screen sizes.</p>
+                    
+                    <div class="style-guide-example">
+                        <h4>Responsive Layout Example</h4>
+                        <p>Resize the browser to see how this layout adapts to different screen sizes.</p>
+                        <div class="responsive-container" style="margin-bottom: 2rem;">
+                            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;">
+                                <div class="layout-box">Item 1</div>
+                                <div class="layout-box">Item 2</div>
+                                <div class="layout-box">Item 3</div>
+                                <div class="layout-box">Item 4</div>
+                            </div>
+                        </div>
+                        
+                        <div class="style-guide-code">
+                            <pre>/* Default (Mobile First) */
+display: grid;
+grid-template-columns: 1fr;
+gap: 1rem;
+
+/* Tablet */
+@media (min-width: 768px) {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  grid-template-columns: repeat(4, 1fr);
+}</pre>
+                        </div>
+                    </div>
+                    
+                    <div class="style-guide-example">
+                        <h4>Responsive Visibility</h4>
+                        <div style="margin-bottom: 2rem;">
+                            <div class="layout-box mobile-only">Visible on Mobile Only</div>
+                            <div class="layout-box tablet-only">Visible on Tablet Only</div>
+                            <div class="layout-box desktop-only">Visible on Desktop Only</div>
+                            <div class="layout-box hide-on-mobile">Hidden on Mobile</div>
+                        </div>
+                        
+                        <div class="style-guide-code">
+                            <pre>/* Mobile Only */
+.mobile-only {
+  display: block;
+}
+@media (min-width: 768px) {
+  .mobile-only {
+    display: none;
+  }
+}
+
+/* Tablet Only */
+.tablet-only {
+  display: none;
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .tablet-only {
+    display: block;
+  }
+}
+
+/* Desktop Only */
+.desktop-only {
+  display: none;
+}
+@media (min-width: 1024px) {
+  .desktop-only {
+    display: block;
+  }
+}
+
+/* Hide on Mobile */
+@media (max-width: 767px) {
+  .hide-on-mobile {
+    display: none;
+  }
+}</pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Add responsive classes for demonstration
+        document.addEventListener('DOMContentLoaded', function() {
+            const responsiveContainer = document.querySelector('.responsive-container');
+            
+            function updateResponsiveLayout() {
+                const width = window.innerWidth;
+                const grid = responsiveContainer.querySelector('div');
+                
+                if (width < 768) {
+                    grid.style.gridTemplateColumns = '1fr';
+                } else if (width < 1024) {
+                    grid.style.gridTemplateColumns = 'repeat(2, 1fr)';
+                } else {
+                    grid.style.gridTemplateColumns = 'repeat(4, 1fr)';
+                }
+            }
+            
+            // Initial setup
+            updateResponsiveLayout();
+            
+            // Update on resize
+            window.addEventListener('resize', updateResponsiveLayout);
+            
+            // Add responsive visibility classes
+            const style = document.createElement('style');
+            style.textContent = `
+                /* Mobile Only */
+                .mobile-only {
+                    display: block;
+                }
+                @media (min-width: 768px) {
+                    .mobile-only {
+                        display: none;
+                    }
+                }
+                
+                /* Tablet Only */
+                .tablet-only {
+                    display: none;
+                }
+                @media (min-width: 768px) and (max-width: 1023px) {
+                    .tablet-only {
+                        display: block;
+                    }
+                }
+                
+                /* Desktop Only */
+                .desktop-only {
+                    display: none;
+                }
+                @media (min-width: 1024px) {
+                    .desktop-only {
+                        display: block;
+                    }
+                }
+                
+                /* Hide on Mobile */
+                @media (max-width: 767px) {
+                    .hide-on-mobile {
+                        display: none;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html>

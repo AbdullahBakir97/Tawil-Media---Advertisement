@@ -1,12 +1,13 @@
 const { build: buildCSS, watch: watchCSS } = require('./css');
 const { build: buildJS, watch: watchJS } = require('./js');
+const { build: buildDesignSystem, watch: watchDesignSystem } = require('./design-system');
 
 async function build() {
     console.log('🏗️  Starting full build process...\n');
     console.time('Total Build Time');
 
     try {
-        // Run CSS and JS builds in parallel
+        // Run CSS, JS, and Design System builds in parallel
         await Promise.all([
             buildCSS().catch(error => {
                 console.error('CSS build failed:', error);
@@ -14,6 +15,10 @@ async function build() {
             }),
             buildJS().catch(error => {
                 console.error('JS build failed:', error);
+                throw error;
+            }),
+            buildDesignSystem().catch(error => {
+                console.error('Design System build failed:', error);
                 throw error;
             })
         ]);
@@ -30,13 +35,14 @@ async function watch() {
     console.log('🏗️  Starting watch mode...\n');
 
     try {
-        // Start CSS and JS watchers
+        // Start CSS, JS, and Design System watchers
         await Promise.all([
             watchCSS(),
-            watchJS()
+            watchJS(),
+            watchDesignSystem()
         ]);
 
-        console.log('\n👀 Watching for changes in both CSS and JS files...');
+        console.log('\n👀 Watching for changes in both CSS, JS, and Design System files...');
     } catch (error) {
         console.error('\n❌ Watch mode failed:', error);
         process.exit(1);

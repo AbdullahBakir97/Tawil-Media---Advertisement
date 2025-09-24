@@ -1,0 +1,284 @@
+/**
+ * Utility mixins for common patterns
+ */
+
+@use 'sass:map';
+@use '../settings/variables' as vars;
+@use '../settings/breakpoints' as breakpoints;
+@use 'functions' as functions;
+
+// Z-index management
+@mixin z-index($layer) {
+  @if map.has-key(vars.$z-layers, $layer) {
+    z-index: map.get(vars.$z-layers, $layer);
+  } @else {
+    @error "Unknown z-index layer: #{$layer}. Available layers are: #{map.keys(vars.$z-layers)}";
+  }
+}
+
+// Flexbox shortcuts
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+// Truncate text with ellipsis
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Multi-line truncation
+@mixin truncate-lines($lines) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+// Clearfix
+@mixin clearfix {
+  &::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+// Aspect ratio container
+@mixin aspect-ratio($width, $height) {
+  position: relative;
+  
+  &::before {
+    content: '';
+    display: block;
+    padding-top: ($height / $width) * 100%;
+  }
+  
+  > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// Glass effect (for header and cards)
+@mixin glass-effect($bg-opacity: 0.2, $blur-radius: 10px, $border-opacity: 0.1) {
+  background-color: rgba(0, 0, 0, $bg-opacity);
+  backdrop-filter: blur($blur-radius);
+  -webkit-backdrop-filter: blur($blur-radius);
+  border: 1px solid rgba(255, 255, 255, $border-opacity);
+}
+
+// Gradient text
+@mixin gradient-text($gradient) {
+  background: $gradient;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+// Responsive container
+@mixin container($padding: 1rem) {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: $padding;
+  padding-right: $padding;
+  
+  @include respond-to('sm') {
+    max-width: map.get(breakpoints.$breakpoints, 'sm');
+  }
+  
+  @include respond-to('md') {
+    max-width: map.get(breakpoints.$breakpoints, 'md');
+  }
+  
+  @include respond-to('lg') {
+    max-width: map.get(breakpoints.$breakpoints, 'lg');
+  }
+  
+  @include respond-to('xl') {
+    max-width: map.get(breakpoints.$breakpoints, 'xl');
+  }
+  
+  @include respond-to('2xl') {
+    max-width: map.get(breakpoints.$breakpoints, '2xl');
+  }
+}
+
+// Responsive breakpoints
+@mixin respond-to($breakpoint) {
+  @if map.has-key(breakpoints.$breakpoints, $breakpoint) {
+    @media (min-width: map.get(breakpoints.$breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @error "Unknown breakpoint: #{$breakpoint}. Available breakpoints are: #{map.keys(breakpoints.$breakpoints)}";
+  }
+}
+
+// Responsive breakpoints (max-width)
+@mixin respond-below($breakpoint) {
+  @if map.has-key(breakpoints.$breakpoints, $breakpoint) {
+    @media (max-width: (map.get(breakpoints.$breakpoints, $breakpoint) - 1px)) {
+      @content;
+    }
+  } @else {
+    @error "Unknown breakpoint: #{$breakpoint}. Available breakpoints are: #{map.keys(breakpoints.$breakpoints)}";
+  }
+}
+
+// Responsive breakpoints (between)
+@mixin respond-between($min-breakpoint, $max-breakpoint) {
+  @if map.has-key(breakpoints.$breakpoints, $min-breakpoint) and map.has-key(breakpoints.$breakpoints, $max-breakpoint) {
+    @media (min-width: map.get(breakpoints.$breakpoints, $min-breakpoint)) and (max-width: (map.get(breakpoints.$breakpoints, $max-breakpoint) - 1px)) {
+      @content;
+    }
+  } @else {
+    @error "Unknown breakpoint: #{$min-breakpoint} or #{$max-breakpoint}. Available breakpoints are: #{map.keys(breakpoints.$breakpoints)}";
+  }
+}
+
+// Box shadow levels
+@mixin shadow($level: 1) {
+  @if $level == 1 {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  } @else if $level == 2 {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  } @else if $level == 3 {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  } @else if $level == 4 {
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  } @else if $level == 5 {
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+  } @else {
+    @error "Shadow level must be between 1 and 5";
+  }
+}
+
+// Focus outline
+@mixin focus-outline {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+// Animation mixins
+@mixin fade-in($duration: 0.3s, $delay: 0s) {
+  animation: fadeIn $duration ease-in-out $delay forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@mixin slide-in-top($duration: 0.3s, $delay: 0s) {
+  animation: slideInTop $duration ease-in-out $delay forwards;
+  opacity: 0;
+}
+
+@keyframes slideInTop {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@mixin slide-in-bottom($duration: 0.3s, $delay: 0s) {
+  animation: slideInBottom $duration ease-in-out $delay forwards;
+  opacity: 0;
+}
+
+@keyframes slideInBottom {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@mixin slide-in-left($duration: 0.3s, $delay: 0s) {
+  animation: slideInLeft $duration ease-in-out $delay forwards;
+  opacity: 0;
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@mixin slide-in-right($duration: 0.3s, $delay: 0s) {
+  animation: slideInRight $duration ease-in-out $delay forwards;
+  opacity: 0;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+// Hover effects
+@mixin hover-lift {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: vars.$shadow-md;
+  }
+}
+
+@mixin hover-scale {
+  transition: transform 0.2s ease-in-out;
+  
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+// Focus styles
+@mixin focus-ring($color: var(--color-primary), $offset: 2px) {
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 $offset $color;
+  }
+}

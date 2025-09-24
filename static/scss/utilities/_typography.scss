@@ -1,0 +1,271 @@
+/**
+ * Typography Utilities
+ * Classes for text styling and formatting
+ */
+
+@use '../settings/typography' as type;
+@use '../settings/breakpoints' as breakpoints;
+
+// Font families
+.font-sans {
+  font-family: type.$font-sans;
+}
+
+.font-serif {
+  font-family: type.$font-serif;
+}
+
+.font-mono {
+  font-family: type.$font-mono;
+}
+
+.font-display {
+  font-family: type.$font-display;
+}
+
+// Font weights
+.font-thin {
+  font-weight: type.$font-weight-thin;
+}
+
+.font-extralight {
+  font-weight: type.$font-weight-extralight;
+}
+
+.font-light {
+  font-weight: type.$font-weight-light;
+}
+
+.font-normal {
+  font-weight: type.$font-weight-normal;
+}
+
+.font-medium {
+  font-weight: type.$font-weight-medium;
+}
+
+.font-semibold {
+  font-weight: type.$font-weight-semibold;
+}
+
+.font-bold {
+  font-weight: type.$font-weight-bold;
+}
+
+.font-extrabold {
+  font-weight: type.$font-weight-extrabold;
+}
+
+.font-black {
+  font-weight: type.$font-weight-black;
+}
+
+// Font sizes
+@each $size-key, $size-value in type.$font-sizes {
+  .text-#{$size-key} {
+    font-size: $size-value;
+  }
+}
+
+// Line heights
+.leading-none {
+  line-height: type.$line-height-none;
+}
+
+.leading-tight {
+  line-height: type.$line-height-tight;
+}
+
+.leading-snug {
+  line-height: type.$line-height-snug;
+}
+
+.leading-normal {
+  line-height: type.$line-height-normal;
+}
+
+.leading-relaxed {
+  line-height: type.$line-height-relaxed;
+}
+
+.leading-loose {
+  line-height: type.$line-height-loose;
+}
+
+// Letter spacing
+.tracking-tighter {
+  letter-spacing: type.$letter-spacing-tighter;
+}
+
+.tracking-tight {
+  letter-spacing: type.$letter-spacing-tight;
+}
+
+.tracking-normal {
+  letter-spacing: type.$letter-spacing-normal;
+}
+
+.tracking-wide {
+  letter-spacing: type.$letter-spacing-wide;
+}
+
+.tracking-wider {
+  letter-spacing: type.$letter-spacing-wider;
+}
+
+.tracking-widest {
+  letter-spacing: type.$letter-spacing-widest;
+}
+
+// Text alignment
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+// Text decoration
+.underline {
+  text-decoration: underline;
+}
+
+.line-through {
+  text-decoration: line-through;
+}
+
+.no-underline {
+  text-decoration: none;
+}
+
+// Text transform
+.uppercase {
+  text-transform: uppercase;
+}
+
+.lowercase {
+  text-transform: lowercase;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.normal-case {
+  text-transform: none;
+}
+
+// Text overflow
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.overflow-ellipsis {
+  text-overflow: ellipsis;
+}
+
+.overflow-clip {
+  text-overflow: clip;
+}
+
+// Vertical alignment
+.align-baseline {
+  vertical-align: baseline;
+}
+
+.align-top {
+  vertical-align: top;
+}
+
+.align-middle {
+  vertical-align: middle;
+}
+
+.align-bottom {
+  vertical-align: bottom;
+}
+
+.align-text-top {
+  vertical-align: text-top;
+}
+
+.align-text-bottom {
+  vertical-align: text-bottom;
+}
+
+// Text colors
+.text-primary {
+  color: var(--color-primary);
+}
+
+.text-primary-light {
+  color: var(--color-primary-light);
+}
+
+.text-primary-dark {
+  color: var(--color-primary-dark);
+}
+
+.text-secondary {
+  color: var(--color-secondary);
+}
+
+.text-success {
+  color: var(--color-success);
+}
+
+.text-warning {
+  color: var(--color-warning);
+}
+
+.text-error {
+  color: var(--color-error);
+}
+
+.text-info {
+  color: var(--color-info);
+}
+
+.text-default {
+  color: var(--color-text);
+}
+
+.text-muted {
+  color: var(--color-text-secondary);
+}
+
+// Responsive typography
+@each $breakpoint-name, $breakpoint-value in breakpoints.$breakpoints {
+  @if $breakpoint-name != 'xs' {
+    @media (min-width: $breakpoint-value) {
+      @each $size-key, $size-value in type.$font-sizes {
+        .#{$breakpoint-name}-text-#{$size-key} {
+          font-size: $size-value;
+        }
+      }
+      
+      .#{$breakpoint-name}-text-left {
+        text-align: left;
+      }
+      
+      .#{$breakpoint-name}-text-center {
+        text-align: center;
+      }
+      
+      .#{$breakpoint-name}-text-right {
+        text-align: right;
+      }
+    }
+  }
+}

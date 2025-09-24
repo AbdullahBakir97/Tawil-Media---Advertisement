@@ -212,3 +212,43 @@ def settings_view(request):
     }
     
     return render(request, 'core/settings.html', context)
+
+def tailwind_test_view(request):
+    """Tailwind CSS test page view."""
+    return render(request, 'test-tailwind.html')
+
+def premium_design_system_view(request):
+    """View for showcasing the premium design system with professional components."""
+    return render(request, 'premium-design-system.html')
+
+def style_guide_view(request):
+    """View for the main style guide page."""
+    return render(request, 'style-guide.html')
+
+def style_guide_components_view(request):
+    """View for the components section of the style guide."""
+    return render(request, 'style-guide-components.html')
+
+def style_guide_layouts_view(request):
+    """View for the layouts section of the style guide."""
+    return render(request, 'style-guide-layouts.html')
+
+def style_guide_pages_view(request):
+    """View for the page examples section of the style guide."""
+    return render(request, 'style-guide-pages.html')
+
+def dashboard_example_view(request):
+    """View for the dashboard example page."""
+    return render(request, 'dashboard-example.html')
+
+def magazine_browse_example_view(request):
+    """View for the magazine browse example page."""
+    return render(request, 'magazine-browse-example.html')
+
+def archive_browse_example_view(request):
+    """View for the archive browse example page."""
+    return render(request, 'archive-browse-example.html')
+
+def design_system_index_view(request):
+    """View for the main index page showcasing all style features."""
+    return render(request, 'index.html')

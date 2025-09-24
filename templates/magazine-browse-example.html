@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tawil Media - Magazine Browse Example</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
+    <link rel="stylesheet" href="{% static 'css/premium-design-system.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magazine-browse.css' %}">
+    <style>
+        /* Additional styles specific to this example */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-sans);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+        }
+        .magazine-browse-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="magazine-browse-container">
+        <!-- Hero Section -->
+        <section class="magazine-hero">
+            <div class="magazine-hero-overlay"></div>
+            <div class="magazine-hero-content animate-fade-in">
+                <h1 class="magazine-hero-title">Explore Our Magazine Collection</h1>
+                <p class="magazine-hero-subtitle">Discover the latest issues and trending topics in media and journalism</p>
+                
+                <div class="magazine-search-container animate-fade-in-up" style="animation-delay: 0.2s;">
+                    <div class="magazine-search-input-wrapper">
+                        <svg class="magazine-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <input type="text" class="magazine-search-input" placeholder="Search magazines, articles, or topics...">
+                    </div>
+                    <button class="magazine-search-button">Search</button>
+                    <button class="magazine-advanced-search-toggle">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3 6H21M3 12H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Advanced
+                    </button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Stats Dashboard -->
+        <section class="magazine-stats-dashboard animate-fade-in" style="animation-delay: 0.3s;">
+            <div class="magazine-stats-overlay"></div>
+            <div class="magazine-stats-content">
+                <h2 class="magazine-stats-title">Magazine Statistics</h2>
+                <div class="magazine-stats-grid">
+                    <div class="magazine-stat-card animate-fade-in-up" style="animation-delay: 0.4s;">
+                        <div class="magazine-stat-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M16 4H8C7.44772 4 7 4.44772 7 5V19C7 19.5523 7.44772 20 8 20H16C16.5523 20 17 19.5523 17 19V5C17 4.44772 16.5523 4 16 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 17H12.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="magazine-stat-value">1,254</div>
+                        <div class="magazine-stat-label">Total Magazines</div>
+                    </div>
+                    
+                    <div class="magazine-stat-card animate-fade-in-up" style="animation-delay: 0.5s;">
+                        <div class="magazine-stat-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2 3H8C9.06087 3 10.0783 3.42143 10.8284 4.17157C11.5786 4.92172 12 5.93913 12 7V21C12 20.2044 11.6839 19.4413 11.1213 18.8787C10.5587 18.3161 9.79565 18 9 18H2V3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M22 3H16C14.9391 3 13.9217 3.42143 13.1716 4.17157C12.4214 4.92172 12 5.93913 12 7V21C12 20.2044 12.3161 19.4413 12.8787 18.8787C13.4413 18.3161 14.2044 18 15 18H22V3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="magazine-stat-value">45.8K</div>
+                        <div class="magazine-stat-label">Total Articles</div>
+                    </div>
+                    
+                    <div class="magazine-stat-card animate-fade-in-up" style="animation-delay: 0.6s;">
+                        <div class="magazine-stat-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 8V12L14 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="magazine-stat-value">12.3K</div>
+                        <div class="magazine-stat-label">Reading Hours</div>
+                    </div>
+                    
+                    <div class="magazine-stat-card animate-fade-in-up" style="animation-delay: 0.7s;">
+                        <div class="magazine-stat-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M9 11C11.2091 11 13 9.20914 13 7C13 4.79086 11.2091 3 9 3C6.79086 3 5 4.79086 5 7C5 9.20914 6.79086 11 9 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M23 21V19C22.9993 18.1137 22.7044 17.2528 22.1614 16.5523C21.6184 15.8519 20.8581 15.3516 20 15.13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M16 3.13C16.8604 3.35031 17.623 3.85071 18.1676 4.55232C18.7122 5.25392 19.0078 6.11683 19.0078 7.005C19.0078 7.89318 18.7122 8.75608 18.1676 9.45769C17.623 10.1593 16.8604 10.6597 16 10.88" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="magazine-stat-value">89.7K</div>
+                        <div class="magazine-stat-label">Active Readers</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Charts Container -->
+        <section class="magazine-charts-container animate-fade-in" style="animation-delay: 0.4s;">
+            <div class="magazine-charts-grid">
+                <div class="magazine-chart-wrapper animate-fade-in-up" style="animation-delay: 0.5s;">
+                    <div class="magazine-chart-header">
+                        <h3 class="magazine-chart-title">Popular Categories</h3>
+                        <div class="magazine-chart-actions">
+                            <button class="btn btn-sm btn-ghost btn-primary">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Filter
+                            </button>
+                        </div>
+                    </div>
+                    <div class="magazine-chart-placeholder">
+                        [Popular Categories Chart]
+                    </div>
+                </div>
+                
+                <div class="magazine-chart-wrapper animate-fade-in-up" style="animation-delay: 0.6s;">
+                    <div class="magazine-chart-header">
+                        <h3 class="magazine-chart-title">Reading Trends</h3>
+                        <div class="magazine-chart-actions">
+                            <button class="btn btn-sm btn-ghost btn-primary">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3 16.5L8 11l3 3L21 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M16 7h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Export
+                            </button>
+                        </div>
+                    </div>
+                    <div class="magazine-chart-placeholder">
+                        [Reading Trends Chart]
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Magazine Results -->
+        <section class="magazine-results-section animate-fade-in" style="animation-delay: 0.5s;">
+            <div class="magazine-results-header">
+                <h2 class="magazine-results-title">Browse Magazines</h2>
+                <div class="magazine-results-actions">
+                    <div class="magazine-view-toggle">
+                        <button class="magazine-view-toggle-btn active">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 3H10V10H3V3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M14 3H21V10H14V3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M3 14H10V21H3V14Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M14 14H21V21H14V14Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Grid
+                        </button>
+                        <button class="magazine-view-toggle-btn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            List
+                        </button>
+                    </div>
+                    <div class="magazine-sort-dropdown">
+                        <select class="magazine-sort-select">
+                            <option value="newest">Newest First</option>
+                            <option value="oldest">Oldest First</option>
+                            <option value="popular">Most Popular</option>
+                            <option value="trending">Trending</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="magazine-results-grid">
+                <!-- Magazine Item 1 -->
+                <div class="magazine-item animate-fade-in-up" style="animation-delay: 0.6s;">
+                    <div class="magazine-item-thumbnail">
+                        <div class="magazine-item-thumbnail-overlay"></div>
+                        <img src="https://via.placeholder.com/300x400" alt="Magazine Cover" class="magazine-item-img">
+                        <div class="magazine-item-badge">New</div>
+                    </div>
+                    <div class="magazine-item-content">
+                        <div class="magazine-item-category">Media & Technology</div>
+                        <h3 class="magazine-item-title">The Future of Digital Media</h3>
+                        <div class="magazine-item-meta">
+                            <span class="magazine-item-date">March 2025</span>
+                            <span class="magazine-item-views">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                2.4K
+                            </span>
+                        </div>
+                        <div class="magazine-item-actions">
+                            <button class="btn btn-sm btn-primary">Read Now</button>
+                            <button class="btn btn-sm btn-outline btn-primary">Save</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Magazine Item 2 -->
+                <div class="magazine-item animate-fade-in-up" style="animation-delay: 0.7s;">
+                    <div class="magazine-item-thumbnail">
+                        <div class="magazine-item-thumbnail-overlay"></div>
+                        <img src="https://via.placeholder.com/300x400" alt="Magazine Cover" class="magazine-item-img">
+                    </div>
+                    <div class="magazine-item-content">
+                        <div class="magazine-item-category">Journalism</div>
+                        <h3 class="magazine-item-title">Investigative Journalism Today</h3>
+                        <div class="magazine-item-meta">
+                            <span class="magazine-item-date">February 2025</span>
+                            <span class="magazine-item-views">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                1.8K
+                            </span>
+                        </div>
+                        <div class="magazine-item-actions">
+                            <button class="btn btn-sm btn-primary">Read Now</button>
+                            <button class="btn btn-sm btn-outline btn-primary">Save</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Magazine Item 3 -->
+                <div class="magazine-item animate-fade-in-up" style="animation-delay: 0.8s;">
+                    <div class="magazine-item-thumbnail">
+                        <div class="magazine-item-thumbnail-overlay"></div>
+                        <img src="https://via.placeholder.com/300x400" alt="Magazine Cover" class="magazine-item-img">
+                        <div class="magazine-item-badge trending">Trending</div>
+                    </div>
+                    <div class="magazine-item-content">
+                        <div class="magazine-item-category">Social Media</div>
+                        <h3 class="magazine-item-title">Social Media's Impact on News</h3>
+                        <div class="magazine-item-meta">
+                            <span class="magazine-item-date">January 2025</span>
+                            <span class="magazine-item-views">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                3.2K
+                            </span>
+                        </div>
+                        <div class="magazine-item-actions">
+                            <button class="btn btn-sm btn-primary">Read Now</button>
+                            <button class="btn btn-sm btn-outline btn-primary">Save</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Magazine Item 4 -->
+                <div class="magazine-item animate-fade-in-up" style="animation-delay: 0.9s;">
+                    <div class="magazine-item-thumbnail">
+                        <div class="magazine-item-thumbnail-overlay"></div>
+                        <img src="https://via.placeholder.com/300x400" alt="Magazine Cover" class="magazine-item-img">
+                    </div>
+                    <div class="magazine-item-content">
+                        <div class="magazine-item-category">Media Ethics</div>
+                        <h3 class="magazine-item-title">Ethics in Modern Journalism</h3>
+                        <div class="magazine-item-meta">
+                            <span class="magazine-item-date">December 2024</span>
+                            <span class="magazine-item-views">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                1.5K
+                            </span>
+                        </div>
+                        <div class="magazine-item-actions">
+                            <button class="btn btn-sm btn-primary">Read Now</button>
+                            <button class="btn btn-sm btn-outline btn-primary">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="magazine-load-more-container animate-fade-in" style="animation-delay: 1s;">
+                <button class="magazine-load-more-btn">
+                    <span>Load More</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+        </section>
+    </div>
+    
+    <!-- Advanced Search Modal -->
+    <div class="magazine-modal" id="advancedSearchModal" style="display: none;">
+        <div class="magazine-modal-backdrop"></div>
+        <div class="magazine-modal-container">
+            <div class="magazine-modal-content">
+                <div class="magazine-modal-header">
+                    <h3 class="magazine-modal-title">Advanced Search</h3>
+                    <button class="magazine-modal-close" id="closeModalBtn">×</button>
+                </div>
+                <div class="magazine-modal-body">
+                    <div class="magazine-modal-form">
+                        <div class="form-group">
+                            <label for="keyword" class="form-label">Keywords</label>
+                            <input type="text" id="keyword" class="form-control" placeholder="Enter keywords...">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="category" class="form-label">Category</label>
+                            <select id="category" class="form-control">
+                                <option value="">All Categories</option>
+                                <option value="media-tech">Media & Technology</option>
+                                <option value="journalism">Journalism</option>
+                                <option value="social-media">Social Media</option>
+                                <option value="media-ethics">Media Ethics</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="date-from" class="form-label">Date From</label>
+                                <input type="date" id="date-from" class="form-control">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="date-to" class="form-label">Date To</label>
+                                <input type="date" id="date-to" class="form-control">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="author" class="form-label">Author</label>
+                            <input type="text" id="author" class="form-control" placeholder="Enter author name...">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Include</label>
+                            <div class="form-check">
+                                <input type="checkbox" id="include-articles" class="form-check-input" checked>
+                                <label for="include-articles" class="form-check-label">Articles</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" id="include-magazines" class="form-check-input" checked>
+                                <label for="include-magazines" class="form-check-label">Magazines</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" id="include-interviews" class="form-check-input" checked>
+                                <label for="include-interviews" class="form-check-label">Interviews</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="magazine-modal-footer">
+                    <button class="btn btn-secondary" id="resetSearchBtn">Reset</button>
+                    <button class="btn btn-primary" id="applySearchBtn">Apply Filters</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('advancedSearchModal');
+            const advancedSearchToggle = document.querySelector('.magazine-advanced-search-toggle');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const modalBackdrop = document.querySelector('.magazine-modal-backdrop');
+            
+            function openModal() {
+                modal.style.display = 'block';
+                document.body.classList.add('modal-open');
+            }
+            
+            function closeModal() {
+                modal.style.display = 'none';
+                document.body.classList.remove('modal-open');
+            }
+            
+            advancedSearchToggle.addEventListener('click', openModal);
+            closeModalBtn.addEventListener('click', closeModal);
+            modalBackdrop.addEventListener('click', closeModal);
+            
+            // View toggle functionality
+            const viewToggleBtns = document.querySelectorAll('.magazine-view-toggle-btn');
+            viewToggleBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    viewToggleBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // Add animation classes to elements when they enter the viewport
+            const animatedElements = document.querySelectorAll('[class*="animate-"]');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            animatedElements.forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>

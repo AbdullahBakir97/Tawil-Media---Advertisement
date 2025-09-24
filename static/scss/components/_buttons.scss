@@ -1,0 +1,220 @@
+/**
+ * Button Component
+ * Following BEM methodology with various modifiers
+ */
+
+@use 'sass:color';
+@use '../settings/variables' as vars;
+@use '../settings/colors' as colors;
+@use '../settings/typography' as type;
+@use '../tools/functions' as functions;
+@use '../tools/mixins' as mixins;
+
+.btn {
+  // Base button styles
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: functions.spacing(2) functions.spacing(4);
+  border-radius: vars.$border-radius;
+  font-family: type.$font-sans;
+  font-weight: type.$font-weight-medium;
+  font-size: type.font-size('base');
+  line-height: type.$line-height-tight;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  border: 1px solid transparent;
+  
+  // Focus styles for accessibility
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(colors.$color-primary-500, 0.4);
+  }
+  
+  // Disabled state
+  &:disabled,
+  &--disabled {
+    opacity: 0.65;
+    pointer-events: none;
+  }
+  
+  // Button variants
+  &--primary {
+    background-color: var(--button-primary-bg);
+    color: var(--button-primary-text);
+    
+    &:hover {
+      background-color: color.adjust(colors.$color-primary-600, $lightness: -5%);
+    }
+    
+    &:active {
+      background-color: color.adjust(colors.$color-primary-600, $lightness: -10%);
+    }
+  }
+  
+  &--secondary {
+    background-color: var(--button-secondary-bg);
+    color: var(--button-secondary-text);
+    
+    &:hover {
+      background-color: color.adjust(colors.$color-secondary-600, $lightness: -5%);
+    }
+    
+    &:active {
+      background-color: color.adjust(colors.$color-secondary-600, $lightness: -10%);
+    }
+  }
+  
+  &--outline {
+    background-color: transparent;
+    border-color: var(--button-outline-border);
+    color: var(--button-outline-text);
+    
+    &:hover {
+      background-color: var(--button-outline-hover-bg);
+      color: var(--button-outline-hover-text);
+    }
+  }
+  
+  &--text {
+    background-color: transparent;
+    border-color: transparent;
+    color: var(--button-text-color);
+    padding: functions.spacing(1) functions.spacing(2);
+    
+    &:hover {
+      background-color: var(--button-text-hover-bg);
+    }
+  }
+  
+  &--success {
+    background-color: var(--button-success-bg);
+    color: var(--button-success-text);
+    
+    &:hover {
+      background-color: color.adjust(colors.$color-success-600, $lightness: -5%);
+    }
+  }
+  
+  &--danger {
+    background-color: var(--button-danger-bg);
+    color: var(--button-danger-text);
+    
+    &:hover {
+      background-color: color.adjust(colors.$color-danger-600, $lightness: -5%);
+    }
+  }
+  
+  &--warning {
+    background-color: var(--button-warning-bg);
+    color: var(--button-warning-text);
+    
+    &:hover {
+      background-color: color.adjust(colors.$color-warning-600, $lightness: -5%);
+    }
+  }
+  
+  &--info {
+    background-color: var(--button-info-bg);
+    color: var(--button-info-text);
+    
+    &:hover {
+      background-color: color.adjust(colors.$color-info-600, $lightness: -5%);
+    }
+  }
+  
+  &--light {
+    background-color: var(--button-light-bg);
+    color: var(--button-light-text);
+    
+    &:hover {
+      background-color: color.adjust(colors.$color-gray-200, $lightness: -5%);
+    }
+  }
+  
+  &--dark {
+    background-color: var(--button-dark-bg);
+    color: var(--button-dark-text);
+    
+    &:hover {
+      background-color: color.adjust(colors.$color-gray-800, $lightness: -5%);
+    }
+  }
+  
+  // Button sizes
+  &--sm {
+    padding: functions.spacing(1) functions.spacing(3);
+    font-size: type.font-size('sm');
+  }
+  
+  &--lg {
+    padding: functions.spacing(3) functions.spacing(6);
+    font-size: type.font-size('lg');
+  }
+  
+  &--xl {
+    padding: functions.spacing(4) functions.spacing(8);
+    font-size: type.font-size('xl');
+  }
+  
+  // Button with icon
+  &--icon {
+    .icon {
+      margin-right: functions.spacing(2);
+    }
+    
+    &.btn--icon-only {
+      padding: functions.spacing(2);
+      
+      .icon {
+        margin-right: 0;
+      }
+    }
+    
+    &.btn--icon-right {
+      .icon {
+        margin-right: 0;
+        margin-left: functions.spacing(2);
+      }
+    }
+  }
+  
+  // Full width button
+  &--block {
+    display: flex;
+    width: 100%;
+  }
+  
+  // Rounded button
+  &--rounded {
+    border-radius: 9999px;
+  }
+  
+  // Button with loading state
+  &--loading {
+    position: relative;
+    color: transparent;
+    pointer-events: none;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      width: 1em;
+      height: 1em;
+      top: calc(50% - 0.5em);
+      left: calc(50% - 0.5em);
+      border: 2px solid currentColor;
+      border-right-color: transparent;
+      border-radius: 50%;
+      animation: button-spinner 0.75s linear infinite;
+    }
+  }
+}
+
+@keyframes button-spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}

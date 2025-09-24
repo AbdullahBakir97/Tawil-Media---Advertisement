@@ -4,6 +4,9 @@ const autoprefixer = require('autoprefixer');
 const tailwindcss = require('tailwindcss');
 const postcssImport = require('postcss-import');
 const postcssNested = require('postcss-nested');
+const postcssScss = require('postcss-scss');
+const postcssPurgecss = require('@fullhuman/postcss-purgecss');
+const postcssPresetEnv = require('postcss-preset-env');
 const fs = require('fs').promises;
 const path = require('path');
 const glob = require('glob');
@@ -16,6 +19,18 @@ function initPlugins() {
     // Add postcss-nested for better CSS organization
     plugins.push(postcssNested);
 
+    // Remove postcssScss from plugins - it should only be used as a syntax/parser
+    // plugins.push(postcssScss);
+
+    // Add postcss-preset-env for future CSS features
+    plugins.push(postcssPresetEnv({
+        features: {
+            'nesting-rules': true,
+            'custom-properties': true,
+            'custom-media-queries': true
+        }
+    }));
+
     // Add Tailwind if enabled
     if (config.css.plugins.tailwind) {
         plugins.push(tailwindcss);
@@ -24,6 +39,24 @@ function initPlugins() {
     // Add autoprefixer if enabled
     if (config.css.plugins.autoprefixer) {
         plugins.push(autoprefixer({ grid: 'autoplace' }));
+    }
+
+    // Add PurgeCSS in production to remove unused CSS
+    if (config.css.plugins.purgecss && config.isProd) {
+        plugins.push(
+            postcssPurgecss({
+                content: [
+                    './templates/**/*.html',
+                    './static/js/**/*.js'
+                ],
+                defaultExtractor: content => content.match(/[\w-/:]+(?<!:)/g) || [],
+                safelist: {
+                    standard: [/^html/, /^body/, /^:root/],
+                    deep: [/dark/, /light/, /active/, /open/, /show/],
+                    greedy: [/^modal-/, /^dropdown-/, /^nav-/]
+                }
+            })
+        );
     }
 
     // Add minification in production
@@ -39,18 +72,24 @@ function initPlugins() {
     return plugins;
 }
 
-// Process a single CSS file
+// Process a single CSS/SCSS file
 async function processFile(file, plugins) {
     const css = await fs.readFile(file, 'utf8');
     const relativePath = path.relative(config.css.srcDir, file);
-    const destPath = path.join(config.css.destDir, relativePath);
+    
+    // Change extension from .scss to .css for output
+    const destPath = path.join(
+        config.css.destDir, 
+        relativePath.replace(/\.scss$/, '.css')
+    );
 
     try {
         // Process with PostCSS
         const result = await postcss(plugins).process(css, {
             from: file,
             to: destPath,
-            map: config.css.sourcemap ? { inline: true } : false
+            map: config.css.sourcemap ? { inline: true } : false,
+            syntax: file.endsWith('.scss') ? postcssScss : undefined
         });
 
         // Ensure destination subdirectories exist
@@ -84,8 +123,8 @@ async function buildCSS() {
         // Ensure destination directory exists
         await fs.mkdir(config.css.destDir, { recursive: true });
 
-        // Get all CSS files
-        const files = glob.sync(`${config.css.srcDir}/**/*.css`);
+        // Get all CSS and SCSS files
+        const files = glob.sync(`${config.css.srcDir}/**/*.{css,scss}`);
         
         // Process files in parallel, but ensure entry file is first
         const entryFile = path.join(config.css.srcDir, config.css.entry);
@@ -122,7 +161,7 @@ async function buildCSS() {
         console.log(`Output directory: ${path.relative(process.cwd(), config.css.destDir)}`);
         console.log(`Mode: ${config.isProd ? 'production' : 'development'}`);
         console.log(`Sourcemaps: ${config.css.sourcemap ? 'enabled' : 'disabled'}`);
-        console.log(`Minification: ${config.css.minify ? 'enabled' : 'disabled'}`);
+        console.log(`Minification: ${config.css.plugins.cssnano ? 'enabled' : 'disabled'}`);
         console.log(`Plugins enabled: ${Object.entries(config.css.plugins)
             .filter(([, enabled]) => enabled)
             .map(([name]) => name)
@@ -139,9 +178,9 @@ async function buildCSS() {
 async function watch() {
     const chokidar = require('chokidar');
     
-    console.log('👀 Watching for CSS changes...');
+    console.log('👀 Watching for CSS/SCSS changes...');
     
-    const watcher = chokidar.watch(`${config.css.srcDir}/**/*.css`, {
+    const watcher = chokidar.watch(`${config.css.srcDir}/**/*.{css,scss}`, {
         ignored: /(^|[\/\\])\../,
         persistent: true
     });

@@ -1,0 +1,383 @@
+/**
+ * Premium Typography System for Tawil Media
+ * Enhanced with professional hierarchy, responsive scaling, and premium font features
+ */
+
+@use 'sass:map';
+
+// Font families
+$font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+$font-serif: 'Georgia', 'Times New Roman', serif;
+$font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+$font-display: 'Poppins', $font-sans;
+$font-heading: 'Poppins', $font-sans;
+$font-body: 'Inter', $font-sans;
+$font-quote: $font-serif;
+$font-code: $font-mono;
+
+// Font weights
+$font-weight-thin: 100;
+$font-weight-extralight: 200;
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$font-weight-extrabold: 800;
+$font-weight-black: 900;
+
+// Font sizes (with responsive scaling)
+$font-size-base: 1rem; // 16px
+$font-sizes: (
+  'xs': 0.75rem,    // 12px
+  'sm': 0.875rem,   // 14px
+  'base': 1rem,     // 16px
+  'lg': 1.125rem,   // 18px
+  'xl': 1.25rem,    // 20px
+  '2xl': 1.5rem,    // 24px
+  '3xl': 1.875rem,  // 30px
+  '4xl': 2.25rem,   // 36px
+  '5xl': 3rem,      // 48px
+  '6xl': 3.75rem,   // 60px
+  '7xl': 4.5rem,    // 72px
+  '8xl': 6rem,      // 96px
+  '9xl': 8rem       // 128px
+);
+
+// Line heights
+$line-height-none: 1;
+$line-height-tight: 1.25;
+$line-height-snug: 1.375;
+$line-height-normal: 1.5;
+$line-height-relaxed: 1.625;
+$line-height-loose: 2;
+
+// Letter spacing
+$letter-spacing-tighter: -0.05em;
+$letter-spacing-tight: -0.025em;
+$letter-spacing-normal: 0em;
+$letter-spacing-wide: 0.025em;
+$letter-spacing-wider: 0.05em;
+$letter-spacing-widest: 0.1em;
+
+// Responsive font sizes with fluid typography
+$responsive-font-sizes: (
+  'h1': (
+    'base': font-size('4xl'),
+    'md': font-size('5xl'),
+    'lg': font-size('6xl'),
+    'line-height': $line-height-tight,
+    'letter-spacing': $letter-spacing-tight,
+    'font-weight': $font-weight-bold
+  ),
+  'h2': (
+    'base': font-size('3xl'),
+    'md': font-size('4xl'),
+    'lg': font-size('5xl'),
+    'line-height': $line-height-tight,
+    'letter-spacing': $letter-spacing-tight,
+    'font-weight': $font-weight-bold
+  ),
+  'h3': (
+    'base': font-size('2xl'),
+    'md': font-size('3xl'),
+    'lg': font-size('4xl'),
+    'line-height': $line-height-snug,
+    'letter-spacing': $letter-spacing-tight,
+    'font-weight': $font-weight-semibold
+  ),
+  'h4': (
+    'base': font-size('xl'),
+    'md': font-size('2xl'),
+    'lg': font-size('3xl'),
+    'line-height': $line-height-snug,
+    'letter-spacing': $letter-spacing-normal,
+    'font-weight': $font-weight-semibold
+  ),
+  'h5': (
+    'base': font-size('lg'),
+    'md': font-size('xl'),
+    'lg': font-size('2xl'),
+    'line-height': $line-height-normal,
+    'letter-spacing': $letter-spacing-normal,
+    'font-weight': $font-weight-medium
+  ),
+  'h6': (
+    'base': font-size('base'),
+    'md': font-size('lg'),
+    'lg': font-size('xl'),
+    'line-height': $line-height-normal,
+    'letter-spacing': $letter-spacing-normal,
+    'font-weight': $font-weight-medium
+  ),
+  'body': (
+    'base': font-size('base'),
+    'md': font-size('base'),
+    'lg': font-size('lg'),
+    'line-height': $line-height-relaxed,
+    'letter-spacing': $letter-spacing-normal,
+    'font-weight': $font-weight-normal
+  ),
+  'body-small': (
+    'base': font-size('sm'),
+    'md': font-size('sm'),
+    'lg': font-size('base'),
+    'line-height': $line-height-relaxed,
+    'letter-spacing': $letter-spacing-normal,
+    'font-weight': $font-weight-normal
+  ),
+  'caption': (
+    'base': font-size('xs'),
+    'md': font-size('sm'),
+    'lg': font-size('sm'),
+    'line-height': $line-height-normal,
+    'letter-spacing': $letter-spacing-wide,
+    'font-weight': $font-weight-normal
+  ),
+  'overline': (
+    'base': font-size('xs'),
+    'md': font-size('xs'),
+    'lg': font-size('sm'),
+    'line-height': $line-height-normal,
+    'letter-spacing': $letter-spacing-widest,
+    'font-weight': $font-weight-medium
+  ),
+  'button': (
+    'base': font-size('sm'),
+    'md': font-size('base'),
+    'lg': font-size('base'),
+    'line-height': $line-height-none,
+    'letter-spacing': $letter-spacing-wide,
+    'font-weight': $font-weight-medium
+  ),
+  'display': (
+    'base': font-size('5xl'),
+    'md': font-size('6xl'),
+    'lg': font-size('7xl'),
+    'line-height': $line-height-tight,
+    'letter-spacing': $letter-spacing-tighter,
+    'font-weight': $font-weight-bold
+  ),
+  'display-large': (
+    'base': font-size('6xl'),
+    'md': font-size('7xl'),
+    'lg': font-size('8xl'),
+    'line-height': $line-height-none,
+    'letter-spacing': $letter-spacing-tighter,
+    'font-weight': $font-weight-bold
+  )
+);
+
+// Text truncation
+$line-clamp: (
+  1: 1,
+  2: 2,
+  3: 3,
+  4: 4,
+  5: 5,
+  6: 6
+);
+
+// Font feature settings
+$font-features-normal: normal;
+$font-features-premium: "salt" 1, "liga" 1, "calt" 1, "kern" 1;
+$font-features-numeric: "tnum" 1, "salt" 1, "ss02" 1;
+$font-features-heading: "salt" 1, "liga" 1, "calt" 1, "kern" 1;
+
+// Font size function
+@function font-size($size) {
+  @if map.has-key($font-sizes, $size) {
+    @return map.get($font-sizes, $size);
+  }
+  @error "Unknown font size: #{$size}. Available sizes are: #{map.keys($font-sizes)}";
+}
+
+// Fluid typography mixin
+@mixin fluid-type($min-vw, $max-vw, $min-size, $max-size) {
+  font-size: $min-size;
+  
+  @media screen and (min-width: $min-vw) {
+    font-size: calc(#{$min-size} + #{strip-unit($max-size - $min-size)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+  }
+  
+  @media screen and (min-width: $max-vw) {
+    font-size: $max-size;
+  }
+}
+
+// Strip unit helper function
+@function strip-unit($value) {
+  @return $value / ($value * 0 + 1);
+}
+
+// Typography mixins
+@mixin heading-1 {
+  font-family: $font-heading;
+  font-weight: map.get(map.get($responsive-font-sizes, 'h1'), 'font-weight');
+  line-height: map.get(map.get($responsive-font-sizes, 'h1'), 'line-height');
+  letter-spacing: map.get(map.get($responsive-font-sizes, 'h1'), 'letter-spacing');
+  font-size: map.get(map.get($responsive-font-sizes, 'h1'), 'base');
+  font-feature-settings: $font-features-heading;
+  
+  @media (min-width: 768px) {
+    font-size: map.get(map.get($responsive-font-sizes, 'h1'), 'md');
+  }
+  
+  @media (min-width: 1024px) {
+    font-size: map.get(map.get($responsive-font-sizes, 'h1'), 'lg');
+  }
+}
+
+@mixin heading-2 {
+  font-family: $font-heading;
+  font-weight: map.get(map.get($responsive-font-sizes, 'h2'), 'font-weight');
+  line-height: map.get(map.get($responsive-font-sizes, 'h2'), 'line-height');
+  letter-spacing: map.get(map.get($responsive-font-sizes, 'h2'), 'letter-spacing');
+  font-size: map.get(map.get($responsive-font-sizes, 'h2'), 'base');
+  font-feature-settings: $font-features-heading;
+  
+  @media (min-width: 768px) {
+    font-size: map.get(map.get($responsive-font-sizes, 'h2'), 'md');
+  }
+  
+  @media (min-width: 1024px) {
+    font-size: map.get(map.get($responsive-font-sizes, 'h2'), 'lg');
+  }
+}
+
+@mixin heading-3 {
+  font-family: $font-heading;
+  font-weight: map.get(map.get($responsive-font-sizes, 'h3'), 'font-weight');
+  line-height: map.get(map.get($responsive-font-sizes, 'h3'), 'line-height');
+  letter-spacing: map.get(map.get($responsive-font-sizes, 'h3'), 'letter-spacing');
+  font-size: map.get(map.get($responsive-font-sizes, 'h3'), 'base');
+  font-feature-settings: $font-features-heading;
+  
+  @media (min-width: 768px) {
+    font-size: map.get(map.get($responsive-font-sizes, 'h3'), 'md');
+  }
+  
+  @media (min-width: 1024px) {
+    font-size: map.get(map.get($responsive-font-sizes, 'h3'), 'lg');
+  }
+}
+
+@mixin body-text {
+  font-family: $font-body;
+  font-weight: map.get(map.get($responsive-font-sizes, 'body'), 'font-weight');
+  line-height: map.get(map.get($responsive-font-sizes, 'body'), 'line-height');
+  letter-spacing: map.get(map.get($responsive-font-sizes, 'body'), 'letter-spacing');
+  font-size: map.get(map.get($responsive-font-sizes, 'body'), 'base');
+  font-feature-settings: $font-features-normal;
+  
+  @media (min-width: 768px) {
+    font-size: map.get(map.get($responsive-font-sizes, 'body'), 'md');
+  }
+  
+  @media (min-width: 1024px) {
+    font-size: map.get(map.get($responsive-font-sizes, 'body'), 'lg');
+  }
+}
+
+@mixin caption-text {
+  font-family: $font-body;
+  font-weight: map.get(map.get($responsive-font-sizes, 'caption'), 'font-weight');
+  line-height: map.get(map.get($responsive-font-sizes, 'caption'), 'line-height');
+  letter-spacing: map.get(map.get($responsive-font-sizes, 'caption'), 'letter-spacing');
+  font-size: map.get(map.get($responsive-font-sizes, 'caption'), 'base');
+  font-feature-settings: $font-features-normal;
+  
+  @media (min-width: 768px) {
+    font-size: map.get(map.get($responsive-font-sizes, 'caption'), 'md');
+  }
+  
+  @media (min-width: 1024px) {
+    font-size: map.get(map.get($responsive-font-sizes, 'caption'), 'lg');
+  }
+}
+
+@mixin display-text {
+  font-family: $font-display;
+  font-weight: map.get(map.get($responsive-font-sizes, 'display'), 'font-weight');
+  line-height: map.get(map.get($responsive-font-sizes, 'display'), 'line-height');
+  letter-spacing: map.get(map.get($responsive-font-sizes, 'display'), 'letter-spacing');
+  font-size: map.get(map.get($responsive-font-sizes, 'display'), 'base');
+  font-feature-settings: $font-features-premium;
+  
+  @media (min-width: 768px) {
+    font-size: map.get(map.get($responsive-font-sizes, 'display'), 'md');
+  }
+  
+  @media (min-width: 1024px) {
+    font-size: map.get(map.get($responsive-font-sizes, 'display'), 'lg');
+  }
+}
+
+@mixin button-text {
+  font-family: $font-body;
+  font-weight: map.get(map.get($responsive-font-sizes, 'button'), 'font-weight');
+  line-height: map.get(map.get($responsive-font-sizes, 'button'), 'line-height');
+  letter-spacing: map.get(map.get($responsive-font-sizes, 'button'), 'letter-spacing');
+  font-size: map.get(map.get($responsive-font-sizes, 'button'), 'base');
+  text-transform: uppercase;
+  font-feature-settings: $font-features-normal;
+  
+  @media (min-width: 768px) {
+    font-size: map.get(map.get($responsive-font-sizes, 'button'), 'md');
+  }
+  
+  @media (min-width: 1024px) {
+    font-size: map.get(map.get($responsive-font-sizes, 'button'), 'lg');
+  }
+}
+
+@mixin truncate-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin line-clamp($lines) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+// CSS variables for typography
+:root {
+  // Font families
+  --font-sans: #{$font-sans};
+  --font-serif: #{$font-serif};
+  --font-mono: #{$font-mono};
+  --font-display: #{$font-display};
+  --font-heading: #{$font-heading};
+  --font-body: #{$font-body};
+  
+  // Font weights
+  --font-weight-thin: #{$font-weight-thin};
+  --font-weight-extralight: #{$font-weight-extralight};
+  --font-weight-light: #{$font-weight-light};
+  --font-weight-normal: #{$font-weight-normal};
+  --font-weight-medium: #{$font-weight-medium};
+  --font-weight-semibold: #{$font-weight-semibold};
+  --font-weight-bold: #{$font-weight-bold};
+  --font-weight-extrabold: #{$font-weight-extrabold};
+  --font-weight-black: #{$font-weight-black};
+  
+  // Line heights
+  --line-height-none: #{$line-height-none};
+  --line-height-tight: #{$line-height-tight};
+  --line-height-snug: #{$line-height-snug};
+  --line-height-normal: #{$line-height-normal};
+  --line-height-relaxed: #{$line-height-relaxed};
+  --line-height-loose: #{$line-height-loose};
+  
+  // Letter spacing
+  --letter-spacing-tighter: #{$letter-spacing-tighter};
+  --letter-spacing-tight: #{$letter-spacing-tight};
+  --letter-spacing-normal: #{$letter-spacing-normal};
+  --letter-spacing-wide: #{$letter-spacing-wide};
+  --letter-spacing-wider: #{$letter-spacing-wider};
+  --letter-spacing-widest: #{$letter-spacing-widest};
+}

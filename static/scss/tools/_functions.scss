@@ -1,0 +1,109 @@
+/**
+ * Utility functions for SCSS
+ */
+
+@use 'sass:map';
+@use 'sass:string';
+@use '../settings/variables' as vars;
+@use '../settings/breakpoints' as breakpoints;
+
+// Export variables for other files to use
+$spacing-scale: vars.$spacing-scale !default;
+$z-layers: vars.$z-layers !default;
+
+// Get spacing value from scale
+@function spacing($key) {
+  @if map.has-key($spacing-scale, $key) {
+    @return map.get($spacing-scale, $key);
+  }
+  
+  @error "Unknown spacing key: #{$key}. Available keys are: #{map.keys($spacing-scale)}";
+}
+
+// Get z-index value
+@function z($layer) {
+  @if map.has-key($z-layers, $layer) {
+    @return map.get($z-layers, $layer);
+  }
+  
+  @error "Unknown z-index layer: #{$layer}. Available layers are: #{map.keys($z-layers)}";
+}
+
+// Get color with optional opacity
+@function color($color-name, $opacity: 1) {
+  $color-value: null;
+  
+  // Check if it's a primary color with number
+  @if string.index($color-name, 'primary-') {
+    $shade: string.slice($color-name, 9);
+    $var-name: 'color-primary-#{$shade}';
+    
+    @if variable-exists($var-name) {
+      $color-value: var(--#{$var-name});
+    } @else {
+      $color-value: var(--color-primary);
+    }
+  }
+  // Check if it's a secondary color with number
+  @else if string.index($color-name, 'secondary-') {
+    $shade: string.slice($color-name, 11);
+    $var-name: 'color-secondary-#{$shade}';
+    
+    @if variable-exists($var-name) {
+      $color-value: var(--#{$var-name});
+    } @else {
+      $color-value: var(--color-secondary);
+    }
+  }
+  // Check if it's a gray color with number
+  @else if string.index($color-name, 'gray-') {
+    $shade: string.slice($color-name, 6);
+    $var-name: 'color-gray-#{$shade}';
+    
+    @if variable-exists($var-name) {
+      $color-value: var(--#{$var-name});
+    } @else {
+      $color-value: var(--color-gray-500);
+    }
+  }
+  // Otherwise, try to get the color directly
+  @else {
+    $var-name: 'color-#{$color-name}';
+    $color-value: var(--#{$var-name});
+  }
+  
+  // Apply opacity if needed
+  @if $opacity < 1 {
+    @return rgba($color-value, $opacity);
+  } @else {
+    @return $color-value;
+  }
+}
+
+// Get breakpoint value
+@function breakpoint($key) {
+  @if map.has-key(breakpoints.$breakpoints, $key) {
+    @return map.get(breakpoints.$breakpoints, $key);
+  }
+  
+  @error "Unknown breakpoint key: #{$key}. Available keys are: #{map.keys(breakpoints.$breakpoints)}";
+}
+
+// Calculate rem from pixels
+@function rem($pixels, $context: 16) {
+  @return ($pixels / $context) * 1rem;
+}
+
+// Calculate em from pixels
+@function em($pixels, $context: 16) {
+  @return ($pixels / $context) * 1em;
+}
+
+// Get font size
+@function font-size($key) {
+  @if map.has-key(vars.$font-sizes, $key) {
+    @return map.get(vars.$font-sizes, $key);
+  }
+  
+  @error "Unknown font size key: #{$key}. Available keys are: #{map.keys(vars.$font-sizes)}";
+}

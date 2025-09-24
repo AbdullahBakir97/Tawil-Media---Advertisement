@@ -1,0 +1,258 @@
+/**
+ * Flex Layout System
+ * Utility classes for flexbox layouts
+ */
+
+@use '../settings/breakpoints' as breakpoints;
+@use '../tools/functions' as functions;
+@use '../tools/mixins' as mixins;
+
+// Base flex container
+.flex {
+  display: flex;
+  
+  // Direction
+  &-row {
+    flex-direction: row;
+  }
+  
+  &-row-reverse {
+    flex-direction: row-reverse;
+  }
+  
+  &-col {
+    flex-direction: column;
+  }
+  
+  &-col-reverse {
+    flex-direction: column-reverse;
+  }
+  
+  // Wrapping
+  &-wrap {
+    flex-wrap: wrap;
+  }
+  
+  &-nowrap {
+    flex-wrap: nowrap;
+  }
+  
+  &-wrap-reverse {
+    flex-wrap: wrap-reverse;
+  }
+  
+  // Justify content
+  &-justify-start {
+    justify-content: flex-start;
+  }
+  
+  &-justify-end {
+    justify-content: flex-end;
+  }
+  
+  &-justify-center {
+    justify-content: center;
+  }
+  
+  &-justify-between {
+    justify-content: space-between;
+  }
+  
+  &-justify-around {
+    justify-content: space-around;
+  }
+  
+  &-justify-evenly {
+    justify-content: space-evenly;
+  }
+  
+  // Align items
+  &-items-start {
+    align-items: flex-start;
+  }
+  
+  &-items-end {
+    align-items: flex-end;
+  }
+  
+  &-items-center {
+    align-items: center;
+  }
+  
+  &-items-baseline {
+    align-items: baseline;
+  }
+  
+  &-items-stretch {
+    align-items: stretch;
+  }
+  
+  // Align content
+  &-content-start {
+    align-content: flex-start;
+  }
+  
+  &-content-end {
+    align-content: flex-end;
+  }
+  
+  &-content-center {
+    align-content: center;
+  }
+  
+  &-content-between {
+    align-content: space-between;
+  }
+  
+  &-content-around {
+    align-content: space-around;
+  }
+  
+  &-content-stretch {
+    align-content: stretch;
+  }
+  
+  // Common flex patterns
+  &-center {
+    justify-content: center;
+    align-items: center;
+  }
+  
+  &-between-center {
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  &-end-center {
+    justify-content: flex-end;
+    align-items: center;
+  }
+  
+  // Gap utilities
+  @each $key, $value in functions.$spacing-scale {
+    &-gap-#{$key} {
+      gap: $value;
+    }
+  }
+  
+  // Responsive flex
+  @each $breakpoint-name, $breakpoint-value in breakpoints.$breakpoints {
+    @if $breakpoint-name != 'xs' {
+      @include mixins.respond-to($breakpoint-name) {
+        &-#{$breakpoint-name} {
+          display: flex;
+        }
+        
+        &-#{$breakpoint-name}-row {
+          flex-direction: row;
+        }
+        
+        &-#{$breakpoint-name}-col {
+          flex-direction: column;
+        }
+        
+        &-#{$breakpoint-name}-wrap {
+          flex-wrap: wrap;
+        }
+        
+        &-#{$breakpoint-name}-nowrap {
+          flex-wrap: nowrap;
+        }
+        
+        &-#{$breakpoint-name}-justify-start {
+          justify-content: flex-start;
+        }
+        
+        &-#{$breakpoint-name}-justify-end {
+          justify-content: flex-end;
+        }
+        
+        &-#{$breakpoint-name}-justify-center {
+          justify-content: center;
+        }
+        
+        &-#{$breakpoint-name}-justify-between {
+          justify-content: space-between;
+        }
+        
+        &-#{$breakpoint-name}-items-center {
+          align-items: center;
+        }
+      }
+    }
+  }
+}
+
+// Flex child utilities
+.flex-1 {
+  flex: 1 1 0%;
+}
+
+.flex-auto {
+  flex: 1 1 auto;
+}
+
+.flex-initial {
+  flex: 0 1 auto;
+}
+
+.flex-none {
+  flex: none;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+
+.flex-grow-0 {
+  flex-grow: 0;
+}
+
+.flex-shrink {
+  flex-shrink: 1;
+}
+
+.flex-shrink-0 {
+  flex-shrink: 0;
+}
+
+// Align self
+.self-auto {
+  align-self: auto;
+}
+
+.self-start {
+  align-self: flex-start;
+}
+
+.self-end {
+  align-self: flex-end;
+}
+
+.self-center {
+  align-self: center;
+}
+
+.self-stretch {
+  align-self: stretch;
+}
+
+// Order utilities
+.order-first {
+  order: -1;
+}
+
+.order-last {
+  order: 999;
+}
+
+.order-none {
+  order: 0;
+}
+
+// Numeric orders
+@for $i from 1 through 12 {
+  .order-#{$i} {
+    order: $i;
+  }
+}

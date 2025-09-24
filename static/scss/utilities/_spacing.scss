@@ -1,0 +1,187 @@
+/**
+ * Spacing Utilities
+ * Margin and padding utility classes
+ */
+
+@use 'sass:map';
+@use '../settings/variables' as vars;
+@use '../settings/breakpoints' as breakpoints;
+
+// Generate margin utilities
+@each $key, $value in vars.$spacing-scale {
+  // Margin in all directions
+  .m-#{$key} {
+    margin: $value;
+  }
+  
+  // Margin top
+  .mt-#{$key} {
+    margin-top: $value;
+  }
+  
+  // Margin right
+  .mr-#{$key} {
+    margin-right: $value;
+  }
+  
+  // Margin bottom
+  .mb-#{$key} {
+    margin-bottom: $value;
+  }
+  
+  // Margin left
+  .ml-#{$key} {
+    margin-left: $value;
+  }
+  
+  // Margin horizontal (left and right)
+  .mx-#{$key} {
+    margin-left: $value;
+    margin-right: $value;
+  }
+  
+  // Margin vertical (top and bottom)
+  .my-#{$key} {
+    margin-top: $value;
+    margin-bottom: $value;
+  }
+}
+
+// Generate padding utilities
+@each $key, $value in vars.$spacing-scale {
+  // Padding in all directions
+  .p-#{$key} {
+    padding: $value;
+  }
+  
+  // Padding top
+  .pt-#{$key} {
+    padding-top: $value;
+  }
+  
+  // Padding right
+  .pr-#{$key} {
+    padding-right: $value;
+  }
+  
+  // Padding bottom
+  .pb-#{$key} {
+    padding-bottom: $value;
+  }
+  
+  // Padding left
+  .pl-#{$key} {
+    padding-left: $value;
+  }
+  
+  // Padding horizontal (left and right)
+  .px-#{$key} {
+    padding-left: $value;
+    padding-right: $value;
+  }
+  
+  // Padding vertical (top and bottom)
+  .py-#{$key} {
+    padding-top: $value;
+    padding-bottom: $value;
+  }
+}
+
+// Gap utilities
+@each $key, $value in vars.$spacing-scale {
+  .gap-#{$key} {
+    gap: $value;
+  }
+  
+  .gap-x-#{$key} {
+    column-gap: $value;
+  }
+  
+  .gap-y-#{$key} {
+    row-gap: $value;
+  }
+}
+
+// Responsive spacing utilities
+@each $breakpoint-name, $breakpoint-value in breakpoints.$breakpoints {
+  @if $breakpoint-name != 'xs' {
+    @media (min-width: $breakpoint-value) {
+      @each $key, $value in vars.$spacing-scale {
+        // Responsive margin
+        .#{$breakpoint-name}\:m-#{$key} {
+          margin: $value;
+        }
+        
+        .#{$breakpoint-name}\:mt-#{$key} {
+          margin-top: $value;
+        }
+        
+        .#{$breakpoint-name}\:mr-#{$key} {
+          margin-right: $value;
+        }
+        
+        .#{$breakpoint-name}\:mb-#{$key} {
+          margin-bottom: $value;
+        }
+        
+        .#{$breakpoint-name}\:ml-#{$key} {
+          margin-left: $value;
+        }
+        
+        .#{$breakpoint-name}\:mx-#{$key} {
+          margin-left: $value;
+          margin-right: $value;
+        }
+        
+        .#{$breakpoint-name}\:my-#{$key} {
+          margin-top: $value;
+          margin-bottom: $value;
+        }
+        
+        // Responsive padding
+        .#{$breakpoint-name}\:p-#{$key} {
+          padding: $value;
+        }
+        
+        .#{$breakpoint-name}\:pt-#{$key} {
+          padding-top: $value;
+        }
+        
+        .#{$breakpoint-name}\:pr-#{$key} {
+          padding-right: $value;
+        }
+        
+        .#{$breakpoint-name}\:pb-#{$key} {
+          padding-bottom: $value;
+        }
+        
+        .#{$breakpoint-name}\:pl-#{$key} {
+          padding-left: $value;
+        }
+        
+        .#{$breakpoint-name}\:px-#{$key} {
+          padding-left: $value;
+          padding-right: $value;
+        }
+        
+        .#{$breakpoint-name}\:py-#{$key} {
+          padding-top: $value;
+          padding-bottom: $value;
+        }
+        
+        // Responsive gap
+        .#{$breakpoint-name}\:gap-#{$key} {
+          gap: $value;
+        }
+        
+        .#{$breakpoint-name}\:gap-x-#{$key} {
+          column-gap: $value;
+        }
+        
+        .#{$breakpoint-name}\:gap-y-#{$key} {
+          row-gap: $value;
+        }
+      }
+    }
+  }
+}

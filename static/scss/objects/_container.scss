@@ -1,0 +1,80 @@
+/**
+ * Container Component
+ * Responsive container with proper padding and max-width
+ */
+
+@use '../settings/breakpoints' as breakpoints;
+@use '../tools/functions' as functions;
+@use '../tools/mixins' as mixins;
+
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: functions.spacing(4);
+  padding-right: functions.spacing(4);
+  
+  // Responsive max-width based on breakpoints
+  @include mixins.respond-to('sm') {
+    max-width: functions.breakpoint('sm');
+  }
+  
+  @include mixins.respond-to('md') {
+    max-width: functions.breakpoint('md');
+  }
+  
+  @include mixins.respond-to('lg') {
+    max-width: functions.breakpoint('lg');
+  }
+  
+  @include mixins.respond-to('xl') {
+    max-width: functions.breakpoint('xl');
+  }
+  
+  @include mixins.respond-to('xxl') {
+    max-width: functions.breakpoint('xxl');
+  }
+  
+  // Container variants
+  &--fluid {
+    max-width: none;
+  }
+  
+  &--narrow {
+    @include mixins.respond-to('md') {
+      max-width: 80%;
+    }
+    
+    @include mixins.respond-to('lg') {
+      max-width: 70%;
+    }
+    
+    @include mixins.respond-to('xl') {
+      max-width: 60%;
+    }
+  }
+  
+  &--wide {
+    @include mixins.respond-to('xl') {
+      max-width: 90%;
+    }
+    
+    @include mixins.respond-to('xxl') {
+      max-width: 85%;
+    }
+  }
+  
+  &--full {
+    max-width: 100%;
+  }
+  
+  &--dashboard {
+    padding-left: functions.spacing(6);
+    padding-right: functions.spacing(6);
+    
+    @include mixins.respond-to('lg') {
+      padding-left: functions.spacing(8);
+      padding-right: functions.spacing(8);
+    }
+  }
+}

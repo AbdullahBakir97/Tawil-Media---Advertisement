@@ -9,9 +9,9 @@ module.exports = {
     
     // CSS Configuration
     css: {
-        srcDir: path.resolve(__dirname, '../../static/css'),
+        srcDir: path.resolve(__dirname, '../../static'),
         destDir: path.resolve(__dirname, '../../static/dist/css'),
-        entry: 'index.css',
+        entry: 'scss/main.scss',
         purge: {
             content: [
                 '../../templates/**/*.html',
@@ -23,7 +23,10 @@ module.exports = {
         plugins: {
             tailwind: true,
             autoprefixer: true,
-            cssnano: isProd
+            cssnano: isProd,
+            purgecss: isProd,
+            'postcss-preset-env': true,
+            'postcss-scss': true
         }
     },
     

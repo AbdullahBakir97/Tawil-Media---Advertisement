@@ -1,0 +1,239 @@
+/**
+ * Header Component Styles
+ * Using BEM methodology
+ */
+
+@use '../settings/variables' as vars;
+@use '../settings/colors' as colors;
+@use '../tools/mixins' as mixins;
+@use '../tools/functions' as functions;
+
+.header {
+  position: relative;
+  width: 100%;
+  height: vars.$header-height;
+  overflow: hidden;
+  
+  // Header background
+  &__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    @include mixins.z-index('base');
+    
+    // Gradient background instead of image
+    background: linear-gradient(135deg, colors.$header-bg-start 0%, colors.$header-bg-end 100%);
+    
+    // Add texture with radial gradients
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+    }
+    
+    // Add subtle dot pattern
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+    
+    // Image (if needed)
+    img {
+      width: 80%;
+      height: 80%;
+      object-fit: contain;
+      object-position: center;
+      max-width: 1600px;
+      margin: 0 auto;
+      display: block;
+      opacity: 0.7; // Reduce opacity to blend with gradient
+    }
+  }
+  
+  // Header content
+  &__content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    @include mixins.z-index('low');
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+  }
+  
+  // Navigation bar container
+  &__nav-container {
+    position: absolute;
+    top: functions.spacing(8);
+    left: 25%;
+    right: functions.spacing(8);
+    @include mixins.z-index('high');
+    @include mixins.flex-between;
+    padding: 0 functions.spacing(8);
+    width: auto;
+    
+    // Center navigation
+    &-center {
+      flex: 1 1 auto;
+    }
+    
+    // Right navigation items
+    &-right {
+      display: flex;
+      align-items: center;
+      gap: functions.spacing(4);
+    }
+  }
+  
+  // Left half with glass effect
+  &__left {
+    position: relative;
+    padding: functions.spacing(9) functions.spacing(8) functions.spacing(8);
+    @include mixins.glass-effect(0.2, 10px, 0.1);
+    @include mixins.flex-column;
+    justify-content: flex-start;
+  }
+  
+  // Glass panel
+  &__glass-panel {
+    height: 100%;
+    @include mixins.flex-column;
+    gap: functions.spacing(8);
+  }
+  
+  // Right half
+  &__right {
+    position: relative;
+    padding: functions.spacing(9) functions.spacing(8) functions.spacing(8);
+    background: transparent;
+    @include mixins.flex-column;
+    justify-content: flex-start;
+  }
+  
+  // Vertical divider
+  &__divider {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      rgba(255, 255, 255, 0.3),
+      transparent
+    );
+    transform: translateX(-50%);
+    @include mixins.z-index('medium');
+  }
+  
+  // Logos section
+  &__logos {
+    @include mixins.flex-column;
+    align-items: center;
+    gap: functions.spacing(4);
+    margin-bottom: functions.spacing(8);
+    
+    // Main logo
+    &-main {
+      display: flex;
+      justify-content: center;
+      margin-bottom: functions.spacing(2);
+      @include mixins.slide-in-top(0.5s, 0.2s);
+    }
+    
+    // Secondary logo
+    &-secondary {
+      display: flex;
+      justify-content: center;
+      @include mixins.slide-in-top(0.5s, 0.4s);
+    }
+  }
+  
+  // Owner section
+  &__owner {
+    @include mixins.flex-column;
+    gap: functions.spacing(6);
+    margin-bottom: functions.spacing(8);
+    @include mixins.slide-in-right(0.5s, 0.3s);
+    
+    // Owner info
+    &-info {
+      margin-bottom: functions.spacing(4);
+    }
+    
+    // Owner image
+    &-image {
+      align-self: center;
+    }
+  }
+  
+  // Magazine section
+  &__magazine {
+    margin-top: auto;
+    @include mixins.slide-in-bottom(0.5s, 0.5s);
+  }
+  
+  // Responsive styles
+  @include mixins.respond-below('md') {
+    &__content {
+      grid-template-columns: 1fr;
+    }
+    
+    &__divider {
+      display: none;
+    }
+    
+    &__left,
+    &__right {
+      padding: functions.spacing(6) functions.spacing(4) functions.spacing(4);
+    }
+    
+    &__glass-panel {
+      gap: functions.spacing(6);
+    }
+    
+    &__nav-container {
+      left: 0;
+      width: 100%;
+      padding: 0 functions.spacing(4);
+      
+      &-center {
+        flex: 0 1 auto;
+      }
+      
+      &-right {
+        margin-left: 0;
+      }
+    }
+    
+    &__right {
+      padding-top: 0;
+    }
+  }
+  
+  @include mixins.respond-below('sm') {
+    &__nav-container {
+      top: functions.spacing(4);
+    }
+    
+    &__search-input {
+      width: 150px;
+    }
+  }
+}

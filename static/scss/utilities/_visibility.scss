@@ -1,0 +1,271 @@
+/**
+ * Visibility Utilities
+ * Classes for controlling element visibility and display
+ */
+
+@use 'sass:map';
+@use 'sass:list';
+@use '../settings/breakpoints' as breakpoints;
+
+// Display properties
+.block {
+  display: block;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.inline {
+  display: inline;
+}
+
+.flex {
+  display: flex;
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+.grid {
+  display: grid;
+}
+
+.inline-grid {
+  display: inline-grid;
+}
+
+.table {
+  display: table;
+}
+
+.table-cell {
+  display: table-cell;
+}
+
+.table-row {
+  display: table-row;
+}
+
+.contents {
+  display: contents;
+}
+
+.hidden {
+  display: none;
+}
+
+// Visibility
+.visible {
+  visibility: visible;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.collapse {
+  visibility: collapse;
+}
+
+// Opacity
+.opacity-0 {
+  opacity: 0;
+}
+
+.opacity-5 {
+  opacity: 0.05;
+}
+
+.opacity-10 {
+  opacity: 0.1;
+}
+
+.opacity-20 {
+  opacity: 0.2;
+}
+
+.opacity-25 {
+  opacity: 0.25;
+}
+
+.opacity-30 {
+  opacity: 0.3;
+}
+
+.opacity-40 {
+  opacity: 0.4;
+}
+
+.opacity-50 {
+  opacity: 0.5;
+}
+
+.opacity-60 {
+  opacity: 0.6;
+}
+
+.opacity-70 {
+  opacity: 0.7;
+}
+
+.opacity-75 {
+  opacity: 0.75;
+}
+
+.opacity-80 {
+  opacity: 0.8;
+}
+
+.opacity-90 {
+  opacity: 0.9;
+}
+
+.opacity-95 {
+  opacity: 0.95;
+}
+
+.opacity-100 {
+  opacity: 1;
+}
+
+// Pointer events
+.pointer-events-none {
+  pointer-events: none;
+}
+
+.pointer-events-auto {
+  pointer-events: auto;
+}
+
+// User select
+.select-none {
+  user-select: none;
+}
+
+.select-text {
+  user-select: text;
+}
+
+.select-all {
+  user-select: all;
+}
+
+.select-auto {
+  user-select: auto;
+}
+
+// Screen readers only
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.not-sr-only {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+// Responsive display utilities
+@each $breakpoint-name, $breakpoint-value in breakpoints.$breakpoints {
+  @if $breakpoint-name != 'xs' {
+    @media (min-width: $breakpoint-value) {
+      .#{$breakpoint-name}-block {
+        display: block;
+      }
+      
+      .#{$breakpoint-name}-inline-block {
+        display: inline-block;
+      }
+      
+      .#{$breakpoint-name}-inline {
+        display: inline;
+      }
+      
+      .#{$breakpoint-name}-flex {
+        display: flex;
+      }
+      
+      .#{$breakpoint-name}-inline-flex {
+        display: inline-flex;
+      }
+      
+      .#{$breakpoint-name}-grid {
+        display: grid;
+      }
+      
+      .#{$breakpoint-name}-inline-grid {
+        display: inline-grid;
+      }
+      
+      .#{$breakpoint-name}-hidden {
+        display: none;
+      }
+      
+      .#{$breakpoint-name}-visible {
+        visibility: visible;
+      }
+      
+      .#{$breakpoint-name}-invisible {
+        visibility: hidden;
+      }
+    }
+  }
+}
+
+// Hide on specific breakpoints
+@each $breakpoint-name, $breakpoint-value in breakpoints.$breakpoints {
+  @if $breakpoint-name != 'xs' {
+    .hide-below-#{$breakpoint-name} {
+      @media (max-width: ($breakpoint-value - 1px)) {
+        display: none !important;
+      }
+    }
+    
+    .hide-above-#{$breakpoint-name} {
+      @media (min-width: $breakpoint-value) {
+        display: none !important;
+      }
+    }
+  }
+}
+
+// Show only on specific breakpoints
+@each $breakpoint-name, $breakpoint-value in breakpoints.$breakpoints {
+  @if $breakpoint-name != 'xs' {
+    .show-only-#{$breakpoint-name} {
+      display: none;
+      
+      // For the last breakpoint, we don't need an upper bound
+      @if $breakpoint-name == 'xxl' {
+        @media (min-width: $breakpoint-value) {
+          display: block;
+        }
+      } @else {
+        // Get the next breakpoint value
+        $breakpoint-keys: map.keys(breakpoints.$breakpoints);
+        $current-index: list.index($breakpoint-keys, $breakpoint-name);
+        $next-breakpoint-name: list.nth($breakpoint-keys, $current-index + 1);
+        $next-breakpoint-value: map.get(breakpoints.$breakpoints, $next-breakpoint-name);
+        
+        @media (min-width: $breakpoint-value) and (max-width: ($next-breakpoint-value - 1px)) {
+          display: block;
+        }
+      }
+    }
+  }
+}

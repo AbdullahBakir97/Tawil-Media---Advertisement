@@ -1,0 +1,76 @@
+/**
+ * Tawil Media - Main SCSS File
+ * This file imports all other SCSS files in the correct order
+ * following the ITCSS (Inverted Triangle CSS) methodology
+ */
+
+/**
+ * SETTINGS
+ * Global variables, config
+ */
+@use 'settings/colors' as colors;
+@use 'settings/variables' as vars;
+@use 'settings/breakpoints' as breakpoints;
+@use 'settings/typography' as type;
+
+/**
+ * TOOLS
+ * Mixins and functions
+ */
+@use 'tools/functions' as functions;
+@use 'tools/mixins' as mixins;
+@use 'tools/animations' as animations;
+
+/**
+ * GENERIC
+ * Reset and normalize styles
+ */
+@use 'generic/reset';
+
+/**
+ * ELEMENTS
+ * Styling for bare HTML elements
+ * (like H1, A, etc.) These come with default styling from the browser
+ * so we can redefine them here.
+ */
+// @use 'elements/headings';
+// @use 'elements/links';
+// @use 'elements/buttons';
+// @use 'elements/forms';
+
+/**
+ * OBJECTS
+ * Class-based selectors which define undecorated design patterns,
+ * for example media object known from OOCSS
+ */
+@use 'objects/container';
+@use 'objects/grid';
+@use 'objects/flex';
+
+/**
+ * COMPONENTS
+ * Specific UI components.
+ * This is where the majority of our work takes place.
+ */
+@use 'components/header';
+@use 'components/buttons';
+@use 'components/cards';
+// @use 'components/footer';
+// @use 'components/forms';
+// @use 'components/navigation';
+
+/**
+ * UTILITIES
+ * Utilities and helper classes with ability to override anything
+ * which goes before in the triangle.
+ */
+@use 'utilities/spacing';
+@use 'utilities/typography';
+@use 'utilities/visibility';
+
+/**
+ * THEMES
+ * Theme specific styles
+ */
+@use 'themes/light';
+@use 'themes/dark';

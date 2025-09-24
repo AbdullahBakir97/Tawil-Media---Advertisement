@@ -27,8 +27,12 @@
             <div class="header-left glass-effect">
                 <div class="glass-panel">
                     <div class="logos-section">
-                        {% include "base/header/main-logo.html" %}
-                        {% include "base/header/secondary-logo.html" %}
+                        <div class="main-logo">
+                            {% include "base/header/main-logo.html" %}
+                        </div>
+                        <div class="secondary-logo-container">
+                            {% include "base/header/secondary-logo.html" %}
+                        </div>
                     </div>
                     <div class="partners-tree">
                         {% include "base/header/partners-tree.html" %}

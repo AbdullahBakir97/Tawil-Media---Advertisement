@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tawil Media - Style Guide</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <style>
+        .style-guide-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .style-guide-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            background-color: var(--bg-secondary);
+            box-shadow: var(--shadow-md);
+        }
+        .style-guide-subsection {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            background-color: var(--bg-primary);
+            box-shadow: var(--shadow-sm);
+        }
+        .style-guide-example {
+            margin-top: 1rem;
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border-primary);
+        }
+        .style-guide-code {
+            margin-top: 0.5rem;
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            background-color: var(--color-gray-800);
+            color: var(--color-gray-100);
+            font-family: var(--font-mono);
+            font-size: var(--text-sm);
+            overflow-x: auto;
+        }
+        .color-swatch {
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+            margin: 0.5rem;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+        }
+        .color-swatch-label {
+            margin-top: 0.5rem;
+            font-size: var(--text-sm);
+            text-align: center;
+        }
+        .style-guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-toggle">
+        <button class="btn btn-primary" onclick="document.body.classList.toggle('dark')">Toggle Dark Mode</button>
+    </div>
+
+    <div class="style-guide-container">
+        <header>
+            <h1>Tawil Media - Style Guide</h1>
+            <p>A comprehensive guide to the design system and components available in the Tawil Media platform.</p>
+        </header>
+
+        <main>
+            <!-- Table of Contents -->
+            <section class="style-guide-section" id="toc">
+                <h2>Table of Contents</h2>
+                <ul>
+                    <li><a href="#base-styles">Base Styles</a></li>
+                    <li><a href="#layout-styles">Layout Styles</a></li>
+                    <li><a href="#component-styles">Component Styles</a></li>
+                    <li><a href="#theme-styles">Theme Styles</a></li>
+                    <li><a href="#page-specific-styles">Page-Specific Styles</a></li>
+                </ul>
+            </section>
+
+            <!-- Base Styles Section -->
+            <section class="style-guide-section" id="base-styles">
+                <h2>Base Styles</h2>
+                <p>Foundational styles that define the core visual language of the platform.</p>
+                
+                <!-- Variables Subsection -->
+                <div class="style-guide-subsection" id="variables">
+                    <h3>Variables</h3>
+                    <p>Core CSS variables for consistent theming across the platform.</p>
+                    
+                    <!-- Colors -->
+                    <div class="style-guide-example">
+                        <h4>Color Variables</h4>
+                        <div class="style-guide-grid">
+                            <!-- Primary Colors -->
+                            <div>
+                                <div class="color-swatch" style="background-color: var(--color-primary-50);"></div>
+                                <div class="color-swatch-label">--color-primary-50</div>
+                            </div>
+                            <div>
+                                <div class="color-swatch" style="background-color: var(--color-primary-100);"></div>
+                                <div class="color-swatch-label">--color-primary-100</div>
+                            </div>
+                            <div>
+                                <div class="color-swatch" style="background-color: var(--color-primary-500);"></div>
+                                <div class="color-swatch-label">--color-primary-500</div>
+                            </div>
+                            <div>
+                                <div class="color-swatch" style="background-color: var(--color-primary-600);"></div>
+                                <div class="color-swatch-label">--color-primary-600</div>
+                            </div>
+                            <div>
+                                <div class="color-swatch" style="background-color: var(--color-primary-700);"></div>
+                                <div class="color-swatch-label">--color-primary-700</div>
+                            </div>
+                            <div>
+                                <div class="color-swatch" style="background-color: var(--color-primary-900);"></div>
+                                <div class="color-swatch-label">--color-primary-900</div>
+                            </div>
+                            
+                            <!-- Gray Colors -->
+                            <div>
+                                <div class="color-swatch" style="background-color: var(--color-gray-50);"></div>
+                                <div class="color-swatch-label">--color-gray-50</div>
+                            </div>
+                            <div>
+                                <div class="color-swatch" style="background-color: var(--color-gray-100);"></div>
+                                <div class="color-swatch-label">--color-gray-100</div>
+                            </div>
+                            <div>
+                                <div class="color-swatch" style="background-color: var(--color-gray-500);"></div>
+                                <div class="color-swatch-label">--color-gray-500</div>
+                            </div>
+                            <div>
+                                <div class="color-swatch" style="background-color: var(--color-gray-900);"></div>
+                                <div class="color-swatch-label">--color-gray-900</div>
+                            </div>
+                            
+                            <!-- Semantic Colors -->
+                            <div>
+                                <div class="color-swatch" style="background-color: var(--color-success-500);"></div>
+                                <div class="color-swatch-label">--color-success-500</div>
+                            </div>
+                            <div>
+                                <div class="color-swatch" style="background-color: var(--color-warning-500);"></div>
+                                <div class="color-swatch-label">--color-warning-500</div>
+                            </div>
+                            <div>
+                                <div class="color-swatch" style="background-color: var(--color-danger-500);"></div>
+                                <div class="color-swatch-label">--color-danger-500</div>
+                            </div>
+                            <div>
+                                <div class="color-swatch" style="background-color: var(--color-info-500);"></div>
+                                <div class="color-swatch-label">--color-info-500</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Typography -->
+                    <div class="style-guide-example">
+                        <h4>Typography Variables</h4>
+                        <div>
+                            <p style="font-size: var(--text-xs);">Text XS (--text-xs): 0.75rem</p>
+                            <p style="font-size: var(--text-sm);">Text SM (--text-sm): 0.875rem</p>
+                            <p style="font-size: var(--text-base);">Text Base (--text-base): 1rem</p>
+                            <p style="font-size: var(--text-lg);">Text LG (--text-lg): 1.125rem</p>
+                            <p style="font-size: var(--text-xl);">Text XL (--text-xl): 1.25rem</p>
+                            <p style="font-size: var(--text-2xl);">Text 2XL (--text-2xl): 1.5rem</p>
+                            <p style="font-size: var(--text-3xl);">Text 3XL (--text-3xl): 1.875rem</p>
+                        </div>
+                        
+                        <div style="margin-top: 1rem;">
+                            <p style="font-weight: var(--font-thin);">Font Weight Thin (--font-thin): 100</p>
+                            <p style="font-weight: var(--font-light);">Font Weight Light (--font-light): 300</p>
+                            <p style="font-weight: var(--font-normal);">Font Weight Normal (--font-normal): 400</p>
+                            <p style="font-weight: var(--font-medium);">Font Weight Medium (--font-medium): 500</p>
+                            <p style="font-weight: var(--font-semibold);">Font Weight Semibold (--font-semibold): 600</p>
+                            <p style="font-weight: var(--font-bold);">Font Weight Bold (--font-bold): 700</p>
+                            <p style="font-weight: var(--font-black);">Font Weight Black (--font-black): 900</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Spacing -->
+                    <div class="style-guide-example">
+                        <h4>Spacing Variables</h4>
+                        <div class="style-guide-grid">
+                            <div style="height: var(--spacing-1); background-color: var(--color-primary-500); margin-bottom: 0.5rem;"></div>
+                            <div>--spacing-1: 0.25rem</div>
+                            
+                            <div style="height: var(--spacing-2); background-color: var(--color-primary-500); margin-bottom: 0.5rem;"></div>
+                            <div>--spacing-2: 0.5rem</div>
+                            
+                            <div style="height: var(--spacing-4); background-color: var(--color-primary-500); margin-bottom: 0.5rem;"></div>
+                            <div>--spacing-4: 1rem</div>
+                            
+                            <div style="height: var(--spacing-8); background-color: var(--color-primary-500); margin-bottom: 0.5rem;"></div>
+                            <div>--spacing-8: 2rem</div>
+                            
+                            <div style="height: var(--spacing-16); background-color: var(--color-primary-500); margin-bottom: 0.5rem;"></div>
+                            <div>--spacing-16: 4rem</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Typography Subsection -->
+                <div class="style-guide-subsection" id="typography">
+                    <h3>Typography</h3>
+                    <p>Text styles and formatting options.</p>
+                    
+                    <div class="style-guide-example">
+                        <h1>Heading 1</h1>
+                        <h2>Heading 2</h2>
+                        <h3>Heading 3</h3>
+                        <h4>Heading 4</h4>
+                        <h5>Heading 5</h5>
+                        <h6>Heading 6</h6>
+                        
+                        <p>Regular paragraph text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris.</p>
+                        
+                        <p><strong>Bold text</strong> and <em>italic text</em> and <u>underlined text</u>.</p>
+                        
+                        <p><a href="#">This is a link</a></p>
+                        
+                        <blockquote>This is a blockquote. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</blockquote>
+                        
+                        <code>This is inline code</code>
+                        
+                        <pre><code>// This is a code block
+function example() {
+  return 'Hello World';
+}</code></pre>
+                    </div>
+                </div>
+                
+                <!-- Colors Subsection -->
+                <div class="style-guide-subsection" id="colors">
+                    <h3>Colors</h3>
+                    <p>Color system and palette.</p>
+                    
+                    <div class="style-guide-example">
+                        <h4>Text Colors</h4>
+                        <p style="color: var(--text-primary);">Primary Text Color (--text-primary)</p>
+                        <p style="color: var(--text-secondary);">Secondary Text Color (--text-secondary)</p>
+                        <p style="color: var(--color-primary-600);">Primary Brand Color (--color-primary-600)</p>
+                        <p style="color: var(--color-success-600);">Success Text Color (--color-success-600)</p>
+                        <p style="color: var(--color-warning-600);">Warning Text Color (--color-warning-600)</p>
+                        <p style="color: var(--color-danger-600);">Danger Text Color (--color-danger-600)</p>
+                    </div>
+                    
+                    <div class="style-guide-example">
+                        <h4>Background Colors</h4>
+                        <div style="padding: 1rem; background-color: var(--bg-primary); margin-bottom: 0.5rem;">Primary Background (--bg-primary)</div>
+                        <div style="padding: 1rem; background-color: var(--bg-secondary); margin-bottom: 0.5rem;">Secondary Background (--bg-secondary)</div>
+                        <div style="padding: 1rem; background-color: var(--bg-hover); margin-bottom: 0.5rem;">Hover Background (--bg-hover)</div>
+                        <div style="padding: 1rem; background-color: var(--color-primary-50); margin-bottom: 0.5rem;">Primary Light Background (--color-primary-50)</div>
+                        <div style="padding: 1rem; background-color: var(--color-success-50); margin-bottom: 0.5rem;">Success Light Background (--color-success-50)</div>
+                        <div style="padding: 1rem; background-color: var(--color-warning-50); margin-bottom: 0.5rem;">Warning Light Background (--color-warning-50)</div>
+                        <div style="padding: 1rem; background-color: var(--color-danger-50); margin-bottom: 0.5rem;">Danger Light Background (--color-danger-50)</div>
+                    </div>
+                </div>
+                
+                <!-- Animations Subsection -->
+                <div class="style-guide-subsection" id="animations">
+                    <h3>Animations</h3>
+                    <p>Animation keyframes and utilities.</p>
+                    
+                    <div class="style-guide-example">
+                        <h4>Fade Animations</h4>
+                        <button class="btn btn-primary animate-fade-in">Fade In</button>
+                        <button class="btn btn-primary animate-fade-in-up">Fade In Up</button>
+                        <button class="btn btn-primary animate-fade-in-down">Fade In Down</button>
+                        <button class="btn btn-primary animate-fade-in-left">Fade In Left</button>
+                        <button class="btn btn-primary animate-fade-in-right">Fade In Right</button>
+                    </div>
+                    
+                    <div class="style-guide-example">
+                        <h4>Scale Animations</h4>
+                        <button class="btn btn-primary animate-scale-in">Scale In</button>
+                        <button class="btn btn-primary animate-pulse">Pulse</button>
+                    </div>
+                    
+                    <div class="style-guide-example">
+                        <h4>Loading Animations</h4>
+                        <div class="loading-spinner"></div>
+                        <div class="loading-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <div class="skeleton-loading" style="width: 200px; height: 20px;"></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <div class="nav-links">
+            <a href="{% url 'core:style_guide' %}" class="btn btn-primary">Base Styles</a>
+            <a href="{% url 'core:style_guide_components' %}" class="btn btn-outline btn-primary">Components</a>
+            <a href="{% url 'core:style_guide_layouts' %}" class="btn btn-outline btn-primary">Layouts</a>
+            <a href="{% url 'core:style_guide_pages' %}" class="btn btn-outline btn-primary">Page Examples</a>
+        </div>
+    </div>
+
+    <script>
+        // Add interactive functionality for the style guide
+        document.addEventListener('DOMContentLoaded', function() {
+            // Reinitialize animations when clicking animation examples
+            const animationButtons = document.querySelectorAll('[class*="animate-"]');
+            animationButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const classes = this.className.split(' ');
+                    const animationClass = classes.find(cls => cls.startsWith('animate-'));
+                    
+                    if (animationClass) {
+                        this.classList.remove(animationClass);
+                        setTimeout(() => {
+                            this.classList.add(animationClass);
+                        }, 10);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

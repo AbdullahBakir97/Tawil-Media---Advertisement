@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tailwind CSS Test</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
+    <!-- Alpine.js for interactivity -->
+    <script defer src="/node_modules/alpinejs/dist/cdn.min.js"></script>
+</head>
+<body class="bg-background text-text">
+    <div class="container mx-auto px-4 py-8">
+        <header class="mb-8">
+            <h1 class="text-3xl font-display font-bold text-primary">Tawil Media Platform</h1>
+            <p class="text-text-secondary mt-2">Tailwind CSS and SCSS Integration Test</p>
+            
+            <!-- Theme Toggle -->
+            <div class="mt-4" x-data="{ darkMode: false }">
+                <button 
+                    @click="darkMode = !darkMode; darkMode ? document.body.classList.add('dark-theme') : document.body.classList.remove('dark-theme')"
+                    class="btn btn-secondary"
+                    x-text="darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
+                ></button>
+            </div>
+        </header>
+
+        <main>
+            <!-- Color Palette Section -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-semibold mb-4">Color Palette</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- Primary Colors -->
+                    <div class="card p-4">
+                        <h3 class="font-medium mb-3">Primary Colors</h3>
+                        <div class="space-y-2">
+                            <div class="h-10 bg-primary-50 rounded flex items-center px-3">Primary 50</div>
+                            <div class="h-10 bg-primary-100 rounded flex items-center px-3">Primary 100</div>
+                            <div class="h-10 bg-primary-200 rounded flex items-center px-3">Primary 200</div>
+                            <div class="h-10 bg-primary-300 rounded flex items-center px-3">Primary 300</div>
+                            <div class="h-10 bg-primary-400 rounded flex items-center px-3">Primary 400</div>
+                            <div class="h-10 bg-primary-500 rounded flex items-center px-3 text-white">Primary 500</div>
+                            <div class="h-10 bg-primary-600 rounded flex items-center px-3 text-white">Primary 600</div>
+                            <div class="h-10 bg-primary-700 rounded flex items-center px-3 text-white">Primary 700</div>
+                            <div class="h-10 bg-primary-800 rounded flex items-center px-3 text-white">Primary 800</div>
+                            <div class="h-10 bg-primary-900 rounded flex items-center px-3 text-white">Primary 900</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Secondary Colors -->
+                    <div class="card p-4">
+                        <h3 class="font-medium mb-3">Secondary Colors</h3>
+                        <div class="space-y-2">
+                            <div class="h-10 bg-secondary-50 rounded flex items-center px-3">Secondary 50</div>
+                            <div class="h-10 bg-secondary-100 rounded flex items-center px-3">Secondary 100</div>
+                            <div class="h-10 bg-secondary-200 rounded flex items-center px-3">Secondary 200</div>
+                            <div class="h-10 bg-secondary-300 rounded flex items-center px-3">Secondary 300</div>
+                            <div class="h-10 bg-secondary-400 rounded flex items-center px-3">Secondary 400</div>
+                            <div class="h-10 bg-secondary-500 rounded flex items-center px-3 text-white">Secondary 500</div>
+                            <div class="h-10 bg-secondary-600 rounded flex items-center px-3 text-white">Secondary 600</div>
+                            <div class="h-10 bg-secondary-700 rounded flex items-center px-3 text-white">Secondary 700</div>
+                            <div class="h-10 bg-secondary-800 rounded flex items-center px-3 text-white">Secondary 800</div>
+                            <div class="h-10 bg-secondary-900 rounded flex items-center px-3 text-white">Secondary 900</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Gray Colors -->
+                    <div class="card p-4">
+                        <h3 class="font-medium mb-3">Gray Scale</h3>
+                        <div class="space-y-2">
+                            <div class="h-10 bg-gray-50 rounded flex items-center px-3">Gray 50</div>
+                            <div class="h-10 bg-gray-100 rounded flex items-center px-3">Gray 100</div>
+                            <div class="h-10 bg-gray-200 rounded flex items-center px-3">Gray 200</div>
+                            <div class="h-10 bg-gray-300 rounded flex items-center px-3">Gray 300</div>
+                            <div class="h-10 bg-gray-400 rounded flex items-center px-3">Gray 400</div>
+                            <div class="h-10 bg-gray-500 rounded flex items-center px-3 text-white">Gray 500</div>
+                            <div class="h-10 bg-gray-600 rounded flex items-center px-3 text-white">Gray 600</div>
+                            <div class="h-10 bg-gray-700 rounded flex items-center px-3 text-white">Gray 700</div>
+                            <div class="h-10 bg-gray-800 rounded flex items-center px-3 text-white">Gray 800</div>
+                            <div class="h-10 bg-gray-900 rounded flex items-center px-3 text-white">Gray 900</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Typography Section -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-semibold mb-4">Typography</h2>
+                
+                <div class="card p-6">
+                    <div class="space-y-4">
+                        <div>
+                            <h3 class="font-medium mb-2">Font Families</h3>
+                            <p class="font-sans">Sans-serif: The quick brown fox jumps over the lazy dog.</p>
+                            <p class="font-serif">Serif: The quick brown fox jumps over the lazy dog.</p>
+                            <p class="font-mono">Monospace: The quick brown fox jumps over the lazy dog.</p>
+                            <p class="font-display">Display: The quick brown fox jumps over the lazy dog.</p>
+                        </div>
+                        
+                        <div>
+                            <h3 class="font-medium mb-2">Font Sizes</h3>
+                            <p class="text-xs">Extra Small: The quick brown fox jumps over the lazy dog.</p>
+                            <p class="text-sm">Small: The quick brown fox jumps over the lazy dog.</p>
+                            <p class="text-base">Base: The quick brown fox jumps over the lazy dog.</p>
+                            <p class="text-lg">Large: The quick brown fox jumps over the lazy dog.</p>
+                            <p class="text-xl">Extra Large: The quick brown fox jumps over the lazy dog.</p>
+                            <p class="text-2xl">2XL: The quick brown fox jumps over the lazy dog.</p>
+                            <p class="text-3xl">3XL: The quick brown fox jumps over the lazy dog.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Components Section -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-semibold mb-4">Components</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Buttons -->
+                    <div class="card p-6">
+                        <h3 class="font-medium mb-4">Buttons</h3>
+                        <div class="space-y-4">
+                            <div class="flex flex-wrap gap-3">
+                                <button class="btn btn-primary">Primary Button</button>
+                                <button class="btn btn-secondary">Secondary Button</button>
+                            </div>
+                            
+                            <div class="flex flex-wrap gap-3">
+                                <button class="bg-success-500 text-white px-4 py-2 rounded-md">Success</button>
+                                <button class="bg-warning-500 text-white px-4 py-2 rounded-md">Warning</button>
+                                <button class="bg-danger-500 text-white px-4 py-2 rounded-md">Danger</button>
+                                <button class="bg-info-500 text-white px-4 py-2 rounded-md">Info</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Form Elements -->
+                    <div class="card p-6">
+                        <h3 class="font-medium mb-4">Form Elements</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label for="name" class="block text-sm font-medium mb-1">Name</label>
+                                <input type="text" id="name" class="form-input w-full rounded-md" placeholder="Enter your name">
+                            </div>
+                            
+                            <div>
+                                <label for="email" class="block text-sm font-medium mb-1">Email</label>
+                                <input type="email" id="email" class="form-input w-full rounded-md" placeholder="Enter your email">
+                            </div>
+                            
+                            <div>
+                                <label for="message" class="block text-sm font-medium mb-1">Message</label>
+                                <textarea id="message" rows="3" class="form-textarea w-full rounded-md" placeholder="Enter your message"></textarea>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <input type="checkbox" id="terms" class="form-checkbox h-5 w-5 text-primary-600">
+                                <label for="terms" class="ml-2 text-sm">I agree to the terms and conditions</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Spacing and Shadows Section -->
+            <section>
+                <h2 class="text-2xl font-semibold mb-4">Spacing & Shadows</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Spacing -->
+                    <div class="card p-6">
+                        <h3 class="font-medium mb-4">Spacing Scale</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center">
+                                <div class="w-16">1 (0.25rem)</div>
+                                <div class="h-4 bg-primary-200 w-1"></div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-16">2 (0.5rem)</div>
+                                <div class="h-4 bg-primary-300 w-2"></div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-16">3 (0.75rem)</div>
+                                <div class="h-4 bg-primary-400 w-3"></div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-16">4 (1rem)</div>
+                                <div class="h-4 bg-primary-500 w-4"></div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-16">6 (1.5rem)</div>
+                                <div class="h-4 bg-primary-600 w-6"></div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-16">8 (2rem)</div>
+                                <div class="h-4 bg-primary-700 w-8"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Shadows -->
+                    <div class="card p-6">
+                        <h3 class="font-medium mb-4">Shadows</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-white p-4 rounded shadow-sm">Shadow SM</div>
+                            <div class="bg-white p-4 rounded shadow">Shadow Default</div>
+                            <div class="bg-white p-4 rounded shadow-md">Shadow MD</div>
+                            <div class="bg-white p-4 rounded shadow-lg">Shadow LG</div>
+                            <div class="bg-white p-4 rounded shadow-xl">Shadow XL</div>
+                            <div class="bg-white p-4 rounded shadow-2xl">Shadow 2XL</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dashboard Cards Section -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-semibold mb-6">Dashboard Cards</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Stats Card 1 -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition-all duration-300 hover:shadow-lg">
+                    <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Total Visitors</p>
+                        <h3 class="text-2xl font-semibold mt-1">24,781</h3>
+                        <p class="text-sm text-green-500 mt-2 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                        </svg>
+                        12.5% increase
+                        </p>
+                    </div>
+                    <div class="p-3 rounded-full bg-primary-100 text-primary-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                    </div>
+                    </div>
+                </div>
+                
+                <!-- Stats Card 2 -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition-all duration-300 hover:shadow-lg">
+                    <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Revenue</p>
+                        <h3 class="text-2xl font-semibold mt-1">$34,245</h3>
+                        <p class="text-sm text-green-500 mt-2 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                        </svg>
+                        8.3% increase
+                        </p>
+                    </div>
+                    <div class="p-3 rounded-full bg-secondary-100 text-secondary-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    </div>
+                </div>
+                
+                <!-- Stats Card 3 -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition-all duration-300 hover:shadow-lg">
+                    <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">New Clients</p>
+                        <h3 class="text-2xl font-semibold mt-1">321</h3>
+                        <p class="text-sm text-red-500 mt-2 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                        </svg>
+                        4.1% decrease
+                        </p>
+                    </div>
+                    <div class="p-3 rounded-full bg-success-100 text-success-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                    </div>
+                    </div>
+                </div>
+                
+                <!-- Stats Card 4 -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition-all duration-300 hover:shadow-lg">
+                    <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Active Projects</p>
+                        <h3 class="text-2xl font-semibold mt-1">42</h3>
+                        <p class="text-sm text-green-500 mt-2 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                        </svg>
+                        16.2% increase
+                        </p>
+                    </div>
+                    <div class="p-3 rounded-full bg-info-100 text-info-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                        </svg>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </section>
+
+            <!-- Vue-Inspired Tabs Component -->
+            <section class="mb-12" x-data="{ activeTab: 'tab1' }">
+              <h2 class="text-2xl font-semibold mb-6">Vue-Inspired Tabs</h2>
+              
+              <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+                <!-- Tab Navigation -->
+                <div class="flex border-b border-gray-200 dark:border-gray-700">
+                  <button 
+                    @click="activeTab = 'tab1'" 
+                    :class="{ 'border-primary-500 text-primary-600': activeTab === 'tab1', 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300': activeTab !== 'tab1' }"
+                    class="flex-1 py-4 px-1 text-center border-b-2 font-medium text-sm transition-colors duration-200"
+                  >
+                    Dashboard
+                  </button>
+                  <button 
+                    @click="activeTab = 'tab2'" 
+                    :class="{ 'border-primary-500 text-primary-600': activeTab === 'tab2', 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300': activeTab !== 'tab2' }"
+                    class="flex-1 py-4 px-1 text-center border-b-2 font-medium text-sm transition-colors duration-200"
+                  >
+                    Analytics
+                  </button>
+                  <button 
+                    @click="activeTab = 'tab3'" 
+                    :class="{ 'border-primary-500 text-primary-600': activeTab === 'tab3', 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300': activeTab !== 'tab3' }"
+                    class="flex-1 py-4 px-1 text-center border-b-2 font-medium text-sm transition-colors duration-200"
+                  >
+                    Settings
+                  </button>
+                </div>
+                
+                <!-- Tab Content -->
+                <div class="p-6">
+                  <div x-show="activeTab === 'tab1'" class="space-y-4">
+                    <h3 class="text-lg font-medium">Dashboard Content</h3>
+                    <p class="text-gray-600 dark:text-gray-400">This is the dashboard tab content. It shows an overview of your account and recent activity.</p>
+                    <div class="flex space-x-4">
+                      <div class="w-1/2 bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
+                        <h4 class="font-medium mb-2">Recent Activity</h4>
+                        <ul class="space-y-2">
+                          <li class="flex items-center text-sm">
+                            <span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+                            <span>New subscriber added</span>
+                            <span class="ml-auto text-xs text-gray-500">2m ago</span>
+                          </li>
+                          <li class="flex items-center text-sm">
+                            <span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
+                            <span>Content update published</span>
+                            <span class="ml-auto text-xs text-gray-500">1h ago</span>
+                          </li>
+                          <li class="flex items-center text-sm">
+                            <span class="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span>
+                            <span>New comment received</span>
+                            <span class="ml-auto text-xs text-gray-500">3h ago</span>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="w-1/2 bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
+                        <h4 class="font-medium mb-2">Quick Stats</h4>
+                        <div class="grid grid-cols-2 gap-4">
+                          <div class="text-center">
+                            <p class="text-2xl font-semibold">128</p>
+                            <p class="text-xs text-gray-500">New Users</p>
+                          </div>
+                          <div class="text-center">
+                            <p class="text-2xl font-semibold">$3.2k</p>
+                            <p class="text-xs text-gray-500">Revenue</p>
+                          </div>
+                          <div class="text-center">
+                            <p class="text-2xl font-semibold">29</p>
+                            <p class="text-xs text-gray-500">Tasks</p>
+                          </div>
+                          <div class="text-center">
+                            <p class="text-2xl font-semibold">63%</p>
+                            <p class="text-xs text-gray-500">Completion</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div x-show="activeTab === 'tab2'" class="space-y-4" style="display: none;">
+                    <h3 class="text-lg font-medium">Analytics Content</h3>
+                    <p class="text-gray-600 dark:text-gray-400">This is the analytics tab content. It shows detailed statistics about your account usage.</p>
+                    <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 h-64 flex items-center justify-center">
+                      <p class="text-gray-500">Analytics chart placeholder</p>
+                    </div>
+                  </div>
+                  
+                  <div x-show="activeTab === 'tab3'" class="space-y-4" style="display: none;">
+                    <h3 class="text-lg font-medium">Settings Content</h3>
+                    <p class="text-gray-600 dark:text-gray-400">This is the settings tab content. Configure your account preferences here.</p>
+                    <form class="space-y-4">
+                      <div>
+                        <label class="block text-sm font-medium mb-1">Email Notifications</label>
+                        <div class="flex items-center">
+                          <input type="checkbox" class="form-checkbox h-5 w-5 text-primary-600" checked>
+                          <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">Receive email notifications</span>
+                        </div>
+                      </div>
+                      <div>
+                        <label class="block text-sm font-medium mb-1">Privacy Settings</label>
+                        <div class="flex items-center">
+                          <input type="checkbox" class="form-checkbox h-5 w-5 text-primary-600">
+                          <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">Make profile public</span>
+                        </div>
+                      </div>
+                      <button type="button" class="mt-4 bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200">
+                        Save Settings
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Modern Card Grid with Hover Effects -->
+            <section class="mb-12">
+              <h2 class="text-2xl font-semibold mb-6">Modern Card Grid</h2>
+              
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl hover:translate-y-[-5px]">
+                  <div class="h-48 bg-primary-500 relative">
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary-400 to-primary-600 opacity-90"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="p-6">
+                    <h3 class="text-lg font-semibold mb-2">Web Development</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4">Create stunning, responsive websites with modern technologies.</p>
+                    <div class="flex justify-between items-center">
+                      <span class="text-sm font-medium text-primary-600">Learn More</span>
+                      <span class="bg-primary-100 text-primary-800 text-xs px-2 py-1 rounded-full">Popular</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Card 2 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl hover:translate-y-[-5px]">
+                  <div class="h-48 bg-secondary-500 relative">
+                    <div class="absolute inset-0 bg-gradient-to-br from-secondary-400 to-secondary-600 opacity-90"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="p-6">
+                    <h3 class="text-lg font-semibold mb-2">Creative Design</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4">Craft beautiful user interfaces with attention to detail.</p>
+                    <div class="flex justify-between items-center">
+                      <span class="text-sm font-medium text-secondary-600">Learn More</span>
+                      <span class="bg-secondary-100 text-secondary-800 text-xs px-2 py-1 rounded-full">Featured</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Card 3 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl hover:translate-y-[-5px]">
+                  <div class="h-48 bg-info-500 relative">
+                    <div class="absolute inset-0 bg-gradient-to-br from-info-400 to-info-600 opacity-90"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="p-6">
+                    <h3 class="text-lg font-semibold mb-2">Data Analytics</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4">Gain insights from your data with powerful analytics tools.</p>
+                    <div class="flex justify-between items-center">
+                      <span class="text-sm font-medium text-info-600">Learn More</span>
+                      <span class="bg-info-100 text-info-800 text-xs px-2 py-1 rounded-full">New</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Modern Form with Floating Labels -->
+            <section class="mb-12">
+              <h2 class="text-2xl font-semibold mb-6">Modern Form</h2>
+              
+              <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+                <form class="space-y-6">
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Floating Label Input -->
+                    <div class="relative">
+                      <input type="text" id="floating_name" class="block px-2.5 pb-2.5 pt-4 w-full text-gray-900 bg-transparent rounded-lg border border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary-500 focus:outline-none focus:ring-0 focus:border-primary-600 peer" placeholder=" " />
+                      <label for="floating_name" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-800 px-2 peer-focus:px-2 peer-focus:text-primary-600 peer-focus:dark:text-primary-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Full Name</label>
+                    </div>
+                    
+                    <!-- Floating Label Input -->
+                    <div class="relative">
+                      <input type="email" id="floating_email" class="block px-2.5 pb-2.5 pt-4 w-full text-gray-900 bg-transparent rounded-lg border border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary-500 focus:outline-none focus:ring-0 focus:border-primary-600 peer" placeholder=" " />
+                      <label for="floating_email" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-800 px-2 peer-focus:px-2 peer-focus:text-primary-600 peer-focus:dark:text-primary-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Email Address</label>
+                    </div>
+                  </div>
+                  
+                  <!-- Floating Label Textarea -->
+                  <div class="relative">
+                    <textarea id="floating_message" rows="4" class="block px-2.5 pb-2.5 pt-4 w-full text-gray-900 bg-transparent rounded-lg border border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary-500 focus:outline-none focus:ring-0 focus:border-primary-600 peer" placeholder=" "></textarea>
+                    <label for="floating_message" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-800 px-2 peer-focus:px-2 peer-focus:text-primary-600 peer-focus:dark:text-primary-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Your Message</label>
+                  </div>
+                  
+                  <!-- Toggle Switch -->
+                  <div class="flex items-center justify-between">
+                    <span class="text-sm text-gray-600 dark:text-gray-400">Subscribe to newsletter</span>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                      <input type="checkbox" value="" class="sr-only peer">
+                      <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 dark:peer-focus:ring-primary-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary-600"></div>
+                    </label>
+                  </div>
+                  
+                  <!-- Submit Button -->
+                  <button type="button" class="w-full bg-primary-600 hover:bg-primary-700 text-white font-medium py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center">
+                    <span>Submit Form</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </button>
+                </form>
+              </div>
+            </section>
+
+            
+        </main>
+    </div>
+</body>
+</html>

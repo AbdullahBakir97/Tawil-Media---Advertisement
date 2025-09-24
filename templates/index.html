@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tawil Media - Design System</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
+    <link rel="stylesheet" href="{% static 'css/premium-design-system.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <style>
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--color-primary-900), var(--color-primary-700));
+            color: white;
+            padding: 4rem 2rem;
+            border-radius: var(--radius-lg);
+            margin-bottom: 3rem;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('{% static "img/pattern.svg" %}');
+            opacity: 0.1;
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-section h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #ffffff, #e0e7ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero-section p {
+            font-size: 1.25rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+        
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .category-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .category-header {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--color-primary-800), var(--color-primary-600));
+            color: white;
+        }
+        
+        .category-body {
+            padding: 1.5rem;
+            flex: 1;
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-primary);
+            display: flex;
+            align-items: center;
+        }
+        
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .feature-list li::before {
+            content: '→';
+            color: var(--color-primary);
+            margin-right: 0.75rem;
+            font-weight: bold;
+        }
+        
+        .category-footer {
+            padding: 1.5rem;
+            border-top: 1px solid var(--border-primary);
+            text-align: right;
+        }
+        
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 100;
+        }
+        
+        .section-title {
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-primary-300));
+            border-radius: 2px;
+        }
+        
+        .example-preview {
+            margin-top: 1rem;
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+        }
+        
+        .example-preview iframe {
+            width: 100%;
+            height: 300px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-toggle">
+        <button class="btn btn-primary" onclick="document.body.classList.toggle('dark')">Toggle Dark Mode</button>
+    </div>
+
+    <div class="main-container">
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1>Tawil Media Design System</h1>
+                <p>A comprehensive collection of design patterns, components, and templates for building premium media experiences.</p>
+                <div class="btn-group">
+                    <a href="{% url 'core:style_guide' %}" class="btn btn-lg btn-light">Explore Style Guide</a>
+                    <a href="#categories" class="btn btn-lg btn-outline btn-light">View Components</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="categories">
+            <h2 class="section-title">Design System Categories</h2>
+            
+            <div class="category-grid">
+                <!-- Base Styles -->
+                <div class="category-card">
+                    <div class="category-header">
+                        <h3>Base Styles</h3>
+                    </div>
+                    <div class="category-body">
+                        <p>Core design tokens and foundational styles that form the basis of our design system.</p>
+                        <ul class="feature-list">
+                            <li>Typography System</li>
+                            <li>Color Palette</li>
+                            <li>Spacing Scale</li>
+                            <li>Shadows & Elevation</li>
+                            <li>Animations & Transitions</li>
+                        </ul>
+                    </div>
+                    <div class="category-footer">
+                        <a href="{% url 'core:style_guide' %}" class="btn btn-primary">View Base Styles</a>
+                    </div>
+                </div>
+                
+                <!-- Components -->
+                <div class="category-card">
+                    <div class="category-header">
+                        <h3>Components</h3>
+                    </div>
+                    <div class="category-body">
+                        <p>Reusable UI building blocks designed for consistency and usability.</p>
+                        <ul class="feature-list">
+                            <li>Buttons & Controls</li>
+                            <li>Form Elements</li>
+                            <li>Cards & Containers</li>
+                            <li>Navigation Components</li>
+                            <li>Feedback & Alerts</li>
+                        </ul>
+                    </div>
+                    <div class="category-footer">
+                        <a href="{% url 'core:style_guide_components' %}" class="btn btn-primary">View Components</a>
+                    </div>
+                </div>
+                
+                <!-- Layouts -->
+                <div class="category-card">
+                    <div class="category-header">
+                        <h3>Layout Systems</h3>
+                    </div>
+                    <div class="category-body">
+                        <p>Structural patterns for organizing content and creating responsive interfaces.</p>
+                        <ul class="feature-list">
+                            <li>Grid System</li>
+                            <li>Flexbox Layouts</li>
+                            <li>Responsive Patterns</li>
+                            <li>Positioning Techniques</li>
+                            <li>Container Queries</li>
+                        </ul>
+                    </div>
+                    <div class="category-footer">
+                        <a href="{% url 'core:style_guide_layouts' %}" class="btn btn-primary">View Layouts</a>
+                    </div>
+                </div>
+                
+                <!-- Page Examples -->
+                <div class="category-card">
+                    <div class="category-header">
+                        <h3>Page Examples</h3>
+                    </div>
+                    <div class="category-body">
+                        <p>Complete page templates showcasing real-world implementations of our design system.</p>
+                        <ul class="feature-list">
+                            <li>Dashboard Example</li>
+                            <li>Magazine Browse Example</li>
+                            <li>Archive Browse Example</li>
+                            <li>Article Page Example</li>
+                            <li>User Profile Example</li>
+                        </ul>
+                    </div>
+                    <div class="category-footer">
+                        <a href="{% url 'core:style_guide_pages' %}" class="btn btn-primary">View Page Examples</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Featured Examples</h2>
+            
+            <div class="category-grid">
+                <!-- Dashboard Example -->
+                <div class="category-card">
+                    <div class="category-header">
+                        <h3>Dashboard Example</h3>
+                    </div>
+                    <div class="category-body">
+                        <p>An interactive dashboard with statistics, charts, and data visualization components.</p>
+                        <div class="example-preview">
+                            <iframe src="{% url 'core:dashboard_example' %}"></iframe>
+                        </div>
+                    </div>
+                    <div class="category-footer">
+                        <a href="{% url 'core:dashboard_example' %}" class="btn btn-primary">View Full Example</a>
+                    </div>
+                </div>
+                
+                <!-- Magazine Browse Example -->
+                <div class="category-card">
+                    <div class="category-header">
+                        <h3>Magazine Browse Example</h3>
+                    </div>
+                    <div class="category-body">
+                        <p>A premium magazine browsing interface with advanced filtering and sorting options.</p>
+                        <div class="example-preview">
+                            <iframe src="{% url 'core:magazine_browse_example' %}"></iframe>
+                        </div>
+                    </div>
+                    <div class="category-footer">
+                        <a href="{% url 'core:magazine_browse_example' %}" class="btn btn-primary">View Full Example</a>
+                    </div>
+                </div>
+                
+                <!-- Archive Browse Example -->
+                <div class="category-card">
+                    <div class="category-header">
+                        <h3>Archive Browse Example</h3>
+                    </div>
+                    <div class="category-body">
+                        <p>A timeline-based archive browsing experience with historical media artifacts.</p>
+                        <div class="example-preview">
+                            <iframe src="{% url 'core:archive_browse_example' %}"></iframe>
+                        </div>
+                    </div>
+                    <div class="category-footer">
+                        <a href="{% url 'core:archive_browse_example' %}" class="btn btn-primary">View Full Example</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Premium Design Features</h2>
+            
+            <div class="category-grid">
+                <!-- Advanced Animations -->
+                <div class="category-card">
+                    <div class="category-header">
+                        <h3>Advanced Animations</h3>
+                    </div>
+                    <div class="category-body">
+                        <p>Sophisticated animation system with keyframes, transitions, and scroll-triggered effects.</p>
+                        <ul class="feature-list">
+                            <li>Skeleton Loading Animations</li>
+                            <li>3D Perspective Effects</li>
+                            <li>Scroll-Triggered Animations</li>
+                            <li>Staggered Entrance Effects</li>
+                            <li>Interactive Hover States</li>
+                        </ul>
+                    </div>
+                    <div class="category-footer">
+                        <a href="{% url 'core:style_guide' %}#animations" class="btn btn-primary">View Animations</a>
+                    </div>
+                </div>
+                
+                <!-- Color System -->
+                <div class="category-card">
+                    <div class="category-header">
+                        <h3>Sophisticated Color System</h3>
+                    </div>
+                    <div class="category-body">
+                        <p>A comprehensive color palette with proper contrast ratios and semantic color usage.</p>
+                        <ul class="feature-list">
+                            <li>Primary & Secondary Palettes</li>
+                            <li>Semantic Color Usage</li>
+                            <li>Gradient Systems</li>
+                            <li>Dark Mode Adaptations</li>
+                            <li>Accessibility Considerations</li>
+                        </ul>
+                    </div>
+                    <div class="category-footer">
+                        <a href="{% url 'core:style_guide' %}#colors" class="btn btn-primary">View Color System</a>
+                    </div>
+                </div>
+                
+                <!-- Typography -->
+                <div class="category-card">
+                    <div class="category-header">
+                        <h3>Professional Typography</h3>
+                    </div>
+                    <div class="category-body">
+                        <p>A robust typography system with proper hierarchy, scale, and responsive adjustments.</p>
+                        <ul class="feature-list">
+                            <li>Type Scale & Hierarchy</li>
+                            <li>Font Pairing Strategy</li>
+                            <li>Responsive Typography</li>
+                            <li>Line Height & Spacing</li>
+                            <li>Text Treatments & Effects</li>
+                        </ul>
+                    </div>
+                    <div class="category-footer">
+                        <a href="{% url 'core:style_guide' %}#typography" class="btn btn-primary">View Typography</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="{% static 'js/design-system.js' %}"></script>
+    <script>
+        // Check for saved theme preference
+        document.addEventListener('DOMContentLoaded', function() {
+            if (localStorage.getItem('darkMode') === 'true') {
+                document.body.classList.add('dark');
+            }
+            
+            // Save theme preference
+            document.querySelector('.theme-toggle button').addEventListener('click', function() {
+                localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+            });
+        });
+    </script>
+</body>
+</html>

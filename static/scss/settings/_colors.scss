@@ -1,0 +1,297 @@
+/**
+ * Premium Color System for Tawil Media
+ * Enhanced with sophisticated color palettes and proper contrast ratios
+ */
+
+// Import the sass:color module
+@use "sass:color";
+
+// Brand colors - Primary (Indigo)
+$color-primary-50: #eef2ff;
+$color-primary-100: #e0e7ff;
+$color-primary-200: #c7d2fe;
+$color-primary-300: #a5b4fc;
+$color-primary-400: #818cf8;
+$color-primary-500: #6366f1;
+$color-primary-600: #4f46e5;
+$color-primary-700: #4338ca;
+$color-primary-800: #3730a3;
+$color-primary-900: #312e81;
+$color-primary-950: #1e1b4b;
+
+// Secondary colors - Teal
+$color-secondary-50: #f0fdfa;
+$color-secondary-100: #ccfbf1;
+$color-secondary-200: #99f6e4;
+$color-secondary-300: #5eead4;
+$color-secondary-400: #2dd4bf;
+$color-secondary-500: #14b8a6;
+$color-secondary-600: #0d9488;
+$color-secondary-700: #0f766e;
+$color-secondary-800: #115e59;
+$color-secondary-900: #134e4a;
+$color-secondary-950: #042f2e;
+
+// Neutral colors - Gray
+$color-gray-50: #f9fafb;
+$color-gray-100: #f3f4f6;
+$color-gray-200: #e5e7eb;
+$color-gray-300: #d1d5db;
+$color-gray-400: #9ca3af;
+$color-gray-500: #6b7280;
+$color-gray-600: #4b5563;
+$color-gray-700: #374151;
+$color-gray-800: #1f2937;
+$color-gray-900: #111827;
+$color-gray-950: #030712;
+
+// Accent colors - Purple
+$color-accent-50: #faf5ff;
+$color-accent-100: #f3e8ff;
+$color-accent-200: #e9d5ff;
+$color-accent-300: #d8b4fe;
+$color-accent-400: #c084fc;
+$color-accent-500: #a855f7;
+$color-accent-600: #9333ea;
+$color-accent-700: #7e22ce;
+$color-accent-800: #6b21a8;
+$color-accent-900: #581c87;
+$color-accent-950: #3b0764;
+
+// Semantic colors - Success (Green)
+$color-success-50: #ecfdf5;
+$color-success-100: #d1fae5;
+$color-success-200: #a7f3d0;
+$color-success-300: #6ee7b7;
+$color-success-400: #34d399;
+$color-success-500: #10b981;
+$color-success-600: #059669;
+$color-success-700: #047857;
+$color-success-800: #065f46;
+$color-success-900: #064e3b;
+$color-success-950: #022c22;
+
+// Semantic colors - Danger (Red)
+$color-danger-50: #fef2f2;
+$color-danger-100: #fee2e2;
+$color-danger-200: #fecaca;
+$color-danger-300: #fca5a5;
+$color-danger-400: #f87171;
+$color-danger-500: #ef4444;
+$color-danger-600: #dc2626;
+$color-danger-700: #b91c1c;
+$color-danger-800: #991b1b;
+$color-danger-900: #7f1d1d;
+$color-danger-950: #450a0a;
+
+// Semantic colors - Warning (Amber)
+$color-warning-50: #fffbeb;
+$color-warning-100: #fef3c7;
+$color-warning-200: #fde68a;
+$color-warning-300: #fcd34d;
+$color-warning-400: #fbbf24;
+$color-warning-500: #f59e0b;
+$color-warning-600: #d97706;
+$color-warning-700: #b45309;
+$color-warning-800: #92400e;
+$color-warning-900: #78350f;
+$color-warning-950: #451a03;
+
+// Semantic colors - Info (Blue)
+$color-info-50: #eff6ff;
+$color-info-100: #dbeafe;
+$color-info-200: #bfdbfe;
+$color-info-300: #93c5fd;
+$color-info-400: #60a5fa;
+$color-info-500: #3b82f6;
+$color-info-600: #2563eb;
+$color-info-700: #1d4ed8;
+$color-info-800: #1e40af;
+$color-info-900: #1e3a8a;
+$color-info-950: #172554;
+
+// Premium colors - Gold
+$color-gold-50: #fefce8;
+$color-gold-100: #fef9c3;
+$color-gold-200: #fef08a;
+$color-gold-300: #fde047;
+$color-gold-400: #facc15;
+$color-gold-500: #eab308;
+$color-gold-600: #ca8a04;
+$color-gold-700: #a16207;
+$color-gold-800: #854d0e;
+$color-gold-900: #713f12;
+$color-gold-950: #422006;
+
+// Premium colors - Rose
+$color-rose-50: #fff1f2;
+$color-rose-100: #ffe4e6;
+$color-rose-200: #fecdd3;
+$color-rose-300: #fda4af;
+$color-rose-400: #fb7185;
+$color-rose-500: #f43f5e;
+$color-rose-600: #e11d48;
+$color-rose-700: #be123c;
+$color-rose-800: #9f1239;
+$color-rose-900: #881337;
+$color-rose-950: #4c0519;
+
+// Premium colors - Emerald
+$color-emerald-50: #ecfdf5;
+$color-emerald-100: #d1fae5;
+$color-emerald-200: #a7f3d0;
+$color-emerald-300: #6ee7b7;
+$color-emerald-400: #34d399;
+$color-emerald-500: #10b981;
+$color-emerald-600: #059669;
+$color-emerald-700: #047857;
+$color-emerald-800: #065f46;
+$color-emerald-900: #064e3b;
+$color-emerald-950: #022c22;
+
+// Premium colors - Slate (Neutral Blue-Gray)
+$color-slate-50: #f8fafc;
+$color-slate-100: #f1f5f9;
+$color-slate-200: #e2e8f0;
+$color-slate-300: #cbd5e1;
+$color-slate-400: #94a3b8;
+$color-slate-500: #64748b;
+$color-slate-600: #475569;
+$color-slate-700: #334155;
+$color-slate-800: #1e293b;
+$color-slate-900: #0f172a;
+$color-slate-950: #020617;
+
+// Legacy semantic colors (for backward compatibility)
+$color-success: $color-success-600; // Darker for better contrast
+$color-warning: $color-warning-600; // Darker for better contrast
+$color-error: $color-danger-600; // Darker for better contrast
+$color-info: $color-info-600; // Darker for better contrast
+
+// Background colors
+$color-background-light: $color-gray-50;
+$color-background-dark: $color-gray-900;
+$color-background-premium: linear-gradient(135deg, $color-slate-900, $color-slate-800);
+$dark-bg: $color-gray-900;
+
+// Text colors with proper contrast ratios
+$color-text-primary-light: $color-gray-900; // WCAG AAA on light backgrounds
+$color-text-secondary-light: $color-gray-700; // WCAG AA on light backgrounds
+$color-text-tertiary-light: $color-gray-500; // WCAG AA on light backgrounds
+$color-text-primary-dark: $color-gray-50; // WCAG AAA on dark backgrounds
+$color-text-secondary-dark: $color-gray-300; // WCAG AA on dark backgrounds
+$color-text-tertiary-dark: $color-gray-400; // WCAG AA on dark backgrounds
+
+// Header specific colors
+$header-bg-start: #001428;
+$header-bg-end: #002a4e;
+$header-premium-bg-start: #0f172a;
+$header-premium-bg-end: #1e293b;
+
+// Gradient colors
+$gradient-primary: linear-gradient(135deg, $color-primary-600, $color-primary-800);
+$gradient-secondary: linear-gradient(135deg, $color-secondary-600, $color-secondary-800);
+$gradient-accent: linear-gradient(135deg, $color-accent-600, $color-accent-800);
+$gradient-success: linear-gradient(135deg, $color-success-600, $color-success-800);
+$gradient-danger: linear-gradient(135deg, $color-danger-600, $color-danger-800);
+$gradient-warning: linear-gradient(135deg, $color-warning-600, $color-warning-800);
+$gradient-info: linear-gradient(135deg, $color-info-600, $color-info-800);
+$gradient-gold: linear-gradient(135deg, $color-gold-400, $color-gold-700);
+$gradient-premium: linear-gradient(135deg, $color-gold-600, $color-rose-700);
+
+// Shadow colors - using direct color values instead of RGB lists
+$shadow-light: rgba($color-gray-950, 0.1); 
+$shadow-medium: rgba($color-gray-950, 0.15);
+$shadow-dark: rgba($color-gray-950, 0.25);
+$shadow-primary: rgba($color-primary-600, 0.25);
+$shadow-secondary: rgba($color-secondary-600, 0.25);
+$shadow-accent: rgba($color-accent-600, 0.25);
+
+// Export as CSS variables
+:root {
+  // Primary colors
+  --color-primary-50: #{$color-primary-50};
+  --color-primary-100: #{$color-primary-100};
+  --color-primary-200: #{$color-primary-200};
+  --color-primary-300: #{$color-primary-300};
+  --color-primary-400: #{$color-primary-400};
+  --color-primary-500: #{$color-primary-500};
+  --color-primary-600: #{$color-primary-600};
+  --color-primary-700: #{$color-primary-700};
+  --color-primary-800: #{$color-primary-800};
+  --color-primary-900: #{$color-primary-900};
+  --color-primary-950: #{$color-primary-950};
+  --color-primary: #{$color-primary-600};
+  --color-primary-rgb: #{color.channel($color-primary-600, "red")}, #{color.channel($color-primary-600, "green")}, #{color.channel($color-primary-600, "blue")};
+  
+  // Secondary colors
+  --color-secondary-50: #{$color-secondary-50};
+  --color-secondary-100: #{$color-secondary-100};
+  --color-secondary-200: #{$color-secondary-200};
+  --color-secondary-300: #{$color-secondary-300};
+  --color-secondary-400: #{$color-secondary-400};
+  --color-secondary-500: #{$color-secondary-500};
+  --color-secondary-600: #{$color-secondary-600};
+  --color-secondary-700: #{$color-secondary-700};
+  --color-secondary-800: #{$color-secondary-800};
+  --color-secondary-900: #{$color-secondary-900};
+  --color-secondary-950: #{$color-secondary-950};
+  --color-secondary: #{$color-secondary-600};
+  --color-secondary-rgb: #{color.channel($color-secondary-600, "red")}, #{color.channel($color-secondary-600, "green")}, #{color.channel($color-secondary-600, "blue")};
+  
+  // Accent colors
+  --color-accent-50: #{$color-accent-50};
+  --color-accent-100: #{$color-accent-100};
+  --color-accent-200: #{$color-accent-200};
+  --color-accent-300: #{$color-accent-300};
+  --color-accent-400: #{$color-accent-400};
+  --color-accent-500: #{$color-accent-500};
+  --color-accent-600: #{$color-accent-600};
+  --color-accent-700: #{$color-accent-700};
+  --color-accent-800: #{$color-accent-800};
+  --color-accent-900: #{$color-accent-900};
+  --color-accent-950: #{$color-accent-950};
+  --color-accent: #{$color-accent-600};
+  --color-accent-rgb: #{color.channel($color-accent-600, "red")}, #{color.channel($color-accent-600, "green")}, #{color.channel($color-accent-600, "blue")};
+  
+  // Gradients
+  --gradient-primary: #{$gradient-primary};
+  --gradient-secondary: #{$gradient-secondary};
+  --gradient-accent: #{$gradient-accent};
+  --gradient-success: #{$gradient-success};
+  --gradient-danger: #{$gradient-danger};
+  --gradient-warning: #{$gradient-warning};
+  --gradient-info: #{$gradient-info};
+  --gradient-gold: #{$gradient-gold};
+  --gradient-premium: #{$gradient-premium};
+  
+  // Shadows
+  --shadow-light: #{$shadow-light};
+  --shadow-medium: #{$shadow-medium};
+  --shadow-dark: #{$shadow-dark};
+  --shadow-primary: #{$shadow-primary};
+  --shadow-secondary: #{$shadow-secondary};
+  --shadow-accent: #{$shadow-accent};
+  
+  // Theme-specific colors (light theme default)
+  --color-text-primary: #{$color-text-primary-light};
+  --color-text-secondary: #{$color-text-secondary-light};
+  --color-text-tertiary: #{$color-text-tertiary-light};
+  --color-background: #{$color-background-light};
+  
+  // RGB values for CSS variables (using modern color.channel function)
+  --color-primary-rgb: #{color.channel($color-primary-600, "red")}, #{color.channel($color-primary-600, "green")}, #{color.channel($color-primary-600, "blue")};
+  --color-secondary-rgb: #{color.channel($color-secondary-600, "red")}, #{color.channel($color-secondary-600, "green")}, #{color.channel($color-secondary-600, "blue")};
+  --color-success-rgb: #{color.channel($color-success-600, "red")}, #{color.channel($color-success-600, "green")}, #{color.channel($color-success-600, "blue")};
+  --color-danger-rgb: #{color.channel($color-danger-600, "red")}, #{color.channel($color-danger-600, "green")}, #{color.channel($color-danger-600, "blue")};
+  --color-warning-rgb: #{color.channel($color-warning-600, "red")}, #{color.channel($color-warning-600, "green")}, #{color.channel($color-warning-600, "blue")};
+  --color-info-rgb: #{color.channel($color-info-600, "red")}, #{color.channel($color-info-600, "green")}, #{color.channel($color-info-600, "blue")};
+}
+
+// Dark theme variables
+.dark {
+  --color-text-primary: #{$color-text-primary-dark};
+  --color-text-secondary: #{$color-text-secondary-dark};
+  --color-text-tertiary: #{$color-text-tertiary-dark};
+  --color-background: #{$color-background-dark};
+}

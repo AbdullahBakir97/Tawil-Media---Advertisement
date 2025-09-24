@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tawil Media - Dashboard Example</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
+    <link rel="stylesheet" href="{% static 'css/premium-design-system.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <style>
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .dashboard-header {
+            margin-bottom: 2rem;
+        }
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s var(--transition-timing-ease-out), 
+                        box-shadow 0.3s var(--transition-timing-ease-out);
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-primary-400), var(--color-primary-600));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s var(--transition-timing-ease-out);
+        }
+        .stat-card:hover::before {
+            transform: scaleX(1);
+        }
+        .stat-value {
+            font-size: var(--text-3xl);
+            font-weight: var(--font-bold);
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, var(--color-primary-500), var(--color-primary-700));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .stat-label {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .stat-change {
+            display: inline-flex;
+            align-items: center;
+            font-size: var(--text-sm);
+            margin-top: 0.5rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--radius-full);
+        }
+        .stat-change.positive {
+            background-color: var(--color-success-50);
+            color: var(--color-success-700);
+        }
+        .stat-change.negative {
+            background-color: var(--color-danger-50);
+            color: var(--color-danger-700);
+        }
+        .dashboard-charts {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .chart-card {
+            background-color: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-md);
+            transition: box-shadow 0.3s var(--transition-timing-ease-out);
+        }
+        .chart-card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        .chart-title {
+            font-size: var(--text-lg);
+            font-weight: var(--font-semibold);
+            position: relative;
+            display: inline-block;
+        }
+        .chart-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-primary-400), var(--color-primary-600));
+            border-radius: var(--radius-full);
+        }
+        .chart-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .chart-placeholder {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, var(--bg-secondary), var(--color-gray-100));
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+        .dashboard-recent {
+            margin-bottom: 2rem;
+        }
+        .recent-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .recent-title {
+            font-size: var(--text-xl);
+            font-weight: var(--font-semibold);
+        }
+        .recent-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+        .recent-table th {
+            background-color: var(--bg-secondary);
+            padding: 1rem;
+            text-align: left;
+            font-weight: var(--font-semibold);
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-primary);
+        }
+        .recent-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-primary);
+            background-color: var(--bg-primary);
+            transition: background-color 0.2s ease;
+        }
+        .recent-table tr:last-child td {
+            border-bottom: none;
+        }
+        .recent-table tr:hover td {
+            background-color: var(--bg-hover);
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-full);
+            font-size: var(--text-xs);
+            font-weight: var(--font-medium);
+            text-transform: uppercase;
+        }
+        .status-badge.published {
+            background-color: var(--color-success-100);
+            color: var(--color-success-800);
+        }
+        .status-badge.draft {
+            background-color: var(--color-warning-100);
+            color: var(--color-warning-800);
+        }
+        .status-badge.archived {
+            background-color: var(--color-gray-100);
+            color: var(--color-gray-800);
+        }
+        .dashboard-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-primary);
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+        }
+        
+        @media (max-width: 1024px) {
+            .dashboard-charts {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-container {
+                padding: 1rem;
+            }
+            .dashboard-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <h1>Dashboard</h1>
+            <p>Welcome to the Tawil Media analytics dashboard.</p>
+        </header>
+        
+        <section class="dashboard-stats">
+            <div class="stat-card animate-fade-in-up" style="animation-delay: 0.1s;">
+                <div class="stat-value">1,254</div>
+                <div class="stat-label">Total Publications</div>
+                <div class="stat-change positive">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7 14l5-5 5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    12.5% from last month
+                </div>
+            </div>
+            
+            <div class="stat-card animate-fade-in-up" style="animation-delay: 0.2s;">
+                <div class="stat-value">45.8K</div>
+                <div class="stat-label">Total Views</div>
+                <div class="stat-change positive">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7 14l5-5 5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    8.3% from last month
+                </div>
+            </div>
+            
+            <div class="stat-card animate-fade-in-up" style="animation-delay: 0.3s;">
+                <div class="stat-value">12.3K</div>
+                <div class="stat-label">Total Downloads</div>
+                <div class="stat-change negative">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7 10l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    3.2% from last month
+                </div>
+            </div>
+            
+            <div class="stat-card animate-fade-in-up" style="animation-delay: 0.4s;">
+                <div class="stat-value">89.7%</div>
+                <div class="stat-label">User Satisfaction</div>
+                <div class="stat-change positive">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7 14l5-5 5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    2.1% from last month
+                </div>
+            </div>
+        </section>
+        
+        <section class="dashboard-charts">
+            <div class="chart-card animate-fade-in">
+                <div class="chart-header">
+                    <h3 class="chart-title">Monthly Performance</h3>
+                    <div class="chart-actions">
+                        <button class="btn btn-sm btn-ghost btn-primary">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Zoom
+                        </button>
+                        <button class="btn btn-sm btn-ghost btn-primary">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 16.5L8 11l3 3L21 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M16 7h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Export
+                        </button>
+                    </div>
+                </div>
+                <div class="chart-placeholder">
+                    [Monthly Performance Chart]
+                </div>
+            </div>
+            
+            <div class="chart-card animate-fade-in" style="animation-delay: 0.2s;">
+                <div class="chart-header">
+                    <h3 class="chart-title">Content Distribution</h3>
+                    <div class="chart-actions">
+                        <button class="btn btn-sm btn-ghost btn-primary">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Filter
+                        </button>
+                    </div>
+                </div>
+                <div class="chart-placeholder">
+                    [Content Distribution Chart]
+                </div>
+            </div>
+        </section>
+        
+        <section class="dashboard-recent animate-fade-in" style="animation-delay: 0.3s;">
+            <div class="recent-header">
+                <h3 class="recent-title">Recent Publications</h3>
+                <button class="btn btn-sm btn-outline btn-primary">View All</button>
+            </div>
+            <table class="recent-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Views</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>The Future of Media in 2025</td>
+                        <td>Ahmed Al-Farsi</td>
+                        <td>2025-03-15</td>
+                        <td><span class="status-badge published">Published</span></td>
+                        <td>2,345</td>
+                        <td>
+                            <button class="btn btn-xs btn-ghost btn-primary">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M11 4H4v16h16v-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M18.5 2.5l3 3L12 15H9v-3l9.5-9.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Edit
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Analyzing Global Media Trends</td>
+                        <td>Fatima Al-Zahra</td>
+                        <td>2025-03-10</td>
+                        <td><span class="status-badge published">Published</span></td>
+                        <td>1,987</td>
+                        <td>
+                            <button class="btn btn-xs btn-ghost btn-primary">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M11 4H4v16h16v-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M18.5 2.5l3 3L12 15H9v-3l9.5-9.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Edit
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Digital Transformation in Media</td>
+                        <td>Khalid Al-Mansouri</td>
+                        <td>2025-03-05</td>
+                        <td><span class="status-badge draft">Draft</span></td>
+                        <td>--</td>
+                        <td>
+                            <button class="btn btn-xs btn-ghost btn-primary">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M11 4H4v16h16v-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M18.5 2.5l3 3L12 15H9v-3l9.5-9.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Edit
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>The Evolution of Journalism</td>
+                        <td>Layla Al-Hashimi</td>
+                        <td>2025-02-28</td>
+                        <td><span class="status-badge archived">Archived</span></td>
+                        <td>1,245</td>
+                        <td>
+                            <button class="btn btn-xs btn-ghost btn-primary">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M11 4H4v16h16v-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M18.5 2.5l3 3L12 15H9v-3l9.5-9.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Edit
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Social Media Impact on News</td>
+                        <td>Omar Al-Balushi</td>
+                        <td>2025-02-22</td>
+                        <td><span class="status-badge published">Published</span></td>
+                        <td>2,876</td>
+                        <td>
+                            <button class="btn btn-xs btn-ghost btn-primary">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M11 4H4v16h16v-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M18.5 2.5l3 3L12 15H9v-3l9.5-9.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Edit
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <footer class="dashboard-footer animate-fade-in" style="animation-delay: 0.4s;">
+            <div>&copy; 2025 Tawil Media. All rights reserved.</div>
+            <div>Last updated: March 22, 2025 at 06:59</div>
+        </footer>
+    </div>
+
+    <script src="{% static 'js/design-system.js' %}"></script>
+    <script>
+        // Add dark mode toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check for system preference
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.body.classList.add('dark');
+            }
+            
+            // Add animation classes to elements when they enter the viewport
+            const animatedElements = document.querySelectorAll('[class*="animate-"]');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            animatedElements.forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>

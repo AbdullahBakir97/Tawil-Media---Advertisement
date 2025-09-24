@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tawil Media - Page Examples</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <style>
+        .style-guide-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .style-guide-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            background-color: var(--bg-secondary);
+            box-shadow: var(--shadow-md);
+        }
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 100;
+        }
+        .page-example {
+            margin-top: 2rem;
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+        .page-example-header {
+            padding: 1rem;
+            background-color: var(--color-gray-100);
+            border-bottom: 1px solid var(--border-primary);
+        }
+        .page-example-body {
+            height: 500px;
+            overflow-y: auto;
+        }
+        .page-example-footer {
+            padding: 1rem;
+            background-color: var(--color-gray-100);
+            border-top: 1px solid var(--border-primary);
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-toggle">
+        <button class="btn btn-primary" onclick="document.body.classList.toggle('dark')">Toggle Dark Mode</button>
+    </div>
+
+    <div class="style-guide-container">
+        <header>
+            <h1>Tawil Media - Page Examples</h1>
+            <p>Real-world examples of pages built with the Tawil Media design system.</p>
+            
+            <div class="nav-links">
+                <a href="{% url 'core:style_guide' %}" class="btn btn-outline btn-primary">Base Styles</a>
+                <a href="{% url 'core:style_guide_components' %}" class="btn btn-outline btn-primary">Components</a>
+                <a href="{% url 'core:style_guide_layouts' %}" class="btn btn-outline btn-primary">Layouts</a>
+                <a href="{% url 'core:style_guide_pages' %}" class="btn btn-primary">Page Examples</a>
+            </div>
+        </header>
+
+        <main>
+            <!-- Page Examples Section -->
+            <section class="style-guide-section" id="page-examples">
+                <h2>Page Examples</h2>
+                <p>Examples of common page layouts and templates using the Tawil Media design system.</p>
+                
+                <!-- Dashboard Example -->
+                <div class="page-example">
+                    <div class="page-example-header">
+                        <h3>Dashboard Example</h3>
+                    </div>
+                    <div class="page-example-body">
+                        <iframe src="{% url 'core:dashboard_example' %}" width="100%" height="100%" frameborder="0"></iframe>
+                    </div>
+                    <div class="page-example-footer">
+                        <span>Dashboard template showcasing stats, charts, and data visualization</span>
+                        <a href="{% url 'core:dashboard_example' %}" class="btn btn-sm btn-primary" target="_blank">View Full Page</a>
+                    </div>
+                </div>
+                
+                <!-- Magazine Browse Example -->
+                <div class="page-example">
+                    <div class="page-example-header">
+                        <h3>Magazine Browse Example</h3>
+                    </div>
+                    <div class="page-example-body">
+                        <iframe src="{% url 'core:magazine_browse_example' %}" width="100%" height="100%" frameborder="0"></iframe>
+                    </div>
+                    <div class="page-example-footer">
+                        <span>Magazine browse page with premium styling and animations</span>
+                        <a href="{% url 'core:magazine_browse_example' %}" class="btn btn-sm btn-primary" target="_blank">View Full Page</a>
+                    </div>
+                </div>
+                
+                <!-- Archive Browse Example -->
+                <div class="page-example">
+                    <div class="page-example-header">
+                        <h3>Archive Browse Example</h3>
+                    </div>
+                    <div class="page-example-body">
+                        <iframe src="{% url 'core:archive_browse_example' %}" width="100%" height="100%" frameborder="0"></iframe>
+                    </div>
+                    <div class="page-example-footer">
+                        <span>Archive browse page with premium styling and animations</span>
+                        <a href="{% url 'core:archive_browse_example' %}" class="btn btn-sm btn-primary" target="_blank">View Full Page</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
