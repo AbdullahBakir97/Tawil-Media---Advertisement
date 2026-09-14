@@ -36,7 +36,9 @@ jobs:
       - name: Migrations are in sync with models
         run: python manage.py makemigrations --check --dry-run
       - name: Tests
-        run: python manage.py test --noinput --parallel auto
+        env:
+          SECURE_SSL_REDIRECT: '0'  # the test client speaks plain HTTP
+        run: python manage.py test --noinput
 
   frontend:
     name: Build CSS
