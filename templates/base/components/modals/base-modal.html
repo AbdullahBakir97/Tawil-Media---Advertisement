@@ -26,7 +26,7 @@ Parameters:
      class="modal fixed inset-0 z-50"
      x-data="{ 
          open: false,
-         size: '{{ size|default:"md" }}',
+         size: '{{ size|default:'md' }}',
          close() {
              this.open = false;
              document.body.classList.remove('modal-open');

@@ -1,5 +1,12 @@
+import logging
+
 from django.db import models
+from django.db.models import F
+
 from source.apps.core.models import TimeStampedModel
+
+logger = logging.getLogger(__name__)
+
 
 class Advertiser(TimeStampedModel):
     name = models.CharField(max_length=255, verbose_name="Advertiser Name")
@@ -63,10 +70,10 @@ class Advertisement(TimeStampedModel):
         AdCampaign, on_delete=models.CASCADE, related_name="ads_campaign", verbose_name="Campaign"
     )
     placement = models.ForeignKey(
-        AdPlacement, on_delete=models.SET_NULL, null=True, related_name="ads_placement", verbose_name="Placement"
+        AdPlacement, on_delete=models.SET_NULL, null=True, blank=True, related_name="ads_placement", verbose_name="Placement"
     )
     media = models.ForeignKey(
-        "content.Media", on_delete=models.SET_NULL, null=True, related_name="ads_media", verbose_name="Ad Media"
+        "content.Media", on_delete=models.SET_NULL, null=True, blank=True, related_name="ads_media", verbose_name="Ad Media"
     )
     url = models.URLField(verbose_name="Target URL")
     impressions = models.PositiveIntegerField(default=0, verbose_name="Impressions")
@@ -84,14 +91,14 @@ class Advertisement(TimeStampedModel):
         return self.name
 
     def increment_impressions(self):
-        """Increment the number of impressions for the ad."""
-        self.impressions += 1
-        self.save()
+        """Atomically increment the number of impressions for the ad."""
+        Advertisement.objects.filter(pk=self.pk).update(impressions=F("impressions") + 1)
+        self.refresh_from_db(fields=["impressions"])
 
     def increment_clicks(self):
-        """Increment the number of clicks for the ad."""
-        self.clicks += 1
-        self.save()
+        """Atomically increment the number of clicks for the ad."""
+        Advertisement.objects.filter(pk=self.pk).update(clicks=F("clicks") + 1)
+        self.refresh_from_db(fields=["clicks"])
 
     def deactivate(self):
         """Deactivate the ad."""
@@ -100,13 +107,14 @@ class Advertisement(TimeStampedModel):
 
     def log_performance_update(self):
         """Log the current performance metrics."""
-        print(f"Ad: {self.name}, Impressions: {self.impressions}, Clicks: {self.clicks}")
+        logger.info("Ad %s: impressions=%s clicks=%s", self.name, self.impressions, self.clicks)
 
     def update_performance(self, impressions, clicks):
         """Update performance metrics with new values."""
-        self.impressions += impressions
-        self.clicks += clicks
-        self.save()
+        Advertisement.objects.filter(pk=self.pk).update(
+            impressions=F("impressions") + impressions, clicks=F("clicks") + clicks
+        )
+        self.refresh_from_db(fields=["impressions", "clicks"])
 
 
 class AdPerformance(models.Model):

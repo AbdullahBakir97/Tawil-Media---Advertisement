@@ -8,7 +8,7 @@
 {% block content %}
 <div class="container max-w-lg mx-auto px-4 py-8">
     <div class="bg-secondary rounded-xl shadow-xl p-8 transform transition-all"
-         x-data="{ step: 1 }"
+         x-data="registerForm()"
          x-on:keydown.right="step < 3 && step++"
          x-on:keydown.left="step > 1 && step--">
         
@@ -25,10 +25,9 @@
         </div>
 
         <!-- Form -->
-        <form hx-post="{% url 'register' %}"
-              hx-swap="outerHTML"
-              x-data="registerForm()"
-              x-on:submit="return validateStep(step)"
+        <form id="register-form" hx-post="{% url 'register' %}"
+              hx-swap="outerHTML" hx-select="#register-form"
+              x-on:submit="if (!validateStep(step)) $event.preventDefault()"
               class="space-y-6">
             {% csrf_token %}
 
@@ -189,6 +188,8 @@
                 <div class="mt-6">
                     <label class="relative flex items-start">
                         <input type="checkbox"
+                               name="accept_terms"
+                               required
                                x-model="form.acceptTerms"
                                class="h-5 w-5 rounded border-primary text-primary-600 focus:ring-primary-500">
                         <span class="ml-3">
@@ -245,35 +246,6 @@
 </div>
 {% endblock %}
 
-{% block extra_css %}
-<style>
-    .htmx-indicator {
-        display: none;
-    }
-    .htmx-request .htmx-indicator {
-        display: inline-flex;
-    }
-    .htmx-request .htmx-default {
-        display: none;
-    }
-
-    /* Custom checkbox styles */
-    input[type="checkbox"] {
-        @apply transition-colors duration-200 ease-in-out;
-    }
-    
-    /* Form transitions */
-    .form-slide-enter-active,
-    .form-slide-leave-active {
-        @apply transition-all duration-300 ease-in-out;
-    }
-    
-    .form-slide-enter-from,
-    .form-slide-leave-to {
-        @apply opacity-0 transform translate-x-4;
-    }
-</style>
-{% endblock %}
 
 {% block extra_js %}
 <script>
@@ -371,12 +343,5 @@
         }
     }
 
-    // Handle form submission feedback
-    document.body.addEventListener('htmx:afterRequest', function(evt) {
-        if (evt.detail.successful && evt.detail.xhr.responseURL) {
-            // Redirect on successful registration
-            window.location.href = evt.detail.xhr.responseURL;
-        }
-    });
 </script>
 {% endblock %}

@@ -1,8 +1,9 @@
 from django.db import models
-from django.utils import timezone
 from django.utils.text import slugify
+
+from source.apps.content.models import Article, Category, Media
 from source.apps.core.models import TimeStampedModel
-from source.apps.content.models import Article, Magazine, Media, Category
+
 
 class ArchiveCategory(TimeStampedModel):
     """Model to extend the base Category model with archive-specific attributes"""
@@ -71,10 +72,10 @@ class ArchiveYear(TimeStampedModel):
     is_active = models.BooleanField(default=True, verbose_name="Is Active")
     total_editions = models.PositiveIntegerField(default=0, verbose_name="Total Editions")
     cover_image = models.ForeignKey(
-        Media, 
-        on_delete=models.SET_NULL, 
-        null=True, 
-        blank=True, 
+        Media,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
         related_name='year_covers',
         verbose_name="Year Cover Image"
     )
@@ -181,6 +182,7 @@ class Edition(TimeStampedModel):
         Media,
         on_delete=models.SET_NULL,
         null=True,
+        blank=True,
         related_name='edition_covers',
         verbose_name="Edition Cover"
     )

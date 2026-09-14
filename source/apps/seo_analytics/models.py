@@ -1,12 +1,18 @@
+import logging
+
 from django.db import models
+
 from source.apps.core.models import TimeStampedModel
+
+logger = logging.getLogger(__name__)
+
 
 class SEOSettings(TimeStampedModel):
     site_title = models.CharField(max_length=200, verbose_name="Site Title")
     site_description = models.TextField(verbose_name="Site Description")
     default_meta_keywords = models.TextField(verbose_name="Default Meta Keywords", blank=True)
     robots_txt = models.TextField(
-        verbose_name="Robots.txt Rules", 
+        verbose_name="Robots.txt Rules",
         default="User-agent: *\nDisallow:"
     )
     sitemap_url = models.URLField(verbose_name="Sitemap URL", blank=True)
@@ -77,7 +83,7 @@ class AnalyticsEvent(TimeStampedModel):
 
     def log_event(self):
         """Log the event data for analytics."""
-        print(f"Event logged: {self.event_name} at {self.url} with data: {self.event_data}")
+        logger.debug("Event %s at %s: %s", self.event_name, self.url, self.event_data)
 
 
 class PageVisit(TimeStampedModel):
@@ -100,7 +106,7 @@ class PageVisit(TimeStampedModel):
 
     def record_visit(self):
         """Record a new page visit."""
-        print(f"Recording visit: {self.url} from {self.ip_address}")
+        logger.debug("Visit recorded: %s from %s", self.url, self.ip_address)
 
 
 class SearchRanking(TimeStampedModel):
@@ -108,13 +114,13 @@ class SearchRanking(TimeStampedModel):
     url = models.URLField(verbose_name="Page URL")
     ranking = models.PositiveIntegerField(verbose_name="Search Engine Ranking")
     search_engine = models.CharField(
-        max_length=50, 
+        max_length=50,
         choices=[
             ("google", "Google"),
             ("bing", "Bing"),
             ("yahoo", "Yahoo"),
-        ], 
-        default="google", 
+        ],
+        default="google",
         verbose_name="Search Engine"
     )
     checked_at = models.DateTimeField(auto_now_add=True, verbose_name="Checked At")

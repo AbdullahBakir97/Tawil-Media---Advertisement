@@ -2,13 +2,13 @@ name: CI
 
 on:
   push:
-    branches: ['**']
+    branches: [main]
   pull_request:
-    branches: ['**']
   workflow_dispatch:
 
 jobs:
-  test:
+  backend:
+    name: Lint, checks & tests (Python ${{ matrix.python-version }})
     runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:
@@ -17,10 +17,8 @@ jobs:
         python-version: ['3.11', '3.12']
     env:
       DEBUG: '0'
-      SECRET_KEY: ci-only-not-real-secret-key-for-tests
-      DJANGO_SETTINGS_MODULE: project.settings
-      DATABASE_URL: 'sqlite:///./ci.sqlite3'
-      ALLOWED_HOSTS: '*'
+      SECRET_KEY: ci-only-not-a-real-secret-0123456789abcdefghijklmnopqrstuvwxyz
+      ALLOWED_HOSTS: 'localhost,127.0.0.1,testserver'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -30,19 +28,27 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then pip install -r requirements.txt || true; fi
-          if [ -f requirements/dev.txt ]; then pip install -r requirements/dev.txt || true; fi
-          if [ -f requirements/base.txt ]; then pip install -r requirements/base.txt || true; fi
-          pip install pytest django ruff || true
-      - name: Lint (syntax errors only)
-        continue-on-error: true
-        run: ruff check --select E9,F63,F7,F82 . || true
-      - name: Django check
-        continue-on-error: true
-        run: |
-          if [ -f manage.py ]; then python manage.py check || true; fi
-      - name: Run tests
-        continue-on-error: true
-        run: |
-          if [ -f manage.py ]; then python manage.py test --noinput --keepdb || true; fi
-          if [ -d tests ] && [ ! -f manage.py ]; then pytest -q tests/ || true; fi
+          pip install -r requirements-dev.txt
+      - name: Lint
+        run: ruff check .
+      - name: Django system checks
+        run: python manage.py check --deploy --fail-level WARNING
+      - name: Migrations are in sync with models
+        run: python manage.py makemigrations --check --dry-run
+      - name: Tests
+        run: python manage.py test --noinput --parallel auto
+
+  frontend:
+    name: Build CSS
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run build:css
+      - name: Compiled CSS is committed and up to date
+        run: git diff --exit-code -- static/css/dist/main.css

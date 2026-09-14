@@ -1,0 +1,21 @@
+{% extends "base/base.html" %}
+{% block title %}Archives – {{ SITE_NAME }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-3xl font-bold mb-2">Archives</h1>
+    <p class="text-secondary mb-8">Browse past editions by year.</p>
+    {% if years %}
+        <div class="grid gap-6 grid-cols-2 md:grid-cols-4">
+            {% for year in years %}
+                <a href="{% url 'archives:year' year.year %}" class="card bg-secondary rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow">
+                    <p class="text-3xl font-bold">{{ year.year }}</p>
+                    <p class="text-sm text-tertiary mt-1">{{ year.total_editions }} edition{{ year.total_editions|pluralize }}</p>
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-tertiary">The archive is empty.</p>
+    {% endif %}
+</div>
+{% endblock %}

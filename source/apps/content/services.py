@@ -1,5 +1,6 @@
-from .models import Category, Article, Media, Magazine
+from .models import Article, Category, Magazine, Media
 from .utils import validate_article_data
+
 
 class CategoryService:
     @staticmethod

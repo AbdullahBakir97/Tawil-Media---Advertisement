@@ -1,0 +1,63 @@
+{% extends "base/base.html" %}
+{% block title %}{{ SITE_NAME }} – Media &amp; Advertising{% endblock %}
+{% block meta_description %}Articles, magazines and archives from {{ SITE_NAME }}.{% endblock %}
+
+{% block content %}
+<section class="container">
+    <div class="rounded-2xl bg-primary-700 text-white px-8 py-16 md:py-24 text-center">
+        <h1 class="text-4xl md:text-5xl font-bold tracking-tight">Stories worth your time.</h1>
+        <p class="mt-4 text-lg text-primary-100 max-w-2xl mx-auto">
+            Independent reporting, magazines and a growing archive, published by {{ SITE_NAME }}.
+        </p>
+        <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="{% url 'articles:list' %}" class="btn btn-secondary">Read the latest</a>
+            <a href="{% url 'advertise' %}" class="btn btn-outline text-white border-white hover:bg-white hover:text-primary-700">Advertise with us</a>
+        </div>
+    </div>
+</section>
+
+<section class="container mt-16">
+    <div class="flex items-end justify-between mb-6">
+        <h2 class="text-2xl font-bold">Latest articles</h2>
+        <a href="{% url 'articles:list' %}" class="text-primary-600 hover:underline">View all</a>
+    </div>
+    {% if featured_articles %}
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {% for article in featured_articles %}
+                {% include "content/partials/article_card.html" %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-tertiary">No articles have been published yet. Add some in the <a class="underline" href="{% url 'admin:index' %}">admin</a>.</p>
+    {% endif %}
+</section>
+
+{% if latest_magazines %}
+<section class="container mt-16">
+    <div class="flex items-end justify-between mb-6">
+        <h2 class="text-2xl font-bold">Magazines</h2>
+        <a href="{% url 'magazines:list' %}" class="text-primary-600 hover:underline">View all</a>
+    </div>
+    <div class="grid gap-6 sm:grid-cols-3">
+        {% for magazine in latest_magazines %}
+            {% include "content/partials/magazine_card.html" %}
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+{% if categories %}
+<section class="container mt-16">
+    <h2 class="text-2xl font-bold mb-6">Browse by category</h2>
+    <div class="flex flex-wrap gap-2">
+        {% for category in categories %}
+            <a href="{% url 'articles:by_category' category.slug %}" class="px-4 py-2 rounded-full bg-tertiary hover:bg-primary-100 hover:text-primary-700 transition-colors">{{ category.name }}</a>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+<section class="container mt-16">
+    {% include "base/footer/newsletter.html" %}
+</section>
+{% endblock %}

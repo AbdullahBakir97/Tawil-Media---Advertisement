@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import Advertiser, AdCampaign, AdPlacement, Advertisement, AdPerformance
+
+from .models import AdCampaign, AdPerformance, AdPlacement, Advertisement, Advertiser
+
 
 @admin.register(Advertiser)
 class AdvertiserAdmin(admin.ModelAdmin):

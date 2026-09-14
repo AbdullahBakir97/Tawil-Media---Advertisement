@@ -21,8 +21,8 @@
         </div>
 
         <!-- Form -->
-        <form hx-post="{{ request.path }}"
-              hx-swap="outerHTML"
+        <form id="change-form" hx-post="{{ request.path }}"
+              hx-swap="outerHTML" hx-select="#change-form"
               x-on:submit="return validateForm()"
               class="space-y-6 animate-slide-in-up delay-200">
             {% csrf_token %}

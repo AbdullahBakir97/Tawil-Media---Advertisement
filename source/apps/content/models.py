@@ -1,10 +1,12 @@
-from django.db import models
-from django.utils.text import slugify
-from django.utils import timezone
-from source.apps.core.models import TimeStampedModel
 from django.conf import settings
-from .managers import CategoryManager, MediaManager, ArticleManager, MagazineManager
+from django.db import models
+from django.utils import timezone
+from django.utils.text import slugify
 from taggit.managers import TaggableManager
+
+from source.apps.core.models import TimeStampedModel
+
+from .managers import ArticleManager, CategoryManager, MagazineManager, MediaManager
 
 
 class Category(TimeStampedModel):
@@ -27,7 +29,7 @@ class Category(TimeStampedModel):
         if not self.slug:
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
-        
+
     def get_related_articles(self):
         """Fetch all articles related to this category."""
         return self.article_categories.all()
@@ -98,7 +100,7 @@ class Article(TimeStampedModel):
         settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name="article_author", verbose_name="Author"
     )
     categories = models.ManyToManyField(Category, related_name="article_categories", verbose_name="Categories")
-    tags = TaggableManager()
+    tags = TaggableManager(blank=True)
     media = models.ManyToManyField(Media, related_name="article_media", blank=True, verbose_name="Media Attachments")
     is_published = models.BooleanField(default=False, verbose_name="Is Published")
     published_at = models.DateTimeField(null=True, blank=True, verbose_name="Published At")

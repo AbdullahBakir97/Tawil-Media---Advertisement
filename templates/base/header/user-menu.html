@@ -27,6 +27,7 @@
                     hx-get="{% url 'notifications:list' %}"
                     hx-target="#notifications-dropdown"
                     hx-trigger="click"
+                    hx-on::after-swap="document.getElementById('notifications-dropdown').classList.toggle('hidden')"
                     aria-label="View notifications">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
@@ -49,7 +50,7 @@
                     aria-expanded="false"
                     aria-haspopup="true">
                 <img class="h-8 w-8 rounded-full object-cover" 
-                     src="{% if user.profile.avatar %}{{ user.profile.avatar.url }}{% else %}{% static 'img/default-avatar.png' %}{% endif %}" 
+                     src="{% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}{% static 'img/default-avatar.svg' %}{% endif %}" 
                      alt="{{ user.get_full_name }}">
                 <span class="hidden md:block text-sm font-medium">
                     {{ user.get_full_name|default:user.username }}
@@ -111,8 +112,8 @@
     {% else %}
         <!-- Auth Buttons -->
         <div class="flex items-center space-x-2">
-            <a href="{% url 'login' %}" class="btn btn-secondary btn-sm">Sign In</a>
-            <a href="{% url 'register' %}" class="btn btn-primary btn-sm">Sign Up</a>
+            <a href="{% url 'login' %}" class="btn btn-secondary btn-sm whitespace-nowrap">Sign in</a>
+            <a href="{% url 'register' %}" class="btn btn-primary btn-sm whitespace-nowrap">Sign up</a>
         </div>
     {% endif %}
 </div>

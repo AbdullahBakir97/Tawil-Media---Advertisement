@@ -1,7 +1,7 @@
 // HTMX Configuration and Extensions
 (function() {
     // HTMX Global Configuration
-    htmx.config = {
+    Object.assign(htmx.config, {
         historyEnabled: true,
         defaultSwapStyle: 'innerHTML',
         defaultSwapDelay: 0,
@@ -14,7 +14,7 @@
         swappingClass: 'htmx-swapping',
         allowEval: false,
         attributesToSettle: ["class", "style", "width", "height"]
-    };
+    });
 
     // Custom Loading States
     htmx.defineExtension('loading-states', {
@@ -97,10 +97,13 @@
     });
 
     // Initialize Extensions
-    htmx.addExtension('loading-states');
-    htmx.addExtension('error-handling');
-    htmx.addExtension('analytics');
-    htmx.addExtension('form-validation');
+    // Extensions defined above are opt-in per element via hx-ext="…"; enable
+    // them globally on <body> so every request gets loading states and error
+    // toasts without repeating the attribute.
+    document.addEventListener('DOMContentLoaded', () => {
+        document.body.setAttribute('hx-ext', 'loading-states, error-handling, analytics, form-validation');
+        htmx.process(document.body);
+    });
 
     // Custom Event Handlers
     document.addEventListener('htmx:configRequest', function(evt) {

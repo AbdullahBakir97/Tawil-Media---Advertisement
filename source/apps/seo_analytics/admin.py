@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import SEOSettings, SEOPageMeta, AnalyticsEvent, PageVisit, SearchRanking
+
+from .models import AnalyticsEvent, PageVisit, SearchRanking, SEOPageMeta, SEOSettings
+
 
 @admin.register(SEOSettings)
 class SEOSettingsAdmin(admin.ModelAdmin):

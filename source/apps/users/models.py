@@ -1,5 +1,12 @@
+import logging
+
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+
+from .managers import UserManager
+
+logger = logging.getLogger(__name__)
+
 
 class User(AbstractUser):
     email = models.EmailField(unique=True, verbose_name="Email Address")
@@ -11,7 +18,13 @@ class User(AbstractUser):
     date_of_birth = models.DateField(null=True, blank=True, verbose_name="Date of Birth")
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
+    REQUIRED_FIELDS = ['first_name', 'last_name']
+
+    objects = UserManager()
+
+    class Meta:
+        verbose_name = "User"
+        verbose_name_plural = "Users"
 
     def __str__(self):
         return self.email
@@ -96,7 +109,7 @@ class UserActivity(models.Model):
 
     def log_activity(self):
         """Log a new user activity."""
-        print(f"Activity logged: {self.activity_type} by {self.user.username} at {self.activity_date}")
+        logger.info("Activity logged: %s by %s at %s", self.activity_type, self.user, self.activity_date)
 
 
 class PasswordResetRequest(models.Model):

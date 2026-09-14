@@ -1,10 +1,4 @@
 /* Modern Grid System */
-.container {
-  width: var(--container-width);
-  margin-inline: auto;
-  padding-inline: var(--spacing-4);
-}
-
 /* Responsive Containers */
 @media (min-width: 640px) {
   .container-sm {

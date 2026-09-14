@@ -20,21 +20,14 @@
         </div>
 
         <!-- Form -->
-        <form hx-post="{% url 'password_reset' %}"
-              hx-swap="outerHTML"
+        <form id="reset-form" hx-post="{% url 'password_reset' %}"
+              hx-swap="outerHTML" hx-select="#reset-form"
               x-data="{ email: '', submitted: false }"
               x-on:submit="submitted = true"
               class="space-y-6 animate-slide-in-up delay-200">
             {% csrf_token %}
 
             <!-- Success Message -->
-            {% if messages %}
-            <div class="bg-success/10 border border-success/20 text-success rounded-md p-4 animate-scale-in" role="alert">
-                {% for message in messages %}
-                    <p>{{ message }}</p>
-                {% endfor %}
-            </div>
-            {% endif %}
 
             <!-- Error Messages -->
             {% if form.errors %}

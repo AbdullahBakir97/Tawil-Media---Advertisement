@@ -319,8 +319,9 @@ class PerformanceMonitor {
             await this.sendMetrics(metrics);
         } catch (error) {
             console.error('Failed to send metrics:', error);
-            // Restore metrics to buffer if send fails
-            this.buffer.unshift(...metrics);
+            // Restore metrics to buffer if send fails, capped so a dead
+            // endpoint cannot grow memory forever.
+            this.buffer.unshift(...metrics.slice(0, this.options.maxBufferSize));
         }
     }
 

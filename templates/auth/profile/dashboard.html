@@ -15,8 +15,8 @@
                 <div class="flex items-center space-x-4">
                     <div class="relative">
                         <div class="w-16 h-16 rounded-full bg-primary-100 flex items-center justify-center animate-scale-in">
-                            {% if user.profile_image %}
-                            <img src="{{ user.profile_image.url }}" 
+                            {% if user.profile_picture %}
+                            <img src="{{ user.profile_picture.url }}" 
                                  alt="{{ user.get_full_name }}"
                                  class="w-16 h-16 rounded-full object-cover">
                             {% else %}

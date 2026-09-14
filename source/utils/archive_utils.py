@@ -1,8 +1,10 @@
 from datetime import datetime
-from django.utils import timezone
-from django.db.models import Q
+from typing import Any
+
 from django.core.exceptions import ValidationError
-from typing import List, Optional, Dict, Any
+from django.db.models import Q
+from django.utils import timezone
+
 
 def archive_content(content_obj, archive_reason: str = None) -> None:
     """
@@ -11,7 +13,7 @@ def archive_content(content_obj, archive_reason: str = None) -> None:
     """
     if not hasattr(content_obj, 'is_archived'):
         raise ValidationError("Object does not support archiving")
-    
+
     content_obj.is_archived = True
     content_obj.archived_at = timezone.now()
     content_obj.archive_reason = archive_reason
@@ -23,14 +25,14 @@ def restore_from_archive(content_obj) -> None:
     """
     if not hasattr(content_obj, 'is_archived'):
         raise ValidationError("Object does not support archiving")
-    
+
     content_obj.is_archived = False
     content_obj.archived_at = None
     content_obj.archive_reason = None
     content_obj.save()
 
-def get_archive_stats(model_class, start_date: Optional[datetime] = None, 
-                     end_date: Optional[datetime] = None) -> Dict[str, Any]:
+def get_archive_stats(model_class, start_date: datetime | None = None,
+                     end_date: datetime | None = None) -> dict[str, Any]:
     """
     Get statistics about archived content within a date range.
     """
@@ -39,20 +41,20 @@ def get_archive_stats(model_class, start_date: Optional[datetime] = None,
         query &= Q(archived_at__gte=start_date)
     if end_date:
         query &= Q(archived_at__lte=end_date)
-    
+
     total_archived = model_class.objects.filter(query).count()
     recently_archived = model_class.objects.filter(
         is_archived=True,
         archived_at__gte=timezone.now() - timezone.timedelta(days=30)
     ).count()
-    
+
     return {
         'total_archived': total_archived,
         'recently_archived': recently_archived,
         'archive_rate': recently_archived / 30 if recently_archived > 0 else 0
     }
 
-def bulk_archive(objects: List[Any], archive_reason: str = None) -> int:
+def bulk_archive(objects: list[Any], archive_reason: str = None) -> int:
     """
     Archive multiple content objects at once.
     Returns the number of successfully archived objects.

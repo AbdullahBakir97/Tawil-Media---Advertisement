@@ -1,6 +1,12 @@
+import logging
+
 from django.db import models
 from django.utils import timezone
+
 from source.apps.core.models import TimeStampedModel
+
+logger = logging.getLogger(__name__)
+
 
 class PaymentMethod(TimeStampedModel):
     name = models.CharField(max_length=100, verbose_name="Payment Method Name")
@@ -135,12 +141,12 @@ class Invoice(TimeStampedModel):
 
     def send_invoice(self):
         """Simulate sending the invoice (expandable)."""
-        print(f"Sending invoice {self.invoice_number} to user.")
+        logger.info("Sending invoice %s to %s", self.invoice_number, self.user_id)
 
     def mark_paid(self):
         """Mark the invoice as paid."""
         # Logic to mark the invoice as paid can be implemented here
-        print(f"Invoice {self.invoice_number} marked as paid.")
+        logger.info("Invoice %s marked as paid", self.invoice_number)
 
 
 class TransactionLog(TimeStampedModel):
@@ -165,4 +171,4 @@ class TransactionLog(TimeStampedModel):
 
     def log_transaction(self):
         """Log a new transaction."""
-        print(f"Transaction logged: {self.transaction_id} of type {self.type}.")
+        logger.info("Transaction %s of type %s logged", self.transaction_id, self.type)

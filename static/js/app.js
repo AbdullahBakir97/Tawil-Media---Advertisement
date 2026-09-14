@@ -7,9 +7,6 @@ import SearchComponent from './components/search.js';
 import InfiniteScroll from './components/infinite-scroll.js';
 import LazyLoad from './components/lazy-load.js';
 
-// Import analytics
-import Analytics from './analytics/tracking.js';
-import PerformanceMonitor from './analytics/performance.js';
 
 class App {
     constructor() {
@@ -34,8 +31,9 @@ class App {
         // Initialize components
         this.initializeComponents();
 
-        // Initialize analytics in production
-        if (!document.body.hasAttribute('data-debug')) {
+        // Analytics modules are loaded on demand, and only when the page
+        // declares a reporting endpoint (data-analytics-endpoint on <body>).
+        if (!document.body.hasAttribute('data-debug') && document.body.dataset.analyticsEndpoint) {
             this.initializeAnalytics();
         }
 
@@ -75,9 +73,14 @@ class App {
         this.initializeTheme();
     }
 
-    initializeAnalytics() {
-        // Initialize analytics tracking
+    async initializeAnalytics() {
+        const [{ default: Analytics }, { default: PerformanceMonitor }] = await Promise.all([
+            import('./analytics/tracking.js'),
+            import('./analytics/performance.js'),
+        ]);
+
         this.analytics = new Analytics({
+            endpoint: document.body.dataset.analyticsEndpoint,
             enablePageViews: true,
             enableEvents: true,
             enableUserTracking: true,
@@ -86,6 +89,7 @@ class App {
 
         // Initialize performance monitoring
         this.performanceMonitor = new PerformanceMonitor({
+            reportingEndpoint: document.body.dataset.analyticsEndpoint,
             enableResourceTiming: true,
             enableUserTiming: true,
             enableLongTaskMonitoring: true

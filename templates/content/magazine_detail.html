@@ -1,0 +1,32 @@
+{% extends "base/base.html" %}
+{% block title %}{{ magazine.title }} – {{ SITE_NAME }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="grid gap-10 md:grid-cols-3">
+        <div>
+            {% if magazine.cover_image %}
+                <img src="{{ magazine.cover_image.file.url }}" alt="{{ magazine.cover_image.alt_text|default:magazine.title }}" class="rounded-xl shadow-lg w-full">
+            {% endif %}
+        </div>
+        <div class="md:col-span-2">
+            <h1 class="text-4xl font-bold">{{ magazine.title }}</h1>
+            <p class="mt-2 text-sm text-tertiary">{{ magazine.published_at|date:"F Y" }}</p>
+            {% if magazine.description %}<p class="mt-6 text-secondary">{{ magazine.description|linebreaksbr }}</p>{% endif %}
+
+            <h2 class="text-xl font-semibold mt-10 mb-4">In this issue</h2>
+            <ol class="divide-y divide-primary">
+                {% for article in magazine.articles.all %}
+                    {% if article.is_published %}
+                    <li class="py-3">
+                        <a href="{% url 'articles:detail' article.slug %}" class="font-medium hover:text-primary-600">{{ article.title }}</a>
+                    </li>
+                    {% endif %}
+                {% empty %}
+                    <li class="py-3 text-tertiary">No articles yet.</li>
+                {% endfor %}
+            </ol>
+        </div>
+    </div>
+</div>
+{% endblock %}

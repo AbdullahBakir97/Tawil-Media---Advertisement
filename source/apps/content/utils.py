@@ -1,5 +1,5 @@
-from django.utils.text import slugify
 from django.core.exceptions import ValidationError
+from django.utils.text import slugify
 
 
 def generate_slug(value):

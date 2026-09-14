@@ -1,0 +1,33 @@
+{% extends "base/base.html" %}
+{% block title %}{% if category %}{{ category.name }}{% elif tag %}#{{ tag }}{% else %}Articles{% endif %} – {{ SITE_NAME }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <header class="mb-8">
+        <h1 class="text-3xl font-bold">
+            {% if category %}{{ category.name }}{% elif tag %}Tagged “{{ tag }}”{% else %}Articles{% endif %}
+        </h1>
+        {% if category.description %}<p class="mt-2 text-secondary">{{ category.description }}</p>{% endif %}
+    </header>
+
+    {% if categories %}
+    <nav class="flex flex-wrap gap-2 mb-8" aria-label="Categories">
+        <a href="{% url 'articles:list' %}" class="px-3 py-1 rounded-full text-sm {% if not category %}bg-primary-600 text-white{% else %}bg-tertiary{% endif %}">All</a>
+        {% for item in categories %}
+            <a href="{% url 'articles:by_category' item.slug %}" class="px-3 py-1 rounded-full text-sm {% if category == item %}bg-primary-600 text-white{% else %}bg-tertiary{% endif %}">{{ item.name }}</a>
+        {% endfor %}
+    </nav>
+    {% endif %}
+
+    {% if articles %}
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {% for article in articles %}
+                {% include "content/partials/article_card.html" %}
+            {% endfor %}
+        </div>
+        {% include "base/components/pagination.html" %}
+    {% else %}
+        <p class="text-tertiary">No published articles yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,14 +1,8 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from django.db.models import Count
-from .models import (
-    ArchiveCategory,
-    ArchiveYear,
-    YearCategoryHighlight,
-    Edition,
-    EditionContent,
-    ArchiveMetadata
-)
+
+from .models import ArchiveCategory, ArchiveMetadata, ArchiveYear, Edition, EditionContent, YearCategoryHighlight
+
 
 @admin.register(ArchiveCategory)
 class ArchiveCategoryAdmin(admin.ModelAdmin):
@@ -17,11 +11,11 @@ class ArchiveCategoryAdmin(admin.ModelAdmin):
     list_filter = ('is_featured',)
     search_fields = ('category__name', 'archive_description')
     ordering = ('display_order', 'category__name')
-    
+
     def category_name(self, obj):
         return obj.category.name
     category_name.admin_order_field = 'category__name'
-    
+
     def show_icon(self, obj):
         if obj.icon:
             return format_html('<img src="{}" width="50" height="50" />', obj.icon.file.url)
@@ -44,7 +38,7 @@ class ArchiveYearAdmin(admin.ModelAdmin):
     list_filter = ('is_active',)
     search_fields = ('year', 'description')
     inlines = [YearCategoryHighlightInline]
-    
+
     def show_cover(self, obj):
         if obj.cover_image:
             return format_html('<img src="{}" width="100" height="100" />', obj.cover_image.file.url)
@@ -86,7 +80,7 @@ class EditionAdmin(admin.ModelAdmin):
     inlines = [EditionContentInline]
     raw_id_fields = ('cover_image', 'primary_category')
     date_hierarchy = 'publication_date'
-    
+
     def edition_title(self, obj):
         return format_html(
             '<strong>{}</strong> <br/><small>Type: {}</small>',
@@ -94,7 +88,7 @@ class EditionAdmin(admin.ModelAdmin):
             obj.get_edition_type_display()
         )
     edition_title.short_description = 'Edition'
-    
+
     def archive_year_display(self, obj):
         return f"{obj.archive_year.year}"
     archive_year_display.short_description = 'Year'
@@ -152,7 +146,7 @@ class EditionContentAdmin(admin.ModelAdmin):
     filter_horizontal = ('categories',)
     raw_id_fields = ('edition', 'original_article')
     inlines = [ArchiveMetadataInline]
-    
+
     def edition_info(self, obj):
         return format_html(
             '{} - Edition {}',
