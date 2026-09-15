@@ -4,6 +4,10 @@
 .section { padding-block: 4rem; }
 @media (min-width: 1024px) { .section { padding-block: 5rem; } }
 
+/* Half a section's air, for pages that stack several blocks in a row. */
+.section-tight { padding-block: 2rem; }
+@media (min-width: 1024px) { .section-tight { padding-block: 2.5rem; } }
+
 .section--brand {
   background: var(--bg-brand);
   color: var(--text-on-brand);

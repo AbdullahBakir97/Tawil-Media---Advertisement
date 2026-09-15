@@ -17,6 +17,7 @@ from django.views.generic import TemplateView
 
 from source.apps.content.models import Article, Magazine, Media
 from source.apps.content.workflow import BOARD_ORDER, PUBLISHED, SCHEDULED, STATUS_CHOICES
+from source.apps.events.models import Event
 
 from .forms import AnnouncementForm, HeroForm, MediaDetailsForm, MediaUploadForm, ThemeForm
 from .models import FAQ, AdSlot, Announcement, HeroConfig, Milestone, Partner, Testimonial, Theme
@@ -45,7 +46,8 @@ class DashboardView(StaffOnly, TemplateView):
             faq_count=FAQ.objects.filter(is_active=True).count(),
             milestone_count=Milestone.objects.filter(is_active=True).count(),
             desk_open=Article.objects.exclude(status=PUBLISHED).count()
-            + Magazine.objects.exclude(status=PUBLISHED).count(),
+            + Magazine.objects.exclude(status=PUBLISHED).count()
+            + Event.objects.exclude(status=PUBLISHED).count(),
             media_count=Media.objects.count(),
             media_missing_alt=Media.objects.filter(media_type="image", alt_text="").count(),
             magazines=Magazine.objects.all()[:8],
@@ -178,7 +180,8 @@ class DeskView(StaffOnly, View):
         return {
             "article_columns": self._columns(Article),
             "magazine_columns": self._columns(Magazine),
-            "due_now": Article.objects.due().count() + Magazine.objects.due().count(),
+            "event_columns": self._columns(Event),
+            "due_now": Article.objects.due().count() + Magazine.objects.due().count() + Event.objects.due().count(),
             "now": timezone.now(),
         }
 
@@ -187,7 +190,7 @@ class DeskView(StaffOnly, View):
 
     def post(self, request):
         """One move per post: to draft, to review, scheduled or live."""
-        model = Magazine if request.POST.get("kind") == "magazine" else Article
+        model = {"magazine": Magazine, "event": Event}.get(request.POST.get("kind"), Article)
         item = get_object_or_404(model, pk=request.POST.get("pk"))
         move = request.POST.get("move")
 

@@ -1,0 +1,67 @@
+{% extends "base/base.html" %}
+{% load i18n media_tags %}
+{% block title %}{% trans "Events" %} – {{ SITE_NAME }}{% endblock %}
+{% block meta_description %}{% trans "Edition launches, panels, readings and community evenings with Almadina in Berlin and beyond." %}{% endblock %}
+
+{% block content %}
+<section class="container section-tight" data-hero>
+    <div class="page-head">
+        <span class="eyebrow" data-hero-item>{% trans "Diary" %}</span>
+        <h1 data-hero-item>{% trans "Events" %}</h1>
+        <p class="lead max-w-measure mt-3" data-hero-item>{% trans "Edition launches, panels, readings and community evenings. Come and meet the people who make the magazine." %}</p>
+    </div>
+</section>
+
+{% if next_event %}
+<section class="container section-tight">
+    <article class="event-next" data-motion="fade-up">
+        {% if next_event.image %}<div class="event-next-image">{% picture next_event.image sizes="(min-width: 64rem) 40vw, 100vw" alt="" loading="eager" %}</div>{% endif %}
+        <div class="event-next-body">
+            <span class="eyebrow" style="color:var(--gold-400)">{% if next_event.is_running %}{% trans "Happening now" %}{% else %}{% trans "Next up" %}{% endif %}</span>
+            <h2 class="event-next-title"><a href="{{ next_event.get_absolute_url }}">{{ next_event.label }}</a></h2>
+            <p class="event-next-when">
+                <time datetime="{{ next_event.starts_at|date:'c' }}">{{ next_event.starts_at|date:"l, j F Y · H:i" }}</time>
+                {% if next_event.place %}<span>{{ next_event.place }}</span>{% endif %}
+            </p>
+            {% if next_event.summary %}<p class="text-on-brand-muted max-w-measure">{{ next_event.summary|truncatewords:44 }}</p>{% endif %}
+            <div class="btn-group mt-4">
+                <a class="btn btn-brand" href="{{ next_event.get_absolute_url }}">{% trans "Details" %}</a>
+                {% if next_event.registration_url %}<a class="btn btn-ghost" href="{{ next_event.registration_url }}" rel="noopener" target="_blank">{% trans "Register" %}</a>{% endif %}
+            </div>
+        </div>
+    </article>
+</section>
+{% endif %}
+
+{% if upcoming %}
+<section class="container section-tight">
+    <div class="section-head" data-motion="fade-up">
+        <div><span class="eyebrow">{% trans "Coming up" %}</span><h2>{% trans "Also in the diary" %}</h2></div>
+    </div>
+    <div class="event-list" data-motion="stagger">
+        {% for event in upcoming %}{% include "events/partials/_card.html" %}{% endfor %}
+    </div>
+</section>
+{% endif %}
+
+{% if not next_event and not upcoming %}
+<section class="container section-tight">
+    <div class="empty-state">
+        <h3>{% trans "Nothing in the diary yet" %}</h3>
+        <p>{% trans "The next launch or panel will be announced here. The newsletter carries the invitation first." %}</p>
+        <a class="btn btn-outline btn-sm mt-3" href="{% url 'articles:list' %}">{% trans "Read the magazine" %}</a>
+    </div>
+</section>
+{% endif %}
+
+{% if past %}
+<section class="container section-tight">
+    <div class="section-head" data-motion="fade-up">
+        <div><span class="eyebrow">{% trans "Archive" %}</span><h2>{% trans "What we have held" %}</h2></div>
+    </div>
+    <div class="event-list event-list--past" data-motion="stagger">
+        {% for event in past %}{% include "events/partials/_card.html" %}{% endfor %}
+    </div>
+</section>
+{% endif %}
+{% endblock %}

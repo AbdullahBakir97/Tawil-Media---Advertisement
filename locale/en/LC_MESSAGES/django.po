@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-15 16:22+0200\n"
+"POT-Creation-Date: 2026-09-15 17:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -130,6 +130,26 @@ msgstr ""
 msgid "What is still missing, for the desk only."
 msgstr ""
 
+#: source/apps/events/models.py:65
+msgid "Edition launch"
+msgstr ""
+
+#: source/apps/events/models.py:66
+msgid "Panel or talk"
+msgstr ""
+
+#: source/apps/events/models.py:67
+msgid "Reading"
+msgstr ""
+
+#: source/apps/events/models.py:68
+msgid "Community event"
+msgstr ""
+
+#: source/apps/events/models.py:69
+msgid "Other"
+msgstr ""
+
 #: source/apps/studio/forms.py:107
 msgid "Files"
 msgstr ""
@@ -244,45 +264,45 @@ msgstr ""
 msgid "About"
 msgstr ""
 
-#: source/apps/studio/views.py:88
+#: source/apps/studio/views.py:90
 msgid "Hero saved."
 msgstr ""
 
-#: source/apps/studio/views.py:132
+#: source/apps/studio/views.py:134
 msgid "Theme saved."
 msgstr ""
 
-#: source/apps/studio/views.py:154
+#: source/apps/studio/views.py:156
 msgid "Announcement saved."
 msgstr ""
 
-#: source/apps/studio/views.py:203
+#: source/apps/studio/views.py:206
 msgid "That date could not be read."
 msgstr ""
 
-#: source/apps/studio/views.py:209
+#: source/apps/studio/views.py:212
 msgid "Unknown move."
 msgstr ""
 
-#: source/apps/studio/views.py:212
+#: source/apps/studio/views.py:215
 #, python-format
 msgid "“%(title)s” is now %(status)s."
 msgstr ""
 
-#: source/apps/studio/views.py:266
+#: source/apps/studio/views.py:269
 #, python-format
 msgid "%(count)d file(s) uploaded."
 msgstr ""
 
-#: source/apps/studio/views.py:272
+#: source/apps/studio/views.py:275
 msgid "File deleted."
 msgstr ""
 
-#: source/apps/studio/views.py:282
+#: source/apps/studio/views.py:285
 msgid "Image details saved."
 msgstr ""
 
-#: source/apps/studio/views.py:296
+#: source/apps/studio/views.py:299
 #, python-format
 msgid "%(count)d pages rendered."
 msgstr ""
@@ -564,8 +584,8 @@ msgid "Company"
 msgstr ""
 
 #: templates/advertising/partials/planner_form.html:18
-#: templates/base/footer/main.html:20 templates/base/header/navigation.html:19
-#: templates/base/header/navigation.html:39
+#: templates/base/footer/main.html:20 templates/base/header/navigation.html:20
+#: templates/base/header/navigation.html:40
 msgid "Contact"
 msgstr ""
 
@@ -586,7 +606,7 @@ msgid "Anything we should know?"
 msgstr ""
 
 #: templates/advertising/partials/planner_form.html:38
-#: templates/base/footer/main.html:58
+#: templates/base/footer/main.html:59
 msgid "Privacy"
 msgstr ""
 
@@ -598,7 +618,8 @@ msgstr ""
 #: templates/archives/edition_detail.html:8 templates/archives/year.html:8
 #: templates/base/header/mega-menu.html:10
 #: templates/base/header/navigation.html:10
-#: templates/base/header/navigation.html:37 templates/pages/home.html:60
+#: templates/base/header/navigation.html:38 templates/events/list.html:60
+#: templates/pages/home.html:60
 msgid "Archive"
 msgstr ""
 
@@ -672,7 +693,7 @@ msgid "No editions for this year"
 msgstr ""
 
 #: templates/auth/login.html:3 templates/auth/login.html:48
-#: templates/auth/register.html:66 templates/base/header/navigation.html:47
+#: templates/auth/register.html:66 templates/base/header/navigation.html:48
 #: templates/base/header/user-menu.html:59
 msgid "Sign in"
 msgstr ""
@@ -687,7 +708,7 @@ msgstr ""
 
 #: templates/auth/login.html:24 templates/auth/password/reset.html:21
 #: templates/auth/profile/settings.html:40 templates/auth/register.html:35
-#: templates/base/footer/main.html:44 templates/content/article_detail.html:78
+#: templates/base/footer/main.html:45 templates/content/article_detail.html:78
 msgid "E-mail address"
 msgstr ""
 
@@ -837,7 +858,7 @@ msgstr ""
 msgid "Edit profile"
 msgstr ""
 
-#: templates/auth/profile/dashboard.html:49 templates/base/footer/main.html:38
+#: templates/auth/profile/dashboard.html:49 templates/base/footer/main.html:39
 #: templates/content/article_detail.html:74
 msgid "Newsletter"
 msgstr ""
@@ -960,16 +981,16 @@ msgid "Professional media and advertising platform serving Arabic-speaking commu
 msgstr ""
 
 #: templates/base/footer/main.html:19 templates/base/header/navigation.html:18
-#: templates/base/header/navigation.html:38
+#: templates/base/header/navigation.html:39
 msgid "About us"
 msgstr ""
 
-#: templates/base/footer/main.html:21 templates/base/header/navigation.html:21
+#: templates/base/footer/main.html:21 templates/base/header/navigation.html:22
 msgid "Careers"
 msgstr ""
 
-#: templates/base/footer/main.html:22 templates/base/header/navigation.html:20
-#: templates/base/header/navigation.html:40
+#: templates/base/footer/main.html:22 templates/base/header/navigation.html:21
+#: templates/base/header/navigation.html:41
 #: templates/base/hero/newsroom.html:43
 msgid "Advertise"
 msgstr ""
@@ -979,7 +1000,7 @@ msgid "Read"
 msgstr ""
 
 #: templates/base/footer/main.html:29 templates/base/header/navigation.html:6
-#: templates/base/header/navigation.html:35
+#: templates/base/header/navigation.html:36
 #: templates/content/article_list.html:3 templates/content/article_list.html:9
 #: templates/studio/partials/desk_board.html:4
 msgid "Articles"
@@ -991,7 +1012,7 @@ msgid "Writers"
 msgstr ""
 
 #: templates/base/footer/main.html:31 templates/base/header/navigation.html:9
-#: templates/base/header/navigation.html:36
+#: templates/base/header/navigation.html:37
 #: templates/content/magazine_detail.html:10
 #: templates/content/magazine_list.html:3
 #: templates/content/magazine_list.html:9 templates/studio/base.html:57
@@ -1002,35 +1023,41 @@ msgstr ""
 msgid "Archives"
 msgstr ""
 
-#: templates/base/footer/main.html:33
+#: templates/base/footer/main.html:33 templates/base/header/navigation.html:19
+#: templates/events/list.html:3 templates/events/list.html:10
+#: templates/studio/partials/desk_board.html:18
+msgid "Events"
+msgstr ""
+
+#: templates/base/footer/main.html:34
 msgid "Help centre"
 msgstr ""
 
-#: templates/base/footer/main.html:39
+#: templates/base/footer/main.html:40
 msgid "The new edition and the best stories, once a week."
 msgstr ""
 
-#: templates/base/footer/main.html:46 templates/content/article_detail.html:79
+#: templates/base/footer/main.html:47 templates/content/article_detail.html:79
 msgid "you@example.com"
 msgstr ""
 
-#: templates/base/footer/main.html:47 templates/content/article_detail.html:80
+#: templates/base/footer/main.html:48 templates/content/article_detail.html:80
 msgid "Subscribe"
 msgstr ""
 
-#: templates/base/footer/main.html:55
+#: templates/base/footer/main.html:56
 msgid "All rights reserved."
 msgstr ""
 
-#: templates/base/footer/main.html:57
+#: templates/base/footer/main.html:58
 msgid "Terms"
 msgstr ""
 
-#: templates/base/footer/main.html:59
+#: templates/base/footer/main.html:60
 msgid "Cookies"
 msgstr ""
 
-#: templates/base/footer/main.html:60
+#: templates/base/footer/main.html:61
 msgid "Sitemap"
 msgstr ""
 
@@ -1100,7 +1127,7 @@ msgid "New editions are published here."
 msgstr ""
 
 #: templates/base/header/mega-menu.html:6
-#: templates/content/category_hub.html:39
+#: templates/content/category_hub.html:40
 #: templates/content/contributor_detail.html:41 templates/pages/home.html:19
 msgid "All articles"
 msgstr ""
@@ -1114,7 +1141,7 @@ msgid "Main navigation"
 msgstr ""
 
 #: templates/base/header/navigation.html:4
-#: templates/base/header/navigation.html:34
+#: templates/base/header/navigation.html:35
 msgid "Home"
 msgstr ""
 
@@ -1122,22 +1149,22 @@ msgstr ""
 msgid "More"
 msgstr ""
 
-#: templates/base/header/navigation.html:26
+#: templates/base/header/navigation.html:27
 msgid "Toggle menu"
 msgstr ""
 
-#: templates/base/header/navigation.html:42 templates/base/header/search.html:7
+#: templates/base/header/navigation.html:43 templates/base/header/search.html:7
 #: templates/errors/404.html:11 templates/pages/search.html:3
 #: templates/pages/search.html:8 templates/pages/search.html:13
 #: templates/pages/search.html:18 templates/studio/media.html:24
 msgid "Search"
 msgstr ""
 
-#: templates/base/header/navigation.html:43 templates/base/header/search.html:4
+#: templates/base/header/navigation.html:44 templates/base/header/search.html:4
 msgid "Search…"
 msgstr ""
 
-#: templates/base/header/navigation.html:48
+#: templates/base/header/navigation.html:49
 #: templates/base/header/user-menu.html:60
 msgid "Sign up"
 msgstr ""
@@ -1339,7 +1366,7 @@ msgid "Categories"
 msgstr ""
 
 #: templates/content/article_list.html:15
-#: templates/content/category_hub.html:19
+#: templates/content/category_hub.html:20
 #: templates/studio/partials/toolbar.html:7
 msgid "All"
 msgstr ""
@@ -1357,11 +1384,11 @@ msgstr ""
 msgid "Everything we publish under %(name)s."
 msgstr ""
 
-#: templates/content/category_hub.html:11
+#: templates/content/category_hub.html:12
 msgid "Section"
 msgstr ""
 
-#: templates/content/category_hub.html:14
+#: templates/content/category_hub.html:15
 #: templates/content/contributor_detail.html:19
 #: templates/content/magazine_detail.html:29
 #: templates/studio/partials/media_details.html:50
@@ -1371,28 +1398,28 @@ msgid_plural "%(counter)s articles"
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/content/category_hub.html:18
+#: templates/content/category_hub.html:19
 msgid "Sections"
 msgstr ""
 
-#: templates/content/category_hub.html:37
+#: templates/content/category_hub.html:38
 msgid "Nothing in this section yet"
 msgstr ""
 
-#: templates/content/category_hub.html:38
+#: templates/content/category_hub.html:39
 msgid "The first stories filed here will appear on this page."
 msgstr ""
 
-#: templates/content/category_hub.html:50
+#: templates/content/category_hub.html:51
 msgid "Bylines"
 msgstr ""
 
-#: templates/content/category_hub.html:51
+#: templates/content/category_hub.html:52
 #, python-format
 msgid "Who writes %(name)s"
 msgstr ""
 
-#: templates/content/category_hub.html:53
+#: templates/content/category_hub.html:54
 #: templates/content/contributor_detail.html:45
 msgid "All writers"
 msgstr ""
@@ -1527,6 +1554,95 @@ msgstr ""
 
 #: templates/errors/500.html:9
 msgid "Back to the homepage"
+msgstr ""
+
+#: templates/events/detail.html:14 templates/events/detail.html:45
+#: templates/events/partials/_card.html:8
+msgid "Online"
+msgstr ""
+
+#: templates/events/detail.html:14 templates/events/list.html:20
+msgid "Happening now"
+msgstr ""
+
+#: templates/events/detail.html:14
+msgid "Past"
+msgstr ""
+
+#: templates/events/detail.html:26 templates/events/list.html:29
+msgid "Register"
+msgstr ""
+
+#: templates/events/detail.html:30 templates/events/list.html:28
+msgid "Details"
+msgstr ""
+
+#: templates/events/detail.html:33
+msgid "When"
+msgstr ""
+
+#: templates/events/detail.html:41 templates/events/detail.html:45
+msgid "Where"
+msgstr ""
+
+#: templates/events/detail.html:48
+msgid "Entry"
+msgstr ""
+
+#: templates/events/detail.html:49
+msgid "Free"
+msgstr ""
+
+#: templates/events/detail.html:49
+msgid "On request"
+msgstr ""
+
+#: templates/events/detail.html:52 templates/events/detail.html:61
+msgid "All events"
+msgstr ""
+
+#: templates/events/detail.html:60 templates/events/list.html:9
+msgid "Diary"
+msgstr ""
+
+#: templates/events/detail.html:60
+msgid "Coming up next"
+msgstr ""
+
+#: templates/events/list.html:4
+msgid "Edition launches, panels, readings and community evenings with Almadina in Berlin and beyond."
+msgstr ""
+
+#: templates/events/list.html:11
+msgid "Edition launches, panels, readings and community evenings. Come and meet the people who make the magazine."
+msgstr ""
+
+#: templates/events/list.html:20
+msgid "Next up"
+msgstr ""
+
+#: templates/events/list.html:39
+msgid "Coming up"
+msgstr ""
+
+#: templates/events/list.html:39
+msgid "Also in the diary"
+msgstr ""
+
+#: templates/events/list.html:50
+msgid "Nothing in the diary yet"
+msgstr ""
+
+#: templates/events/list.html:51
+msgid "The next launch or panel will be announced here. The newsletter carries the invitation first."
+msgstr ""
+
+#: templates/events/list.html:52
+msgid "Read the magazine"
+msgstr ""
+
+#: templates/events/list.html:60
+msgid "What we have held"
 msgstr ""
 
 #: templates/notifications/dropdown.html:4

@@ -1,0 +1,17 @@
+{% load i18n media_tags %}
+<article class="event-card {% if event.has_passed %}is-past{% endif %}">
+    <a class="event-card-date" href="{{ event.get_absolute_url }}" aria-hidden="true" tabindex="-1">
+        <span class="event-day">{{ event.starts_at|date:"j" }}</span>
+        <span class="event-month">{{ event.starts_at|date:"M" }}</span>
+    </a>
+    <div class="event-card-body">
+        <span class="event-kind">{{ event.get_kind_display }}{% if event.is_online %} · {% trans "Online" %}{% endif %}</span>
+        <h3 class="event-card-title"><a href="{{ event.get_absolute_url }}">{{ event.label }}</a></h3>
+        <p class="event-meta">
+            <time datetime="{{ event.starts_at|date:'c' }}">{{ event.starts_at|date:"j F Y, H:i" }}</time>
+            {% if event.place %} · {{ event.place }}{% endif %}
+        </p>
+        {% if event.summary %}<p class="event-summary line-clamp-2">{{ event.summary }}</p>{% endif %}
+    </div>
+    {% if event.image %}<a class="event-card-image" href="{{ event.get_absolute_url }}" tabindex="-1" aria-hidden="true">{% picture event.image sizes="12rem" alt="" %}</a>{% endif %}
+</article>

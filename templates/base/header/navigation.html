@@ -16,6 +16,7 @@
             </button>
             <div x-show="moreOpen" x-cloak x-transition class="nav-dropdown" role="menu">
                 <a href="{% url 'about' %}" class="nav-dropdown-item" role="menuitem">{% trans "About us" %}</a>
+                <a href="{% url 'events:list' %}" class="nav-dropdown-item" role="menuitem">{% trans "Events" %}</a>
                 <a href="{% url 'contact' %}" class="nav-dropdown-item" role="menuitem">{% trans "Contact" %}</a>
                 <a href="{% url 'advertise' %}" class="nav-dropdown-item" role="menuitem">{% trans "Advertise" %}</a>
                 <a href="{% url 'careers' %}" class="nav-dropdown-item" role="menuitem">{% trans "Careers" %}</a>
