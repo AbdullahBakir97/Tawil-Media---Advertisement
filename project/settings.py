@@ -39,6 +39,8 @@ CSRF_TRUSTED_ORIGINS = env_list("CSRF_TRUSTED_ORIGINS")
 INTERNAL_IPS = ["127.0.0.1"]
 
 SITE_NAME = "Tawil Media"
+# The public origin, used for links in e-mail, where relative paths are useless.
+SITE_URL = os.environ.get("SITE_URL", "")
 FOUNDED_YEAR = int(os.environ.get("FOUNDED_YEAR", "2006"))
 
 # Shown on the contact and advertise pages.

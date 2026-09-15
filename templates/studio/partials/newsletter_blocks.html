@@ -1,0 +1,37 @@
+{% load i18n %}
+<section id="nl-blocks" class="nl-panel">
+    <h2 class="nl-panel-title">{% trans "In this letter" %}</h2>
+    {% if blocks %}
+    <ol class="nl-blocks">
+        {% for block in blocks %}
+        <li class="nl-block nl-block--{{ block.kind }} {% if block.is_empty %}is-empty{% endif %}">
+            <span class="nl-block-kind">{{ block.get_kind_display }}</span>
+            <span class="nl-block-body">
+                <strong>{{ block.title|default:_("(nothing yet)") }}</strong>
+                {% if block.text %}<span class="nl-block-text">{{ block.text|truncatewords:18 }}</span>{% endif %}
+                {% if block.is_empty %}<span class="nl-block-warn">{% trans "Points at nothing — it will not appear in the letter." %}</span>{% endif %}
+            </span>
+            {% if not issue.is_sent %}
+            <span class="nl-block-actions">
+                <form method="post" action="{% url 'studio:newsletter_edit' issue.pk %}" hx-post="{% url 'studio:newsletter_edit' issue.pk %}" hx-target="#nl-blocks" hx-swap="outerHTML">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="move-block">
+                    <input type="hidden" name="block" value="{{ block.pk }}">
+                    <button class="nl-move" name="direction" value="up" aria-label="{% trans 'Move up' %}" {% if forloop.first %}disabled{% endif %}>↑</button>
+                    <button class="nl-move" name="direction" value="down" aria-label="{% trans 'Move down' %}" {% if forloop.last %}disabled{% endif %}>↓</button>
+                </form>
+                <form method="post" action="{% url 'studio:newsletter_edit' issue.pk %}" hx-post="{% url 'studio:newsletter_edit' issue.pk %}" hx-target="#nl-blocks" hx-swap="outerHTML">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="remove-block">
+                    <input type="hidden" name="block" value="{{ block.pk }}">
+                    <button class="nl-move nl-move--remove" type="submit" aria-label="{% trans 'Remove' %}">×</button>
+                </form>
+            </span>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ol>
+    {% else %}
+    <p class="text-secondary text-sm">{% trans "Nothing in the letter yet. Pick something below." %}</p>
+    {% endif %}
+</section>
