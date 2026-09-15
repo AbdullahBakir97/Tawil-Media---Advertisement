@@ -1,8 +1,9 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from django.utils.text import Truncator
+from django.utils.text import Truncator, slugify
 from django.utils.translation import gettext_lazy as _
 
+from source.apps.advertisements.models import CampaignRequest, MediaKit, RateCard
 from source.apps.content.models import Article, Category, Magazine, Media
 from source.apps.newsletter.models import Issue
 
@@ -339,3 +340,59 @@ class MagazineForm(forms.ModelForm):
             pk__in=Article.objects.published().order_by("-published_at").values("pk")[:80]
         ).order_by("-published_at")
         self.fields["articles"].label_from_instance = lambda a: Truncator(a.title).chars(46, truncate="…")
+
+
+class RateCardForm(forms.ModelForm):
+    """One sellable placement on the public rate card."""
+
+    class Meta:
+        model = RateCard
+        fields = ("channel", "slug", "name_de", "name_ar", "name_en",
+                  "description_de", "description_ar", "description_en",
+                  "specs", "width", "height", "price", "unit",
+                  "is_featured", "is_active", "order")
+        widgets = {f"description_{lang}": forms.Textarea(attrs={"rows": 3}) for lang in ("de", "ar", "en")}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        _style(self)
+        self.fields["slug"].required = False
+        self.fields["slug"].help_text = _("Leave empty and one is made from the German name.")
+
+    def clean(self):
+        cleaned = super().clean()
+        width, height = cleaned.get("width"), cleaned.get("height")
+        if bool(width) != bool(height):
+            self.add_error("height", _("Give both measurements or neither — a size preview needs the pair."))
+        return cleaned
+
+    def save(self, commit=True):
+        entry = super().save(commit=False)
+        if not entry.slug:
+            entry.slug = slugify(entry.name_de)[:80]
+        if commit:
+            entry.save()
+        return entry
+
+
+class MediaKitForm(forms.ModelForm):
+    class Meta:
+        model = MediaKit
+        fields = ("title", "file", "year", "is_active")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        _style(self)
+        self.fields["year"].help_text = _("Shown beside the title, so a partner knows how current it is.")
+
+
+class CampaignRequestStatusForm(forms.ModelForm):
+    """Only the status moves from the inbox; what the enquirer wrote stays as sent."""
+
+    class Meta:
+        model = CampaignRequest
+        fields = ("status",)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        _style(self)

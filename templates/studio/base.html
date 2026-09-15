@@ -43,6 +43,10 @@
             <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5-5-6 6-2-2-5 5"/></svg>
             {% trans "Media" %}
         </a>
+        <a href="{% url 'studio:campaign_requests' %}" class="{% if 'campaign' in request.resolver_match.url_name or request.resolver_match.url_name == 'rate_card' or request.resolver_match.url_name == 'media_kits' %}is-active{% endif %}">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h18v10H3z"/><path d="M3 7l9 6 9-6"/></svg>
+            {% trans "Enquiries" %}
+        </a>
         <a href="{% url 'studio:ad_slots' %}">
             <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="6" rx="1"/><rect x="3" y="14" width="9" height="6" rx="1"/></svg>
             {% trans "Ad slots" %}

@@ -1,0 +1,97 @@
+{% extends "studio/base.html" %}
+{% load i18n %}
+{% block studio_title %}{% trans "Advertising enquiries" %}{% endblock %}
+
+{% block studio_content %}
+<header class="studio-head">
+    <div>
+        <span class="eyebrow">{% trans "Advertising" %}</span>
+        <h1>{% trans "Enquiries" %}</h1>
+        <p class="text-secondary mt-1">{% trans "What the advertising page has sent in, with the estimate the planner showed." %}</p>
+    </div>
+    <div class="btn-group">
+        <a class="btn btn-outline btn-sm" href="{% url 'studio:rate_card' %}">{% trans "Rate card" %}</a>
+        <a class="btn btn-outline btn-sm" href="{% url 'studio:media_kits' %}">{% trans "Media kits" %}</a>
+    </div>
+</header>
+
+<div class="stat-row">
+    <div class="stat-tile">
+        <span class="stat-label">{% trans "Open" %}</span>
+        <b class="stat-figure">{{ counts.open }}</b>
+    </div>
+    <div class="stat-tile">
+        <span class="stat-label">{% trans "Open value" %}</span>
+        <b class="stat-figure stat-figure--sm">{{ open_value|floatformat:0 }} €</b>
+        <span class="stat-note">{% trans "as estimated" %}</span>
+    </div>
+    <div class="stat-tile">
+        <span class="stat-label">{% trans "Won" %}</span>
+        <b class="stat-figure">{{ counts.won }}</b>
+    </div>
+    <div class="stat-tile">
+        <span class="stat-label">{% trans "Won value" %}</span>
+        <b class="stat-figure stat-figure--sm">{{ won_value|floatformat:0 }} €</b>
+    </div>
+</div>
+
+<div class="range-tabs mb-4">
+    {% for tab in tabs %}
+    <a class="range-tab {% if status == tab.code %}is-active{% endif %}" href="?status={{ tab.code }}"
+       {% if status == tab.code %}aria-current="true"{% endif %}>{{ tab.label }} ({{ tab.count }})</a>
+    {% endfor %}
+</div>
+
+<div class="enquiry-list">
+    {% for enquiry in requests %}
+    <article class="enquiry enquiry--{{ enquiry.status }}">
+        <div class="enquiry-head">
+            <div>
+                <strong class="enquiry-company">{{ enquiry.company }}</strong>
+                <span class="enquiry-meta">
+                    {{ enquiry.contact_name }} ·
+                    <a href="mailto:{{ enquiry.email }}">{{ enquiry.email }}</a>
+                    {% if enquiry.phone %} · <a href="tel:{{ enquiry.phone }}" dir="ltr">{{ enquiry.phone }}</a>{% endif %}
+                    · {{ enquiry.created_at|date:"j M Y" }}
+                    {% if enquiry.language %} · {{ enquiry.language|upper }}{% endif %}
+                </span>
+            </div>
+            <span class="enquiry-total">{{ enquiry.total|floatformat:0 }} €</span>
+        </div>
+
+        {% if enquiry.items.all %}
+        <ul class="enquiry-items">
+            {% for item in enquiry.items.all %}
+            <li>{{ item.quantity }} × {{ item.rate_card.name_de }} <span class="enquiry-line">{{ item.line_total|floatformat:0 }} €</span></li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if enquiry.editions.all %}
+        <p class="enquiry-meta">{% trans "Editions" %}: {% for edition in enquiry.editions.all %}{{ edition.title }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+        {% endif %}
+
+        {% if enquiry.message %}<p class="enquiry-message">{{ enquiry.message }}</p>{% endif %}
+
+        <form class="enquiry-actions" method="post" action="{% url 'studio:campaign_requests' %}">
+            {% csrf_token %}
+            <input type="hidden" name="pk" value="{{ enquiry.pk }}">
+            <input type="hidden" name="back" value="{{ status }}">
+            <label class="sr-only" for="status-{{ enquiry.pk }}">{% trans "Status" %}</label>
+            <select class="form-select form-input--xs" id="status-{{ enquiry.pk }}" name="status">
+                {% for code, label in statuses %}
+                <option value="{{ code }}" {% if enquiry.status == code %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+            <button class="btn btn-outline btn-xs" type="submit">{% trans "Update" %}</button>
+            <a class="btn btn-outline btn-xs" href="mailto:{{ enquiry.email }}?subject={{ enquiry.company|urlencode }}">{% trans "Reply" %}</a>
+        </form>
+    </article>
+    {% empty %}
+    <div class="empty-state">
+        <h3>{% trans "Nothing here" %}</h3>
+        <p>{% trans "Enquiries from the advertising page land here, with whatever the planner priced." %}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

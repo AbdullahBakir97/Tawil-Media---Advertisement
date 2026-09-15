@@ -16,6 +16,7 @@ from django.views import View
 from django.views.decorators.clickjacking import xframe_options_sameorigin
 from django.views.generic import TemplateView
 
+from source.apps.advertisements.models import CampaignRequest, MediaKit, RateCard
 from source.apps.content.models import Article, Contributor, Magazine, Media
 from source.apps.content.workflow import BOARD_ORDER, PUBLISHED, SCHEDULED, STATUS_CHOICES
 from source.apps.events.models import Event
@@ -30,14 +31,17 @@ from .forms import (
     AdSlotForm,
     AnnouncementForm,
     ArticleForm,
+    CampaignRequestStatusForm,
     FAQForm,
     HeroForm,
     IssueForm,
     MagazineForm,
     MediaDetailsForm,
+    MediaKitForm,
     MediaUploadForm,
     MilestoneForm,
     PartnerForm,
+    RateCardForm,
     TestimonialForm,
     ThemeForm,
 )
@@ -726,3 +730,99 @@ class AnalyticsView(StaffOnly, View):
             "page_meta": SEOPageMeta.objects.all()[:12],
             "recording": getattr(settings, "ANALYTICS_ENABLED", True),
         })
+
+
+# ---------------------------------------------------------------------------
+# The advertising desk: what we sell, and who has asked to buy it.
+# ---------------------------------------------------------------------------
+
+
+class CampaignRequestListView(StaffOnly, View):
+    """The enquiries the advertising page sends.
+
+    These were arriving with nowhere to land — the planner has been taking
+    priced enquiries and only the Django admin could see them.
+    """
+
+    OPEN = ("new", "contacted", "quoted")
+
+    def get(self, request):
+        # Anything unrecognised falls back to the open ones. Falling through to
+        # "no filter" would quietly show every lost enquiry as if it were live.
+        wanted = request.GET.get("status", "open")
+        if wanted not in {*dict(CampaignRequest.STATUS), "open", "all"}:
+            wanted = "open"
+
+        requests = CampaignRequest.objects.prefetch_related("items__rate_card", "editions")
+        if wanted in dict(CampaignRequest.STATUS):
+            requests = requests.filter(status=wanted)
+        elif wanted == "open":
+            requests = requests.filter(status__in=self.OPEN)
+
+        everything = CampaignRequest.objects.all()
+        counts = {code: everything.filter(status=code).count() for code, _label in CampaignRequest.STATUS}
+        counts["open"] = everything.filter(status__in=self.OPEN).count()
+        # A template cannot index a dict by a loop variable, so the tabs arrive ready.
+        tabs = [{"code": "open", "label": _("Open"), "count": counts["open"]}]
+        tabs += [{"code": code, "label": label, "count": counts[code]} for code, label in CampaignRequest.STATUS]
+        tabs.append({"code": "all", "label": _("All"), "count": everything.count()})
+
+        return render(request, "studio/campaign_requests.html", {
+            "requests": requests[:60],
+            "status": wanted,
+            "statuses": CampaignRequest.STATUS,
+            "tabs": tabs,
+            "counts": counts,
+            "won_value": sum(r.total for r in everything.filter(status="won").prefetch_related("items")),
+            "open_value": sum(r.total for r in everything.filter(status__in=self.OPEN).prefetch_related("items")),
+        })
+
+    def post(self, request):
+        enquiry = get_object_or_404(CampaignRequest, pk=request.POST.get("pk"))
+        form = CampaignRequestStatusForm(request.POST, instance=enquiry)
+        if form.is_valid():
+            form.save()
+            messages.success(request, _("“%(company)s” is now %(status)s.") % {
+                "company": enquiry.company, "status": enquiry.get_status_display().lower()})
+        else:
+            messages.error(request, _("That status could not be read."))
+        return redirect(f"{reverse('studio:campaign_requests')}?status={request.POST.get('back', 'open')}")
+
+
+class RateCardListView(StaffOnly, CollectionView):
+    model = RateCard
+    form_class = RateCardForm
+    url_name = "studio:rate_card"
+    order_field = "order"
+    title = _("Rate card")
+    lead = _("What can be booked, and what it costs. This is the page advertisers see.")
+    empty_title = _("Nothing for sale yet")
+    empty_lead = _("Add a placement and it appears on the advertising page with its price.")
+
+    def get_queryset(self):
+        return RateCard.objects.order_by("channel", "order", "price")
+
+    def row_label(self, item):
+        return item.name_de
+
+    def row_meta(self, item):
+        parts = [item.get_channel_display(), f"{item.price:.0f} € {item.get_unit_display()}"]
+        if item.size_label:
+            parts.append(item.size_label)
+        return " · ".join(parts)
+
+
+class MediaKitListView(StaffOnly, CollectionView):
+    model = MediaKit
+    form_class = MediaKitForm
+    url_name = "studio:media_kits"
+    title = _("Media kits")
+    lead = _("The document a prospective advertiser downloads. The newest active one is offered.")
+    empty_title = _("No media kit yet")
+    empty_lead = _("Upload one and the advertising page offers it.")
+
+    def row_label(self, item):
+        return item.title
+
+    def row_meta(self, item):
+        return str(item.year) if item.year else ""
