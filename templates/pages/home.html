@@ -1,11 +1,13 @@
 {% extends "base/base.html" %}
-{% load static i18n %}
+{% load static i18n studio %}
 
 {% block title %}{{ SITE_NAME }} – {% trans "Media, magazines and archives from Berlin" %}{% endblock %}
 {% block meta_description %}{% trans "Tawil Media publishes Almadina, the first Arabic magazine in Germany, alongside articles, editions and a growing archive." %}{% endblock %}
 
 {% block content %}
 {# The hero (logos, partners, director, latest editions) is rendered by the header when show_hero is set. #}
+
+<div class="container ad-band">{% ad_slot "home-leaderboard" "leaderboard" %}</div>
 
 {% if featured_articles %}
 <section class="container section" id="latest">
@@ -112,4 +114,5 @@
         </div>
     </div>
 </section>
+<div class="container ad-band">{% ad_slot "home-billboard" "billboard" %}</div>
 {% endblock %}

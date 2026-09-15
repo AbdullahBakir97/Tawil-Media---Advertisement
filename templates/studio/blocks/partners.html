@@ -1,0 +1,15 @@
+{% load i18n studio %}
+{% partners as partner_list %}
+{% if partner_list %}
+<section class="section" data-motion="fade-up">
+    <div class="container">
+        <div class="section-head"><div><span class="eyebrow">{% trans "Partners" %}</span><h2>{% trans "Who we work with" %}</h2></div><a href="{% url 'advertise' %}" class="btn btn-outline btn-sm">{% trans "Become a partner" %}</a></div>
+        <div class="partner-marquee">
+            <div class="partner-marquee-track">
+                {% for partner in partner_list %}<a href="{{ partner.url|default:'#' }}" title="{{ partner.name }}"><img src="{{ partner.logo.url }}" alt="{{ partner.name }}" loading="lazy"></a>{% endfor %}
+                {% for partner in partner_list %}<a href="{{ partner.url|default:'#' }}" aria-hidden="true" tabindex="-1"><img src="{{ partner.logo.url }}" alt="" loading="lazy"></a>{% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}

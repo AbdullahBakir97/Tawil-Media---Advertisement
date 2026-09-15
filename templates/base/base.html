@@ -1,7 +1,7 @@
 {% load static i18n %}
 {% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
 <!DOCTYPE html>
-<html lang="{{ LANGUAGE_CODE }}" dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}" class="h-full">
+<html lang="{{ LANGUAGE_CODE }}" dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}" class="h-full"{% if site_theme %} style="{{ site_theme.css_vars }}"{% endif %}>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -96,11 +96,15 @@
     </main>
     
     <!-- Footer -->
+    {% if not hide_footer %}
     <footer class="site-footer">
         <div class="container">
             {% include "base/footer/main.html" %}
         </div>
     </footer>
+    {% endif %}
+
+    {% if user.is_authenticated and user.is_staff and not hide_footer %}{% include "studio/partials/toolbar.html" %}{% endif %}
     
     <!-- HTMX configuration (not a module; needs the htmx global) -->
     <script src="{% static 'js/core/htmx-conf.js' %}"></script>

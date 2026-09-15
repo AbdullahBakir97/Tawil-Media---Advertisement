@@ -1,0 +1,49 @@
+{% extends "studio/base.html" %}
+{% load i18n %}
+{% block studio_title %}{% if theme %}{{ theme.name }}{% else %}{% trans "New theme" %}{% endif %}{% endblock %}
+
+{% block studio_content %}
+<header class="studio-head">
+    <div>
+        <span class="eyebrow"><a href="{% url 'studio:themes' %}">{% trans "Themes" %}</a></span>
+        <h1>{% if theme %}{{ theme.name }}{% else %}{% trans "New theme" %}{% endif %}</h1>
+    </div>
+</header>
+
+<div class="studio-editor">
+    <form class="studio-panel" method="post">
+        {% csrf_token %}
+        {% if form.errors %}<div class="alert alert-error"><div class="alert-body">{{ form.errors }}</div></div>{% endif %}
+        <div class="studio-fields">
+            <label>{% trans "Name" %} {{ form.name }}</label>
+            <label>{% trans "Slug" %} {{ form.slug }}</label>
+            <label>{% trans "Brand surface" %} {{ form.brand }}</label>
+            <label>{% trans "Deepest brand" %} {{ form.brand_deep }}</label>
+            <label>{% trans "Accent" %} {{ form.accent }}</label>
+            <label>{% trans "Interaction" %} {{ form.interaction }}</label>
+            <label>{% trans "Display face" %} {{ form.display_font }}</label>
+            <label>{% trans "Corner radius (px)" %} {{ form.radius }}</label>
+            <label class="studio-toggle"><span>{% trans "Use as the site default" %}</span>{{ form.is_default }}</label>
+        </div>
+        <button class="btn btn-primary btn-block" type="submit">{% trans "Save theme" %}</button>
+    </form>
+
+    <div class="studio-preview">
+        <div class="studio-preview-bar"><span class="eyebrow">{% trans "Preview" %}</span></div>
+        <div class="studio-preview-body p-6" style="{% if theme %}{{ theme.css_vars }}{% endif %}">
+            <div class="panel panel--brand mb-4">
+                <span class="eyebrow" style="color:var(--gold-400)">{% trans "Brand surface" %}</span>
+                <h3 class="text-on-brand mt-1">{% trans "The magazine of the community" %}</h3>
+                <p class="text-on-brand-muted text-sm mt-1">{% trans "Panels, the hero and the footer use this ground." %}</p>
+                <div class="btn-group mt-4"><button class="btn btn-brand">{% trans "Accent button" %}</button><button class="btn btn-ghost">{% trans "Ghost" %}</button></div>
+            </div>
+            <div class="panel">
+                <span class="eyebrow">{% trans "Page surface" %}</span>
+                <h3 class="mt-1">{% trans "Headline in the display face" %}</h3>
+                <p class="text-secondary text-sm mt-1">{% trans "Body text stays in the reading face. " %}<a href="#" class="link-underline">{% trans "A link" %}</a>.</p>
+                <div class="btn-group mt-4"><button class="btn btn-primary">{% trans "Primary" %}</button><button class="btn btn-outline">{% trans "Outline" %}</button></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "studio/base.html" %}
+{% load i18n %}
+{% block studio_title %}{% trans "Home hero" %}{% endblock %}
+
+{% block studio_content %}
+<header class="studio-head">
+    <div>
+        <span class="eyebrow">Studio</span>
+        <h1>{% trans "Home hero" %}</h1>
+        <p>{% trans "Choose a design, then write the copy. The preview below is the real hero with your live editions and stories." %}</p>
+    </div>
+    <a href="{% url 'home' %}" class="btn btn-outline btn-sm" target="_blank" rel="noopener">{% trans "Open the home page" %}</a>
+</header>
+
+<section class="mb-10">
+    <div class="section-head" style="margin-bottom:1rem"><div><span class="eyebrow">{% trans "Designs" %}</span><h2 class="text-2xl">{% trans "Pick a layout" %}</h2></div></div>
+    <div class="studio-variants">
+        {% for value, label in variants %}
+        <div class="studio-variant {% if hero.variant == value %}is-current{% endif %}">
+            <div class="studio-variant-frame">
+                <iframe src="{% url 'studio:hero_preview' value %}" title="{{ label }}" loading="lazy" tabindex="-1"></iframe>
+            </div>
+            <div class="studio-variant-bar">
+                <strong>{{ label }}</strong>
+                {% if hero.variant == value %}
+                <span class="studio-variant-current">{% trans "In use" %}</span>
+                {% else %}
+                <form method="post" action="{% url 'studio:hero' %}" hx-post="{% url 'studio:hero' %}" hx-target="#hero-preview" hx-swap="outerHTML">
+                    {% csrf_token %}
+                    <input type="hidden" name="variant" value="{{ value }}">
+                    <button class="btn btn-primary btn-xs" type="submit">{% trans "Use this" %}</button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<div class="studio-editor">
+    {% include "studio/partials/hero_editor.html" %}
+    {% include "studio/partials/hero_preview.html" %}
+</div>
+{% endblock %}

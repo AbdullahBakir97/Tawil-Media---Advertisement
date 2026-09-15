@@ -102,6 +102,7 @@ LOCAL_APPS = [
     "source.apps.seo_analytics",
     "source.apps.newsletter",
     "source.apps.notifications",
+    "source.apps.studio.apps.StudioConfig",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -135,6 +136,7 @@ TEMPLATES = [
                 "source.apps.core.context_processors.site",
                 "source.apps.notifications.context_processors.notifications",
                 "source.apps.content.context_processors.header_magazines",
+                "source.apps.studio.context_processors.studio",
             ],
         },
     },

@@ -1,0 +1,19 @@
+{% load i18n studio %}
+{% comment %}Shared copy block: kicker, headline, dek, actions, stats. Variables from hero config with defaults.{% endcomment %}
+{% with latest=header_magazines.0 %}
+<span class="hero-kicker" data-hero-item>{% if hero.kicker %}{{ hero.kicker }}{% else %}{% trans "Almadina magazine" %}{% if latest %} · {{ latest.published_at|date:"F Y" }}{% endif %}{% endif %}</span>
+<h1 id="hero-title" class="hero-title" data-hero-item>{% if hero.headline %}{{ hero.headline|emphasise }}{% else %}{% blocktrans %}Berlin's Arab voices, <em>in print</em> and on screen{% endblocktrans %}{% endif %}</h1>
+<p class="hero-dek" data-hero-item>{% if hero.dek %}{{ hero.dek }}{% else %}{% blocktrans with years=YEARS_ACTIVE %}Germany's first Arabic magazine, {{ years }} years on: culture, business and community for half a million readers, in print, online and on social.{% endblocktrans %}{% endif %}</p>
+<div class="hero-actions" data-hero-item>
+    <a class="btn btn-brand btn-lg" href="{% if hero.primary_url %}{{ hero.primary_url }}{% elif latest %}{{ latest.get_absolute_url }}{% else %}{% url 'magazines:list' %}{% endif %}">{% if hero.primary_label %}{{ hero.primary_label }}{% elif latest %}{% trans "Read the edition" %}{% else %}{% trans "Browse editions" %}{% endif %}</a>
+    <a class="btn btn-ghost btn-lg" href="{% if hero.secondary_url %}{{ hero.secondary_url }}{% else %}{% url 'advertise' %}{% endif %}">{% if hero.secondary_label %}{{ hero.secondary_label }}{% else %}{% trans "Advertise with us" %}{% endif %}</a>
+    {% if latest and latest.pages.exists %}<a class="hero-link" href="{% url 'magazines:read' latest.slug %}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M2 6h7a3 3 0 0 1 3 3v11a2 2 0 0 0-2-2H2z"/><path d="M22 6h-7a3 3 0 0 0-3 3v11a2 2 0 0 1 2-2h8z"/></svg> {% trans "Open the flip-book" %}</a>{% endif %}
+</div>
+{% if hero.show_stats %}
+<div class="hero-stats" data-hero-item>
+    <div><b class="stat-value">{{ ADVERTISING_STATS.monthly_readers }}</b><span>{% trans "Readers a month" %}</span></div>
+    <div><b class="stat-value">{{ magazine_count }}</b><span>{% trans "Editions" %}</span></div>
+    <div><b class="stat-value">{{ YEARS_ACTIVE }}</b><span>{% trans "Years in Berlin" %}</span></div>
+</div>
+{% endif %}
+{% endwith %}

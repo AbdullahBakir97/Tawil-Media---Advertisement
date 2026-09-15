@@ -1,0 +1,61 @@
+{% extends "base/base.html" %}
+{% load i18n %}
+{% block title %}{% block studio_title %}Studio{% endblock %} – {{ SITE_NAME }}{% endblock %}
+
+{% block content %}
+<div class="container studio">
+    <nav class="studio-nav" aria-label="{% trans 'Studio sections' %}">
+        <span class="studio-nav-group">{% trans "Design" %}</span>
+        <a href="{% url 'studio:dashboard' %}" class="{% if request.resolver_match.url_name == 'dashboard' %}is-active{% endif %}">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            {% trans "Overview" %}
+        </a>
+        <a href="{% url 'studio:hero' %}" class="{% if request.resolver_match.url_name == 'hero' %}is-active{% endif %}">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M3 20h18"/></svg>
+            {% trans "Home hero" %}
+        </a>
+        <a href="{% url 'studio:themes' %}" class="{% if 'theme' in request.resolver_match.url_name %}is-active{% endif %}">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="9" cy="10" r="1.2" fill="currentColor" stroke="none"/><circle cx="15" cy="10" r="1.2" fill="currentColor" stroke="none"/><circle cx="12" cy="15" r="1.2" fill="currentColor" stroke="none"/></svg>
+            {% trans "Themes" %}
+        </a>
+        <span class="studio-nav-group">{% trans "Content" %}</span>
+        <a href="{% url 'studio:announcements' %}" class="{% if request.resolver_match.url_name == 'announcements' %}is-active{% endif %}">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg>
+            {% trans "Announcements" %}
+        </a>
+        <a href="/admin/studio/adslot/">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="6" rx="1"/><rect x="3" y="14" width="9" height="6" rx="1"/></svg>
+            {% trans "Ad slots" %}
+        </a>
+        <a href="/admin/studio/partner/">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="10" r="2.5"/><path d="M3 20a6 6 0 0 1 12 0M15 20a5 5 0 0 1 6-4"/></svg>
+            {% trans "Partners" %}
+        </a>
+        <a href="/admin/studio/testimonial/">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-8 8H7l-4 3v-6a8 8 0 0 1 8-8h2a8 8 0 0 1 8 3z"/></svg>
+            {% trans "Testimonials" %}
+        </a>
+        <a href="/admin/studio/faq/">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .9-1 1.7M12 17h.01"/></svg>
+            {% trans "FAQ" %}
+        </a>
+        <a href="/admin/studio/milestone/">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V4M4 5h11l-1.5 3L15 11H4"/></svg>
+            {% trans "Timeline" %}
+        </a>
+        <span class="studio-nav-group">{% trans "Editions" %}</span>
+        <a href="/admin/content/magazine/">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 6h7a3 3 0 0 1 3 3v11a2 2 0 0 0-2-2H2z"/><path d="M22 6h-7a3 3 0 0 0-3 3v11a2 2 0 0 1 2-2h8z"/></svg>
+            {% trans "Magazines" %}
+        </a>
+        <a href="{% url 'styleguide' %}">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5V6a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 1.5z"/><path d="M8 8h8M8 12h5"/></svg>
+            {% trans "Atlas" %}
+        </a>
+    </nav>
+
+    <div class="min-w-0">
+        {% block studio_content %}{% endblock %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% load i18n studio %}
+{% testimonials 3 as testimonial_list %}
+{% if testimonial_list %}
+<section class="section" data-motion="fade-up">
+    <div class="container">
+        <div class="section-head"><div><span class="eyebrow">{% trans "Voices" %}</span><h2>{% trans "What advertisers and readers say" %}</h2></div></div>
+        <div class="grid gap-6 md:grid-cols-3" data-motion="stagger">
+            {% for item in testimonial_list %}
+            <figure class="testimonial">
+                <blockquote class="testimonial-quote">“{{ item.quote }}”</blockquote>
+                <figcaption class="testimonial-person">
+                    {% if item.avatar %}<span class="avatar"><img src="{{ item.avatar.url }}" alt=""></span>{% else %}<span class="avatar">{{ item.initials }}</span>{% endif %}
+                    <span><strong>{{ item.name }}</strong><span>{{ item.role }}</span></span>
+                </figcaption>
+            </figure>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}

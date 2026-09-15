@@ -24,6 +24,7 @@ urlpatterns += i18n_patterns(
     path("archives/", include("source.apps.archives.urls", namespace="archives")),
     path("newsletter/", include("source.apps.newsletter.urls", namespace="newsletter")),
     path("notifications/", include("source.apps.notifications.urls", namespace="notifications")),
+    path("studio/", include("source.apps.studio.urls", namespace="studio")),
     prefix_default_language=False,
 )
 

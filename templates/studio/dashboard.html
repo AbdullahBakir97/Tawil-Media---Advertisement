@@ -1,0 +1,85 @@
+{% extends "studio/base.html" %}
+{% load i18n %}
+{% block studio_title %}Studio{% endblock %}
+
+{% block studio_content %}
+<header class="studio-head" data-hero>
+    <div data-hero-item>
+        <span class="eyebrow">{{ SITE_NAME }} · Studio</span>
+        <h1>{% trans "Design and content, edited on the site" %}</h1>
+        <p>{% trans "Change the home hero, give an edition its own look, run the announcement line and manage the blocks the company pages use. Everything you save here is live." %}</p>
+    </div>
+    <a href="{% url 'home' %}" class="btn btn-outline btn-sm" data-hero-item>{% trans "View the site" %}</a>
+</header>
+
+<div class="studio-cards" data-motion="stagger">
+    <a class="studio-card" href="{% url 'studio:hero' %}">
+        <span class="eyebrow eyebrow--sky">{% trans "Home hero" %}</span>
+        <strong>{{ hero.get_variant_display }}</strong>
+        <p>{% trans "Pick one of five designs, write the copy in three languages, switch blocks on and off." %}</p>
+    </a>
+    <a class="studio-card" href="{% url 'studio:themes' %}">
+        <span class="eyebrow eyebrow--sky">{% trans "Themes" %}</span>
+        <b>{{ themes|length }}</b>
+        <p>{% trans "Colour and type sets. Assign one to the site or to a single edition." %}</p>
+    </a>
+    <a class="studio-card" href="{% url 'studio:announcements' %}">
+        <span class="eyebrow eyebrow--sky">{% trans "Announcements" %}</span>
+        <b>{{ announcements|length }}</b>
+        <p>{% trans "The line above the navbar: notices, booked ad lines, live banners." %}</p>
+    </a>
+    <a class="studio-card" href="/admin/studio/adslot/">
+        <span class="eyebrow eyebrow--sky">{% trans "Ad slots" %}</span>
+        <b>{{ ad_count }}</b>
+        <p>{% trans "Booked placements with start and end dates." %}</p>
+    </a>
+    <a class="studio-card" href="/admin/studio/partner/">
+        <span class="eyebrow eyebrow--sky">{% trans "Partners" %}</span>
+        <b>{{ partner_count }}</b>
+        <p>{% trans "Logos for the hero strip and the about page." %}</p>
+    </a>
+    <a class="studio-card" href="/admin/studio/testimonial/">
+        <span class="eyebrow eyebrow--sky">{% trans "Testimonials" %}</span>
+        <b>{{ testimonial_count }}</b>
+        <p>{% trans "Quotes from advertisers and readers." %}</p>
+    </a>
+    <a class="studio-card" href="/admin/studio/faq/">
+        <span class="eyebrow eyebrow--sky">{% trans "FAQ" %}</span>
+        <b>{{ faq_count }}</b>
+        <p>{% trans "Questions for the help, advertising and about pages." %}</p>
+    </a>
+    <a class="studio-card" href="/admin/studio/milestone/">
+        <span class="eyebrow eyebrow--sky">{% trans "Timeline" %}</span>
+        <b>{{ milestone_count }}</b>
+        <p>{% trans "The years that made the magazine." %}</p>
+    </a>
+</div>
+
+<section class="mt-12">
+    <div class="section-head"><div><span class="eyebrow">{% trans "Editions" %}</span><h2>{% trans "Flip-book pages" %}</h2></div><a href="/admin/content/magazine/add/" class="btn btn-outline btn-sm">{% trans "Add an edition" %}</a></div>
+    <p class="text-secondary max-w-measure mb-4">{% trans "Upload an edition's PDF and its pages are rendered automatically. Readers then turn them like a printed magazine." %}</p>
+    <div class="studio-rows">
+        {% for magazine in magazines %}
+        <div class="studio-row">
+            <div class="studio-row-main">
+                <strong>{{ magazine.title }}</strong>
+                <p class="text-tertiary">{% if magazine.published_at %}{{ magazine.published_at|date:"F Y" }} · {% endif %}{% if magazine.pages.exists %}{% blocktrans count n=magazine.pages.count %}{{ n }} page{% plural %}{{ n }} pages{% endblocktrans %}{% elif magazine.pdf %}{% trans "PDF uploaded, not rendered yet" %}{% else %}{% trans "No PDF yet" %}{% endif %}</p>
+            </div>
+            {% if magazine.theme %}<span class="badge badge-outline">{{ magazine.theme.name }}</span>{% endif %}
+            {% if magazine.pages.exists %}<a class="btn btn-secondary btn-sm" href="{% url 'magazines:read' magazine.slug %}">{% trans "Open reader" %}</a>{% endif %}
+            {% if magazine.pdf %}
+            <form method="post" action="{% url 'studio:magazine_render' magazine.slug %}">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ request.path }}">
+                <button class="btn btn-outline btn-sm" type="submit">{% if magazine.pages.exists %}{% trans "Re-render" %}{% else %}{% trans "Render pages" %}{% endif %}</button>
+            </form>
+            {% else %}
+            <a class="btn btn-outline btn-sm" href="/admin/content/magazine/{{ magazine.pk }}/change/">{% trans "Upload PDF" %}</a>
+            {% endif %}
+        </div>
+        {% empty %}
+        <div class="empty-state"><h3>{% trans "No editions yet" %}</h3><p>{% trans "Add an edition with a cover and a PDF to fill the hero and the reader." %}</p></div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

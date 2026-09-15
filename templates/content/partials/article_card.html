@@ -5,12 +5,12 @@ large image-led card, "row" for a horizontal list item). Default is the grid car
 {% endcomment %}
 {% with cover=article.cover category=article.primary_category %}
 {% if variant == "feature" %}
-<article class="card card--feature card--lift" data-lift>
+<article class="card card--feature card--lift{% if article.is_sponsored %} card--sponsored{% endif %}" data-lift>
     <div class="card-media">
         {% if cover %}<img src="{{ cover.file.url }}" alt="{{ cover.alt_text }}" loading="lazy">{% else %}<img src="{% static 'img/almadina-background.jpg' %}" alt="" loading="lazy">{% endif %}
     </div>
     <div class="card-body">
-        {% if category %}<a href="{% url 'articles:by_category' category.slug %}" class="kicker">{{ category.name }}</a>{% endif %}
+        {% if article.is_sponsored %}<span class="sponsor-tag">{% trans "Advertisement" %}{% if article.sponsor_name %} · {{ article.sponsor_name }}{% endif %}</span>{% elif category %}<a href="{% url 'articles:by_category' category.slug %}" class="kicker">{{ category.name }}</a>{% endif %}
         <h3 class="card-title"><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h3>
         <p class="card-excerpt line-clamp-2">{{ article.excerpt }}</p>
         <div class="card-footer">
@@ -20,7 +20,7 @@ large image-led card, "row" for a horizontal list item). Default is the grid car
     </div>
 </article>
 {% elif variant == "row" %}
-<article class="card card--row">
+<article class="card card--row{% if article.is_sponsored %} card--sponsored{% endif %}">
     <a class="card-media" href="{{ article.get_absolute_url }}" tabindex="-1" aria-hidden="true">
         {% if cover %}<img src="{{ cover.file.url }}" alt="" loading="lazy">{% else %}<img src="{% static 'img/pattern.svg' %}" alt="" loading="lazy" class="opacity-40">{% endif %}
     </a>
@@ -34,7 +34,7 @@ large image-led card, "row" for a horizontal list item). Default is the grid car
     </div>
 </article>
 {% else %}
-<article class="card card--lift" data-lift>
+<article class="card card--lift{% if article.is_sponsored %} card--sponsored{% endif %}" data-lift>
     <a class="card-media" href="{{ article.get_absolute_url }}" tabindex="-1" aria-hidden="true">
         {% if cover %}<img src="{{ cover.file.url }}" alt="" loading="lazy">{% else %}<img src="{% static 'img/pattern.svg' %}" alt="" loading="lazy" class="opacity-40 p-10 object-contain"> {% endif %}
     </a>

@@ -1,0 +1,52 @@
+{% load static i18n studio %}
+{# Newsroom: masthead, category marquee, lead story image, three columns, edition and advertising sidebar. #}
+{% with latest=header_magazines.0 lead=featured_articles.0 %}
+<section class="hero-newsroom" data-hero aria-labelledby="hero-title">
+    <div class="container">
+        {% if hero.show_masthead %}
+        <div class="hero-newsroom-masthead" data-hero-item>
+            <span>{% trans "Berlin" %} · {% now "j F Y" %}</span>
+            <strong>Almadina</strong>
+            <span>{% if latest %}{{ latest.title }} · {{ latest.published_at|date:"F Y" }}{% endif %}</span>
+        </div>
+        {% endif %}
+        {% if categories %}
+        <div class="hero-newsroom-marquee" data-hero-item><span>{% for c in categories %}{{ c.name }} · {% endfor %}{% for c in categories %}{{ c.name }} · {% endfor %}</span></div>
+        {% endif %}
+        <div class="hero-newsroom-grid">
+            <div class="hero-newsroom-main">
+                <a class="hero-newsroom-lead" href="{% if lead %}{{ lead.get_absolute_url }}{% else %}{% url 'articles:list' %}{% endif %}" data-hero-item{% if hero.background %} style="background-image:url('{{ hero.background.url }}')"{% elif lead.cover %} style="background-image:url('{{ lead.cover.file.url }}')"{% endif %}>
+                    <span class="hero-newsroom-lead-body">
+                        <span class="hero-kicker">{% if hero.kicker %}{{ hero.kicker }}{% else %}{% trans "Cover story" %}{% endif %}</span>
+                        <span id="hero-title" class="hero-title">{% if hero.headline %}{{ hero.headline|emphasise }}{% elif lead %}{{ lead.title }}{% else %}{% blocktrans %}Berlin's Arab voices, <em>in print</em> and on screen{% endblocktrans %}{% endif %}</span>
+                        <span class="hero-dek">{% if hero.dek %}{{ hero.dek }}{% elif lead %}{{ lead.excerpt }}{% endif %}</span>
+                    </span>
+                </a>
+                {% if featured_articles|length > 1 %}
+                <div class="hero-newsroom-cols" data-hero-item>
+                    {% for article in featured_articles|slice:"1:4" %}
+                    <a href="{{ article.get_absolute_url }}"><span class="kicker">{{ article.primary_category.name|default:"" }}</span><h3>{{ article.title }}</h3><p>{{ article.excerpt|truncatewords:18 }}</p></a>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            <aside class="hero-newsroom-side" data-hero-item>
+                <div class="hero-newsroom-edition">
+                    <span class="eyebrow">{% trans "Current edition" %}</span>
+                    {% if latest and latest.cover_image %}<img src="{{ latest.cover_image.file.url }}" alt="">{% else %}<img src="{% static 'img/magazine-tawil.png' %}" alt="">{% endif %}
+                    <strong>{% if latest %}{{ latest.title }}{% else %}Almadina{% endif %}</strong>
+                    {% if latest %}<p>{{ latest.published_at|date:"F Y" }}{% if hero.pages_label %} · {{ hero.pages_label }}{% endif %}{% if hero.price_label %} · {{ hero.price_label }}{% endif %}</p>{% endif %}
+                    <a class="btn btn-brand btn-block" href="{% if latest %}{% if latest.pages.exists %}{% url 'magazines:read' latest.slug %}{% else %}{{ latest.get_absolute_url }}{% endif %}{% else %}{% url 'magazines:list' %}{% endif %}">{% if hero.primary_label %}{{ hero.primary_label }}{% else %}{% trans "Read the edition" %}{% endif %}</a>
+                    <a href="{% url 'magazines:list' %}">{% trans "All editions" %} <span aria-hidden="true" class="rtl:rotate-180 inline-block">→</span></a>
+                </div>
+                <div class="hero-newsroom-ad">
+                    <span class="eyebrow">{% trans "Advertise" %}</span>
+                    <h3>{% blocktrans with readers=ADVERTISING_STATS.monthly_readers %}Your brand in front of {{ readers }} readers{% endblocktrans %}</h3>
+                    <a class="btn btn-outline btn-sm" href="{% if hero.secondary_url %}{{ hero.secondary_url }}{% else %}{% url 'advertise' %}{% endif %}">{% if hero.secondary_label %}{{ hero.secondary_label }}{% else %}{% trans "Request media kit" %}{% endif %}</a>
+                </div>
+                {% ad_slot "home-rectangle" "rectangle" %}
+            </aside>
+        </div>
+    </div>
+</section>
+{% endwith %}

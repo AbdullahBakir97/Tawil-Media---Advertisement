@@ -1,0 +1,24 @@
+{% load static i18n %}
+{# Light editorial: cream broadsheet ground, dark type, the book beside the copy. #}
+{% with latest=header_magazines.0 %}
+<section class="hero-light" data-hero aria-labelledby="hero-title"
+         x-data="{ rx: 6, ry: -16, move(e) { const r = $refs.scene.getBoundingClientRect(); this.ry = ((e.clientX - r.left) / r.width - 0.5) * 34; this.rx = (0.5 - (e.clientY - r.top) / r.height) * 18; }, reset() { this.rx = 6; this.ry = -16; } }">
+    <div class="container">
+        {% if hero.show_masthead %}
+        <div class="hero-light-masthead" data-hero-item>
+            <span>{% trans "Berlin" %} · {% now "j F Y" %}</span>
+            <strong>Almadina</strong>
+            <span>{% if latest %}{{ latest.title }} · {{ latest.published_at|date:"F Y" }}{% else %}{% trans "Germany's first Arabic magazine" %}{% endif %}</span>
+        </div>
+        {% endif %}
+        <div class="hero-light-body">
+            <div class="hero-light-text">{% include "base/hero/_copy.html" %}</div>
+            <div class="hero-front-scene" data-hero-item x-ref="scene" @mousemove="move" @mouseleave="reset">
+                {% include "base/hero/_book.html" %}
+                {% if latest %}<p class="hero-light-caption">{{ latest.title }} · <a href="{% url 'magazines:list' %}">{% trans "All editions" %}</a></p>{% endif %}
+            </div>
+        </div>
+    </div>
+    {% include "base/hero/_ticker.html" %}
+</section>
+{% endwith %}

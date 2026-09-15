@@ -1,0 +1,95 @@
+/* Flip-book reader: the edition as a real magazine you turn with the mouse. */
+
+.reader {
+  position: fixed; inset: 0; z-index: var(--z-modal);
+  display: grid; grid-template-rows: auto 1fr auto;
+  background: #0a1422;
+  color: #fff;
+  overscroll-behavior: contain;
+}
+.reader-bar {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 0.6rem 1rem;
+  background: rgb(3 20 40 / 0.9);
+  border-bottom: 1px solid rgb(255 255 255 / 0.1);
+  backdrop-filter: blur(10px);
+}
+.reader-title { display: flex; flex-direction: column; min-width: 0; margin-inline-end: auto; }
+.reader-title strong { font-family: var(--font-display); font-size: var(--text-base); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.reader-title span { font-size: var(--text-xs); color: rgb(255 255 255 / 0.6); }
+.reader-btn {
+  display: inline-grid; place-items: center;
+  width: 2.25rem; height: 2.25rem;
+  border-radius: var(--radius-md);
+  background: rgb(255 255 255 / 0.08);
+  border: 1px solid rgb(255 255 255 / 0.12);
+  color: #fff;
+  transition: background-color var(--transition-fast) ease;
+}
+.reader-btn:hover { background: rgb(255 255 255 / 0.18); color: #fff; }
+.reader-btn:disabled { opacity: 0.35; pointer-events: none; }
+.reader-btn svg { width: 1.1rem; height: 1.1rem; }
+.reader-btn--wide { width: auto; padding-inline: 0.85rem; gap: 0.45rem; font-size: var(--text-sm); font-weight: 600; }
+
+.reader-stage {
+  position: relative;
+  display: grid; place-items: center;
+  min-height: 0; overflow: hidden;
+  padding: 1rem;
+  background:
+    radial-gradient(ellipse at 50% 40%, rgb(255 255 255 / 0.06), transparent 60%),
+    linear-gradient(180deg, #0a1422, #060e1a);
+}
+.reader-book { max-width: 100%; max-height: 100%; }
+.reader-book .stf__parent { margin-inline: auto; }
+.reader-page {
+  background: #fff;
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.1);
+  overflow: hidden;
+}
+.reader-page img { width: 100%; height: 100%; object-fit: contain; display: block; background: #fff; }
+.reader-page--empty { background: #f2efe7; }
+
+.reader-foot {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 0.6rem 1rem;
+  background: rgb(3 20 40 / 0.9);
+  border-top: 1px solid rgb(255 255 255 / 0.1);
+}
+.reader-counter { font-size: var(--text-sm); color: rgb(255 255 255 / 0.75); font-variant-numeric: tabular-nums; unicode-bidi: isolate; direction: ltr; }
+.reader-progress { flex: 1; height: 4px; border-radius: 2px; background: rgb(255 255 255 / 0.14); overflow: hidden; }
+.reader-progress i { display: block; height: 100%; background: var(--gold-400); transition: width var(--transition-normal) ease; }
+
+.reader-thumbs {
+  position: absolute; inset-inline-start: 0; inset-block: 0;
+  width: 13rem; padding: 0.75rem;
+  background: rgb(3 20 40 / 0.94);
+  border-inline-end: 1px solid rgb(255 255 255 / 0.1);
+  overflow-y: auto;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem; align-content: start;
+  z-index: 3;
+}
+.reader-thumb { border: 2px solid transparent; border-radius: var(--radius-sm); overflow: hidden; background: #fff; }
+.reader-thumb img { width: 100%; display: block; }
+.reader-thumb.is-active { border-color: var(--gold-400); }
+.reader-thumb-n { display: block; text-align: center; font-size: 0.6rem; color: rgb(255 255 255 / 0.6); }
+
+.reader-hint {
+  position: absolute; bottom: 1rem; left: 50%; transform: translateX(-50%);
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--radius-full);
+  background: rgb(3 20 40 / 0.75);
+  border: 1px solid rgb(255 255 255 / 0.12);
+  font-size: var(--text-xs); color: rgb(255 255 255 / 0.75);
+  pointer-events: none;
+  animation: reader-hint-out 1s ease 6s forwards;
+}
+@keyframes reader-hint-out { to { opacity: 0; visibility: hidden; } }
+
+.reader-empty { display: grid; gap: 1rem; place-items: center; text-align: center; padding: 3rem 1rem; }
+
+@media (max-width: 768px) {
+  .reader-thumbs { width: 100%; inset-block-end: auto; height: 40%; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .reader-title span { display: none; }
+}

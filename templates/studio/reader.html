@@ -1,0 +1,82 @@
+{% extends "base/base.html" %}
+{% load static i18n %}
+{% block title %}{{ magazine.title }} – {% trans "Reader" %} – {{ SITE_NAME }}{% endblock %}
+
+{% block content %}
+<div class="reader"{% if theme %} style="{{ theme.css_vars }}"{% endif %}
+     x-data="flipbook({ pages: {{ pages|length }}, rtl: {% if LANGUAGE_BIDI %}true{% else %}false{% endif %} })" x-init="mount()">
+    <div class="reader-bar">
+        <a class="reader-btn" href="{{ magazine.get_absolute_url }}" aria-label="{% trans 'Back to the edition' %}">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 19l-7-7 7-7" class="rtl:hidden"/></svg>
+        </a>
+        <span class="reader-title">
+            <strong>{{ magazine.title }}</strong>
+            <span>{% if magazine.published_at %}{{ magazine.published_at|date:"F Y" }} · {% endif %}{% blocktrans count n=pages|length %}{{ n }} page{% plural %}{{ n }} pages{% endblocktrans %}</span>
+        </span>
+        <button class="reader-btn" type="button" @click="thumbs = !thumbs" :aria-pressed="thumbs" aria-label="{% trans 'Page thumbnails' %}">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        </button>
+        <button class="reader-btn" type="button" @click="zoomOut()" aria-label="{% trans 'Zoom out' %}">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M21 21l-4.3-4.3"/></svg>
+        </button>
+        <button class="reader-btn" type="button" @click="zoomIn()" aria-label="{% trans 'Zoom in' %}">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M11 8v6M8 11h6M21 21l-4.3-4.3"/></svg>
+        </button>
+        <button class="reader-btn" type="button" @click="fullscreen()" aria-label="{% trans 'Fullscreen' %}">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+        </button>
+        <button class="reader-btn reader-btn--wide" type="button" @click="share()">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
+            <span x-text="shared ? '{% trans "Copied" %}' : '{% trans "Share page" %}'"></span>
+        </button>
+    </div>
+
+    <div class="reader-stage" x-ref="stage">
+        {% if pages %}
+        <div class="reader-thumbs" x-show="thumbs" x-cloak x-transition>
+            {% for page in pages %}
+            <button type="button" class="reader-thumb" :class="{ 'is-active': current === {{ forloop.counter0 }} }" @click="goto({{ forloop.counter0 }})">
+                <img src="{% if page.thumbnail %}{{ page.thumbnail.url }}{% else %}{{ page.image.url }}{% endif %}" alt="{% blocktrans with n=page.number %}Page {{ n }}{% endblocktrans %}" loading="lazy">
+                <span class="reader-thumb-n">{{ page.number }}</span>
+            </button>
+            {% endfor %}
+        </div>
+        <div class="reader-book" x-ref="book">
+            {% for page in pages %}
+            <div class="reader-page" data-density="{% if forloop.first or forloop.last %}hard{% else %}soft{% endif %}">
+                <img src="{{ page.image.url }}" alt="{% blocktrans with n=page.number %}Page {{ n }}{% endblocktrans %}" {% if forloop.counter > 4 %}loading="lazy"{% endif %}>
+            </div>
+            {% endfor %}
+        </div>
+        <span class="reader-hint">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11V6a2 2 0 1 1 4 0v5"/><path d="M13 11V5a2 2 0 1 1 4 0v8a6 6 0 0 1-6 6h-1a6 6 0 0 1-6-6v-1a2 2 0 1 1 4 0"/></svg>
+            {% trans "Drag a corner to turn the page" %}
+        </span>
+        {% else %}
+        <div class="reader-empty">
+            <h2>{% trans "This edition is not digitised yet" %}</h2>
+            <p class="text-on-brand-muted">{% trans "Its pages appear here once the PDF has been uploaded and rendered." %}</p>
+            <a class="btn btn-brand" href="{{ magazine.get_absolute_url }}">{% trans "Back to the edition" %}</a>
+        </div>
+        {% endif %}
+    </div>
+
+    {% if pages %}
+    <div class="reader-foot">
+        <button class="reader-btn" type="button" @click="prev()" :disabled="current === 0" aria-label="{% trans 'Previous page' %}">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <span class="reader-counter" x-text="label"></span>
+        <div class="reader-progress"><i :style="`width: ${((current + 1) / total) * 100}%`"></i></div>
+        <button class="reader-btn" type="button" @click="next()" :disabled="current >= total - 1" aria-label="{% trans 'Next page' %}">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/vendor/page-flip.js' %}"></script>
+<script src="{% static 'js/components/flipbook.js' %}"></script>
+{% endblock %}
