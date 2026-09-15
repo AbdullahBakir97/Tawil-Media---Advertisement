@@ -1,6 +1,18 @@
 from django.contrib import admin
 
-from .models import FAQ, AdSlot, Announcement, HeroConfig, MagazinePage, Milestone, Partner, Testimonial, Theme
+from .models import (
+    FAQ,
+    AdSlot,
+    Announcement,
+    HeroConfig,
+    MagazinePage,
+    Milestone,
+    Partner,
+    PressAsset,
+    PressKit,
+    Testimonial,
+    Theme,
+)
 
 
 @admin.register(Theme)
@@ -64,3 +76,34 @@ class MilestoneAdmin(admin.ModelAdmin):
 class MagazinePageAdmin(admin.ModelAdmin):
     list_display = ("magazine", "number", "width", "height")
     list_filter = ("magazine",)
+
+
+class PressAssetInline(admin.TabularInline):
+    model = PressAsset
+    extra = 1
+    fields = ("label", "kind", "background", "file", "preview", "credit", "order")
+
+
+@admin.register(PressKit)
+class PressKitAdmin(admin.ModelAdmin):
+    list_display = ("name", "is_current", "contact_name", "contact_email", "updated_at")
+    list_filter = ("is_current",)
+    inlines = [PressAssetInline]
+    fieldsets = (
+        (None, {"fields": ("name", "is_current", "archive")}),
+        ("Boilerplate", {
+            "fields": ("boilerplate_de", "boilerplate_ar", "boilerplate_en"),
+            "description": "The paragraph a journalist may quote. Keep it short and factual.",
+        }),
+        ("Press contact", {
+            "fields": ("contact_name", "contact_role_de", "contact_role_ar", "contact_role_en",
+                       "contact_email", "contact_phone"),
+        }),
+    )
+
+
+@admin.register(PressAsset)
+class PressAssetAdmin(admin.ModelAdmin):
+    list_display = ("label", "kit", "kind", "background", "order")
+    list_filter = ("kind", "background", "kit")
+    list_editable = ("order",)

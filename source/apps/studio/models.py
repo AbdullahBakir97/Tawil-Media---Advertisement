@@ -233,6 +233,103 @@ class Partner(TimeStampedModel):
         return self.name
 
 
+class PressKit(TimeStampedModel):
+    """What a journalist or a partner needs to write about us correctly.
+
+    One row is in force at a time, the way a Theme is: `current()` returns it.
+    Everything else on the press page — the logos, the colours, the facts — is
+    read from the site's own data, so the kit cannot drift out of date.
+    """
+
+    name = models.CharField(max_length=120, default="Press kit", verbose_name=_("Name"))
+    is_current = models.BooleanField(default=True, verbose_name=_("In force"))
+
+    boilerplate_de = models.TextField(blank=True, verbose_name=_("Boilerplate (German)"),
+                                      help_text=_("The paragraph a journalist may quote about the magazine."))
+    boilerplate_ar = models.TextField(blank=True, verbose_name=_("Boilerplate (Arabic)"))
+    boilerplate_en = models.TextField(blank=True, verbose_name=_("Boilerplate (English)"))
+
+    contact_name = models.CharField(max_length=120, blank=True, verbose_name=_("Press contact"))
+    contact_role_de = models.CharField(max_length=120, blank=True, verbose_name=_("Role (German)"))
+    contact_role_ar = models.CharField(max_length=120, blank=True, verbose_name=_("Role (Arabic)"))
+    contact_role_en = models.CharField(max_length=120, blank=True, verbose_name=_("Role (English)"))
+    contact_email = models.EmailField(blank=True, verbose_name=_("Press e-mail"))
+    contact_phone = models.CharField(max_length=40, blank=True, verbose_name=_("Press phone"))
+
+    archive = models.FileField(upload_to="press/", blank=True, verbose_name=_("Everything as one download"),
+                               help_text=_("Optional zip with the logos and the boilerplate."))
+
+    class Meta:
+        verbose_name = _("Press kit")
+        verbose_name_plural = _("Press kits")
+        ordering = ["-is_current", "-updated_at"]
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        """Only one kit is in force, like the default theme."""
+        super().save(*args, **kwargs)
+        if self.is_current:
+            type(self).objects.exclude(pk=self.pk).filter(is_current=True).update(is_current=False)
+
+    @classmethod
+    def current(cls):
+        return cls.objects.filter(is_current=True).first()
+
+    @property
+    def boilerplate(self):
+        return localized(self, "boilerplate")
+
+    @property
+    def contact_role(self):
+        return localized(self, "contact_role")
+
+
+class PressAsset(TimeStampedModel):
+    """A logo or a photograph a journalist may use, with the terms attached."""
+
+    KINDS = [
+        ("logo", _("Logo")),
+        ("logo-mono", _("Logo, one colour")),
+        ("cover", _("Cover")),
+        ("portrait", _("Portrait")),
+        ("photo", _("Photograph")),
+    ]
+    #: What the asset is laid on, so a light logo is never shown on white.
+    BACKGROUNDS = [("light", _("For light backgrounds")), ("dark", _("For dark backgrounds"))]
+
+    kit = models.ForeignKey(PressKit, on_delete=models.CASCADE, related_name="assets", verbose_name=_("Press kit"))
+    label = models.CharField(max_length=120, verbose_name=_("Label"))
+    kind = models.CharField(max_length=20, choices=KINDS, default="logo", verbose_name=_("Kind"))
+    background = models.CharField(max_length=10, choices=BACKGROUNDS, default="light", verbose_name=_("Shown on"))
+    file = models.FileField(upload_to="press/assets/", verbose_name=_("File"))
+    preview = models.ImageField(upload_to="press/previews/", blank=True, verbose_name=_("Preview"),
+                                help_text=_("Optional. Needed when the file itself is not a web image, e.g. an EPS."))
+    credit = models.CharField(max_length=160, blank=True, verbose_name=_("Credit"))
+    order = models.PositiveSmallIntegerField(default=0, verbose_name=_("Order"))
+
+    class Meta:
+        verbose_name = _("Press asset")
+        verbose_name_plural = _("Press assets")
+        ordering = ["order", "label"]
+
+    def __str__(self):
+        return self.label
+
+    @property
+    def thumbnail(self):
+        """What to show on the page: the preview if there is one, else the file
+        itself when a browser can draw it."""
+        if self.preview:
+            return self.preview
+        return self.file if self.file.name.lower().endswith((".png", ".jpg", ".jpeg", ".svg", ".webp")) else None
+
+    @property
+    def extension(self):
+        return self.file.name.rsplit(".", 1)[-1].upper() if "." in self.file.name else ""
+
+
 class Testimonial(TimeStampedModel):
     quote_de = models.TextField()
     quote_ar = models.TextField(blank=True)
