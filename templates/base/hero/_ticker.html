@@ -13,7 +13,7 @@
 <div class="hero-front-ticker" data-hero-item>
     <span class="hero-front-ticker-label">{% trans "Latest" %}</span>
     <div class="hero-front-ticker-track">
-        <span>{% for article in featured_articles %}<a href="{{ article.get_absolute_url }}">{% if article.primary_category %}<span class="kicker">{{ article.primary_category.label }}</span>{% endif %}{{ article.title }}</a>{% endfor %}{% for article in featured_articles %}<a href="{{ article.get_absolute_url }}" aria-hidden="true" tabindex="-1">{% if article.primary_category %}<span class="kicker">{{ article.primary_category.label }}</span>{% endif %}{{ article.title }}</a>{% endfor %}</span>
+        <span>{% for article in featured_articles %}<a href="{{ article.get_absolute_url }}">{% if article.primary_category %}<span class="kicker">{{ article.primary_category.label }}</span>{% endif %}{{ article.label }}</a>{% endfor %}{% for article in featured_articles %}<a href="{{ article.get_absolute_url }}" aria-hidden="true" tabindex="-1">{% if article.primary_category %}<span class="kicker">{{ article.primary_category.label }}</span>{% endif %}{{ article.label }}</a>{% endfor %}</span>
     </div>
 </div>
 {% endif %}

@@ -18,14 +18,14 @@
                 <a class="hero-newsroom-lead" href="{% if lead %}{{ lead.get_absolute_url }}{% else %}{% url 'articles:list' %}{% endif %}" data-hero-item{% if hero.background %} style="background-image:url('{{ hero.background.url }}')"{% elif lead.cover %} style="background-image:url('{{ lead.cover.file.url }}')"{% endif %}>
                     <span class="hero-newsroom-lead-body">
                         <span class="hero-kicker">{% if hero.kicker %}{{ hero.kicker }}{% else %}{% trans "Cover story" %}{% endif %}</span>
-                        <span id="hero-title" class="hero-title">{% if hero.headline %}{{ hero.headline|emphasise }}{% elif lead %}{{ lead.title }}{% else %}{% blocktrans %}Berlin's Arab voices, <em>in print</em> and on screen{% endblocktrans %}{% endif %}</span>
+                        <span id="hero-title" class="hero-title">{% if hero.headline %}{{ hero.headline|emphasise }}{% elif lead %}{{ lead.label }}{% else %}{% blocktrans %}Berlin's Arab voices, <em>in print</em> and on screen{% endblocktrans %}{% endif %}</span>
                         <span class="hero-dek">{% if hero.dek %}{{ hero.dek }}{% elif lead %}{{ lead.excerpt }}{% endif %}</span>
                     </span>
                 </a>
                 {% if featured_articles|length > 1 %}
                 <div class="hero-newsroom-cols" data-hero-item>
                     {% for article in featured_articles|slice:"1:4" %}
-                    <a href="{{ article.get_absolute_url }}"><span class="kicker">{{ article.primary_category.label|default:"" }}</span><h3>{{ article.title }}</h3><p>{{ article.excerpt|truncatewords:18 }}</p></a>
+                    <a href="{{ article.get_absolute_url }}"><span class="kicker">{{ article.primary_category.label|default:"" }}</span><h3>{{ article.label }}</h3><p>{{ article.excerpt|truncatewords:18 }}</p></a>
                     {% endfor %}
                 </div>
                 {% endif %}

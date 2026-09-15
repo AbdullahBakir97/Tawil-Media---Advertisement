@@ -22,7 +22,15 @@ from source.apps.newsletter.composer import render_issue
 from source.apps.newsletter.models import LANGUAGES, Issue, IssueBlock, NewsletterSubscriber
 from source.apps.newsletter.sending import send_issue, send_test
 
-from .forms import AnnouncementForm, HeroForm, IssueForm, MediaDetailsForm, MediaUploadForm, ThemeForm
+from .forms import (
+    AnnouncementForm,
+    ArticleForm,
+    HeroForm,
+    IssueForm,
+    MediaDetailsForm,
+    MediaUploadForm,
+    ThemeForm,
+)
 from .models import FAQ, AdSlot, Announcement, HeroConfig, Milestone, Partner, PressKit, Testimonial, Theme
 from .services import render_magazine_pages
 
@@ -224,6 +232,59 @@ class DeskView(StaffOnly, View):
         if request.headers.get("HX-Request"):
             return render(request, "studio/partials/desk_board.html", self._context())
         return redirect("studio:desk")
+
+
+class ArticleEditorView(StaffOnly, View):
+    """Write an article without leaving the Studio.
+
+    The same page creates and edits: without a pk it is a new piece, with one
+    it is that piece. Saving never changes the workflow state — moving a draft
+    along is a separate, deliberate click, so a quick typo fix cannot publish
+    something by accident.
+    """
+
+    def _article(self, pk):
+        return get_object_or_404(Article, pk=pk) if pk else Article()
+
+    def _context(self, request, article, form=None):
+        return {
+            "article": article if article.pk else None,
+            "form": form or ArticleForm(instance=article),
+            "is_new": article.pk is None,
+            "preview_url": article.preview_url() if article.pk else "",
+            "languages": [("de", _("German")), ("ar", _("Arabic")), ("en", _("English"))],
+        }
+
+    def get(self, request, pk=None):
+        return render(request, "studio/article_edit.html", self._context(request, self._article(pk)))
+
+    def post(self, request, pk=None):
+        article = self._article(pk)
+        action = request.POST.get("action", "save")
+
+        if action == "delete" and article.pk:
+            title = article.title
+            article.delete()
+            messages.success(request, _("“%(title)s” was deleted.") % {"title": title})
+            return redirect("studio:desk")
+
+        form = ArticleForm(request.POST, instance=article)
+        if not form.is_valid():
+            messages.error(request, _("Something in the form needs attention."))
+            return render(request, "studio/article_edit.html", self._context(request, article, form))
+
+        article = form.save(commit=False)
+        if article.author_id is None and not article.pk:
+            article.author = request.user
+        article.save()
+        form.save_m2m()
+
+        if action == "save-and-review":
+            article.send_to_review()
+            messages.success(request, _("Saved and sent to review."))
+        else:
+            messages.success(request, _("Saved."))
+        return redirect("studio:article_edit", pk=article.pk)
 
 
 class MediaLibraryView(StaffOnly, View):

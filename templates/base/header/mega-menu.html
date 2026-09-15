@@ -14,7 +14,7 @@
         <a class="mega-story" href="{{ article.get_absolute_url }}" role="menuitem">
             {% if article.cover %}<img src="{{ article.cover.file.url }}" alt="" loading="lazy">{% else %}<span class="mega-thumb"></span>{% endif %}
             <span class="kicker">{{ article.primary_category.label|default:"" }}</span>
-            <span class="mega-story-title">{{ article.title }}</span>
+            <span class="mega-story-title">{{ article.label }}</span>
         </a>
         {% endfor %}
         {% with latest=header_magazines.0 %}
