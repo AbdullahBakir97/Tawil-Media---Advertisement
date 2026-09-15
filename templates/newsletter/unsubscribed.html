@@ -1,0 +1,16 @@
+{% extends "base/base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Unsubscribed" %} – {{ SITE_NAME }}{% endblock %}
+
+{% block content %}
+<section class="container section">
+    <div class="auth-card mx-auto text-center">
+        <span class="planner-done-mark" aria-hidden="true">
+            <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="24" height="24"><path d="M5 13l4 4L19 7"/></svg>
+        </span>
+        <h1 class="mt-3">{% trans "You are off the list" %}</h1>
+        <p class="text-secondary mt-2">{% blocktrans with email=subscriber.email %}We will not send the newsletter to {{ email }} again. If this was a mistake, you can subscribe from any page.{% endblocktrans %}</p>
+        <a class="btn btn-outline mt-5" href="/">{% trans "Back to the magazine" %}</a>
+    </div>
+</section>
+{% endblock %}

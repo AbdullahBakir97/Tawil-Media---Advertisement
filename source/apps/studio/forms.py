@@ -2,6 +2,7 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 
 from source.apps.content.models import Media
+from source.apps.newsletter.models import Issue
 
 from .models import Announcement, HeroConfig, Theme
 
@@ -151,3 +152,19 @@ class MediaDetailsForm(forms.ModelForm):
 
     def clean_focal_y(self):
         return self._clamp("focal_y")
+
+
+class IssueForm(forms.ModelForm):
+    """Subject, preheader and intro. The blocks are edited on their own."""
+
+    class Meta:
+        model = Issue
+        fields = ("language", "subject", "preheader", "intro")
+        widgets = {"intro": forms.Textarea(attrs={"rows": 4})}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        _style(self)
+        self.fields["subject"].widget.attrs["placeholder"] = _("What the inbox shows first")
+        self.fields["preheader"].widget.attrs["placeholder"] = _("The line after the subject")
+        self.fields["intro"].widget.attrs["placeholder"] = _("A few lines from the desk")

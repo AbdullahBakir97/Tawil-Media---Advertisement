@@ -35,6 +35,7 @@
 @import './components/authors.css';
 @import './components/events.css';
 @import './components/press.css';
+@import './components/newsletter-studio.css';
 @import './components/atlas.css';
 
 @import './layouts/grid.css';

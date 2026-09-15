@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-15 17:27+0200\n"
+"POT-Creation-Date: 2026-09-15 17:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: project/settings.py:58
+#: project/settings.py:60
 msgid "Founder & Creative Director"
 msgstr "Gründer & Kreativdirektor"
 
-#: project/settings.py:61
+#: project/settings.py:63
 msgid ""
 "Leading innovation in media and advertising with over a decade of industry "
 "expertise. Committed to delivering excellence and creative solutions."
@@ -101,7 +101,8 @@ msgstr "Video"
 msgid "Document"
 msgstr "Dokument"
 
-#: source/apps/content/workflow.py:27 templates/content/article_detail.html:16
+#: source/apps/content/workflow.py:27 source/apps/newsletter/models.py:45
+#: templates/content/article_detail.html:16
 msgid "Draft"
 msgstr "Entwurf"
 
@@ -109,7 +110,7 @@ msgstr "Entwurf"
 msgid "In review"
 msgstr "In Prüfung"
 
-#: source/apps/content/workflow.py:29
+#: source/apps/content/workflow.py:29 source/apps/newsletter/models.py:45
 msgid "Scheduled"
 msgstr "Geplant"
 
@@ -117,7 +118,8 @@ msgstr "Geplant"
 msgid "Published"
 msgstr "Veröffentlicht"
 
-#: source/apps/content/workflow.py:50 source/apps/users/admin.py:26
+#: source/apps/content/workflow.py:50 source/apps/newsletter/models.py:55
+#: source/apps/users/admin.py:26
 msgid "Status"
 msgstr "Status"
 
@@ -158,21 +160,162 @@ msgstr "Community-Abend"
 msgid "Other"
 msgstr "Sonstiges"
 
-#: source/apps/studio/forms.py:107
+#: source/apps/newsletter/models.py:16
+#| msgid "Role (German)"
+msgid "German"
+msgstr "Deutsch"
+
+#: source/apps/newsletter/models.py:16
+#| msgid "Role (Arabic)"
+msgid "Arabic"
+msgstr "Arabisch"
+
+#: source/apps/newsletter/models.py:16
+#| msgid "Role (English)"
+msgid "English"
+msgstr "Englisch"
+
+#: source/apps/newsletter/models.py:21 source/apps/newsletter/models.py:47
+#| msgid "Languages"
+msgid "Language"
+msgstr "Sprache"
+
+#: source/apps/newsletter/models.py:45 source/apps/newsletter/models.py:57
+msgid "Sent"
+msgstr "Versendet"
+
+#: source/apps/newsletter/models.py:48
+msgid "Subject"
+msgstr "Betreff"
+
+#: source/apps/newsletter/models.py:50
+#| msgid "Reader"
+msgid "Preheader"
+msgstr "Vorschauzeile"
+
+#: source/apps/newsletter/models.py:51
+msgid "The line shown after the subject in the inbox."
+msgstr "Die Zeile, die im Posteingang hinter dem Betreff steht."
+
+#: source/apps/newsletter/models.py:53
+msgid "Intro"
+msgstr "Einleitung"
+
+#: source/apps/newsletter/models.py:53
+msgid "A few lines from the desk."
+msgstr "Ein paar Zeilen aus der Redaktion."
+
+#: source/apps/newsletter/models.py:56
+#: templates/studio/newsletter_edit.html:150
+#| msgid "Zoom out"
+msgid "Goes out"
+msgstr "Versand"
+
+#: source/apps/newsletter/models.py:58
+msgid "Recipients"
+msgstr "Empfänger"
+
+#: source/apps/newsletter/models.py:64
+#| msgid "Newsletter"
+msgid "Newsletter issue"
+msgstr "Newsletter-Ausgabe"
+
+#: source/apps/newsletter/models.py:65
+#| msgid "Newsletter"
+msgid "Newsletter issues"
+msgstr "Newsletter-Ausgaben"
+
+#: source/apps/newsletter/models.py:89 templates/newsletter/email.html:36
+#| msgid "Cover story"
+msgid "Lead story"
+msgstr "Aufmacher"
+
+#: source/apps/newsletter/models.py:90
+#| msgid "Articles"
+msgid "Article"
+msgstr "Artikel"
+
+#: source/apps/newsletter/models.py:91 templates/base/hero/_facts.html:7
+#: templates/content/partials/magazine_card.html:11
+msgid "Edition"
+msgstr "Ausgabe"
+
+#: source/apps/newsletter/models.py:92
+#| msgid "Events"
+msgid "Event"
+msgstr "Veranstaltung"
+
+#: source/apps/newsletter/models.py:93
+#: templates/content/partials/article_card.html:13
+#: templates/newsletter/email.html:44 templates/studio/partials/ad_slot.html:4
+#: templates/studio/partials/ad_slot.html:12
+msgid "Advertisement"
+msgstr "Anzeige"
+
+#: source/apps/newsletter/models.py:94 source/apps/newsletter/models.py:108
+#: templates/studio/newsletter_edit.html:117
+msgid "Text"
+msgstr "Text"
+
+#: source/apps/newsletter/models.py:98 source/apps/studio/models.py:304
+#: templates/studio/announcements.html:20
+msgid "Kind"
+msgstr "Art"
+
+#: source/apps/newsletter/models.py:99 source/apps/studio/models.py:310
+#: templates/studio/announcements.html:27
+msgid "Order"
+msgstr "Reihenfolge"
+
+#: source/apps/newsletter/models.py:106
+#: templates/studio/newsletter_edit.html:116
+#| msgid "Reading"
+msgid "Heading"
+msgstr "Überschrift"
+
+#: source/apps/newsletter/models.py:107
+#| msgid "Leave empty to link the latest edition."
+msgid "Leave empty to use the piece's own title."
+msgstr "Leer lassen, um den eigenen Titel zu übernehmen."
+
+#: source/apps/newsletter/models.py:111
+#| msgid "Blocks"
+msgid "Block"
+msgstr "Block"
+
+#: source/apps/newsletter/models.py:112
+#: templates/studio/partials/hero_editor.html:37
+msgid "Blocks"
+msgstr "Blöcke"
+
+#: source/apps/studio/forms.py:108
 msgid "Files"
 msgstr "Dateien"
 
-#: source/apps/studio/forms.py:139
+#: source/apps/studio/forms.py:140
 msgid "What is in the picture?"
 msgstr "Was ist auf dem Bild zu sehen?"
 
-#: source/apps/studio/forms.py:140
+#: source/apps/studio/forms.py:141
 msgid "Shown under the image"
 msgstr "Erscheint unter dem Bild"
 
-#: source/apps/studio/forms.py:141
+#: source/apps/studio/forms.py:142
 msgid "Photographer or agency"
 msgstr "Fotografin, Fotograf oder Agentur"
+
+#: source/apps/studio/forms.py:168
+msgid "What the inbox shows first"
+msgstr "Was im Posteingang zuerst steht"
+
+#: source/apps/studio/forms.py:169
+#| msgid "The line above the navbar"
+msgid "The line after the subject"
+msgstr "Die Zeile hinter dem Betreff"
+
+#: source/apps/studio/forms.py:170
+msgid "A few lines from the desk"
+msgstr "Ein paar Zeilen aus der Redaktion"
 
 #: source/apps/studio/models.py:36
 msgid "Highlight colour, e.g. gold."
@@ -274,7 +417,6 @@ msgid "Boilerplate (German)"
 msgstr "Kurzporträt (Deutsch)"
 
 #: source/apps/studio/models.py:248
-#| msgid "The years that made the magazine."
 msgid "The paragraph a journalist may quote about the magazine."
 msgstr "Der Absatz, den Medien über das Magazin zitieren dürfen."
 
@@ -287,7 +429,6 @@ msgid "Boilerplate (English)"
 msgstr "Kurzporträt (Englisch)"
 
 #: source/apps/studio/models.py:252 templates/studio/press.html:119
-#| msgid "Contact"
 msgid "Press contact"
 msgstr "Pressekontakt"
 
@@ -300,7 +441,6 @@ msgid "Role (Arabic)"
 msgstr "Funktion (Arabisch)"
 
 #: source/apps/studio/models.py:255
-#| msgid "Text · English"
 msgid "Role (English)"
 msgstr "Funktion (Englisch)"
 
@@ -309,7 +449,6 @@ msgid "Press e-mail"
 msgstr "Presse-E-Mail"
 
 #: source/apps/studio/models.py:257
-#| msgid "Phone"
 msgid "Press phone"
 msgstr "Pressetelefon"
 
@@ -338,7 +477,6 @@ msgid "Logo, one colour"
 msgstr "Logo, einfarbig"
 
 #: source/apps/studio/models.py:295
-#| msgid "Cover story"
 msgid "Cover"
 msgstr "Titelbild"
 
@@ -347,7 +485,6 @@ msgid "Portrait"
 msgstr "Porträt"
 
 #: source/apps/studio/models.py:297
-#| msgid "Photo"
 msgid "Photograph"
 msgstr "Foto"
 
@@ -363,21 +500,17 @@ msgstr "Für dunkle Hintergründe"
 msgid "Label"
 msgstr "Bezeichnung"
 
-#: source/apps/studio/models.py:304 templates/studio/announcements.html:20
-msgid "Kind"
-msgstr "Art"
-
 #: source/apps/studio/models.py:305
 msgid "Shown on"
 msgstr "Einsatz auf"
 
 #: source/apps/studio/models.py:306
-#| msgid "Files"
 msgid "File"
 msgstr "Datei"
 
 #: source/apps/studio/models.py:307
 #: templates/content/partials/preview_banner.html:9
+#: templates/studio/newsletter_edit.html:128
 #: templates/studio/theme_form.html:32
 msgid "Preview"
 msgstr "Vorschau"
@@ -391,10 +524,6 @@ msgstr ""
 #: templates/studio/partials/media_details.html:35
 msgid "Credit"
 msgstr "Bildnachweis"
-
-#: source/apps/studio/models.py:310 templates/studio/announcements.html:27
-msgid "Order"
-msgstr "Reihenfolge"
 
 #: source/apps/studio/models.py:313
 msgid "Press asset"
@@ -416,63 +545,87 @@ msgstr "Hilfe"
 msgid "About"
 msgstr "Über uns"
 
-#: source/apps/studio/views.py:90
+#: source/apps/studio/views.py:93
 msgid "Hero saved."
 msgstr "Hero gespeichert."
 
-#: source/apps/studio/views.py:134
+#: source/apps/studio/views.py:137
 msgid "Theme saved."
 msgstr "Thema gespeichert."
 
-#: source/apps/studio/views.py:156
+#: source/apps/studio/views.py:159
 msgid "Announcement saved."
 msgstr "Ankündigung gespeichert."
 
-#: source/apps/studio/views.py:206
+#: source/apps/studio/views.py:209 source/apps/studio/views.py:382
 msgid "That date could not be read."
 msgstr "Dieses Datum konnte nicht gelesen werden."
 
-#: source/apps/studio/views.py:212
+#: source/apps/studio/views.py:215
 msgid "Unknown move."
 msgstr "Unbekannter Schritt."
 
-#: source/apps/studio/views.py:215
+#: source/apps/studio/views.py:218
 #, python-format
 msgid "“%(title)s” is now %(status)s."
 msgstr "„%(title)s“ ist jetzt %(status)s."
 
-#: source/apps/studio/views.py:269
+#: source/apps/studio/views.py:272
 #, python-format
 msgid "%(count)d file(s) uploaded."
 msgstr "%(count)d Datei(en) hochgeladen."
 
-#: source/apps/studio/views.py:275
+#: source/apps/studio/views.py:278
 msgid "File deleted."
 msgstr "Datei gelöscht."
 
-#: source/apps/studio/views.py:285
+#: source/apps/studio/views.py:288
 msgid "Image details saved."
 msgstr "Bildangaben gespeichert."
 
-#: source/apps/studio/views.py:299
+#: source/apps/studio/views.py:302
 #, python-format
 msgid "%(count)d pages rendered."
 msgstr "%(count)d Seiten erzeugt."
 
-#: source/apps/studio/views.py:336
+#: source/apps/studio/views.py:370
+msgid "This issue has already gone out. Duplicate it to send another."
+msgstr ""
+"Diese Ausgabe ist bereits versendet. Für einen erneuten Versand legen Sie "
+"eine Kopie an."
+
+#: source/apps/studio/views.py:388
+msgid "Queued to go out."
+msgstr "Für den Versand vorgemerkt."
+
+#: source/apps/studio/views.py:396
+#, python-format
+msgid "Test sent to %(email)s."
+msgstr "Test an %(email)s versendet."
+
+#: source/apps/studio/views.py:399
+#, python-format
+msgid "Sent to %(count)d subscribers."
+msgstr "An %(count)d Empfänger versendet."
+
+#: source/apps/studio/views.py:405
+#| msgid "Hero saved."
+msgid "Issue saved."
+msgstr "Ausgabe gespeichert."
+
+#: source/apps/studio/views.py:472
 msgid "Brand"
 msgstr "Marke"
 
-#: source/apps/studio/views.py:337
+#: source/apps/studio/views.py:473
 msgid "Brand, deep"
 msgstr "Marke, dunkel"
 
-#: source/apps/studio/views.py:338
-#| msgid "Editorial"
+#: source/apps/studio/views.py:474
 msgid "Editorial gold"
 msgstr "Redaktionsgold"
 
-#: source/apps/studio/views.py:339 templates/studio/theme_form.html:23
+#: source/apps/studio/views.py:475 templates/studio/theme_form.html:23
 msgid "Interaction"
 msgstr "Interaktion"
 
@@ -1026,8 +1179,8 @@ msgstr "ungelesen"
 
 #: templates/auth/profile/dashboard.html:26 templates/base/hero/_book.html:11
 #: templates/base/hero/_copy.html:16 templates/content/magazine_list.html:8
-#: templates/pages/home.html:77 templates/studio/base.html:54
-#: templates/studio/dashboard.html:69
+#: templates/pages/home.html:77 templates/studio/base.html:58
+#: templates/studio/dashboard.html:69 templates/studio/newsletter_edit.html:67
 #: templates/studio/partials/desk_board.html:11
 msgid "Editions"
 msgstr "Ausgaben"
@@ -1062,6 +1215,9 @@ msgstr "Profil bearbeiten"
 
 #: templates/auth/profile/dashboard.html:49 templates/base/footer/main.html:40
 #: templates/content/article_detail.html:74
+#: templates/newsletter/unsubscribe.html:8 templates/studio/base.html:32
+#: templates/studio/newsletter.html:3 templates/studio/newsletter.html:8
+#: templates/studio/newsletter_edit.html:8
 msgid "Newsletter"
 msgstr "Newsletter"
 
@@ -1220,6 +1376,7 @@ msgstr "Lesen"
 #: templates/base/footer/main.html:30 templates/base/header/navigation.html:6
 #: templates/base/header/navigation.html:36
 #: templates/content/article_list.html:3 templates/content/article_list.html:9
+#: templates/studio/newsletter_edit.html:51
 #: templates/studio/partials/desk_board.html:4
 msgid "Articles"
 msgstr "Artikel"
@@ -1233,7 +1390,7 @@ msgstr "Autorinnen und Autoren"
 #: templates/base/header/navigation.html:37
 #: templates/content/magazine_detail.html:10
 #: templates/content/magazine_list.html:3
-#: templates/content/magazine_list.html:9 templates/studio/base.html:57
+#: templates/content/magazine_list.html:9 templates/studio/base.html:61
 msgid "Magazines"
 msgstr "Magazine"
 
@@ -1243,6 +1400,7 @@ msgstr "Archiv"
 
 #: templates/base/footer/main.html:34 templates/base/header/navigation.html:19
 #: templates/events/list.html:3 templates/events/list.html:10
+#: templates/studio/newsletter_edit.html:82
 #: templates/studio/partials/desk_board.html:18
 msgid "Events"
 msgstr "Veranstaltungen"
@@ -1466,11 +1624,6 @@ msgstr "Werben Sie bei uns"
 #: templates/base/hero/_copy.html:11
 msgid "Open the flip-book"
 msgstr "Blätterausgabe öffnen"
-
-#: templates/base/hero/_facts.html:7
-#: templates/content/partials/magazine_card.html:11
-msgid "Edition"
-msgstr "Ausgabe"
 
 #: templates/base/hero/_facts.html:7
 msgid "No."
@@ -1743,12 +1896,6 @@ msgstr "Noch keine Ausgaben veröffentlicht"
 msgid "The next edition will appear here as soon as it is released."
 msgstr "Die nächste Ausgabe erscheint hier, sobald sie veröffentlicht ist."
 
-#: templates/content/partials/article_card.html:13
-#: templates/studio/partials/ad_slot.html:4
-#: templates/studio/partials/ad_slot.html:12
-msgid "Advertisement"
-msgstr "Anzeige"
-
 #: templates/content/partials/preview_banner.html:11
 #, python-format
 msgid "Not public yet — goes live on %(when)s."
@@ -1900,6 +2047,83 @@ msgstr "Das Magazin lesen"
 #: templates/events/list.html:60
 msgid "What we have held"
 msgstr "Was bereits stattfand"
+
+#: templates/newsletter/email.html:41
+#| msgid "Read the latest"
+msgid "Read the story"
+msgstr "Den Beitrag lesen"
+
+#: templates/newsletter/email.html:79
+#, python-format
+msgid ""
+"You are receiving this because you subscribed to the %(SITE_NAME)s "
+"newsletter."
+msgstr ""
+"Sie erhalten diese E-Mail, weil Sie den Newsletter von %(SITE_NAME)s "
+"abonniert haben."
+
+#: templates/newsletter/email.html:81 templates/newsletter/unsubscribe.html:3
+#| msgid "Subscribe"
+msgid "Unsubscribe"
+msgstr "Abmelden"
+
+#: templates/newsletter/unsubscribe.html:9
+#| msgid "Read the latest"
+msgid "Leaving the list"
+msgstr "Newsletter abbestellen"
+
+#: templates/newsletter/unsubscribe.html:11
+#, python-format
+msgid ""
+"We will stop sending the newsletter to %(email)s. You can subscribe again at"
+" any time."
+msgstr ""
+"Wir senden den Newsletter nicht mehr an %(email)s. Sie können ihn jederzeit "
+"wieder abonnieren."
+
+#: templates/newsletter/unsubscribe.html:14
+msgid "Yes, unsubscribe me"
+msgstr "Ja, abmelden"
+
+#: templates/newsletter/unsubscribe.html:15
+msgid "Keep receiving it"
+msgstr "Weiter erhalten"
+
+#: templates/newsletter/unsubscribe.html:18
+msgid ""
+"Use the unsubscribe link at the bottom of any newsletter and we take you off"
+" the list straight away."
+msgstr ""
+"Nutzen Sie den Abmeldelink am Ende jedes Newsletters – wir nehmen Sie sofort"
+" von der Liste."
+
+#: templates/newsletter/unsubscribe.html:19
+#| msgid "Who writes for us"
+msgid "Or write to us"
+msgstr "Oder schreiben Sie uns"
+
+#: templates/newsletter/unsubscribed.html:3
+#| msgid "Subscribe"
+msgid "Unsubscribed"
+msgstr "Abgemeldet"
+
+#: templates/newsletter/unsubscribed.html:11
+msgid "You are off the list"
+msgstr "Sie sind abgemeldet"
+
+#: templates/newsletter/unsubscribed.html:12
+#, python-format
+msgid ""
+"We will not send the newsletter to %(email)s again. If this was a mistake, "
+"you can subscribe from any page."
+msgstr ""
+"Wir senden den Newsletter nicht mehr an %(email)s. War das ein Versehen, "
+"können Sie ihn auf jeder Seite neu abonnieren."
+
+#: templates/newsletter/unsubscribed.html:13
+#| msgid "Back to the homepage"
+msgid "Back to the magazine"
+msgstr "Zurück zum Magazin"
 
 #: templates/notifications/dropdown.html:4
 #, python-format
@@ -2165,33 +2389,33 @@ msgstr "Inhalte"
 msgid "Desk"
 msgstr "Redaktion"
 
-#: templates/studio/base.html:32 templates/studio/dashboard.html:37
+#: templates/studio/base.html:36 templates/studio/dashboard.html:37
 #: templates/studio/media.html:9
 msgid "Media"
 msgstr "Medien"
 
-#: templates/studio/base.html:36 templates/studio/dashboard.html:42
+#: templates/studio/base.html:40 templates/studio/dashboard.html:42
 msgid "Ad slots"
 msgstr "Werbeplätze"
 
-#: templates/studio/base.html:40 templates/studio/blocks/partners.html:6
+#: templates/studio/base.html:44 templates/studio/blocks/partners.html:6
 #: templates/studio/dashboard.html:47
 msgid "Partners"
 msgstr "Partner"
 
-#: templates/studio/base.html:44 templates/studio/dashboard.html:52
+#: templates/studio/base.html:48 templates/studio/dashboard.html:52
 msgid "Testimonials"
 msgstr "Stimmen"
 
-#: templates/studio/base.html:48 templates/studio/dashboard.html:57
+#: templates/studio/base.html:52 templates/studio/dashboard.html:57
 msgid "FAQ"
 msgstr "FAQ"
 
-#: templates/studio/base.html:52 templates/studio/dashboard.html:62
+#: templates/studio/base.html:56 templates/studio/dashboard.html:62
 msgid "Timeline"
 msgstr "Zeitstrahl"
 
-#: templates/studio/base.html:61
+#: templates/studio/base.html:65
 msgid "Atlas"
 msgstr "Atlas"
 
@@ -2461,6 +2685,173 @@ msgstr "Seiten"
 msgid "Page %(current)s of %(total)s"
 msgstr "Seite %(current)s von %(total)s"
 
+#: templates/studio/newsletter.html:9
+msgid "Issues"
+msgstr "Ausgaben"
+
+#: templates/studio/newsletter.html:10
+msgid ""
+"Build a letter from what is already on the site: a lead story, the new "
+"edition, the next event."
+msgstr ""
+"Bauen Sie den Newsletter aus dem, was ohnehin auf der Seite steht: ein "
+"Aufmacher, die neue Ausgabe, der nächste Termin."
+
+#: templates/studio/newsletter.html:27
+#, python-format
+msgid "Sent %(when)s to %(count)s subscribers"
+msgstr "Am %(when)s an %(count)s Empfänger versendet"
+
+#: templates/studio/newsletter.html:28
+#, python-format
+msgid "Goes out %(when)s"
+msgstr "Versand am %(when)s"
+
+#: templates/studio/newsletter.html:29
+#, python-format
+#| msgid "%(counter)s result"
+#| msgid_plural "%(counter)s results"
+msgid "%(counter)s block"
+msgid_plural "%(counter)s blocks"
+msgstr[0] "%(counter)s Block"
+msgstr[1] "%(counter)s Blöcke"
+
+#: templates/studio/newsletter.html:36
+#| msgid "No articles yet"
+msgid "No issues yet"
+msgstr "Noch keine Ausgaben"
+
+#: templates/studio/newsletter.html:37
+msgid "Start one on the right. Nothing is sent until you say so."
+msgstr "Legen Sie rechts eine an. Versendet wird erst, wenn Sie es sagen."
+
+#: templates/studio/newsletter.html:43
+#| msgid "New item"
+msgid "New issue"
+msgstr "Neue Ausgabe"
+
+#: templates/studio/newsletter.html:54
+msgid "Start writing"
+msgstr "Schreiben beginnen"
+
+#: templates/studio/newsletter_edit.html:12
+#, python-format
+#| msgid "%(counter)s article"
+#| msgid_plural "%(counter)s articles"
+msgid "%(counter)s subscriber"
+msgid_plural "%(counter)s subscribers"
+msgstr[0] "%(counter)s Empfänger"
+msgstr[1] "%(counter)s Empfänger"
+
+#: templates/studio/newsletter_edit.html:16
+#| msgid "All writers"
+msgid "All issues"
+msgstr "Alle Ausgaben"
+
+#: templates/studio/newsletter_edit.html:21
+#, python-format
+msgid ""
+"This issue went out on %(when)s to %(count)s subscribers and can no longer "
+"be changed."
+msgstr ""
+"Diese Ausgabe wurde am %(when)s an %(count)s Empfänger versendet und lässt "
+"sich nicht mehr ändern."
+
+#: templates/studio/newsletter_edit.html:28
+#| msgid "Newsletter"
+msgid "The letter"
+msgstr "Der Newsletter"
+
+#: templates/studio/newsletter_edit.html:39
+#: templates/studio/partials/media_details.html:41
+msgid "Save"
+msgstr "Speichern"
+
+#: templates/studio/newsletter_edit.html:47
+#| msgid "Add to the line"
+msgid "Add to the letter"
+msgstr "Zum Newsletter hinzufügen"
+
+#: templates/studio/newsletter_edit.html:58
+msgid "As lead"
+msgstr "Als Aufmacher"
+
+#: templates/studio/newsletter_edit.html:59
+#: templates/studio/newsletter_edit.html:74
+#: templates/studio/newsletter_edit.html:89
+#: templates/studio/newsletter_edit.html:104
+#: templates/studio/newsletter_edit.html:118
+#| msgid "Ad"
+msgid "Add"
+msgstr "Hinzufügen"
+
+#: templates/studio/newsletter_edit.html:97
+#| msgid "Advertisement"
+msgid "Advertisements"
+msgstr "Anzeigen"
+
+#: templates/studio/newsletter_edit.html:111
+#| msgid "Back to the desk"
+msgid "A note from the desk"
+msgstr "Eine Notiz der Redaktion"
+
+#: templates/studio/newsletter_edit.html:129
+#| msgid "Newsletter"
+msgid "Newsletter preview"
+msgstr "Newsletter-Vorschau"
+
+#: templates/studio/newsletter_edit.html:130
+#| msgid "Open the archive"
+msgid "Open the preview"
+msgstr "Vorschau öffnen"
+
+#: templates/studio/newsletter_edit.html:135
+msgid "Send"
+msgstr "Versand"
+
+#: templates/studio/newsletter_edit.html:140
+#| msgid "Send the request"
+msgid "Send a test first"
+msgstr "Zuerst einen Test senden"
+
+#: templates/studio/newsletter_edit.html:142
+#| msgid "Send the request"
+msgid "Send the test"
+msgstr "Test senden"
+
+#: templates/studio/newsletter_edit.html:152
+msgid "Queue it"
+msgstr "Vormerken"
+
+#: templates/studio/newsletter_edit.html:158
+msgid "Take it out of the queue"
+msgstr "Vormerkung aufheben"
+
+#: templates/studio/newsletter_edit.html:165
+#, python-format
+msgid "Send this letter to %(counter)s subscriber now? This cannot be undone."
+msgid_plural ""
+"Send this letter to %(counter)s subscribers now? This cannot be undone."
+msgstr[0] ""
+"Diesen Newsletter jetzt an %(counter)s Empfänger senden? Das lässt sich "
+"nicht rückgängig machen."
+msgstr[1] ""
+"Diesen Newsletter jetzt an %(counter)s Empfänger senden? Das lässt sich "
+"nicht rückgängig machen."
+
+#: templates/studio/newsletter_edit.html:169
+#, python-format
+#| msgid "%(counter)s article"
+#| msgid_plural "%(counter)s articles"
+msgid "Send to %(counter)s subscriber"
+msgid_plural "Send to %(counter)s subscribers"
+msgstr[0] "An %(counter)s Empfänger senden"
+msgstr[1] "An %(counter)s Empfänger senden"
+
+#: templates/studio/newsletter_edit.html:171
+msgid "Add something to the letter first."
+msgstr "Fügen Sie zuerst etwas hinzu."
+
 #: templates/studio/partials/ad_slot.html:13
 msgid "free"
 msgstr "frei"
@@ -2544,10 +2935,6 @@ msgstr "Erste Schaltfläche"
 msgid "Secondary button"
 msgstr "Zweite Schaltfläche"
 
-#: templates/studio/partials/hero_editor.html:37
-msgid "Blocks"
-msgstr "Blöcke"
-
 #: templates/studio/partials/hero_editor.html:39
 msgid "Masthead with dateline"
 msgstr "Kopfzeile mit Datum"
@@ -2623,10 +3010,6 @@ msgstr "Was jemand wissen muss, der das Bild nicht sehen kann."
 msgid "Caption"
 msgstr "Bildunterschrift"
 
-#: templates/studio/partials/media_details.html:41
-msgid "Save"
-msgstr "Speichern"
-
 #: templates/studio/partials/media_details.html:42
 msgid "Centre"
 msgstr "Mittig"
@@ -2662,6 +3045,37 @@ msgstr "Kein Alternativtext"
 #: templates/studio/partials/media_tile.html:14
 msgid "alt"
 msgstr "alt"
+
+#: templates/studio/partials/newsletter_blocks.html:3
+#| msgid "In this issue"
+msgid "In this letter"
+msgstr "In diesem Newsletter"
+
+#: templates/studio/partials/newsletter_blocks.html:10
+#| msgid "Nothing here yet"
+msgid "(nothing yet)"
+msgstr "(noch nichts)"
+
+#: templates/studio/partials/newsletter_blocks.html:12
+msgid "Points at nothing — it will not appear in the letter."
+msgstr "Verweist auf nichts – erscheint nicht im Newsletter."
+
+#: templates/studio/partials/newsletter_blocks.html:20
+msgid "Move up"
+msgstr "Nach oben"
+
+#: templates/studio/partials/newsletter_blocks.html:21
+#| msgid "Take down"
+msgid "Move down"
+msgstr "Nach unten"
+
+#: templates/studio/partials/newsletter_blocks.html:27
+msgid "Remove"
+msgstr "Entfernen"
+
+#: templates/studio/partials/newsletter_blocks.html:35
+msgid "Nothing in the letter yet. Pick something below."
+msgstr "Noch nichts im Newsletter. Wählen Sie unten etwas aus."
 
 #: templates/studio/partials/toolbar.html:6
 msgid "Announce"
@@ -2724,7 +3138,6 @@ msgid "Assets"
 msgstr "Materialien"
 
 #: templates/studio/press.html:49
-#| msgid "no picture"
 msgid "Logos and pictures"
 msgstr "Logos und Bilder"
 
@@ -2741,12 +3154,10 @@ msgid "Download"
 msgstr "Herunterladen"
 
 #: templates/studio/press.html:73
-#| msgid "The rate card is being prepared"
 msgid "The assets are being prepared"
 msgstr "Die Materialien werden vorbereitet"
 
 #: templates/studio/press.html:74
-#| msgid "Formats and prices appear here as soon as they are entered."
 msgid ""
 "Logos and pictures appear here as soon as they are uploaded. Until then, "
 "write to us and we send them by e-mail."
@@ -2763,7 +3174,6 @@ msgid "Our palette"
 msgstr "Unsere Palette"
 
 #: templates/studio/press.html:107
-#| msgid "Also in this edition"
 msgid "About this edition"
 msgstr "Über diese Ausgabe"
 

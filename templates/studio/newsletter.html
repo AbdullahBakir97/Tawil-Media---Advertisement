@@ -1,0 +1,58 @@
+{% extends "studio/base.html" %}
+{% load i18n %}
+{% block studio_title %}{% trans "Newsletter" %}{% endblock %}
+
+{% block studio_content %}
+<header class="studio-head">
+    <div>
+        <span class="eyebrow">{% trans "Newsletter" %}</span>
+        <h1>{% trans "Issues" %}</h1>
+        <p class="text-secondary mt-1">{% trans "Build a letter from what is already on the site: a lead story, the new edition, the next event." %}</p>
+    </div>
+    <dl class="nl-counts">
+        {% for code, count in subscriber_counts.items %}
+        <div><dt>{{ code|upper }}</dt><dd>{{ count }}</dd></div>
+        {% endfor %}
+    </dl>
+</header>
+
+<div class="nl-layout">
+    <div class="nl-issues">
+        {% for issue in issues %}
+        <a class="nl-issue nl-issue--{{ issue.status }}" href="{% url 'studio:newsletter_edit' issue.pk %}">
+            <span class="nl-issue-lang">{{ issue.language|upper }}</span>
+            <span class="nl-issue-body">
+                <strong>{{ issue.subject }}</strong>
+                <span class="nl-issue-meta">
+                    {% if issue.is_sent %}{% blocktrans with when=issue.sent_at|date:"j M Y" count=issue.sent_count %}Sent {{ when }} to {{ count }} subscribers{% endblocktrans %}
+                    {% elif issue.status == "scheduled" %}{% blocktrans with when=issue.scheduled_for|date:"j M Y, H:i" %}Goes out {{ when }}{% endblocktrans %}
+                    {% else %}{% blocktrans count counter=issue.blocks.count %}{{ counter }} block{% plural %}{{ counter }} blocks{% endblocktrans %}{% endif %}
+                </span>
+            </span>
+            <span class="nl-issue-status">{{ issue.get_status_display }}</span>
+        </a>
+        {% empty %}
+        <div class="empty-state">
+            <h3>{% trans "No issues yet" %}</h3>
+            <p>{% trans "Start one on the right. Nothing is sent until you say so." %}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <aside class="nl-new">
+        <h2 class="nl-new-title">{% trans "New issue" %}</h2>
+        <form method="post" action="{% url 'studio:newsletter' %}" class="grid gap-3">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="form-group">
+                <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}<p class="form-hint">{{ field.help_text }}</p>{% endif %}
+                {% for error in field.errors %}<p class="form-error">{{ error }}</p>{% endfor %}
+            </div>
+            {% endfor %}
+            <button class="btn btn-primary btn-sm" type="submit">{% trans "Start writing" %}</button>
+        </form>
+    </aside>
+</div>
+{% endblock %}
