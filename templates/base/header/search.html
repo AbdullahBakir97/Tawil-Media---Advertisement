@@ -1,6 +1,7 @@
+{% load i18n %}
 <form action="{% url 'search' %}" method="get" class="search-component" role="search" x-data="{ open: false }" @click.away="open = false" @keydown.escape="open = false">
     <label for="site-search" class="sr-only">Search articles and magazines</label>
-    <input type="search" id="site-search" name="q" class="search-input" placeholder="Search…" autocomplete="off"
+    <input type="search" id="site-search" name="q" class="search-input" placeholder="{% trans "Search…" %}" autocomplete="off" dir="auto"
            @focus="open = true" @input="open = true"
            hx-get="{% url 'search:suggestions' %}" hx-trigger="keyup changed delay:300ms" hx-target="#search-suggestions" hx-indicator="#search-loading">
     <button type="submit" class="search-icon" aria-label="Search">

@@ -14,6 +14,7 @@ urlpatterns = [
     path("search/", views.SearchView.as_view(), name="search"),
     path("search/", include(search_patterns)),
     path("sitemap/", views.SitemapView.as_view(), name="sitemap"),
+    path("design/", views.StyleGuideView.as_view(), name="styleguide"),
 ]
 
 # Simple informational pages. Each renders templates/pages/<slug>.html.

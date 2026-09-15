@@ -7,6 +7,10 @@ document.addEventListener('DOMContentLoaded', function() {
         navLinks.forEach(link => {
             const textElement = link.querySelector('span') || link;
             const text = textElement.textContent.trim();
+            // Arabic letters must stay joined: no per-character split for RTL scripts.
+            if (/[\u0600-\u06FF\u0750-\u077F\uFB50-\uFDFF\uFE70-\uFEFF]/.test(text)) return;
+            // Split characters are atomic inlines; keep them in Latin order inside RTL pages.
+            textElement.setAttribute('dir', 'ltr');
             const wrappedText = text.split('').map(char => 
                 `<span class="char-container"><span class="char">${char === ' ' ? '&nbsp;' : char}</span></span>`
             ).join('');

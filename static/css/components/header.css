@@ -87,7 +87,7 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  margin-left: auto;
+  margin-inline-start: auto;
 }
 
 /* Navigation */
@@ -147,7 +147,7 @@
 .nav-dropdown {
   position: absolute;
   top: calc(100% + 0.5rem);
-  right: 0;
+  inset-inline-end: 0;
   min-width: 11rem;
   padding: 0.4rem;
   border-radius: 0.75rem;
@@ -186,7 +186,7 @@
   justify-content: center;
   width: 2.5rem;
   height: 2.5rem;
-  margin-left: auto;
+  margin-inline-start: auto;
   border-radius: 0.5rem;
   color: var(--header-text);
   background: rgba(255, 255, 255, 0.08);
@@ -242,7 +242,8 @@
 .search-input {
   width: 13rem;
   height: 2.5rem;
-  padding: 0.5rem 2.5rem 0.5rem 1rem;
+  padding-block: 0.5rem;
+  padding-inline: 1rem 2.5rem;
   border-radius: 9999px;
   background: rgba(255, 255, 255, 0.1);
   color: var(--header-text);
@@ -264,7 +265,7 @@
 
 .search-icon {
   position: absolute;
-  right: 0.5rem;
+  inset-inline-end: 0.5rem;
   top: 50%;
   transform: translateY(-50%);
   display: inline-flex;
@@ -285,7 +286,7 @@
 
 .search-loading {
   position: absolute;
-  right: 2.4rem;
+  inset-inline-end: 2.4rem;
   top: 50%;
   transform: translateY(-50%);
   color: var(--header-muted);
@@ -339,7 +340,7 @@
 .notification-badge {
   position: absolute;
   top: -0.2rem;
-  right: -0.2rem;
+  inset-inline-end: -0.2rem;
   min-width: 1.15rem;
   height: 1.15rem;
   padding: 0 0.3rem;
@@ -356,7 +357,8 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.3rem 0.9rem 0.3rem 0.3rem;
+  padding-block: 0.3rem;
+  padding-inline: 0.3rem 0.9rem;
   border-radius: 9999px;
   color: var(--header-text);
   background: rgba(255, 255, 255, 0.08);
@@ -376,7 +378,7 @@
 .dropdown-menu {
   position: absolute;
   top: calc(100% + 0.5rem);
-  right: 0;
+  inset-inline-end: 0;
   min-width: 12rem;
   padding: 0.4rem;
   border-radius: 0.75rem;
@@ -544,6 +546,9 @@
 }
 
 /* Company info */
+.lang-btn { width: auto; padding-inline: 0.7rem; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; }
+.dropdown-menu-item.is-active { color: var(--link); font-weight: 600; }
+
 .company-title {
   font-family: var(--font-serif);
   font-size: clamp(1.6rem, 2.5vw, 2.25rem);
@@ -645,6 +650,8 @@
 }
 
 .stat-number {
+  unicode-bidi: isolate;
+  direction: ltr;
   font-size: 1.6rem;
   font-weight: 700;
   color: var(--header-accent);
