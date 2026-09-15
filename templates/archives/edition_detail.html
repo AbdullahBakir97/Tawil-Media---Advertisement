@@ -1,42 +1,53 @@
 {% extends "base/base.html" %}
+{% load i18n %}
 {% block title %}{{ edition.title }} – {{ SITE_NAME }}{% endblock %}
 
 {% block content %}
-<div class="container">
-    <p class="text-sm text-tertiary mb-2">
-        <a href="{% url 'archives:browse' %}" class="hover:underline">Archives</a> /
-        <a href="{% url 'archives:year' edition.archive_year.year %}" class="hover:underline">{{ edition.archive_year.year }}</a>
-    </p>
-    <div class="grid gap-10 md:grid-cols-3">
-        <div>
-            {% if edition.cover_image %}
-                <img src="{{ edition.cover_image.file.url }}" alt="{{ edition.title }}" class="rounded-xl shadow-lg w-full">
-            {% endif %}
-        </div>
-        <div class="md:col-span-2">
-            <h1 class="text-4xl font-bold">{{ edition.title }}</h1>
-            <p class="mt-2 text-sm text-tertiary">
-                Edition {{ edition.edition_number }} · {{ edition.get_edition_type_display }} · {{ edition.publication_date|date:"j F Y" }}
-            </p>
-            {% if edition.description %}<p class="mt-6 text-secondary">{{ edition.description|linebreaksbr }}</p>{% endif %}
+<div class="container" data-hero>
+    <nav class="text-sm text-tertiary mb-6" aria-label="{% trans 'Breadcrumb' %}" data-hero-item>
+        <a href="{% url 'archives:browse' %}" class="link-quiet">{% trans "Archive" %}</a>
+        <span aria-hidden="true" class="mx-2">/</span>
+        <a href="{% url 'archives:year' edition.archive_year.year %}" class="link-quiet tabular">{{ edition.archive_year.year }}</a>
+        <span aria-hidden="true" class="mx-2">/</span>
+        <span class="text-secondary">{{ edition.title }}</span>
+    </nav>
 
-            <h2 class="text-xl font-semibold mt-10 mb-4">Contents</h2>
-            <ol class="divide-y divide-primary">
-                {% for item in edition.contents.all %}
-                    <li class="py-3 flex justify-between gap-4">
-                        <span>
-                            {% if item.original_article and item.original_article.is_published %}
-                                <a href="{% url 'articles:detail' item.original_article.slug %}" class="font-medium hover:text-primary-600">{{ item.title }}</a>
-                            {% else %}
-                                <span class="font-medium">{{ item.title }}</span>
-                            {% endif %}
-                        </span>
-                        <span class="text-sm text-tertiary whitespace-nowrap">p. {{ item.page_number }}</span>
-                    </li>
-                {% empty %}
-                    <li class="py-3 text-tertiary">Contents not digitised yet.</li>
-                {% endfor %}
-            </ol>
+    <div class="grid gap-10 lg:grid-cols-12 items-start">
+        <div class="lg:col-span-5" data-hero-item>
+            <div class="magazine-cover-frame">
+                {% if edition.cover_image %}<img src="{{ edition.cover_image.file.url }}" alt="{{ edition.title }}" data-hero-bg>{% else %}<div class="aspect-[3/4] grid place-items-center text-tertiary">{% trans "No cover" %}</div>{% endif %}
+            </div>
+        </div>
+        <div class="lg:col-span-7">
+            <div class="flex flex-wrap gap-2" data-hero-item>
+                <span class="badge badge-navy">{% blocktrans with number=edition.edition_number %}Edition {{ number }}{% endblocktrans %}</span>
+                <span class="badge">{{ edition.get_edition_type_display }}</span>
+                {% if edition.is_digitized %}<span class="badge badge-success">{% trans "Digitised" %}</span>{% endif %}
+            </div>
+            <h1 class="mt-3" data-hero-item>{{ edition.title }}</h1>
+            <p class="byline mt-3" data-hero-item>{{ edition.publication_date|date:"j F Y" }}{% if edition.page_count %} · {% blocktrans count counter=edition.page_count %}{{ counter }} page{% plural %}{{ counter }} pages{% endblocktrans %}{% endif %}</p>
+            {% if edition.description %}<p class="lead mt-6 max-w-measure" data-hero-item>{{ edition.description|linebreaksbr }}</p>{% endif %}
+
+            <section class="mt-10">
+                <h2 class="section-title mb-4">{% trans "Contents" %}</h2>
+                <ol class="issue-toc" data-motion="stagger">
+                    {% for item in edition.contents.all %}
+                        <li>
+                            <span class="issue-toc-number tabular">{% if item.page_number %}{{ item.page_number }}{% else %}·{% endif %}</span>
+                            <div class="min-w-0">
+                                {% if item.original_article and item.original_article.is_published %}
+                                    <a href="{{ item.original_article.get_absolute_url }}" class="issue-toc-title">{{ item.title }}</a>
+                                {% else %}
+                                    <span class="issue-toc-title">{{ item.title }}</span>
+                                {% endif %}
+                                {% if item.content_preview %}<p class="text-sm text-tertiary line-clamp-2">{{ item.content_preview }}</p>{% endif %}
+                            </div>
+                        </li>
+                    {% empty %}
+                        <li class="text-tertiary">{% trans "Contents not digitised yet." %}</li>
+                    {% endfor %}
+                </ol>
+            </section>
         </div>
     </div>
 </div>

@@ -1,10 +1,11 @@
 {% extends "base/base.html" %}
-{% block title %}Something went wrong – {{ SITE_NAME }}{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Something went wrong" %} – {{ SITE_NAME }}{% endblock %}
 {% block content %}
 <div class="container text-center py-16">
-    <p class="text-6xl font-bold text-error">500</p>
-    <h1 class="mt-4 text-2xl font-semibold">Something went wrong on our side.</h1>
-    <p class="mt-2 text-secondary">We've been notified. Please try again in a moment.</p>
-    <a href="{% url 'home' %}" class="btn btn-primary mt-8">Back to the homepage</a>
+    <p class="font-display text-7xl font-bold text-error">500</p>
+    <h1 class="mt-4 text-3xl">{% trans "Something went wrong on our side." %}</h1>
+    <p class="mt-2 text-secondary max-w-measure-narrow mx-auto">{% trans "We've been notified. Please try again in a moment." %}</p>
+    <a href="{% url 'home' %}" class="btn btn-primary mt-8">{% trans "Back to the homepage" %}</a>
 </div>
 {% endblock %}

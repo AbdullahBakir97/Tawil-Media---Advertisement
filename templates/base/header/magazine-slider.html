@@ -1,6 +1,6 @@
-{% load static %}
+{% load static i18n %}
 <div class="magazine-slider-container">
-    <h3 class="slider-title">Latest Editions</h3>
+    <h3 class="slider-title">{% trans "Latest editions" %}</h3>
     {% if header_magazines %}
     <div class="magazine-carousel" x-data="{ current: 0, count: {{ header_magazines|length }} }">
         <div class="carousel-items">
@@ -20,15 +20,15 @@
         </div>
         {% if header_magazines|length > 1 %}
         <div class="carousel-controls">
-            <button type="button" @click="current = (current - 1 + count) % count" class="control-btn" aria-label="Previous edition">
+            <button type="button" @click="current = (current - 1 + count) % count" class="control-btn" aria-label="{% trans 'Previous edition' %}">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
             </button>
             <div class="carousel-indicators">
                 {% for magazine in header_magazines %}
-                <button type="button" @click="current = {{ forloop.counter0 }}" :class="{ 'active': current === {{ forloop.counter0 }} }" class="indicator" aria-label="Show {{ magazine.title }}"></button>
+                <button type="button" @click="current = {{ forloop.counter0 }}" :class="{ 'active': current === {{ forloop.counter0 }} }" class="indicator" aria-label="{{ magazine.title }}"></button>
                 {% endfor %}
             </div>
-            <button type="button" @click="current = (current + 1) % count" class="control-btn" aria-label="Next edition">
+            <button type="button" @click="current = (current + 1) % count" class="control-btn" aria-label="{% trans 'Next edition' %}">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </button>
         </div>
@@ -38,8 +38,8 @@
     <a href="{% url 'magazines:list' %}" class="carousel-item">
         <img src="{% static 'img/magazine-tawil.png' %}" alt="Tawil magazine" class="magazine-cover">
         <div class="magazine-info">
-            <h4>Our magazines</h4>
-            <p>New editions are published here.</p>
+            <h4>{% trans "Our magazines" %}</h4>
+            <p>{% trans "New editions are published here." %}</p>
         </div>
     </a>
     {% endif %}

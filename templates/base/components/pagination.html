@@ -1,21 +1,30 @@
+{% load i18n ui %}
 {% comment %}
 Pagination for ListView pages. Usage:
-    {% include "base/components/pagination.html" with page_obj=page_obj %}
+    {% include "base/components/pagination.html" %}
 Preserves other query-string parameters (e.g. ?q=term).
 {% endcomment %}
 {% if page_obj.paginator.num_pages > 1 %}
-<nav class="flex items-center justify-between border-t border-primary pt-6 mt-10" aria-label="Pagination">
+<nav class="pagination" aria-label="{% trans 'Pagination' %}">
     <div>
         {% if page_obj.has_previous %}
-            <a href="?{% querystring page=page_obj.previous_page_number %}" class="btn btn-secondary btn-sm" rel="prev">&larr; Previous</a>
+            <a href="?{% querystring page=page_obj.previous_page_number %}" class="btn btn-secondary btn-sm" rel="prev"><span aria-hidden="true" class="rtl:rotate-180 inline-block">←</span> {% trans "Previous" %}</a>
         {% endif %}
     </div>
-    <p class="text-sm text-tertiary">
-        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
-    </p>
+    <div class="pagination-pages" aria-hidden="false">
+        {% for num in page_obj|elided_range %}
+            {% if num == page_obj.paginator.ELLIPSIS %}
+                <span class="pagination-page">…</span>
+            {% elif num == page_obj.number %}
+                <span class="pagination-page is-active" aria-current="page">{{ num }}</span>
+            {% else %}
+                <a href="?{% querystring page=num %}" class="pagination-page">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+    </div>
     <div>
         {% if page_obj.has_next %}
-            <a href="?{% querystring page=page_obj.next_page_number %}" class="btn btn-secondary btn-sm" rel="next">Next &rarr;</a>
+            <a href="?{% querystring page=page_obj.next_page_number %}" class="btn btn-secondary btn-sm" rel="next">{% trans "Next" %} <span aria-hidden="true" class="rtl:rotate-180 inline-block">→</span></a>
         {% endif %}
     </div>
 </nav>

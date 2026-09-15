@@ -1,5 +1,6 @@
+{% load i18n %}
 <div class="owner-info-container">
-    <h3 class="owner-title">Meet Our Director</h3>
+    <h3 class="owner-title">{% trans "Meet our director" %}</h3>
     <div class="owner-details">
         <h4 class="owner-name">{{ DIRECTOR.name }}</h4>
         <p class="owner-position">{{ DIRECTOR.title }}</p>
@@ -11,7 +12,7 @@
         {% for stat in DIRECTOR.stats %}
         <div class="stat-item">
             <span class="stat-number" data-motion="count" data-count="{{ stat.value|slice:":-1" }}" data-suffix="{{ stat.value|slice:"-1:" }}">{{ stat.value }}</span>
-            <span class="stat-label">{{ stat.label }}</span>
+            <span class="stat-label">{% if stat.key == "years" %}{% trans "Years experience" %}{% elif stat.key == "projects" %}{% trans "Projects" %}{% elif stat.key == "clients" %}{% trans "Happy clients" %}{% else %}{{ stat.label }}{% endif %}</span>
         </div>
         {% endfor %}
     </div>

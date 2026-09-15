@@ -1,10 +1,10 @@
-{% load static %}
+{% load static i18n %}
 
 <div class="company-info-container">
-    <h2 class="company-title">Welcome to {{ SITE_NAME }}</h2>
-    <p class="company-subtitle">Your Gateway to Professional Media</p>
+    <h2 class="company-title">{% blocktrans %}Welcome to {{ SITE_NAME }}{% endblocktrans %}</h2>
+    <p class="company-subtitle">{% trans "Your gateway to professional media" %}</p>
     <div class="company-description">
-        <p>Connect with your audience through powerful content and strategic advertising solutions. We specialize in creating impactful media experiences that drive results.</p>
+        <p>{% trans "Connect with your audience through powerful content and strategic advertising. We create media experiences that get results." %}</p>
     </div>
     <div class="company-highlights">
         <div class="highlight-item">
@@ -13,7 +13,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                 </svg>
             </span>
-            <span class="highlight-text">Professional Media Solutions</span>
+            <span class="highlight-text">{% trans "Professional media solutions" %}</span>
         </div>
         <div class="highlight-item">
             <span class="highlight-icon">
@@ -21,7 +21,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                 </svg>
             </span>
-            <span class="highlight-text">Strategic Advertising</span>
+            <span class="highlight-text">{% trans "Strategic advertising" %}</span>
         </div>
         <div class="highlight-item">
             <span class="highlight-icon">
@@ -29,7 +29,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                 </svg>
             </span>
-            <span class="highlight-text">Creative Content Development</span>
+            <span class="highlight-text">{% trans "Creative content development" %}</span>
         </div>
     </div>
 </div>

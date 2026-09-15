@@ -1,116 +1,57 @@
 {% extends "base/base.html" %}
-{% load static %}
-
-{% block title %}Login - Tawil Media{% endblock %}
-
-{% block meta_description %}Sign in to your Tawil Media account to access premium content, manage your subscriptions, and more.{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Sign in" %} – {{ SITE_NAME }}{% endblock %}
 
 {% block content %}
-<div class="container max-w-md mx-auto px-4">
-    <div class="bg-secondary rounded-lg shadow-lg p-8">
-        <!-- Header -->
-        <div class="text-center mb-8">
-            <h1 class="text-2xl font-bold mb-2">Welcome Back</h1>
-            <p class="text-tertiary">Sign in to your account</p>
+<div class="container">
+<div class="auth-shell" data-hero>
+    <div class="auth-card" data-hero-item>
+        <div class="auth-head">
+            <span class="eyebrow">{{ SITE_NAME }}</span>
+            <h1>{% trans "Welcome back" %}</h1>
+            <p class="text-secondary">{% trans "Sign in to your account" %}</p>
         </div>
 
-        <!-- Login Form -->
-        <form id="login-form" hx-post="{% url 'login' %}" 
-              hx-swap="outerHTML" hx-select="#login-form"
-              class="space-y-6">
+        <form id="login-form" method="post" action="{% url 'login' %}" hx-post="{% url 'login' %}" hx-swap="outerHTML" hx-select="#login-form" hx-indicator="#login-submit" class="grid gap-4" novalidate x-data="{ show: false }">
             {% csrf_token %}
-            
-            <!-- Error Messages -->
-            {% if form.errors %}
-            <div class="bg-error/10 border border-error/20 text-error rounded-md p-4 mb-6" role="alert">
-                {% if form.non_field_errors %}
-                    {% for error in form.non_field_errors %}
-                        <p>{{ error }}</p>
-                    {% endfor %}
-                {% else %}
-                    Please correct the errors below.
-                {% endif %}
-            </div>
+            {% if request.GET.next %}<input type="hidden" name="next" value="{{ request.GET.next }}">{% endif %}
+
+            {% if form.non_field_errors %}
+            <div class="alert alert-error" role="alert"><div class="alert-body">{% for error in form.non_field_errors %}{{ error }}{% endfor %}</div></div>
             {% endif %}
 
-            <!-- Email Field -->
-            <div>
-                <label for="email" class="block text-sm font-medium mb-2">Email Address</label>
-                <input type="email" 
-                       id="email" 
-                       name="email" 
-                       required
-                       class="w-full px-4 py-2 rounded-md bg-tertiary border border-primary focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-shadow"
-                       {% if form.email.value %}value="{{ form.email.value }}"{% endif %}
-                >
-                {% if form.email.errors %}
-                <p class="mt-1 text-sm text-error">{{ form.email.errors.0 }}</p>
-                {% endif %}
+            <div class="form-group">
+                <label for="email" class="form-label">{% trans "E-mail address" %}</label>
+                <input id="email" name="email" type="email" autocomplete="email" required autofocus dir="auto"
+                       value="{{ form.email.value|default:'' }}" class="form-input{% if form.email.errors %} is-invalid{% endif %}">
+                {% for error in form.email.errors %}<p class="form-error">{{ error }}</p>{% endfor %}
             </div>
 
-            <!-- Password Field -->
-            <div>
-                <div class="flex items-center justify-between mb-2">
-                    <label for="password" class="block text-sm font-medium">Password</label>
-                    <a href="{% url 'password_reset' %}" 
-                       class="text-sm text-primary-600 hover:text-primary-500">
-                        Forgot password?
-                    </a>
+            <div class="form-group">
+                <div class="flex items-baseline justify-between">
+                    <label for="password" class="form-label">{% trans "Password" %}</label>
+                    <a href="{% url 'password_reset' %}" class="text-sm">{% trans "Forgot password?" %}</a>
                 </div>
-                <input type="password" 
-                       id="password" 
-                       name="password" 
-                       required
-                       class="w-full px-4 py-2 rounded-md bg-tertiary border border-primary focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-shadow"
-                >
-                {% if form.password.errors %}
-                <p class="mt-1 text-sm text-error">{{ form.password.errors.0 }}</p>
-                {% endif %}
+                <div class="input-group input-group--end">
+                    <input id="password" name="password" :type="show ? 'text' : 'password'" type="password" autocomplete="current-password" required class="form-input{% if form.password.errors %} is-invalid{% endif %}">
+                    <button type="button" class="input-icon pointer-events-auto text-tertiary hover:text-primary" @click="show = !show" :aria-pressed="show" aria-label="{% trans 'Show password' %}">
+                        <svg x-show="!show" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                        <svg x-show="show" x-cloak fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/></svg>
+                    </button>
+                </div>
+                {% for error in form.password.errors %}<p class="form-error">{{ error }}</p>{% endfor %}
             </div>
 
-            <!-- Remember Me -->
-            <div class="flex items-center">
-                <input type="checkbox" 
-                       id="remember" 
-                       name="remember" 
-                       class="h-4 w-4 rounded border-primary text-primary-600 focus:ring-primary-500">
-                <label for="remember" class="ml-2 block text-sm">
-                    Remember me
-                </label>
-            </div>
+            <label class="form-check"><input type="checkbox" name="remember" class="form-checkbox"> {% trans "Keep me signed in" %}</label>
 
-            <!-- Submit Button -->
-            <button type="submit"
-                    class="w-full bg-primary-600 text-white py-2 px-4 rounded-md hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-colors">
-                <span class="htmx-indicator">
-                    <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    Signing in...
-                </span>
-                <span class="htmx-default">Sign in</span>
+            <button id="login-submit" type="submit" class="btn btn-primary btn-lg btn-block">
+                <span class="btn-label">{% trans "Sign in" %}</span>
+                <svg class="htmx-indicator animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
             </button>
         </form>
 
-        <!-- Sign Up Link -->
-        <p class="mt-8 text-center text-sm">
-            Don't have an account?
-            <a href="{% url 'register' %}" class="text-primary-600 hover:text-primary-500">
-                Create one now
-            </a>
-        </p>
+        <p class="text-center text-sm text-secondary">{% trans "New here?" %} <a href="{% url 'register' %}" class="font-semibold">{% trans "Create an account" %}</a></p>
     </div>
 </div>
-{% endblock %}
-
-
-{% block extra_js %}
-<script type="module">
-    // Focus email field on page load
-    document.addEventListener('DOMContentLoaded', () => {
-        document.getElementById('email').focus();
-    });
-
-</script>
+</div>
 {% endblock %}

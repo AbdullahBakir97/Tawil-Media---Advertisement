@@ -1,18 +1,25 @@
 {% extends "base/base.html" %}
-{% block title %}Magazines – {{ SITE_NAME }}{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Magazines" %} – {{ SITE_NAME }}{% endblock %}
 
 {% block content %}
 <div class="container">
-    <h1 class="text-3xl font-bold mb-8">Magazines</h1>
+    <header class="page-header" data-motion="fade-up">
+        <span class="eyebrow">{% trans "Editions" %}</span>
+        <h1>{% trans "Magazines" %}</h1>
+        <p class="lead max-w-measure">{% trans "Every edition of Almadina, the first Arabic magazine in Germany, from the newest issue back." %}</p>
+    </header>
+
     {% if magazines %}
-        <div class="grid gap-6 grid-cols-2 md:grid-cols-4">
-            {% for magazine in magazines %}
-                {% include "content/partials/magazine_card.html" %}
-            {% endfor %}
+        <div class="grid gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4" data-motion="stagger">
+            {% for magazine in magazines %}{% include "content/partials/magazine_card.html" %}{% endfor %}
         </div>
         {% include "base/components/pagination.html" %}
     {% else %}
-        <p class="text-tertiary">No magazines have been published yet.</p>
+        <div class="empty-state">
+            <h3>{% trans "No editions published yet" %}</h3>
+            <p>{% trans "The next edition will appear here as soon as it is released." %}</p>
+        </div>
     {% endif %}
 </div>
 {% endblock %}

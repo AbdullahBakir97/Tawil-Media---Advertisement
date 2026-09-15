@@ -1,14 +1,15 @@
-{% load static %}
-<article class="card bg-secondary rounded-xl shadow-sm overflow-hidden">
-    <a href="{% url 'magazines:detail' magazine.slug %}" class="block">
+{% load static i18n %}
+<article class="card card--lift" data-lift>
+    <a class="card-media card-media--portrait" href="{{ magazine.get_absolute_url }}" tabindex="-1" aria-hidden="true">
         {% if magazine.cover_image %}
-            <img src="{{ magazine.cover_image.file.url }}" alt="{{ magazine.cover_image.alt_text|default:magazine.title }}" class="w-full aspect-[3/4] object-cover" loading="lazy">
+            <img src="{{ magazine.cover_image.file.url }}" alt="" loading="lazy">
         {% else %}
-            <img src="{% static 'img/magazine-tawil.png' %}" alt="" class="w-full aspect-[3/4] object-cover" loading="lazy">
+            <img src="{% static 'img/magazine-tawil.png' %}" alt="" loading="lazy">
         {% endif %}
-        <div class="p-4">
-            <h3 class="font-semibold">{{ magazine.title }}</h3>
-            <p class="text-xs text-tertiary mt-1">{{ magazine.published_at|date:"F Y" }}</p>
-        </div>
     </a>
+    <div class="card-body">
+        <span class="kicker">{% if magazine.published_at %}{{ magazine.published_at|date:"F Y" }}{% else %}{% trans "Edition" %}{% endif %}</span>
+        <h3 class="card-title"><a href="{{ magazine.get_absolute_url }}">{{ magazine.title }}</a></h3>
+        {% if magazine.description %}<p class="card-excerpt line-clamp-2">{{ magazine.description }}</p>{% endif %}
+    </div>
 </article>
