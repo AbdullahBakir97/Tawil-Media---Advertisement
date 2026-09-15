@@ -1,0 +1,16 @@
+{% load i18n %}
+{% comment %}One sellable format with a true-to-ratio size preview. Context: card.{% endcomment %}
+<article class="ad-format">
+    <div class="ad-format-preview">
+        <span class="ad-format-shape" {% if card.aspect_ratio %}style="aspect-ratio: {{ card.aspect_ratio }}"{% endif %}>
+            <span>{{ card.size_label|default:card.get_channel_display }}</span>
+        </span>
+    </div>
+    <div class="ad-format-body">
+        <span class="eyebrow">{{ card.get_channel_display }}</span>
+        <h4>{{ card.name }}</h4>
+        {% if card.description %}<p>{{ card.description }}</p>{% endif %}
+        {% if card.specs %}<p class="meta">{{ card.specs }}</p>{% endif %}
+        <span class="ad-format-price">{{ card.price|floatformat:0 }} € <small>{{ card.get_unit_display }}</small></span>
+    </div>
+</article>

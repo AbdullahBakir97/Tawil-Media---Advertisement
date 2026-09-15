@@ -1,0 +1,153 @@
+/* The advertising hub: offer, formats with true-to-ratio previews, rate card, planner. */
+
+/* ---------- Hero ---------- */
+.ad-hero {
+  position: relative; isolation: isolate;
+  background: var(--bg-brand); color: var(--text-on-brand);
+  padding-block: 3.5rem 3rem;
+}
+.ad-hero::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background:
+    radial-gradient(circle at 82% 25%, rgb(242 178 92 / 0.2), transparent 45%),
+    radial-gradient(circle at 12% 88%, rgb(2 132 199 / 0.26), transparent 48%);
+}
+.ad-hero-inner { display: grid; gap: 2.5rem; align-items: center; }
+@media (min-width: 1024px) { .ad-hero-inner { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 3.5rem; } }
+.ad-hero-text { display: grid; gap: 1.1rem; justify-items: start; }
+.ad-hero-text h1 { font-size: clamp(2.2rem, 4.4vw, 3.6rem); line-height: 1.05; color: #fff; text-wrap: balance; }
+.ad-hero-stats {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem;
+  padding: 1.5rem;
+  border-radius: var(--radius-2xl);
+  background: rgb(255 255 255 / 0.06);
+  border: 1px solid rgb(255 255 255 / 0.12);
+}
+.ad-hero-stats b { display: block; font-family: var(--font-display); font-size: var(--text-3xl); line-height: 1; color: var(--gold-400); unicode-bidi: isolate; direction: ltr; }
+.ad-hero-stats span { display: block; margin-top: 0.35rem; font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-on-brand-muted); }
+
+/* ---------- Formats ---------- */
+.ad-channel-title { margin: 2rem 0 1rem; font-size: var(--text-xl); }
+.ad-channel-title:first-of-type { margin-top: 0; }
+.ad-formats { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr)); }
+.ad-format {
+  display: grid; grid-template-rows: auto 1fr;
+  border: 1px solid var(--border-primary); border-radius: var(--radius-xl);
+  background: var(--bg-secondary); overflow: hidden;
+  transition: transform var(--transition-normal) var(--ease-out), box-shadow var(--transition-normal) ease;
+}
+.ad-format:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+.ad-format-preview {
+  display: grid; place-items: center;
+  min-height: 9rem; padding: 1.25rem;
+  background: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-primary);
+}
+.ad-format-shape {
+  display: grid; place-items: center;
+  width: min(100%, 9rem); max-height: 7rem; aspect-ratio: 3 / 4;
+  border: 2px dashed var(--sky-400);
+  border-radius: var(--radius-sm);
+  background: rgb(2 132 199 / 0.08);
+  color: var(--link);
+  font-size: 0.62rem; font-weight: 600; letter-spacing: 0.08em; text-align: center;
+  unicode-bidi: isolate; direction: ltr;
+}
+.ad-format-body { display: grid; gap: 0.4rem; align-content: start; padding: 1.1rem 1.2rem 1.25rem; }
+.ad-format-body h4 { font-size: var(--text-lg); line-height: 1.25; }
+.ad-format-body p { font-size: var(--text-sm); color: var(--text-secondary); }
+.ad-format-price { margin-top: 0.4rem; font-family: var(--font-display); font-size: var(--text-xl); font-weight: 700; color: var(--accent-ink); unicode-bidi: isolate; direction: ltr; }
+.ad-format-price small { font-family: var(--font-body); font-size: var(--text-xs); font-weight: 400; color: var(--text-tertiary); margin-inline-start: 0.35rem; }
+
+/* ---------- Rate card ---------- */
+.ad-rates { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr)); }
+.ad-rate {
+  display: grid; gap: 0.35rem; align-content: start;
+  padding: 1.35rem;
+  border-radius: var(--radius-xl);
+  background: rgb(255 255 255 / 0.06);
+  border: 1px solid rgb(255 255 255 / 0.12);
+  color: var(--text-on-brand);
+}
+.ad-rate--featured { background: rgb(242 178 92 / 0.14); border-color: rgb(242 178 92 / 0.5); }
+.ad-rate-name { font-family: var(--font-display); font-size: var(--text-xl); color: #fff; }
+.ad-rate-specs { font-size: var(--text-sm); color: var(--text-on-brand-muted); }
+.ad-rate-price { margin-top: 0.5rem; font-family: var(--font-display); font-size: var(--text-2xl); font-weight: 700; color: var(--gold-400); unicode-bidi: isolate; direction: ltr; }
+.ad-rate-price small { font-family: var(--font-body); font-size: var(--text-xs); font-weight: 400; color: var(--text-on-brand-muted); margin-inline-start: 0.4rem; }
+
+/* ---------- Planner ---------- */
+.planner { display: grid; gap: 1.5rem; align-items: start; }
+@media (min-width: 1024px) { .planner { grid-template-columns: minmax(0, 1fr) 24rem; gap: 2rem; } }
+.planner-pick { display: grid; gap: 1.5rem; }
+.planner-block { display: grid; gap: 0.75rem; padding: 1.35rem; border: 1px solid var(--border-primary); border-radius: var(--radius-xl); background: var(--bg-secondary); }
+.planner-rows { display: grid; gap: 0.5rem; }
+.planner-row {
+  display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--border-primary); border-radius: var(--radius-lg);
+  background: var(--bg-primary);
+  transition: border-color var(--transition-fast) ease, background-color var(--transition-fast) ease;
+}
+.planner-row.is-picked { border-color: var(--sky-400); background: rgb(2 132 199 / 0.06); }
+.planner-row-main { flex: 1; min-width: 10rem; display: grid; gap: 0.15rem; }
+.planner-qty { display: inline-flex; align-items: center; gap: 0.35rem; }
+.planner-qty button {
+  width: 2rem; height: 2rem; border-radius: var(--radius-md);
+  border: 1px solid var(--border-secondary); background: var(--bg-secondary);
+  font-size: var(--text-lg); line-height: 1; color: var(--text-primary);
+}
+.planner-qty button:hover:not(:disabled) { border-color: var(--sky-400); color: var(--link); }
+.planner-qty button:disabled { opacity: 0.35; }
+.planner-qty > span { min-width: 1.5rem; text-align: center; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+.planner-editions { display: grid; gap: 0.5rem; grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr)); }
+.planner-edition {
+  display: grid; gap: 0.15rem; text-align: start;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--border-primary); border-radius: var(--radius-lg);
+  background: var(--bg-primary); color: inherit;
+}
+.planner-edition.is-picked { border-color: var(--gold-400); background: rgb(242 178 92 / 0.1); }
+
+.planner-summary {
+  position: sticky; top: calc(var(--header-nav-height, 4.5rem) + 1rem);
+  display: grid; gap: 0.75rem;
+  padding: 1.35rem;
+  border-radius: var(--radius-2xl);
+  background: var(--bg-brand); color: var(--text-on-brand);
+  box-shadow: var(--shadow-xl);
+}
+.planner-summary .eyebrow { color: var(--gold-400); }
+.planner-lines { display: grid; gap: 0.35rem; min-height: 2rem; }
+.planner-line { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; font-size: var(--text-sm); }
+.planner-line b { font-variant-numeric: tabular-nums; unicode-bidi: isolate; direction: ltr; }
+.planner-total {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+  padding-top: 0.75rem; border-top: 1px solid rgb(255 255 255 / 0.18);
+}
+.planner-total b { font-family: var(--font-display); font-size: var(--text-2xl); color: var(--gold-400); unicode-bidi: isolate; direction: ltr; }
+.planner-summary .meta { color: var(--text-on-brand-muted); }
+.planner-form { display: grid; gap: 0.75rem; margin-top: 0.5rem; padding-top: 1rem; border-top: 1px solid rgb(255 255 255 / 0.18); }
+.planner-form .form-label { color: var(--text-on-brand-muted); }
+.planner-form .form-input, .planner-form .form-textarea {
+  background: rgb(255 255 255 / 0.1); border-color: rgb(255 255 255 / 0.18); color: #fff;
+}
+.planner-form .form-input::placeholder, .planner-form .form-textarea::placeholder { color: rgb(255 255 255 / 0.5); }
+.planner-form .form-check { color: var(--text-on-brand-muted); font-size: var(--text-sm); align-items: flex-start; gap: 0.5rem; }
+.planner-form .form-check a { color: #fff; }
+.planner-form .optional { color: rgb(255 255 255 / 0.5); }
+
+.planner-done {
+  display: grid; gap: 0.75rem; justify-items: center; text-align: center;
+  padding: 2.5rem 1.5rem;
+  border-radius: var(--radius-2xl);
+  background: var(--bg-brand); color: var(--text-on-brand);
+}
+.planner-done h3 { color: #fff; font-size: var(--text-2xl); }
+.planner-done p { color: var(--text-on-brand-muted); max-width: 34rem; }
+.planner-done-mark {
+  display: grid; place-items: center;
+  width: 3.25rem; height: 3.25rem; border-radius: 50%;
+  background: rgb(21 128 61 / 0.25); color: #4ade80;
+}
+.planner-done-summary { width: min(100%, 26rem); margin-top: 0.5rem; display: grid; gap: 0.35rem; text-align: start; }

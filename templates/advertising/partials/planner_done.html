@@ -1,0 +1,15 @@
+{% load i18n %}
+<div id="planner-panel" class="planner-done" data-motion="fade-up" data-motion-once="false">
+    <span class="planner-done-mark" aria-hidden="true">
+        <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </span>
+    <h3>{% trans "Your request is with us" %}</h3>
+    <p>{% blocktrans with company=campaign_request.company %}Thank you, {{ company }}. We reply with a firm quote within two working days.{% endblocktrans %}</p>
+    <div class="planner-done-summary">
+        {% for item in campaign_request.items.all %}
+        <div class="planner-line"><span>{{ item.quantity }} × {{ item.rate_card.name }}</span><b>{{ item.line_total|floatformat:0 }} €</b></div>
+        {% endfor %}
+        <div class="planner-total"><span>{% trans "Estimate" %}</span><b>{{ campaign_request.estimate|floatformat:0 }} €</b></div>
+    </div>
+    <p class="meta">{% blocktrans %}Questions in the meantime? Write to {{ contact_email }}.{% endblocktrans %}</p>
+</div>

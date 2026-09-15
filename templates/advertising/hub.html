@@ -1,0 +1,131 @@
+{% extends "base/base.html" %}
+{% load static i18n studio %}
+{% block title %}{% trans "Advertising" %} – {{ SITE_NAME }}{% endblock %}
+{% block meta_description %}{% blocktrans with readers=monthly_readers %}Reach {{ readers }} Arabic-speaking readers a month in print, online and on social. Formats, rates and a planner that prices your campaign as you build it.{% endblocktrans %}{% endblock %}
+
+{% block content %}
+<section class="ad-hero" data-hero>
+    <div class="container ad-hero-inner">
+        <div class="ad-hero-text">
+            <span class="eyebrow" style="color:var(--gold-400)" data-hero-item>{% trans "Advertising" %}</span>
+            <h1 data-hero-item>{% blocktrans with readers=monthly_readers %}Your brand in front of {{ readers }} readers{% endblocktrans %}</h1>
+            <p class="lead text-on-brand-muted" data-hero-item>{% trans "Almadina reaches Arabic-speaking households, businesses and community organisations in Berlin and eleven more German cities. In print, online and on social, planned with our editorial team." %}</p>
+            <div class="btn-group" data-hero-item>
+                <a class="btn btn-brand btn-lg" href="#planner">{% trans "Plan a campaign" %}</a>
+                {% if media_kit %}<a class="btn btn-ghost btn-lg" href="{{ media_kit.file.url }}" download>{% trans "Download the media kit" %}</a>
+                {% else %}<a class="btn btn-ghost btn-lg" href="#rates">{% trans "See the rates" %}</a>{% endif %}
+            </div>
+        </div>
+        <div class="ad-hero-stats" data-hero-item>
+            <div><b class="stat-value">{{ monthly_readers }}</b><span>{% trans "Readers a month" %}</span></div>
+            <div><b class="stat-value">{{ engagement_rate }}</b><span>{% trans "Read to the end" %}</span></div>
+            <div><b class="stat-value">{{ industry_reach }}</b><span>{% trans "Sectors reached" %}</span></div>
+            <div><b class="stat-value">{{ YEARS_ACTIVE }}</b><span>{% trans "Years in Berlin" %}</span></div>
+        </div>
+    </div>
+</section>
+
+{# ---------- Formats ---------- #}
+<section class="section" id="formats">
+    <div class="container">
+        <div class="section-head" data-motion="fade-up">
+            <div>
+                <span class="eyebrow">{% trans "Formats" %}</span>
+                <h2>{% trans "Where your advertisement appears" %}</h2>
+            </div>
+            <a class="btn btn-outline btn-sm" href="#planner">{% trans "Plan a campaign" %}</a>
+        </div>
+
+        {% if print_cards %}
+        <h3 class="ad-channel-title" data-motion="fade-up">{% trans "Print · the magazine" %}</h3>
+        <div class="ad-formats" data-motion="stagger">
+            {% for card in print_cards %}{% include "advertising/partials/format_card.html" %}{% endfor %}
+        </div>
+        {% endif %}
+
+        {% if digital_cards %}
+        <h3 class="ad-channel-title" data-motion="fade-up">{% trans "Digital · the website and the newsletter" %}</h3>
+        <div class="ad-formats" data-motion="stagger">
+            {% for card in digital_cards %}{% include "advertising/partials/format_card.html" %}{% endfor %}
+        </div>
+        {% endif %}
+
+        {% if social_cards %}
+        <h3 class="ad-channel-title" data-motion="fade-up">{% trans "Social · our channels" %}</h3>
+        <div class="ad-formats" data-motion="stagger">
+            {% for card in social_cards %}{% include "advertising/partials/format_card.html" %}{% endfor %}
+        </div>
+        {% endif %}
+
+        {% if not rate_cards %}
+        <div class="empty-state">
+            <h3>{% trans "The rate card is being prepared" %}</h3>
+            <p>{% trans "Formats and prices appear here as soon as they are entered." %}</p>
+            <a class="btn btn-outline btn-sm mt-3" href="{% url 'contact' %}">{% trans "Ask us for the rates" %}</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+{# ---------- Rate card ---------- #}
+{% if rate_cards %}
+<section class="section section--brand" id="rates">
+    <div class="container">
+        <div class="section-head section-head--on-brand" data-motion="fade-up">
+            <div>
+                <span class="eyebrow" style="color:var(--gold-400)">{% trans "Rates" %}</span>
+                <h2 class="text-on-brand">{% trans "What it costs" %}</h2>
+            </div>
+            {% if media_kit %}<a class="btn btn-brand btn-sm" href="{{ media_kit.file.url }}" download>{% trans "Media kit" %} ({{ media_kit.year|default:"PDF" }})</a>{% endif %}
+        </div>
+        <div class="ad-rates" data-motion="stagger">
+            {% for card in rate_cards %}
+            <div class="ad-rate {% if card.is_featured %}ad-rate--featured{% endif %}">
+                <span class="eyebrow" style="color:var(--gold-400)">{{ card.get_channel_display }}{% if card.is_featured %} · {% trans "popular" %}{% endif %}</span>
+                <strong class="ad-rate-name">{{ card.name }}</strong>
+                {% if card.specs %}<span class="ad-rate-specs">{{ card.specs }}</span>{% endif %}
+                <span class="ad-rate-price">{{ card.price|floatformat:0 }} €<small>{{ card.get_unit_display }}</small></span>
+            </div>
+            {% endfor %}
+        </div>
+        <p class="text-on-brand-muted text-sm mt-6">{% trans "All prices are net, plus VAT. Series and non-profit rates on request." %}</p>
+    </div>
+</section>
+{% endif %}
+
+{# ---------- Planner ---------- #}
+<section class="section" id="planner">
+    <div class="container">
+        <div class="section-head" data-motion="fade-up">
+            <div>
+                <span class="eyebrow">{% trans "Planner" %}</span>
+                <h2>{% trans "Build your campaign" %}</h2>
+                <p class="text-secondary max-w-measure mt-2">{% trans "Pick the placements and the editions. The estimate updates as you go; send it and we reply with a firm quote." %}</p>
+            </div>
+        </div>
+        {% include "advertising/partials/planner.html" %}
+    </div>
+</section>
+
+{% include "studio/blocks/testimonials.html" %}
+{% include "studio/blocks/partners.html" %}
+{% include "studio/blocks/faq.html" with faq_page="advertise" %}
+
+<section class="container section">
+    <div class="cta-band" data-motion="fade-up">
+        <div>
+            <span class="eyebrow" style="color:var(--gold-400)">{% trans "Talk to us" %}</span>
+            <h2 class="text-on-brand mt-1">{% trans "Not sure which format fits?" %}</h2>
+            <p class="text-on-brand-muted mt-1">{% trans "Tell us who you want to reach and we plan the campaign with you." %}</p>
+        </div>
+        <div class="btn-group">
+            <a class="btn btn-brand" href="mailto:{{ contact_email }}">{{ contact_email }}</a>
+            <a class="btn btn-ghost" href="{% url 'contact' %}">{% trans "Contact form" %}</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/components/planner.js' %}"></script>
+{% endblock %}
