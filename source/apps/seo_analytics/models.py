@@ -91,10 +91,10 @@ class PageVisit(TimeStampedModel):
         "users.User", on_delete=models.SET_NULL, null=True, blank=True, related_name="page_visits", verbose_name="User"
     )
     ip_address = models.GenericIPAddressField(verbose_name="IP Address")
-    url = models.URLField(verbose_name="Visited URL")
+    url = models.URLField(verbose_name="Visited URL", db_index=True)
     referrer = models.URLField(verbose_name="Referrer", blank=True, null=True)
     user_agent = models.TextField(verbose_name="User Agent", blank=True)
-    visit_date = models.DateTimeField(auto_now_add=True, verbose_name="Visit Date")
+    visit_date = models.DateTimeField(auto_now_add=True, verbose_name="Visit Date", db_index=True)
 
     class Meta:
         verbose_name = "Page Visit"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-15 22:37+0200\n"
+"POT-Creation-Date: 2026-09-15 22:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -232,15 +232,15 @@ msgstr ""
 msgid "Other"
 msgstr ""
 
-#: source/apps/newsletter/models.py:16 source/apps/studio/views.py:262
+#: source/apps/newsletter/models.py:16 source/apps/studio/views.py:265
 msgid "German"
 msgstr ""
 
-#: source/apps/newsletter/models.py:16 source/apps/studio/views.py:262
+#: source/apps/newsletter/models.py:16 source/apps/studio/views.py:265
 msgid "Arabic"
 msgstr ""
 
-#: source/apps/newsletter/models.py:16 source/apps/studio/views.py:262
+#: source/apps/newsletter/models.py:16 source/apps/studio/views.py:265
 msgid "English"
 msgstr ""
 
@@ -352,13 +352,13 @@ msgstr ""
 msgid "Unknown action."
 msgstr ""
 
-#: source/apps/studio/collections.py:103 source/apps/studio/views.py:280
-#: source/apps/studio/views.py:688
+#: source/apps/studio/collections.py:103 source/apps/studio/views.py:283
+#: source/apps/studio/views.py:691
 msgid "Something in the form needs attention."
 msgstr ""
 
-#: source/apps/studio/collections.py:111 source/apps/studio/views.py:293
-#: source/apps/studio/views.py:691
+#: source/apps/studio/collections.py:111 source/apps/studio/views.py:296
+#: source/apps/studio/views.py:694
 msgid "Saved."
 msgstr ""
 
@@ -712,7 +712,8 @@ msgstr ""
 msgid "About"
 msgstr ""
 
-#: source/apps/studio/models.py:361
+#: source/apps/studio/models.py:361 templates/studio/analytics.html:134
+#: templates/studio/analytics.html:154
 msgid "Page"
 msgstr ""
 
@@ -744,177 +745,177 @@ msgstr ""
 msgid "Year"
 msgstr ""
 
-#: source/apps/studio/views.py:108
+#: source/apps/studio/views.py:111
 msgid "Hero saved."
 msgstr ""
 
-#: source/apps/studio/views.py:152
+#: source/apps/studio/views.py:155
 msgid "Theme saved."
 msgstr ""
 
-#: source/apps/studio/views.py:174
+#: source/apps/studio/views.py:177
 msgid "Announcement saved."
 msgstr ""
 
-#: source/apps/studio/views.py:224 source/apps/studio/views.py:450
+#: source/apps/studio/views.py:227 source/apps/studio/views.py:453
 msgid "That date could not be read."
 msgstr ""
 
-#: source/apps/studio/views.py:230
+#: source/apps/studio/views.py:233
 msgid "Unknown move."
 msgstr ""
 
-#: source/apps/studio/views.py:233
+#: source/apps/studio/views.py:236
 #, python-format
 msgid "“%(title)s” is now %(status)s."
 msgstr ""
 
-#: source/apps/studio/views.py:275 source/apps/studio/views.py:683
+#: source/apps/studio/views.py:278 source/apps/studio/views.py:686
 #, python-format
 msgid "“%(title)s” was deleted."
 msgstr ""
 
-#: source/apps/studio/views.py:291
+#: source/apps/studio/views.py:294
 msgid "Saved and sent to review."
 msgstr ""
 
-#: source/apps/studio/views.py:340
+#: source/apps/studio/views.py:343
 #, python-format
 msgid "%(count)d file(s) uploaded."
 msgstr ""
 
-#: source/apps/studio/views.py:346
+#: source/apps/studio/views.py:349
 msgid "File deleted."
 msgstr ""
 
-#: source/apps/studio/views.py:356
+#: source/apps/studio/views.py:359
 msgid "Image details saved."
 msgstr ""
 
-#: source/apps/studio/views.py:370
+#: source/apps/studio/views.py:373
 #, python-format
 msgid "%(count)d pages rendered."
 msgstr ""
 
-#: source/apps/studio/views.py:438
+#: source/apps/studio/views.py:441
 msgid "This issue has already gone out. Duplicate it to send another."
 msgstr ""
 
-#: source/apps/studio/views.py:456
+#: source/apps/studio/views.py:459
 msgid "Queued to go out."
-msgstr ""
-
-#: source/apps/studio/views.py:464
-#, python-format
-msgid "Test sent to %(email)s."
 msgstr ""
 
 #: source/apps/studio/views.py:467
 #, python-format
+msgid "Test sent to %(email)s."
+msgstr ""
+
+#: source/apps/studio/views.py:470
+#, python-format
 msgid "Sent to %(count)d subscribers."
 msgstr ""
 
-#: source/apps/studio/views.py:473
+#: source/apps/studio/views.py:476
 msgid "Issue saved."
 msgstr ""
 
-#: source/apps/studio/views.py:540
+#: source/apps/studio/views.py:543
 msgid "Brand"
 msgstr ""
 
-#: source/apps/studio/views.py:541
+#: source/apps/studio/views.py:544
 msgid "Brand, deep"
 msgstr ""
 
-#: source/apps/studio/views.py:542
+#: source/apps/studio/views.py:545
 msgid "Editorial gold"
 msgstr ""
 
-#: source/apps/studio/views.py:543 templates/studio/theme_form.html:23
+#: source/apps/studio/views.py:546 templates/studio/theme_form.html:23
 msgid "Interaction"
 msgstr ""
 
-#: source/apps/studio/views.py:566 templates/studio/base.html:44
+#: source/apps/studio/views.py:569 templates/studio/base.html:48
 #: templates/studio/dashboard.html:42
 msgid "Ad slots"
 msgstr ""
 
-#: source/apps/studio/views.py:567
+#: source/apps/studio/views.py:570
 msgid "Where adverts appear, who booked them and for how long."
 msgstr ""
 
-#: source/apps/studio/views.py:568
+#: source/apps/studio/views.py:571
 msgid "No ad slots yet"
 msgstr ""
 
-#: source/apps/studio/views.py:569
+#: source/apps/studio/views.py:572
 msgid "Add one and it appears wherever its key is placed in the design."
 msgstr ""
 
-#: source/apps/studio/views.py:591 templates/studio/base.html:48
+#: source/apps/studio/views.py:594 templates/studio/base.html:52
 #: templates/studio/blocks/partners.html:6 templates/studio/dashboard.html:47
 msgid "Partners"
 msgstr ""
 
-#: source/apps/studio/views.py:592
+#: source/apps/studio/views.py:595
 msgid "The logos shown across the site."
 msgstr ""
 
-#: source/apps/studio/views.py:593
+#: source/apps/studio/views.py:596
 msgid "No partners yet"
 msgstr ""
 
-#: source/apps/studio/views.py:594
+#: source/apps/studio/views.py:597
 msgid "Upload a logo and it joins the row on the front page."
 msgstr ""
 
-#: source/apps/studio/views.py:605 templates/studio/blocks/testimonials.html:6
+#: source/apps/studio/views.py:608 templates/studio/blocks/testimonials.html:6
 msgid "Voices"
 msgstr ""
 
-#: source/apps/studio/views.py:606
+#: source/apps/studio/views.py:609
 msgid "What readers and partners say about the magazine."
 msgstr ""
 
-#: source/apps/studio/views.py:607
+#: source/apps/studio/views.py:610
 msgid "No voices yet"
 msgstr ""
 
-#: source/apps/studio/views.py:608
+#: source/apps/studio/views.py:611
 msgid "Add a quote and it appears where the design asks for one."
 msgstr ""
 
-#: source/apps/studio/views.py:622 templates/studio/base.html:56
+#: source/apps/studio/views.py:625 templates/studio/base.html:60
 #: templates/studio/dashboard.html:57
 msgid "FAQ"
 msgstr ""
 
-#: source/apps/studio/views.py:623
+#: source/apps/studio/views.py:626
 msgid "The questions each page answers, in the order they are asked."
 msgstr ""
 
-#: source/apps/studio/views.py:624
+#: source/apps/studio/views.py:627
 msgid "No questions yet"
 msgstr ""
 
-#: source/apps/studio/views.py:625
+#: source/apps/studio/views.py:628
 msgid "Add the first one and it appears on the page you choose."
 msgstr ""
 
-#: source/apps/studio/views.py:641 templates/studio/base.html:60
+#: source/apps/studio/views.py:644 templates/studio/base.html:64
 #: templates/studio/dashboard.html:62
 msgid "Timeline"
 msgstr ""
 
-#: source/apps/studio/views.py:642
+#: source/apps/studio/views.py:645
 msgid "The years that shaped the magazine."
 msgstr ""
 
-#: source/apps/studio/views.py:643
+#: source/apps/studio/views.py:646
 msgid "No milestones yet"
 msgstr ""
 
-#: source/apps/studio/views.py:644
+#: source/apps/studio/views.py:647
 msgid "Add a year and it appears on the timeline."
 msgstr ""
 
@@ -1434,7 +1435,7 @@ msgstr ""
 
 #: templates/auth/profile/dashboard.html:26 templates/base/hero/_book.html:11
 #: templates/base/hero/_copy.html:16 templates/content/magazine_list.html:8
-#: templates/pages/home.html:77 templates/studio/base.html:62
+#: templates/pages/home.html:77 templates/studio/base.html:66
 #: templates/studio/dashboard.html:69 templates/studio/magazine_list.html:3
 #: templates/studio/magazine_list.html:9
 #: templates/studio/newsletter_edit.html:67
@@ -1636,7 +1637,7 @@ msgstr ""
 #: templates/base/header/navigation.html:37
 #: templates/content/magazine_detail.html:10
 #: templates/content/magazine_list.html:3
-#: templates/content/magazine_list.html:9 templates/studio/base.html:65
+#: templates/content/magazine_list.html:9 templates/studio/base.html:69
 msgid "Magazines"
 msgstr ""
 
@@ -2438,6 +2439,142 @@ msgstr ""
 msgid "Browse articles"
 msgstr ""
 
+#: templates/studio/analytics.html:3 templates/studio/analytics.html:9
+#: templates/studio/base.html:40
+msgid "Readership"
+msgstr ""
+
+#: templates/studio/analytics.html:8 templates/studio/collection.html:8
+#: templates/studio/magazine_list.html:8
+msgid "Studio"
+msgstr ""
+
+#: templates/studio/analytics.html:10
+msgid "What is actually being read. Addresses are shortened before they are stored, so this counts networks, never people."
+msgstr ""
+
+#: templates/studio/analytics.html:13
+msgid "Period"
+msgstr ""
+
+#: templates/studio/analytics.html:17
+#, python-format
+msgid "%(n)s days"
+msgstr ""
+
+#: templates/studio/analytics.html:24
+msgid "Recording is switched off, so these numbers stand still. Set ANALYTICS_ENABLED=1 to start counting again."
+msgstr ""
+
+#: templates/studio/analytics.html:31 templates/studio/analytics.html:78
+msgid "Page views"
+msgstr ""
+
+#: templates/studio/analytics.html:35
+msgid "Networks"
+msgstr ""
+
+#: templates/studio/analytics.html:39
+msgid "Signed in"
+msgstr ""
+
+#: templates/studio/analytics.html:43
+msgid "Busiest day"
+msgstr ""
+
+#: templates/studio/analytics.html:45 templates/studio/analytics.html:63
+#, python-format
+msgid "%(n)s view"
+msgid_plural "%(n)s views"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/studio/analytics.html:51
+msgid "Page views a day"
+msgstr ""
+
+#: templates/studio/analytics.html:55
+#, python-format
+msgid "Page views a day, %(n)s in total"
+msgstr ""
+
+#: templates/studio/analytics.html:69
+#, python-format
+msgid "peak %(n)s"
+msgstr ""
+
+#: templates/studio/analytics.html:76
+msgid "Show the numbers"
+msgstr ""
+
+#: templates/studio/analytics.html:78
+msgid "Day"
+msgstr ""
+
+#: templates/studio/analytics.html:86
+msgid "Nothing recorded yet"
+msgstr ""
+
+#: templates/studio/analytics.html:87
+msgid "Visits appear here as readers arrive. Staff, crawlers and anyone asking not to be tracked are never counted."
+msgstr ""
+
+#: templates/studio/analytics.html:95
+msgid "Most read"
+msgstr ""
+
+#: templates/studio/analytics.html:108
+msgid "No pages read in this period."
+msgstr ""
+
+#: templates/studio/analytics.html:112
+msgid "Where readers came from"
+msgstr ""
+
+#: templates/studio/analytics.html:125
+msgid "Nobody arrived from another site in this period — or referrers were not sent."
+msgstr ""
+
+#: templates/studio/analytics.html:132
+msgid "Search rankings"
+msgstr ""
+
+#: templates/studio/analytics.html:134
+msgid "Keyword"
+msgstr ""
+
+#: templates/studio/analytics.html:134
+msgid "Engine"
+msgstr ""
+
+#: templates/studio/analytics.html:134
+msgid "Rank"
+msgstr ""
+
+#: templates/studio/analytics.html:134
+msgid "Checked"
+msgstr ""
+
+#: templates/studio/analytics.html:152
+msgid "Page metadata"
+msgstr ""
+
+#: templates/studio/analytics.html:154
+msgid "Meta title"
+msgstr ""
+
+#: templates/studio/analytics.html:154
+msgid "Indexed"
+msgstr ""
+
+#: templates/studio/analytics.html:160
+msgid "No"
+msgstr ""
+
+#: templates/studio/analytics.html:160
+msgid "Yes"
+msgstr ""
+
 #: templates/studio/announcements.html:9
 msgid "The line above the navbar"
 msgstr ""
@@ -2612,16 +2749,16 @@ msgstr ""
 msgid "Write"
 msgstr ""
 
-#: templates/studio/base.html:40 templates/studio/dashboard.html:37
+#: templates/studio/base.html:44 templates/studio/dashboard.html:37
 #: templates/studio/media.html:9
 msgid "Media"
 msgstr ""
 
-#: templates/studio/base.html:52 templates/studio/dashboard.html:52
+#: templates/studio/base.html:56 templates/studio/dashboard.html:52
 msgid "Testimonials"
 msgstr ""
 
-#: templates/studio/base.html:69
+#: templates/studio/base.html:73
 msgid "Atlas"
 msgstr ""
 
@@ -2652,10 +2789,6 @@ msgstr ""
 #: templates/studio/blocks/timeline.html:6
 #, python-format
 msgid "%(years)s years in Berlin"
-msgstr ""
-
-#: templates/studio/collection.html:8 templates/studio/magazine_list.html:8
-msgid "Studio"
 msgstr ""
 
 #: templates/studio/collection.html:12 templates/studio/collection.html:66

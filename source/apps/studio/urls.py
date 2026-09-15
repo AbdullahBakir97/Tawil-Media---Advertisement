@@ -19,6 +19,7 @@ urlpatterns = [
     path("timeline/", views.MilestoneListView.as_view(), name="timeline"),
     path("editions/", views.MagazineEditorView.as_view(), name="magazines"),
     path("editions/<int:pk>/", views.MagazineEditorView.as_view(), name="magazine_edit"),
+    path("analytics/", views.AnalyticsView.as_view(), name="analytics"),
     path("media/", views.MediaLibraryView.as_view(), name="media"),
     path("desk/", views.DeskView.as_view(), name="desk"),
     path("articles/new/", views.ArticleEditorView.as_view(), name="article_new"),

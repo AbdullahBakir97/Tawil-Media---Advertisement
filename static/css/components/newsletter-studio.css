@@ -189,3 +189,73 @@
 .edition-card-blank { font-size: var(--text-sm); color: var(--text-tertiary); }
 .edition-card-body { display: grid; gap: 0.15rem; min-width: 0; }
 .edition-card-body strong { overflow-wrap: anywhere; }
+
+/* ---------- Readership ----------
+   One data hue, #0284c7, validated against both the light panel (#ffffff) and
+   the dark one (#112036): inside the lightness band and over 3:1 on each. It is
+   the same step in both modes because that step passes in both, not because
+   dark mode flips the light one. */
+.studio-analytics { --data: #0284c7; }
+.range-tabs { display: flex; gap: 0.25rem; }
+.range-tab {
+  padding: 0.35rem 0.7rem; border-radius: var(--radius-md);
+  border: 1px solid var(--border-primary); background: var(--bg-secondary);
+  font-size: var(--text-sm); color: var(--text-secondary);
+}
+.range-tab:hover { border-color: var(--sky-400); }
+.range-tab.is-active { background: var(--bg-brand); color: #fff; border-color: transparent; }
+
+.stat-row { display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); margin-bottom: 1rem; }
+.stat-tile {
+  display: grid; gap: 0.2rem; padding: 1rem 1.15rem;
+  border: 1px solid var(--border-primary); border-radius: var(--radius-xl);
+  background: var(--bg-secondary);
+}
+.stat-label { font-size: 0.6rem; letter-spacing: 0.11em; text-transform: uppercase; color: var(--text-tertiary); }
+/* The figure wears text ink, never the data colour. */
+.stat-figure {
+  font-family: var(--font-display); font-size: 2rem; line-height: 1;
+  color: var(--text-primary); font-variant-numeric: tabular-nums;
+}
+.stat-figure--sm { font-size: 1.35rem; }
+.stat-note { font-size: var(--text-sm); color: var(--text-tertiary); }
+
+.chart-panel { margin-bottom: 1rem; }
+.chart-figure { margin: 0; }
+/* Uniform scale: no preserveAspectRatio="none", so strokes stay 2px and dots
+   stay round at every width. */
+.traffic-chart { display: block; width: 100%; height: auto; overflow: visible; }
+.traffic-grid { stroke: var(--border-primary); stroke-width: 1; }
+.traffic-tick { font-size: 9px; fill: var(--text-tertiary); font-variant-numeric: tabular-nums; }
+.traffic-peak-dot { fill: #0284c7; stroke: var(--bg-secondary); stroke-width: 2; }
+.traffic-peak-label { font-size: 11px; font-weight: 600; fill: var(--text-primary); }
+.traffic-area { fill: #0284c7; fill-opacity: 0.1; stroke: none; }          /* a wash, not a block */
+.traffic-line { fill: none; stroke: #0284c7; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.traffic-dot { fill: #0284c7; stroke: var(--bg-secondary); stroke-width: 2; opacity: 0; }  /* surface ring */
+.traffic-hit { fill: transparent; }                                        /* hit target > mark */
+.traffic-point:hover .traffic-dot, .traffic-point:focus-within .traffic-dot { opacity: 1; }
+.chart-axis {
+  display: flex; justify-content: space-between; margin-top: 0.4rem;
+  font-size: var(--text-sm); color: var(--text-tertiary); font-variant-numeric: tabular-nums;
+}
+.chart-peak { color: var(--text-secondary); }
+.chart-table { margin-top: 0.85rem; }
+.chart-table summary { font-size: var(--text-sm); color: var(--link); cursor: pointer; }
+.chart-table table, .studio-table { width: 100%; border-collapse: collapse; margin-top: 0.6rem; font-size: var(--text-sm); }
+.chart-table th, .chart-table td, .studio-table th, .studio-table td {
+  text-align: start; padding: 0.4rem 0.5rem; border-bottom: 1px solid var(--border-primary);
+}
+.chart-table th, .studio-table th { font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-tertiary); }
+.chart-table td:last-child, .studio-table td:last-child { font-variant-numeric: tabular-nums; }
+
+.rank-list { display: grid; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
+.rank-row { display: grid; grid-template-columns: minmax(0, 1fr) 6rem auto; gap: 0.6rem; align-items: center; }
+.rank-label { min-width: 0; font-size: var(--text-sm); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rank-track { height: 10px; border-radius: 2px; background: var(--bg-primary); overflow: hidden; }
+/* Bar: capped thickness, 4px rounded data-end, square at the baseline. */
+.rank-bar {
+  display: block; height: 100%; min-width: 3px; background: #0284c7;
+  border-radius: 0 4px 4px 0;
+}
+[dir="rtl"] .rank-bar { border-radius: 4px 0 0 4px; }
+.rank-value { font-size: var(--text-sm); color: var(--text-secondary); font-variant-numeric: tabular-nums; }

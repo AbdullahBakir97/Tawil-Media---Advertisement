@@ -1,6 +1,7 @@
 """Studio: the in-site editor for staff. Every page is server-rendered; forms post
 with HTMX and swap back the updated panel and preview."""
 
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.core.paginator import Paginator
@@ -21,6 +22,8 @@ from source.apps.events.models import Event
 from source.apps.newsletter.composer import render_issue
 from source.apps.newsletter.models import LANGUAGES, Issue, IssueBlock, NewsletterSubscriber
 from source.apps.newsletter.sending import send_issue, send_test
+from source.apps.seo_analytics import reporting
+from source.apps.seo_analytics.models import SearchRanking, SEOPageMeta
 
 from .collections import CollectionView
 from .forms import (
@@ -690,3 +693,36 @@ class MagazineEditorView(StaffOnly, View):
         magazine = form.save()
         messages.success(request, _("Saved."))
         return redirect("studio:magazine_edit", pk=magazine.pk)
+
+
+class AnalyticsView(StaffOnly, View):
+    """What the site is actually read — and what the search engines make of it.
+
+    Everything here is read from the visits the middleware records; nothing is
+    typed in, so the panel cannot drift away from the truth.
+    """
+
+    def get(self, request):
+        try:
+            days = int(request.GET.get("days", reporting.DEFAULT_WINDOW))
+        except (TypeError, ValueError):
+            days = reporting.DEFAULT_WINDOW
+        if days not in reporting.WINDOWS:
+            days = reporting.DEFAULT_WINDOW
+
+        series = reporting.daily_series(days)
+        return render(request, "studio/analytics.html", {
+            "days": days,
+            "windows": reporting.WINDOWS,
+            "series": series,
+            "first_day": series[0]["date"] if series else None,
+            "last_day": series[-1]["date"] if series else None,
+            "chart": reporting.chart_geometry(series),
+            "totals": reporting.totals(days),
+            "busiest": reporting.busiest_day(series),
+            "top_pages": reporting.top_pages(days),
+            "referrers": reporting.top_referrers(days),
+            "rankings": SearchRanking.objects.all()[:12],
+            "page_meta": SEOPageMeta.objects.all()[:12],
+            "recording": getattr(settings, "ANALYTICS_ENABLED", True),
+        })
