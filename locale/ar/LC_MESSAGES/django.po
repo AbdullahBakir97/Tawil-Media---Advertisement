@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-15 12:42+0200\n"
+"POT-Creation-Date: 2026-09-15 13:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
-#: project/settings.py:57
+#: project/settings.py:58
 msgid "Founder & Creative Director"
 msgstr "المؤسس والمدير الإبداعي"
 
-#: project/settings.py:60
+#: project/settings.py:61
 msgid ""
 "Leading innovation in media and advertising with over a decade of industry "
 "expertise. Committed to delivering excellence and creative solutions."
@@ -340,6 +340,8 @@ msgid "unread"
 msgstr "غير مقروء"
 
 #: templates/auth/profile/dashboard.html:26
+#: templates/base/hero/front-page.html:26
+#: templates/base/hero/front-page.html:38
 #: templates/content/magazine_list.html:8 templates/pages/home.html:75
 msgid "Editions"
 msgstr "الإصدارات"
@@ -348,7 +350,8 @@ msgstr "الإصدارات"
 msgid "Read the latest"
 msgstr "اقرأ الأحدث"
 
-#: templates/auth/profile/dashboard.html:28 templates/pages/home.html:46
+#: templates/auth/profile/dashboard.html:28
+#: templates/base/hero/front-page.html:17 templates/pages/home.html:46
 msgid "Almadina magazine"
 msgstr "مجلة المدينة"
 
@@ -731,6 +734,66 @@ msgstr "تسجيل الخروج"
 msgid "Sign up"
 msgstr "إنشاء حساب"
 
+#: templates/base/hero/front-page.html:10
+msgid "Berlin"
+msgstr "برلين"
+
+#: templates/base/hero/front-page.html:12
+msgid "Germany's first Arabic magazine"
+msgstr "أول مجلة عربية في ألمانيا"
+
+#: templates/base/hero/front-page.html:17
+#: templates/base/hero/front-page.html:41
+msgid "Out now"
+msgstr "صدر الآن"
+
+#: templates/base/hero/front-page.html:18
+msgid "Berlin's Arab voices, <em>in print</em> and on screen"
+msgstr "أصوات برلين العربية، <em>في المطبوع</em> وعلى الشاشة"
+
+#: templates/base/hero/front-page.html:19
+#, python-format
+#| msgid ""
+#| "The first Arabic magazine in Germany: culture, business and community, in "
+#| "print and online."
+msgid ""
+"Germany's first Arabic magazine, %(years)s years on: culture, business and "
+"community for half a million readers, in print, online and on social."
+msgstr ""
+"أول مجلة عربية في ألمانيا منذ %(years)s عاماً: ثقافة واقتصاد ومجتمع لنصف "
+"مليون قارئ، ورقياً وعبر الإنترنت ووسائل التواصل."
+
+#: templates/base/hero/front-page.html:21
+#| msgid "Next edition"
+msgid "Read the edition"
+msgstr "اقرأ العدد"
+
+#: templates/base/hero/front-page.html:21 templates/pages/home.html:48
+msgid "Browse editions"
+msgstr "تصفّح الإصدارات"
+
+#: templates/base/hero/front-page.html:22 templates/pages/home.html:105
+msgid "Advertise with us"
+msgstr "أعلن معنا"
+
+#: templates/base/hero/front-page.html:25
+msgid "Readers a month"
+msgstr "قارئ شهرياً"
+
+#: templates/base/hero/front-page.html:27
+#| msgid "Years experience"
+msgid "Years in Berlin"
+msgstr "عاماً في برلين"
+
+#: templates/base/hero/front-page.html:43 templates/pages/home.html:78
+msgid "All editions"
+msgstr "كل الإصدارات"
+
+#: templates/base/hero/front-page.html:50
+#| msgid "Latest stories"
+msgid "Latest"
+msgstr "الأحدث"
+
 #: templates/content/article_detail.html:15
 msgid "Draft"
 msgstr "مسودة"
@@ -945,10 +1008,6 @@ msgid ""
 "print and online."
 msgstr "أول مجلة عربية في ألمانيا: ثقافة وأعمال ومجتمع، ورقيًا وعلى الإنترنت."
 
-#: templates/pages/home.html:48
-msgid "Browse editions"
-msgstr "تصفّح الإصدارات"
-
 #: templates/pages/home.html:53
 msgid ""
 "Reach Arabic-speaking readers across Germany with print, digital and social "
@@ -988,17 +1047,9 @@ msgstr "سنة من الأرشيف"
 msgid "Recent magazines"
 msgstr "أحدث المجلات"
 
-#: templates/pages/home.html:78
-msgid "All editions"
-msgstr "كل الإصدارات"
-
 #: templates/pages/home.html:91
 msgid "Browse by category"
 msgstr "تصفّح حسب التصنيف"
-
-#: templates/pages/home.html:105
-msgid "Advertise with us"
-msgstr "أعلن معنا"
 
 #: templates/pages/home.html:106
 msgid "Put your brand in front of the community."

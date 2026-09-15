@@ -39,6 +39,7 @@ CSRF_TRUSTED_ORIGINS = env_list("CSRF_TRUSTED_ORIGINS")
 INTERNAL_IPS = ["127.0.0.1"]
 
 SITE_NAME = "Tawil Media"
+FOUNDED_YEAR = int(os.environ.get("FOUNDED_YEAR", "2006"))
 
 # Shown on the contact and advertise pages.
 CONTACT_DETAILS = {

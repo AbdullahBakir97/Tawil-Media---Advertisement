@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-15 12:42+0200\n"
+"POT-Creation-Date: 2026-09-15 13:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: project/settings.py:57
+#: project/settings.py:58
 msgid "Founder & Creative Director"
 msgstr "Gründer & Kreativdirektor"
 
-#: project/settings.py:60
+#: project/settings.py:61
 msgid ""
 "Leading innovation in media and advertising with over a decade of industry "
 "expertise. Committed to delivering excellence and creative solutions."
@@ -337,6 +337,8 @@ msgid "unread"
 msgstr "ungelesen"
 
 #: templates/auth/profile/dashboard.html:26
+#: templates/base/hero/front-page.html:26
+#: templates/base/hero/front-page.html:38
 #: templates/content/magazine_list.html:8 templates/pages/home.html:75
 msgid "Editions"
 msgstr "Ausgaben"
@@ -345,7 +347,8 @@ msgstr "Ausgaben"
 msgid "Read the latest"
 msgstr "Die neueste lesen"
 
-#: templates/auth/profile/dashboard.html:28 templates/pages/home.html:46
+#: templates/auth/profile/dashboard.html:28
+#: templates/base/hero/front-page.html:17 templates/pages/home.html:46
 msgid "Almadina magazine"
 msgstr "Almadina-Magazin"
 
@@ -730,6 +733,67 @@ msgstr "Abmelden"
 msgid "Sign up"
 msgstr "Registrieren"
 
+#: templates/base/hero/front-page.html:10
+msgid "Berlin"
+msgstr "Berlin"
+
+#: templates/base/hero/front-page.html:12
+msgid "Germany's first Arabic magazine"
+msgstr "Das erste arabische Magazin in Deutschland"
+
+#: templates/base/hero/front-page.html:17
+#: templates/base/hero/front-page.html:41
+msgid "Out now"
+msgstr "Jetzt erhältlich"
+
+#: templates/base/hero/front-page.html:18
+msgid "Berlin's Arab voices, <em>in print</em> and on screen"
+msgstr "Berlins arabische Stimmen, <em>gedruckt</em> und digital"
+
+#: templates/base/hero/front-page.html:19
+#, python-format
+#| msgid ""
+#| "The first Arabic magazine in Germany: culture, business and community, in "
+#| "print and online."
+msgid ""
+"Germany's first Arabic magazine, %(years)s years on: culture, business and "
+"community for half a million readers, in print, online and on social."
+msgstr ""
+"Das erste arabische Magazin in Deutschland, seit %(years)s Jahren: Kultur, "
+"Wirtschaft und Community für eine halbe Million Leserinnen und Leser – "
+"gedruckt, online und in den sozialen Medien."
+
+#: templates/base/hero/front-page.html:21
+#| msgid "Next edition"
+msgid "Read the edition"
+msgstr "Ausgabe lesen"
+
+#: templates/base/hero/front-page.html:21 templates/pages/home.html:48
+msgid "Browse editions"
+msgstr "Ausgaben ansehen"
+
+#: templates/base/hero/front-page.html:22 templates/pages/home.html:105
+msgid "Advertise with us"
+msgstr "Werben Sie bei uns"
+
+#: templates/base/hero/front-page.html:25
+msgid "Readers a month"
+msgstr "Leser pro Monat"
+
+#: templates/base/hero/front-page.html:27
+#| msgid "Years experience"
+msgid "Years in Berlin"
+msgstr "Jahre in Berlin"
+
+#: templates/base/hero/front-page.html:43 templates/pages/home.html:78
+msgid "All editions"
+msgstr "Alle Ausgaben"
+
+#: templates/base/hero/front-page.html:50
+#| msgid "Latest stories"
+msgid "Latest"
+msgstr "Aktuell"
+
 #: templates/content/article_detail.html:15
 msgid "Draft"
 msgstr "Entwurf"
@@ -945,10 +1009,6 @@ msgstr ""
 "Das erste arabische Magazin in Deutschland: Kultur, Wirtschaft und "
 "Community, gedruckt und online."
 
-#: templates/pages/home.html:48
-msgid "Browse editions"
-msgstr "Ausgaben ansehen"
-
 #: templates/pages/home.html:53
 msgid ""
 "Reach Arabic-speaking readers across Germany with print, digital and social "
@@ -989,17 +1049,9 @@ msgstr "Jahre Archiv"
 msgid "Recent magazines"
 msgstr "Aktuelle Magazine"
 
-#: templates/pages/home.html:78
-msgid "All editions"
-msgstr "Alle Ausgaben"
-
 #: templates/pages/home.html:91
 msgid "Browse by category"
 msgstr "Nach Kategorie stöbern"
-
-#: templates/pages/home.html:105
-msgid "Advertise with us"
-msgstr "Werben Sie bei uns"
 
 #: templates/pages/home.html:106
 msgid "Put your brand in front of the community."

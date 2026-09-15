@@ -1,8 +1,15 @@
 {% load static i18n %}
 <section class="atlas-section" id="heroes">
-  <h2>Home hero · five proposals</h2>
-  <p class="atlas-intro">Each block below is a working hero built with the system's own tokens, fonts and motion, at real size. Hover, resize, switch to Arabic and to dark mode before choosing. Any of them can be combined: for example, A's cover with D's masthead, or B's book with E's glass card.</p>
+  <h2>Home hero</h2>
+  <p class="atlas-intro">The chosen hero is the mix below, and it is the one the home page ships. The five single-idea proposals it was mixed from follow, kept for reference. Everything is built with the system's own tokens, fonts and motion, at real size. Hover, resize, switch to Arabic and to dark mode.</p>
 
+  <h3 class="atlas-sub">F · Front page <code>the mix: D masthead · A drifting cover + E grain · B glass text, stats and 3D book · C fanned editions · A/D story marquee</code></h3>
+  <p class="text-sm text-secondary mb-4 max-w-measure">Masthead with dateline and edition, the cover photography drifting behind a grain, the headline block on glass with stats, the latest edition as a book that follows the pointer with the two previous editions fanned behind it, and the latest stories scrolling along the bottom. Live data: editions and stories come from the database.</p>
+  <div class="hero-demo" style="min-height:0">
+    {% include "base/hero/front-page.html" with featured_articles=atlas_articles %}
+  </div>
+
+  <h3 class="atlas-sub mt-14">The five ingredients</h3>
   {% with cover=atlas_magazines.0 %}
 
   {# ---------- A · Cover story ---------- #}
