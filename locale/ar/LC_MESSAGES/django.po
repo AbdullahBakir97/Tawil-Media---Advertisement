@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-15 22:50+0200\n"
+"POT-Creation-Date: 2026-09-15 23:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -80,6 +80,119 @@ msgstr "لكل إرسال"
 msgid "per package"
 msgstr "لكل باقة"
 
+#: source/apps/advertisements/models.py:176
+msgid "Channel"
+msgstr "القناة"
+
+#: source/apps/advertisements/models.py:177 source/apps/content/models.py:276
+#: templates/studio/theme_form.html:19
+msgid "Slug"
+msgstr "المعرّف"
+
+#: source/apps/advertisements/models.py:178
+#| msgid "Role (German)"
+msgid "Name (German)"
+msgstr "الاسم (بالألمانية)"
+
+#: source/apps/advertisements/models.py:179
+#| msgid "Role (Arabic)"
+msgid "Name (Arabic)"
+msgstr "الاسم (بالعربية)"
+
+#: source/apps/advertisements/models.py:180
+#| msgid "Role (English)"
+msgid "Name (English)"
+msgstr "الاسم (بالإنجليزية)"
+
+#: source/apps/advertisements/models.py:181
+#| msgid "Question (German)"
+msgid "Description (German)"
+msgstr "الوصف (بالألمانية)"
+
+#: source/apps/advertisements/models.py:182
+#| msgid "Question (Arabic)"
+msgid "Description (Arabic)"
+msgstr "الوصف (بالعربية)"
+
+#: source/apps/advertisements/models.py:183
+#| msgid "Question (English)"
+msgid "Description (English)"
+msgstr "الوصف (بالإنجليزية)"
+
+#: source/apps/advertisements/models.py:185
+#| msgid "Section"
+msgid "Specification"
+msgstr "المواصفات"
+
+#: source/apps/advertisements/models.py:186
+msgid "Width"
+msgstr "العرض"
+
+#: source/apps/advertisements/models.py:187
+#| msgid "Weight"
+msgid "Height"
+msgstr "الارتفاع"
+
+#: source/apps/advertisements/models.py:189 templates/base/hero/_facts.html:9
+#: templates/studio/partials/hero_editor.html:51
+msgid "Price"
+msgstr "السعر"
+
+#: source/apps/advertisements/models.py:190
+msgid "Billed"
+msgstr "طريقة الاحتساب"
+
+#: source/apps/advertisements/models.py:191
+msgid "Highlight on the rate card"
+msgstr "إبراز في قائمة الأسعار"
+
+#: source/apps/advertisements/models.py:192
+#: source/apps/advertisements/models.py:236 source/apps/studio/models.py:200
+#: source/apps/studio/models.py:226 source/apps/studio/models.py:340
+#: source/apps/studio/models.py:368 source/apps/studio/models.py:396
+msgid "Shown on the site"
+msgstr "ظاهر على الموقع"
+
+#: source/apps/advertisements/models.py:193
+#: source/apps/newsletter/models.py:99 source/apps/studio/models.py:227
+#: source/apps/studio/models.py:310 source/apps/studio/models.py:341
+#: source/apps/studio/models.py:369 templates/studio/announcements.html:27
+msgid "Order"
+msgstr "الترتيب"
+
+#: source/apps/advertisements/models.py:233 source/apps/content/models.py:275
+msgid "Title"
+msgstr "العنوان"
+
+#: source/apps/advertisements/models.py:234 source/apps/studio/models.py:306
+msgid "File"
+msgstr "الملف"
+
+#: source/apps/advertisements/models.py:235 source/apps/studio/models.py:389
+msgid "Year"
+msgstr "السنة"
+
+#: source/apps/advertisements/models.py:255
+msgid "New"
+msgstr "جديدة"
+
+#: source/apps/advertisements/models.py:256
+msgid "Contacted"
+msgstr "جرى التواصل"
+
+#: source/apps/advertisements/models.py:257
+msgid "Quoted"
+msgstr "عرض سعر"
+
+#: source/apps/advertisements/models.py:258
+#: templates/studio/campaign_requests.html:29
+msgid "Won"
+msgstr "مكسوبة"
+
+#: source/apps/advertisements/models.py:259
+msgid "Lost"
+msgstr "خاسرة"
+
 #: source/apps/advertisements/views.py:85
 #, python-format
 msgid "New campaign request: %(company)s"
@@ -96,14 +209,6 @@ msgstr "فيديو"
 #: source/apps/content/models.py:99
 msgid "Document"
 msgstr "مستند"
-
-#: source/apps/content/models.py:275
-msgid "Title"
-msgstr "العنوان"
-
-#: source/apps/content/models.py:276 templates/studio/theme_form.html:19
-msgid "Slug"
-msgstr "المعرّف"
 
 #: source/apps/content/models.py:277 templates/studio/base.html:21
 msgid "Content"
@@ -196,7 +301,7 @@ msgid "Published"
 msgstr "منشور"
 
 #: source/apps/content/workflow.py:50 source/apps/newsletter/models.py:55
-#: source/apps/users/admin.py:26
+#: source/apps/users/admin.py:26 templates/studio/campaign_requests.html:80
 msgid "Status"
 msgstr "الحالة"
 
@@ -237,15 +342,15 @@ msgstr "لقاء الجالية"
 msgid "Other"
 msgstr "أخرى"
 
-#: source/apps/newsletter/models.py:16 source/apps/studio/views.py:265
+#: source/apps/newsletter/models.py:16 source/apps/studio/views.py:269
 msgid "German"
 msgstr "الألمانية"
 
-#: source/apps/newsletter/models.py:16 source/apps/studio/views.py:265
+#: source/apps/newsletter/models.py:16 source/apps/studio/views.py:269
 msgid "Arabic"
 msgstr "العربية"
 
-#: source/apps/newsletter/models.py:16 source/apps/studio/views.py:265
+#: source/apps/newsletter/models.py:16 source/apps/studio/views.py:269
 msgid "English"
 msgstr "الإنجليزية"
 
@@ -320,7 +425,7 @@ msgid "Advertisement"
 msgstr "إعلان"
 
 #: source/apps/newsletter/models.py:94 source/apps/newsletter/models.py:108
-#: source/apps/studio/forms.py:221 templates/studio/newsletter_edit.html:117
+#: source/apps/studio/forms.py:222 templates/studio/newsletter_edit.html:117
 msgid "Text"
 msgstr "نص"
 
@@ -328,12 +433,6 @@ msgstr "نص"
 #: templates/studio/announcements.html:20
 msgid "Kind"
 msgstr "النوع"
-
-#: source/apps/newsletter/models.py:99 source/apps/studio/models.py:227
-#: source/apps/studio/models.py:310 source/apps/studio/models.py:341
-#: source/apps/studio/models.py:369 templates/studio/announcements.html:27
-msgid "Order"
-msgstr "الترتيب"
 
 #: source/apps/newsletter/models.py:106
 #: templates/studio/newsletter_edit.html:116
@@ -357,13 +456,13 @@ msgstr "الكتل"
 msgid "Unknown action."
 msgstr "إجراء غير معروف."
 
-#: source/apps/studio/collections.py:103 source/apps/studio/views.py:283
-#: source/apps/studio/views.py:691
+#: source/apps/studio/collections.py:103 source/apps/studio/views.py:287
+#: source/apps/studio/views.py:695
 msgid "Something in the form needs attention."
 msgstr "هناك ما يحتاج إلى تصحيح في النموذج."
 
-#: source/apps/studio/collections.py:111 source/apps/studio/views.py:296
-#: source/apps/studio/views.py:694
+#: source/apps/studio/collections.py:111 source/apps/studio/views.py:300
+#: source/apps/studio/views.py:698
 msgid "Saved."
 msgstr "حُفظ."
 
@@ -372,65 +471,77 @@ msgstr "حُفظ."
 msgid "“%(label)s” was deleted."
 msgstr "حُذف «%(label)s»."
 
-#: source/apps/studio/forms.py:112
+#: source/apps/studio/forms.py:113
 msgid "Files"
 msgstr "الملفات"
 
-#: source/apps/studio/forms.py:144
+#: source/apps/studio/forms.py:145
 msgid "What is in the picture?"
 msgstr "ما الذي تظهره الصورة؟"
 
-#: source/apps/studio/forms.py:145
+#: source/apps/studio/forms.py:146
 msgid "Shown under the image"
 msgstr "يظهر أسفل الصورة"
 
-#: source/apps/studio/forms.py:146
+#: source/apps/studio/forms.py:147
 msgid "Photographer or agency"
 msgstr "المصوّر أو الوكالة"
 
-#: source/apps/studio/forms.py:172
+#: source/apps/studio/forms.py:173
 msgid "What the inbox shows first"
 msgstr "ما يظهر أولاً في صندوق الوارد"
 
-#: source/apps/studio/forms.py:173
+#: source/apps/studio/forms.py:174
 msgid "The line after the subject"
 msgstr "السطر الذي يلي الموضوع"
 
-#: source/apps/studio/forms.py:174
+#: source/apps/studio/forms.py:175
 msgid "A few lines from the desk"
 msgstr "بضعة أسطر من هيئة التحرير"
 
-#: source/apps/studio/forms.py:218 source/apps/studio/forms.py:327
+#: source/apps/studio/forms.py:219 source/apps/studio/forms.py:328
 msgid "Leave empty and one is made from the title."
 msgstr "اتركه فارغاً ويُشتق من العنوان."
 
-#: source/apps/studio/forms.py:219
+#: source/apps/studio/forms.py:220
 msgid "What the desk calls this piece"
 msgstr "ما تسمّي به هيئة التحرير هذه المادة"
 
-#: source/apps/studio/forms.py:232
+#: source/apps/studio/forms.py:233
 msgid "No byline yet"
 msgstr "لا توقيع بعد"
 
-#: source/apps/studio/forms.py:237
+#: source/apps/studio/forms.py:238
 msgid "Say who paid for it — a sponsored piece must name its sponsor."
 msgstr "اذكر الجهة الممولة – المادة المموّلة يجب أن تسمّي راعيها."
 
-#: source/apps/studio/forms.py:254
+#: source/apps/studio/forms.py:255
 msgid "Where it renders, e.g. home-leaderboard."
 msgstr "أين يظهر، مثل home-leaderboard."
 
-#: source/apps/studio/forms.py:255
+#: source/apps/studio/forms.py:256
 msgid "Describes the advert for anyone who cannot see it."
 msgstr "يصف الإعلان لمن لا يستطيع رؤيته."
 
-#: source/apps/studio/forms.py:261
+#: source/apps/studio/forms.py:262
 msgid "The booking has to end after it starts."
 msgstr "يجب أن ينتهي الحجز بعد بدايته."
 
-#: source/apps/studio/forms.py:335
+#: source/apps/studio/forms.py:336
 msgid "No cover yet"
 msgstr "لا غلاف بعد"
+
+#: source/apps/studio/forms.py:360
+msgid "Leave empty and one is made from the German name."
+msgstr "اتركه فارغاً ويُشتق من الاسم الألماني."
+
+#: source/apps/studio/forms.py:366
+msgid "Give both measurements or neither — a size preview needs the pair."
+msgstr "أدخل القياسين معاً أو لا شيء – معاينة المقاس تحتاجهما."
+
+#: source/apps/studio/forms.py:386
+msgid "Shown beside the title, so a partner knows how current it is."
+msgstr "يظهر بجانب العنوان ليعرف الشريك مدى حداثته."
 
 #: source/apps/studio/models.py:36
 msgid "Highlight colour, e.g. gold."
@@ -503,6 +614,7 @@ msgstr "تحريري"
 #: source/apps/studio/models.py:151 source/apps/studio/models.py:359
 #: templates/advertising/hub.html:3 templates/advertising/hub.html:10
 #: templates/auth/profile/dashboard.html:31 templates/pages/home.html:54
+#: templates/studio/campaign_requests.html:8
 msgid "Advertising"
 msgstr "الإعلانات"
 
@@ -535,12 +647,6 @@ msgstr "الرابط"
 #: templates/studio/partials/media_details.html:26
 msgid "Alt text"
 msgstr "النص البديل"
-
-#: source/apps/studio/models.py:200 source/apps/studio/models.py:226
-#: source/apps/studio/models.py:340 source/apps/studio/models.py:368
-#: source/apps/studio/models.py:396
-msgid "Shown on the site"
-msgstr "ظاهر على الموقع"
 
 #: source/apps/studio/models.py:201
 msgid "Runs from"
@@ -660,10 +766,6 @@ msgstr "التسمية"
 msgid "Shown on"
 msgstr "يُستخدم على"
 
-#: source/apps/studio/models.py:306
-msgid "File"
-msgstr "الملف"
-
 #: source/apps/studio/models.py:307
 #: templates/content/partials/preview_banner.html:9
 #: templates/studio/article_edit.html:19
@@ -718,8 +820,8 @@ msgstr "المساعدة"
 msgid "About"
 msgstr "من نحن"
 
-#: source/apps/studio/models.py:361 templates/studio/analytics.html:134
-#: templates/studio/analytics.html:154
+#: source/apps/studio/models.py:361 templates/studio/analytics.html:147
+#: templates/studio/analytics.html:167
 msgid "Page"
 msgstr "الصفحة"
 
@@ -747,183 +849,233 @@ msgstr "الإجابة (بالعربية)"
 msgid "Answer (English)"
 msgstr "الإجابة (بالإنجليزية)"
 
-#: source/apps/studio/models.py:389
-msgid "Year"
-msgstr "السنة"
-
-#: source/apps/studio/views.py:111
+#: source/apps/studio/views.py:115
 msgid "Hero saved."
 msgstr "تم حفظ الواجهة."
 
-#: source/apps/studio/views.py:155
+#: source/apps/studio/views.py:159
 msgid "Theme saved."
 msgstr "تم حفظ النمط."
 
-#: source/apps/studio/views.py:177
+#: source/apps/studio/views.py:181
 msgid "Announcement saved."
 msgstr "تم حفظ الإعلان."
 
-#: source/apps/studio/views.py:227 source/apps/studio/views.py:453
+#: source/apps/studio/views.py:231 source/apps/studio/views.py:457
 msgid "That date could not be read."
 msgstr "تعذّرت قراءة هذا التاريخ."
 
-#: source/apps/studio/views.py:233
+#: source/apps/studio/views.py:237
 msgid "Unknown move."
 msgstr "خطوة غير معروفة."
 
-#: source/apps/studio/views.py:236
+#: source/apps/studio/views.py:240
 #, python-format
 msgid "“%(title)s” is now %(status)s."
 msgstr "«%(title)s» الآن %(status)s."
 
-#: source/apps/studio/views.py:278 source/apps/studio/views.py:686
+#: source/apps/studio/views.py:282 source/apps/studio/views.py:690
 #, python-format
 msgid "“%(title)s” was deleted."
 msgstr "حُذفت «%(title)s»."
 
-#: source/apps/studio/views.py:294
+#: source/apps/studio/views.py:298
 msgid "Saved and sent to review."
 msgstr "حُفظ وأُرسل للمراجعة."
 
-#: source/apps/studio/views.py:343
+#: source/apps/studio/views.py:347
 #, python-format
 msgid "%(count)d file(s) uploaded."
 msgstr "تم رفع %(count)d ملف."
 
-#: source/apps/studio/views.py:349
+#: source/apps/studio/views.py:353
 msgid "File deleted."
 msgstr "تم حذف الملف."
 
-#: source/apps/studio/views.py:359
+#: source/apps/studio/views.py:363
 msgid "Image details saved."
 msgstr "تم حفظ بيانات الصورة."
 
-#: source/apps/studio/views.py:373
+#: source/apps/studio/views.py:377
 #, python-format
 msgid "%(count)d pages rendered."
 msgstr "تم إنشاء %(count)d صفحة."
 
-#: source/apps/studio/views.py:441
+#: source/apps/studio/views.py:445
 msgid "This issue has already gone out. Duplicate it to send another."
 msgstr "أُرسل هذا العدد بالفعل. أنشئ نسخة منه لإرسال عدد آخر."
 
-#: source/apps/studio/views.py:459
+#: source/apps/studio/views.py:463
 msgid "Queued to go out."
 msgstr "تمت جدولته للإرسال."
 
-#: source/apps/studio/views.py:467
+#: source/apps/studio/views.py:471
 #, python-format
 msgid "Test sent to %(email)s."
 msgstr "أُرسلت نسخة اختبارية إلى %(email)s."
 
-#: source/apps/studio/views.py:470
+#: source/apps/studio/views.py:474
 #, python-format
 msgid "Sent to %(count)d subscribers."
 msgstr "أُرسل إلى %(count)d مشترك."
 
-#: source/apps/studio/views.py:476
+#: source/apps/studio/views.py:480
 msgid "Issue saved."
 msgstr "تم حفظ العدد."
 
-#: source/apps/studio/views.py:543
+#: source/apps/studio/views.py:547
 msgid "Brand"
 msgstr "لون العلامة"
 
-#: source/apps/studio/views.py:544
+#: source/apps/studio/views.py:548
 msgid "Brand, deep"
 msgstr "لون العلامة الداكن"
 
-#: source/apps/studio/views.py:545
+#: source/apps/studio/views.py:549
 msgid "Editorial gold"
 msgstr "ذهبي التحرير"
 
-#: source/apps/studio/views.py:546 templates/studio/theme_form.html:23
+#: source/apps/studio/views.py:550 templates/studio/theme_form.html:23
 msgid "Interaction"
 msgstr "التفاعل"
 
-#: source/apps/studio/views.py:569 templates/studio/base.html:48
+#: source/apps/studio/views.py:573 templates/studio/base.html:52
 #: templates/studio/dashboard.html:42
 msgid "Ad slots"
 msgstr "أماكن الإعلانات"
 
-#: source/apps/studio/views.py:570
+#: source/apps/studio/views.py:574
 msgid "Where adverts appear, who booked them and for how long."
 msgstr "أين تظهر الإعلانات ومن حجزها ولأي مدة."
 
-#: source/apps/studio/views.py:571
+#: source/apps/studio/views.py:575
 msgid "No ad slots yet"
 msgstr "لا مساحات إعلانية بعد"
 
-#: source/apps/studio/views.py:572
+#: source/apps/studio/views.py:576
 msgid "Add one and it appears wherever its key is placed in the design."
 msgstr "أضف واحدة فتظهر حيثما وُضع مفتاحها في التصميم."
 
-#: source/apps/studio/views.py:594 templates/studio/base.html:52
+#: source/apps/studio/views.py:598 templates/studio/base.html:56
 #: templates/studio/blocks/partners.html:6 templates/studio/dashboard.html:47
 msgid "Partners"
 msgstr "الشركاء"
 
-#: source/apps/studio/views.py:595
+#: source/apps/studio/views.py:599
 msgid "The logos shown across the site."
 msgstr "الشعارات التي تظهر في أنحاء الموقع."
 
-#: source/apps/studio/views.py:596
+#: source/apps/studio/views.py:600
 msgid "No partners yet"
 msgstr "لا شركاء بعد"
 
-#: source/apps/studio/views.py:597
+#: source/apps/studio/views.py:601
 msgid "Upload a logo and it joins the row on the front page."
 msgstr "ارفع شعاراً فينضم إلى الصف في الصفحة الرئيسية."
 
-#: source/apps/studio/views.py:608 templates/studio/blocks/testimonials.html:6
+#: source/apps/studio/views.py:612 templates/studio/blocks/testimonials.html:6
 msgid "Voices"
 msgstr "آراء"
 
-#: source/apps/studio/views.py:609
+#: source/apps/studio/views.py:613
 msgid "What readers and partners say about the magazine."
 msgstr "ما يقوله القرّاء والشركاء عن المجلة."
 
-#: source/apps/studio/views.py:610
+#: source/apps/studio/views.py:614
 msgid "No voices yet"
 msgstr "لا أصوات بعد"
 
-#: source/apps/studio/views.py:611
+#: source/apps/studio/views.py:615
 msgid "Add a quote and it appears where the design asks for one."
 msgstr "أضف اقتباساً فيظهر حيث يطلبه التصميم."
 
-#: source/apps/studio/views.py:625 templates/studio/base.html:60
+#: source/apps/studio/views.py:629 templates/studio/base.html:64
 #: templates/studio/dashboard.html:57
 msgid "FAQ"
 msgstr "الأسئلة الشائعة"
 
-#: source/apps/studio/views.py:626
+#: source/apps/studio/views.py:630
 msgid "The questions each page answers, in the order they are asked."
 msgstr "الأسئلة التي تجيب عنها كل صفحة، بالترتيب الذي تُطرح به."
 
-#: source/apps/studio/views.py:627
+#: source/apps/studio/views.py:631
 msgid "No questions yet"
 msgstr "لا أسئلة بعد"
 
-#: source/apps/studio/views.py:628
+#: source/apps/studio/views.py:632
 msgid "Add the first one and it appears on the page you choose."
 msgstr "أضف الأول فيظهر في الصفحة التي تختارها."
 
-#: source/apps/studio/views.py:644 templates/studio/base.html:64
+#: source/apps/studio/views.py:648 templates/studio/base.html:68
 #: templates/studio/dashboard.html:62
 msgid "Timeline"
 msgstr "الخط الزمني"
 
-#: source/apps/studio/views.py:645
+#: source/apps/studio/views.py:649
 msgid "The years that shaped the magazine."
 msgstr "الأعوام التي شكّلت المجلة."
 
-#: source/apps/studio/views.py:646
+#: source/apps/studio/views.py:650
 msgid "No milestones yet"
 msgstr "لا محطات بعد"
 
-#: source/apps/studio/views.py:647
+#: source/apps/studio/views.py:651
 msgid "Add a year and it appears on the timeline."
 msgstr "أضف عاماً فيظهر على الخط الزمني."
+
+#: source/apps/studio/views.py:766 templates/studio/campaign_requests.html:20
+msgid "Open"
+msgstr "مفتوحة"
+
+#: source/apps/studio/views.py:768 templates/content/article_list.html:15
+#: templates/content/category_hub.html:20
+#: templates/studio/partials/toolbar.html:7
+msgid "All"
+msgstr "الكل"
+
+#: source/apps/studio/views.py:785
+#, python-format
+msgid "“%(company)s” is now %(status)s."
+msgstr "أصبحت «%(company)s» %(status)s."
+
+#: source/apps/studio/views.py:788
+msgid "That status could not be read."
+msgstr "تعذّرت قراءة هذه الحالة."
+
+#: source/apps/studio/views.py:797 templates/studio/campaign_requests.html:13
+msgid "Rate card"
+msgstr "قائمة الأسعار"
+
+#: source/apps/studio/views.py:798
+msgid ""
+"What can be booked, and what it costs. This is the page advertisers see."
+msgstr "ما يمكن حجزه وكم يكلّف. هذا ما يراه المعلنون."
+
+#: source/apps/studio/views.py:799
+msgid "Nothing for sale yet"
+msgstr "لا عروض بعد"
+
+#: source/apps/studio/views.py:800
+msgid "Add a placement and it appears on the advertising page with its price."
+msgstr "أضف مساحة فتظهر بسعرها في صفحة الإعلانات."
+
+#: source/apps/studio/views.py:819 templates/studio/campaign_requests.html:14
+msgid "Media kits"
+msgstr "الملفات الإعلانية"
+
+#: source/apps/studio/views.py:820
+msgid ""
+"The document a prospective advertiser downloads. The newest active one is "
+"offered."
+msgstr "المستند الذي يحمّله المعلن المحتمل. يُعرض أحدث ملف فعّال."
+
+#: source/apps/studio/views.py:821
+msgid "No media kit yet"
+msgstr "لا ملف إعلاني بعد"
+
+#: source/apps/studio/views.py:822
+msgid "Upload one and the advertising page offers it."
+msgstr "ارفع واحداً فتعرضه صفحة الإعلانات."
 
 #: source/apps/users/admin.py:25
 msgid "Personal info"
@@ -1474,7 +1626,8 @@ msgstr "غير مقروء"
 
 #: templates/auth/profile/dashboard.html:26 templates/base/hero/_book.html:11
 #: templates/base/hero/_copy.html:16 templates/content/magazine_list.html:8
-#: templates/pages/home.html:77 templates/studio/base.html:66
+#: templates/pages/home.html:77 templates/studio/base.html:70
+#: templates/studio/campaign_requests.html:71
 #: templates/studio/dashboard.html:69 templates/studio/magazine_list.html:3
 #: templates/studio/magazine_list.html:9
 #: templates/studio/newsletter_edit.html:67
@@ -1685,7 +1838,7 @@ msgstr "الكتّاب"
 #: templates/base/header/navigation.html:37
 #: templates/content/magazine_detail.html:10
 #: templates/content/magazine_list.html:3
-#: templates/content/magazine_list.html:9 templates/studio/base.html:69
+#: templates/content/magazine_list.html:9 templates/studio/base.html:73
 msgid "Magazines"
 msgstr "المجلات"
 
@@ -1940,11 +2093,6 @@ msgstr[3] "%(n)s صفحة"
 msgstr[4] "%(n)s صفحة"
 msgstr[5] "%(n)s صفحة"
 
-#: templates/base/hero/_facts.html:9
-#: templates/studio/partials/hero_editor.html:51
-msgid "Price"
-msgstr "السعر"
-
 #: templates/base/hero/_facts.html:14
 #: templates/content/magazine_detail.html:38
 msgid "In this issue"
@@ -2049,12 +2197,6 @@ msgstr "المجلة"
 #: templates/content/article_list.html:10
 msgid "Reporting, culture and community from Berlin and beyond."
 msgstr "تقارير وثقافة ومجتمع من برلين وخارجها."
-
-#: templates/content/article_list.html:15
-#: templates/content/category_hub.html:20
-#: templates/studio/partials/toolbar.html:7
-msgid "All"
-msgstr "الكل"
 
 #: templates/content/article_list.html:45 templates/studio/media.html:36
 msgid "Nothing here yet"
@@ -2569,7 +2711,6 @@ msgstr "تصفّح المقالات"
 
 #: templates/studio/analytics.html:3 templates/studio/analytics.html:9
 #: templates/studio/base.html:40
-#| msgid "Reader"
 msgid "Readership"
 msgstr "القرّاء"
 
@@ -2601,8 +2742,7 @@ msgstr ""
 "التسجيل متوقف، لذا لا تتغير هذه الأرقام. اضبط ANALYTICS_ENABLED=1 لاستئناف "
 "العدّ."
 
-#: templates/studio/analytics.html:31 templates/studio/analytics.html:78
-#| msgid "Preview"
+#: templates/studio/analytics.html:31 templates/studio/analytics.html:91
 msgid "Page views"
 msgstr "مرات العرض"
 
@@ -2611,7 +2751,6 @@ msgid "Networks"
 msgstr "الشبكات"
 
 #: templates/studio/analytics.html:39
-#| msgid "Sign in"
 msgid "Signed in"
 msgstr "مسجّلون"
 
@@ -2619,10 +2758,8 @@ msgstr "مسجّلون"
 msgid "Busiest day"
 msgstr "أكثر الأيام ازدحاماً"
 
-#: templates/studio/analytics.html:45 templates/studio/analytics.html:63
+#: templates/studio/analytics.html:45 templates/studio/analytics.html:71
 #, python-format
-#| msgid "%(n)s page"
-#| msgid_plural "%(n)s pages"
 msgid "%(n)s view"
 msgid_plural "%(n)s views"
 msgstr[0] "عرض واحد"
@@ -2636,33 +2773,24 @@ msgstr[5] "لا عرض"
 msgid "Page views a day"
 msgstr "مرات العرض يومياً"
 
-#: templates/studio/analytics.html:55
+#: templates/studio/analytics.html:60
 #, python-format
 msgid "Page views a day, %(n)s in total"
 msgstr "مرات العرض يومياً، %(n)s إجمالاً"
 
-#: templates/studio/analytics.html:69
-#, python-format
-#| msgid "Page %(n)s"
-msgid "peak %(n)s"
-msgstr "الذروة %(n)s"
-
-#: templates/studio/analytics.html:76
-#| msgid "Shown on the site"
+#: templates/studio/analytics.html:89
 msgid "Show the numbers"
 msgstr "عرض الأرقام"
 
-#: templates/studio/analytics.html:78
-#| msgid "Diary"
+#: templates/studio/analytics.html:91
 msgid "Day"
 msgstr "اليوم"
 
-#: templates/studio/analytics.html:86
-#| msgid "Nothing here yet"
+#: templates/studio/analytics.html:99
 msgid "Nothing recorded yet"
 msgstr "لم يُسجَّل شيء بعد"
 
-#: templates/studio/analytics.html:87
+#: templates/studio/analytics.html:100
 msgid ""
 "Visits appear here as readers arrive. Staff, crawlers and anyone asking not "
 "to be tracked are never counted."
@@ -2670,64 +2798,61 @@ msgstr ""
 "تظهر الزيارات هنا مع وصول القرّاء. لا تُحتسب هيئة التحرير ولا الزواحف ولا من"
 " يطلب عدم التتبع."
 
-#: templates/studio/analytics.html:95
-#| msgid "Mark as read"
+#: templates/studio/analytics.html:108
 msgid "Most read"
 msgstr "الأكثر قراءة"
 
-#: templates/studio/analytics.html:108
+#: templates/studio/analytics.html:121
 msgid "No pages read in this period."
 msgstr "لم تُقرأ أي صفحة في هذه الفترة."
 
-#: templates/studio/analytics.html:112
+#: templates/studio/analytics.html:125
 msgid "Where readers came from"
 msgstr "من أين جاء القرّاء"
 
-#: templates/studio/analytics.html:125
+#: templates/studio/analytics.html:138
 msgid ""
 "Nobody arrived from another site in this period — or referrers were not "
 "sent."
 msgstr "لم يصل أحد من موقع آخر في هذه الفترة – أو لم تُرسل بيانات المصدر."
 
-#: templates/studio/analytics.html:132
-#| msgid "Search articles…"
+#: templates/studio/analytics.html:145
 msgid "Search rankings"
 msgstr "ترتيب البحث"
 
-#: templates/studio/analytics.html:134
+#: templates/studio/analytics.html:147
 msgid "Keyword"
 msgstr "الكلمة المفتاحية"
 
-#: templates/studio/analytics.html:134
+#: templates/studio/analytics.html:147
 msgid "Engine"
 msgstr "محرك البحث"
 
-#: templates/studio/analytics.html:134
+#: templates/studio/analytics.html:147
 msgid "Rank"
 msgstr "الترتيب"
 
-#: templates/studio/analytics.html:134
+#: templates/studio/analytics.html:147
 msgid "Checked"
 msgstr "تاريخ الفحص"
 
-#: templates/studio/analytics.html:152
+#: templates/studio/analytics.html:165
 msgid "Page metadata"
 msgstr "بيانات الصفحات"
 
-#: templates/studio/analytics.html:154
+#: templates/studio/analytics.html:167
 msgid "Meta title"
 msgstr "عنوان الميتا"
 
-#: templates/studio/analytics.html:154
+#: templates/studio/analytics.html:167
 msgid "Indexed"
 msgstr "مفهرسة"
 
-#: templates/studio/analytics.html:160
-#| msgid "No."
+#: templates/studio/analytics.html:173
 msgid "No"
 msgstr "لا"
 
-#: templates/studio/analytics.html:160
+#: templates/studio/analytics.html:173
 msgid "Yes"
 msgstr "نعم"
 
@@ -2921,11 +3046,15 @@ msgstr "الكتابة"
 msgid "Media"
 msgstr "الوسائط"
 
-#: templates/studio/base.html:56 templates/studio/dashboard.html:52
+#: templates/studio/base.html:48 templates/studio/campaign_requests.html:9
+msgid "Enquiries"
+msgstr "الطلبات"
+
+#: templates/studio/base.html:60 templates/studio/dashboard.html:52
 msgid "Testimonials"
 msgstr "الشهادات"
 
-#: templates/studio/base.html:73
+#: templates/studio/base.html:77
 msgid "Atlas"
 msgstr "الأطلس"
 
@@ -2957,6 +3086,45 @@ msgstr "قصتنا"
 #, python-format
 msgid "%(years)s years in Berlin"
 msgstr "‏%(years)s عاماً في برلين"
+
+#: templates/studio/campaign_requests.html:3
+msgid "Advertising enquiries"
+msgstr "طلبات الإعلان"
+
+#: templates/studio/campaign_requests.html:10
+msgid ""
+"What the advertising page has sent in, with the estimate the planner showed."
+msgstr "ما ورد عبر صفحة الإعلانات، مع التقدير الذي عرضه المخطط."
+
+#: templates/studio/campaign_requests.html:24
+msgid "Open value"
+msgstr "القيمة المفتوحة"
+
+#: templates/studio/campaign_requests.html:26
+msgid "as estimated"
+msgstr "حسب التقدير"
+
+#: templates/studio/campaign_requests.html:33
+msgid "Won value"
+msgstr "القيمة المكسوبة"
+
+#: templates/studio/campaign_requests.html:86
+msgid "Update"
+msgstr "تحديث"
+
+#: templates/studio/campaign_requests.html:87
+msgid "Reply"
+msgstr "الرد"
+
+#: templates/studio/campaign_requests.html:92
+msgid "Nothing here"
+msgstr "لا شيء هنا"
+
+#: templates/studio/campaign_requests.html:93
+msgid ""
+"Enquiries from the advertising page land here, with whatever the planner "
+"priced."
+msgstr "تصل طلبات صفحة الإعلانات إلى هنا، مع ما حسبه المخطط."
 
 #: templates/studio/collection.html:12 templates/studio/collection.html:66
 msgid "New entry"

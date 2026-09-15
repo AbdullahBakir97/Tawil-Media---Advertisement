@@ -173,24 +173,24 @@ class RateCard(TimeStampedModel):
         ("package", _("per package")),
     ]
 
-    channel = models.CharField(max_length=12, choices=CHANNELS, default="print", verbose_name="Channel")
-    slug = models.SlugField(max_length=80, unique=True)
-    name_de = models.CharField(max_length=120, verbose_name="Name (Deutsch)")
-    name_ar = models.CharField(max_length=120, blank=True, verbose_name="Name (العربية)")
-    name_en = models.CharField(max_length=120, blank=True, verbose_name="Name (English)")
-    description_de = models.TextField(blank=True, verbose_name="Description (Deutsch)")
-    description_ar = models.TextField(blank=True, verbose_name="Description (العربية)")
-    description_en = models.TextField(blank=True, verbose_name="Description (English)")
+    channel = models.CharField(max_length=12, choices=CHANNELS, default="print", verbose_name=_("Channel"))
+    slug = models.SlugField(max_length=80, unique=True, verbose_name=_("Slug"))
+    name_de = models.CharField(max_length=120, verbose_name=_("Name (German)"))
+    name_ar = models.CharField(max_length=120, blank=True, verbose_name=_("Name (Arabic)"))
+    name_en = models.CharField(max_length=120, blank=True, verbose_name=_("Name (English)"))
+    description_de = models.TextField(blank=True, verbose_name=_("Description (German)"))
+    description_ar = models.TextField(blank=True, verbose_name=_("Description (Arabic)"))
+    description_en = models.TextField(blank=True, verbose_name=_("Description (English)"))
 
-    specs = models.CharField(max_length=160, blank=True, verbose_name="Specification", help_text="e.g. 210 × 297 mm + 3 mm bleed, CMYK")
-    width = models.PositiveIntegerField(null=True, blank=True, help_text="Width in mm (print) or px (digital), for the size preview.")
-    height = models.PositiveIntegerField(null=True, blank=True, help_text="Height in mm (print) or px (digital).")
+    specs = models.CharField(max_length=160, blank=True, verbose_name=_("Specification"), help_text="e.g. 210 × 297 mm + 3 mm bleed, CMYK")
+    width = models.PositiveIntegerField(null=True, blank=True, help_text="Width in mm (print) or px (digital), for the size preview.", verbose_name=_("Width"))
+    height = models.PositiveIntegerField(null=True, blank=True, help_text="Height in mm (print) or px (digital).", verbose_name=_("Height"))
 
-    price = models.DecimalField(max_digits=9, decimal_places=2, default=0, verbose_name="Price")
-    unit = models.CharField(max_length=12, choices=UNITS, default="edition", verbose_name="Billed")
-    is_featured = models.BooleanField(default=False, verbose_name="Highlight on the rate card")
-    is_active = models.BooleanField(default=True)
-    order = models.PositiveSmallIntegerField(default=0)
+    price = models.DecimalField(max_digits=9, decimal_places=2, default=0, verbose_name=_("Price"))
+    unit = models.CharField(max_length=12, choices=UNITS, default="edition", verbose_name=_("Billed"))
+    is_featured = models.BooleanField(default=False, verbose_name=_("Highlight on the rate card"))
+    is_active = models.BooleanField(default=True, verbose_name=_("Shown on the site"))
+    order = models.PositiveSmallIntegerField(default=0, verbose_name=_("Order"))
 
     class Meta:
         verbose_name = "Rate card entry"
@@ -230,10 +230,10 @@ class RateCard(TimeStampedModel):
 class MediaKit(TimeStampedModel):
     """The downloadable media kit. The newest active one is offered."""
 
-    title = models.CharField(max_length=120, default="Media kit")
-    file = models.FileField(upload_to="advertising/media-kit/")
-    year = models.PositiveSmallIntegerField(null=True, blank=True)
-    is_active = models.BooleanField(default=True)
+    title = models.CharField(max_length=120, default="Media kit", verbose_name=_("Title"))
+    file = models.FileField(upload_to="advertising/media-kit/", verbose_name=_("File"))
+    year = models.PositiveSmallIntegerField(null=True, blank=True, verbose_name=_("Year"))
+    is_active = models.BooleanField(default=True, verbose_name=_("Shown on the site"))
 
     class Meta:
         verbose_name = "Media kit"
@@ -252,11 +252,11 @@ class CampaignRequest(TimeStampedModel):
     """A planned campaign sent from the advertising page. Never charged automatically."""
 
     STATUS = [
-        ("new", "New"),
-        ("contacted", "Contacted"),
-        ("quoted", "Quoted"),
-        ("won", "Won"),
-        ("lost", "Lost"),
+        ("new", _("New")),
+        ("contacted", _("Contacted")),
+        ("quoted", _("Quoted")),
+        ("won", _("Won")),
+        ("lost", _("Lost")),
     ]
 
     company = models.CharField(max_length=160, verbose_name="Company")
