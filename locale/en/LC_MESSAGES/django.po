@@ -1,0 +1,1022 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-15 12:42+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: project/settings.py:57
+msgid "Founder & Creative Director"
+msgstr ""
+
+#: project/settings.py:60
+msgid ""
+"Leading innovation in media and advertising with over a decade of industry "
+"expertise. Committed to delivering excellence and creative solutions."
+msgstr ""
+
+#: source/apps/users/admin.py:25
+msgid "Personal info"
+msgstr ""
+
+#: source/apps/users/admin.py:26
+msgid "Status"
+msgstr ""
+
+#: source/apps/users/admin.py:27
+msgid "Permissions"
+msgstr ""
+
+#: source/apps/users/admin.py:28
+msgid "Important dates"
+msgstr ""
+
+#: source/apps/users/forms.py:12
+msgid "Email"
+msgstr ""
+
+#: source/apps/users/forms.py:13 source/apps/users/forms.py:35
+#: templates/auth/login.html:32 templates/auth/profile/settings.html:15
+#: templates/auth/profile/settings.html:48 templates/auth/register.html:46
+msgid "Password"
+msgstr ""
+
+#: source/apps/users/forms.py:14
+msgid "Remember me"
+msgstr ""
+
+#: source/apps/users/forms.py:28
+msgid "Invalid e-mail address or password."
+msgstr ""
+
+#: source/apps/users/forms.py:30
+msgid "This account is inactive."
+msgstr ""
+
+#: source/apps/users/forms.py:36 templates/auth/profile/dashboard.html:43
+#: templates/auth/register.html:41
+msgid "Phone"
+msgstr ""
+
+#: source/apps/users/forms.py:45 source/apps/users/forms.py:109
+msgid "An account with this e-mail already exists."
+msgstr ""
+
+#: source/apps/users/forms.py:70 templates/auth/password/change.html:24
+#: templates/auth/profile/settings.html:53
+msgid "New password"
+msgstr ""
+
+#: source/apps/users/forms.py:71
+msgid "Confirm password"
+msgstr ""
+
+#: source/apps/users/forms.py:81
+msgid "The two password fields didn't match."
+msgstr ""
+
+#: source/apps/users/forms.py:94
+msgid "Bio"
+msgstr ""
+
+#: source/apps/users/views.py:56
+#, python-format
+msgid "Welcome to Tawil Media, %(name)s!"
+msgstr ""
+
+#: source/apps/users/views.py:77
+msgid "If an account exists for that address, a reset link has been sent."
+msgstr ""
+
+#: source/apps/users/views.py:88
+msgid "Your password has been changed. You are now signed in."
+msgstr ""
+
+#: source/apps/users/views.py:106
+msgid "Your password has been changed."
+msgstr ""
+
+#: source/apps/users/views.py:131
+msgid "Profile updated."
+msgstr ""
+
+#: source/apps/users/views.py:143
+msgid "Password updated."
+msgstr ""
+
+#: source/apps/users/views.py:153
+msgid "Notification preferences will be available soon."
+msgstr ""
+
+#: templates/archives/browse.html:3 templates/archives/browse.html:8
+#: templates/archives/edition_detail.html:8 templates/archives/year.html:8
+#: templates/base/header/navigation.html:7
+#: templates/base/header/navigation.html:34 templates/pages/home.html:58
+msgid "Archive"
+msgstr ""
+
+#: templates/archives/browse.html:9
+msgid "Twenty years of editions"
+msgstr ""
+
+#: templates/archives/browse.html:10
+msgid ""
+"Every digitised edition, year by year. Pick a year to see its issues and "
+"contents."
+msgstr ""
+
+#: templates/archives/browse.html:18
+#, python-format
+msgid "%(counter)s edition"
+msgid_plural "%(counter)s editions"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/archives/browse.html:24
+msgid "The archive is being digitised"
+msgstr ""
+
+#: templates/archives/browse.html:25
+msgid "Editions will appear here as they are scanned and catalogued."
+msgstr ""
+
+#: templates/archives/edition_detail.html:7 templates/archives/year.html:7
+#: templates/content/magazine_detail.html:8
+msgid "Breadcrumb"
+msgstr ""
+
+#: templates/archives/edition_detail.html:18 templates/archives/year.html:23
+msgid "No cover"
+msgstr ""
+
+#: templates/archives/edition_detail.html:23 templates/archives/year.html:26
+#, python-format
+msgid "Edition %(number)s"
+msgstr ""
+
+#: templates/archives/edition_detail.html:25 templates/archives/year.html:28
+msgid "Digitised"
+msgstr ""
+
+#: templates/archives/edition_detail.html:28
+#, python-format
+msgid "%(counter)s page"
+msgid_plural "%(counter)s pages"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/archives/edition_detail.html:32
+msgid "Contents"
+msgstr ""
+
+#: templates/archives/edition_detail.html:47
+msgid "Contents not digitised yet."
+msgstr ""
+
+#: templates/archives/year.html:3
+#, python-format
+msgid "Archive %(year)s"
+msgstr ""
+
+#: templates/archives/year.html:13
+msgid "Archive year"
+msgstr ""
+
+#: templates/archives/year.html:35
+msgid "No editions for this year"
+msgstr ""
+
+#: templates/auth/login.html:3 templates/auth/login.html:48
+#: templates/auth/register.html:66 templates/base/header/user-menu.html:59
+msgid "Sign in"
+msgstr ""
+
+#: templates/auth/login.html:11
+msgid "Welcome back"
+msgstr ""
+
+#: templates/auth/login.html:12
+msgid "Sign in to your account"
+msgstr ""
+
+#: templates/auth/login.html:24 templates/auth/password/reset.html:21
+#: templates/auth/profile/settings.html:40 templates/auth/register.html:35
+#: templates/base/footer/main.html:43 templates/content/article_detail.html:67
+msgid "E-mail address"
+msgstr ""
+
+#: templates/auth/login.html:33
+msgid "Forgot password?"
+msgstr ""
+
+#: templates/auth/login.html:37 templates/auth/register.html:49
+msgid "Show password"
+msgstr ""
+
+#: templates/auth/login.html:45
+msgid "Keep me signed in"
+msgstr ""
+
+#: templates/auth/login.html:53
+msgid "New here?"
+msgstr ""
+
+#: templates/auth/login.html:53 templates/auth/register.html:3
+#: templates/auth/register.html:11
+msgid "Create an account"
+msgstr ""
+
+#: templates/auth/password/change.html:3 templates/auth/password/change.html:11
+msgid "Choose a new password"
+msgstr ""
+
+#: templates/auth/password/change.html:12
+msgid "Use at least 8 characters. You'll be signed in afterwards."
+msgstr ""
+
+#: templates/auth/password/change.html:16
+msgid "This reset link has expired or was already used."
+msgstr ""
+
+#: templates/auth/password/change.html:16
+msgid "Request a new one"
+msgstr ""
+
+#: templates/auth/password/change.html:29
+#: templates/auth/profile/settings.html:54
+msgid "Confirm new password"
+msgstr ""
+
+#: templates/auth/password/change.html:33
+#: templates/auth/profile/settings.html:55
+msgid "Show passwords"
+msgstr ""
+
+#: templates/auth/password/change.html:35
+msgid "Save password"
+msgstr ""
+
+#: templates/auth/password/change.html:41 templates/auth/password/reset.html:31
+msgid "Back to sign in"
+msgstr ""
+
+#: templates/auth/password/reset.html:3 templates/auth/password/reset.html:11
+msgid "Reset your password"
+msgstr ""
+
+#: templates/auth/password/reset.html:12
+msgid ""
+"Enter your e-mail address and we'll send you a link to choose a new password."
+msgstr ""
+
+#: templates/auth/password/reset.html:26
+msgid "Send reset link"
+msgstr ""
+
+#: templates/auth/profile/dashboard.html:3
+msgid "Your account"
+msgstr ""
+
+#: templates/auth/profile/dashboard.html:8
+#: templates/auth/profile/settings.html:8 templates/notifications/list.html:6
+msgid "Account"
+msgstr ""
+
+#: templates/auth/profile/dashboard.html:12
+#, python-format
+msgid "Hello, %(name)s"
+msgstr ""
+
+#: templates/auth/profile/dashboard.html:13
+msgid "Verified"
+msgstr ""
+
+#: templates/auth/profile/dashboard.html:15
+#: templates/auth/profile/settings.html:3
+#: templates/auth/profile/settings.html:9
+#: templates/base/header/user-menu.html:49
+msgid "Settings"
+msgstr ""
+
+#: templates/auth/profile/dashboard.html:21
+#: templates/auth/profile/settings.html:16
+#: templates/auth/profile/settings.html:61
+#: templates/base/header/user-menu.html:27
+#: templates/base/header/user-menu.html:50
+#: templates/notifications/dropdown.html:4 templates/notifications/list.html:3
+#: templates/notifications/list.html:6
+msgid "Notifications"
+msgstr ""
+
+#: templates/auth/profile/dashboard.html:23
+msgid "unread"
+msgstr ""
+
+#: templates/auth/profile/dashboard.html:26
+#: templates/content/magazine_list.html:8 templates/pages/home.html:75
+msgid "Editions"
+msgstr ""
+
+#: templates/auth/profile/dashboard.html:27
+msgid "Read the latest"
+msgstr ""
+
+#: templates/auth/profile/dashboard.html:28 templates/pages/home.html:46
+msgid "Almadina magazine"
+msgstr ""
+
+#: templates/auth/profile/dashboard.html:31 templates/pages/home.html:52
+msgid "Advertising"
+msgstr ""
+
+#: templates/auth/profile/dashboard.html:32
+msgid "Plan a campaign"
+msgstr ""
+
+#: templates/auth/profile/dashboard.html:33
+msgid "Print, digital and social"
+msgstr ""
+
+#: templates/auth/profile/dashboard.html:39
+#: templates/auth/profile/settings.html:14
+#: templates/auth/profile/settings.html:22
+#: templates/base/header/user-menu.html:48
+msgid "Profile"
+msgstr ""
+
+#: templates/auth/profile/dashboard.html:41
+msgid "Name"
+msgstr ""
+
+#: templates/auth/profile/dashboard.html:42
+msgid "E-mail"
+msgstr ""
+
+#: templates/auth/profile/dashboard.html:44
+msgid "Member since"
+msgstr ""
+
+#: templates/auth/profile/dashboard.html:46
+msgid "Edit profile"
+msgstr ""
+
+#: templates/auth/profile/dashboard.html:49 templates/base/footer/main.html:37
+#: templates/content/article_detail.html:63
+msgid "Newsletter"
+msgstr ""
+
+#: templates/auth/profile/dashboard.html:50
+msgid "Stories in your inbox"
+msgstr ""
+
+#: templates/auth/profile/dashboard.html:51
+msgid "Once a week, the new edition and our best reporting."
+msgstr ""
+
+#: templates/auth/profile/dashboard.html:55
+msgid "Subscribe with this e-mail"
+msgstr ""
+
+#: templates/auth/profile/settings.html:13
+msgid "Settings sections"
+msgstr ""
+
+#: templates/auth/profile/settings.html:17
+msgid "Back to account"
+msgstr ""
+
+#: templates/auth/profile/settings.html:23
+msgid "How you appear on the site and how we reach you."
+msgstr ""
+
+#: templates/auth/profile/settings.html:32
+msgid "Photo"
+msgstr ""
+
+#: templates/auth/profile/settings.html:32
+#: templates/auth/profile/settings.html:41 templates/auth/register.html:41
+msgid "optional"
+msgstr ""
+
+#: templates/auth/profile/settings.html:37 templates/auth/register.html:23
+msgid "First name"
+msgstr ""
+
+#: templates/auth/profile/settings.html:38 templates/auth/register.html:28
+msgid "Last name"
+msgstr ""
+
+#: templates/auth/profile/settings.html:41
+msgid "Short bio"
+msgstr ""
+
+#: templates/auth/profile/settings.html:43
+msgid "Save changes"
+msgstr ""
+
+#: templates/auth/profile/settings.html:49
+msgid "Choose a strong password you don't use elsewhere."
+msgstr ""
+
+#: templates/auth/profile/settings.html:56
+msgid "Update password"
+msgstr ""
+
+#: templates/auth/profile/settings.html:62
+msgid "Choose what we tell you about."
+msgstr ""
+
+#: templates/auth/profile/settings.html:65
+msgid "New edition released"
+msgstr ""
+
+#: templates/auth/profile/settings.html:66
+msgid "Weekly newsletter"
+msgstr ""
+
+#: templates/auth/profile/settings.html:67
+msgid "Replies and mentions"
+msgstr ""
+
+#: templates/auth/profile/settings.html:68
+msgid "Offers from advertisers"
+msgstr ""
+
+#: templates/auth/profile/settings.html:69
+msgid "Save preferences"
+msgstr ""
+
+#: templates/auth/register.html:12
+msgid "Save stories, manage your newsletter and subscribe to editions."
+msgstr ""
+
+#: templates/auth/register.html:54
+msgid "At least 8 characters. Avoid your name or a common word."
+msgstr ""
+
+#: templates/auth/register.html:58
+#, python-format
+msgid ""
+"I agree to the <a href=\"%(terms_url)s\" class=\"link-underline\">terms</a> "
+"and the <a href=\"%(privacy_url)s\" class=\"link-underline\">privacy policy</"
+"a>."
+msgstr ""
+
+#: templates/auth/register.html:61
+msgid "Create account"
+msgstr ""
+
+#: templates/auth/register.html:66
+msgid "Already have an account?"
+msgstr ""
+
+#: templates/base/base.html:78
+msgid "Skip to main content"
+msgstr ""
+
+#: templates/base/components/pagination.html:8
+msgid "Pagination"
+msgstr ""
+
+#: templates/base/components/pagination.html:11
+msgid "Previous"
+msgstr ""
+
+#: templates/base/components/pagination.html:27
+msgid "Next"
+msgstr ""
+
+#: templates/base/footer/main.html:8
+msgid ""
+"Professional media and advertising platform serving Arabic-speaking "
+"communities in Germany and beyond."
+msgstr ""
+
+#: templates/base/footer/main.html:16 templates/base/footer/main.html:17
+msgid "Company"
+msgstr ""
+
+#: templates/base/footer/main.html:19 templates/base/header/navigation.html:15
+#: templates/base/header/navigation.html:35
+msgid "About us"
+msgstr ""
+
+#: templates/base/footer/main.html:20 templates/base/header/navigation.html:16
+#: templates/base/header/navigation.html:36
+msgid "Contact"
+msgstr ""
+
+#: templates/base/footer/main.html:21 templates/base/header/navigation.html:18
+msgid "Careers"
+msgstr ""
+
+#: templates/base/footer/main.html:22 templates/base/header/navigation.html:17
+#: templates/base/header/navigation.html:37
+msgid "Advertise"
+msgstr ""
+
+#: templates/base/footer/main.html:26 templates/base/footer/main.html:27
+msgid "Read"
+msgstr ""
+
+#: templates/base/footer/main.html:29 templates/base/header/navigation.html:5
+#: templates/base/header/navigation.html:32
+#: templates/content/article_list.html:3 templates/content/article_list.html:9
+msgid "Articles"
+msgstr ""
+
+#: templates/base/footer/main.html:30 templates/base/header/navigation.html:6
+#: templates/base/header/navigation.html:33
+#: templates/content/magazine_detail.html:9
+#: templates/content/magazine_list.html:3
+#: templates/content/magazine_list.html:9
+msgid "Magazines"
+msgstr ""
+
+#: templates/base/footer/main.html:31
+msgid "Archives"
+msgstr ""
+
+#: templates/base/footer/main.html:32
+msgid "Help centre"
+msgstr ""
+
+#: templates/base/footer/main.html:38
+msgid "The new edition and the best stories, once a week."
+msgstr ""
+
+#: templates/base/footer/main.html:45 templates/content/article_detail.html:68
+msgid "you@example.com"
+msgstr ""
+
+#: templates/base/footer/main.html:46 templates/content/article_detail.html:69
+msgid "Subscribe"
+msgstr ""
+
+#: templates/base/footer/main.html:54
+msgid "All rights reserved."
+msgstr ""
+
+#: templates/base/footer/main.html:56
+msgid "Terms"
+msgstr ""
+
+#: templates/base/footer/main.html:57
+msgid "Privacy"
+msgstr ""
+
+#: templates/base/footer/main.html:58
+msgid "Cookies"
+msgstr ""
+
+#: templates/base/footer/main.html:59
+msgid "Sitemap"
+msgstr ""
+
+#: templates/base/header/company-info.html:4
+#, python-format
+msgid "Welcome to %(SITE_NAME)s"
+msgstr ""
+
+#: templates/base/header/company-info.html:5
+msgid "Your gateway to professional media"
+msgstr ""
+
+#: templates/base/header/company-info.html:7
+msgid ""
+"Connect with your audience through powerful content and strategic "
+"advertising. We create media experiences that get results."
+msgstr ""
+
+#: templates/base/header/company-info.html:16
+msgid "Professional media solutions"
+msgstr ""
+
+#: templates/base/header/company-info.html:24
+msgid "Strategic advertising"
+msgstr ""
+
+#: templates/base/header/company-info.html:32
+msgid "Creative content development"
+msgstr ""
+
+#: templates/base/header/header.html:9
+#, python-format
+msgid "%(SITE_NAME)s home"
+msgstr ""
+
+#: templates/base/header/magazine-slider.html:3
+msgid "Latest editions"
+msgstr ""
+
+#: templates/base/header/magazine-slider.html:23
+msgid "Previous edition"
+msgstr ""
+
+#: templates/base/header/magazine-slider.html:31
+msgid "Next edition"
+msgstr ""
+
+#: templates/base/header/magazine-slider.html:41
+msgid "Our magazines"
+msgstr ""
+
+#: templates/base/header/magazine-slider.html:42
+msgid "New editions are published here."
+msgstr ""
+
+#: templates/base/header/navigation.html:2
+msgid "Main navigation"
+msgstr ""
+
+#: templates/base/header/navigation.html:4
+#: templates/base/header/navigation.html:31
+msgid "Home"
+msgstr ""
+
+#: templates/base/header/navigation.html:11
+msgid "More"
+msgstr ""
+
+#: templates/base/header/navigation.html:23
+msgid "Toggle menu"
+msgstr ""
+
+#: templates/base/header/navigation.html:39 templates/base/header/search.html:7
+#: templates/errors/404.html:11 templates/pages/search.html:3
+#: templates/pages/search.html:8 templates/pages/search.html:13
+#: templates/pages/search.html:18
+msgid "Search"
+msgstr ""
+
+#: templates/base/header/navigation.html:40 templates/base/header/search.html:4
+msgid "Search…"
+msgstr ""
+
+#: templates/base/header/owner-info.html:3
+msgid "Meet our director"
+msgstr ""
+
+#: templates/base/header/owner-info.html:15
+msgid "Years experience"
+msgstr ""
+
+#: templates/base/header/owner-info.html:15
+msgid "Projects"
+msgstr ""
+
+#: templates/base/header/owner-info.html:15
+msgid "Happy clients"
+msgstr ""
+
+#: templates/base/header/search.html:3
+msgid "Search articles and magazines"
+msgstr ""
+
+#: templates/base/header/user-menu.html:5
+msgid "Change language"
+msgstr ""
+
+#: templates/base/header/user-menu.html:20
+msgid "Toggle dark mode"
+msgstr ""
+
+#: templates/base/header/user-menu.html:33
+msgid "Loading…"
+msgstr ""
+
+#: templates/base/header/user-menu.html:47
+msgid "Admin"
+msgstr ""
+
+#: templates/base/header/user-menu.html:53
+msgid "Sign out"
+msgstr ""
+
+#: templates/base/header/user-menu.html:60
+msgid "Sign up"
+msgstr ""
+
+#: templates/content/article_detail.html:15
+msgid "Draft"
+msgstr ""
+
+#: templates/content/article_detail.html:26
+#: templates/content/partials/article_card.html:18
+#, python-format
+msgid "%(minutes)s min read"
+msgstr ""
+
+#: templates/content/article_detail.html:44
+msgid "Share"
+msgstr ""
+
+#: templates/content/article_detail.html:49
+msgid "Copy link"
+msgstr ""
+
+#: templates/content/article_detail.html:55 templates/pages/home.html:90
+msgid "Topics"
+msgstr ""
+
+#: templates/content/article_detail.html:64
+msgid "Stories like this, weekly."
+msgstr ""
+
+#: templates/content/article_detail.html:79
+msgid "Gallery"
+msgstr ""
+
+#: templates/content/article_detail.html:100
+msgid "Related stories"
+msgstr ""
+
+#: templates/content/article_list.html:8
+msgid "Category"
+msgstr ""
+
+#: templates/content/article_list.html:8
+msgid "Tag"
+msgstr ""
+
+#: templates/content/article_list.html:8 templates/pages/home.html:14
+msgid "Journal"
+msgstr ""
+
+#: templates/content/article_list.html:10
+msgid "Reporting, culture and community from Berlin and beyond."
+msgstr ""
+
+#: templates/content/article_list.html:14
+msgid "Categories"
+msgstr ""
+
+#: templates/content/article_list.html:15
+msgid "All"
+msgstr ""
+
+#: templates/content/article_list.html:45
+msgid "Nothing here yet"
+msgstr ""
+
+#: templates/content/article_list.html:46
+msgid "New stories are published every week. Check back soon."
+msgstr ""
+
+#: templates/content/magazine_detail.html:28
+#, python-format
+msgid "%(counter)s article"
+msgid_plural "%(counter)s articles"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/content/magazine_detail.html:32
+msgid "Advertise in the next edition"
+msgstr ""
+
+#: templates/content/magazine_detail.html:33
+msgid "Browse the archive"
+msgstr ""
+
+#: templates/content/magazine_detail.html:37
+msgid "In this issue"
+msgstr ""
+
+#: templates/content/magazine_detail.html:46
+#: templates/content/partials/article_card.html:32
+#: templates/content/partials/article_card.html:47
+#, python-format
+msgid "%(minutes)s min"
+msgstr ""
+
+#: templates/content/magazine_detail.html:51
+msgid "The contents of this edition will be listed here."
+msgstr ""
+
+#: templates/content/magazine_list.html:10
+msgid ""
+"Every edition of Almadina, the first Arabic magazine in Germany, from the "
+"newest issue back."
+msgstr ""
+
+#: templates/content/magazine_list.html:20
+msgid "No editions published yet"
+msgstr ""
+
+#: templates/content/magazine_list.html:21
+msgid "The next edition will appear here as soon as it is released."
+msgstr ""
+
+#: templates/content/partials/magazine_card.html:11
+msgid "Edition"
+msgstr ""
+
+#: templates/errors/404.html:3
+msgid "Page not found"
+msgstr ""
+
+#: templates/errors/404.html:7
+msgid "We couldn't find that page."
+msgstr ""
+
+#: templates/errors/404.html:8
+msgid ""
+"It may have moved, or the link might be wrong. Try the search or go back to "
+"the homepage."
+msgstr ""
+
+#: templates/errors/404.html:10
+msgid "Homepage"
+msgstr ""
+
+#: templates/errors/500.html:3
+msgid "Something went wrong"
+msgstr ""
+
+#: templates/errors/500.html:7
+msgid "Something went wrong on our side."
+msgstr ""
+
+#: templates/errors/500.html:8
+msgid "We've been notified. Please try again in a moment."
+msgstr ""
+
+#: templates/errors/500.html:9
+msgid "Back to the homepage"
+msgstr ""
+
+#: templates/notifications/dropdown.html:4
+#, python-format
+msgid "(%(counter)s unread)"
+msgid_plural "(%(counter)s unread)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/notifications/dropdown.html:8
+msgid "Mark all as read"
+msgstr ""
+
+#: templates/notifications/dropdown.html:25
+msgid "Mark as read"
+msgstr ""
+
+#: templates/notifications/dropdown.html:33
+msgid "You're all caught up."
+msgstr ""
+
+#: templates/notifications/dropdown.html:38
+msgid "View all notifications"
+msgstr ""
+
+#: templates/pages/home.html:4
+msgid "Media, magazines and archives from Berlin"
+msgstr ""
+
+#: templates/pages/home.html:5
+msgid ""
+"Tawil Media publishes Almadina, the first Arabic magazine in Germany, "
+"alongside articles, editions and a growing archive."
+msgstr ""
+
+#: templates/pages/home.html:15
+msgid "Latest stories"
+msgstr ""
+
+#: templates/pages/home.html:17
+msgid "All articles"
+msgstr ""
+
+#: templates/pages/home.html:39
+msgid "What we do"
+msgstr ""
+
+#: templates/pages/home.html:40
+msgid ""
+"Print, digital and advertising for a community of half a million readers"
+msgstr ""
+
+#: templates/pages/home.html:47
+msgid ""
+"The first Arabic magazine in Germany: culture, business and community, in "
+"print and online."
+msgstr ""
+
+#: templates/pages/home.html:48
+msgid "Browse editions"
+msgstr ""
+
+#: templates/pages/home.html:53
+msgid ""
+"Reach Arabic-speaking readers across Germany with print, digital and social "
+"campaigns."
+msgstr ""
+
+#: templates/pages/home.html:54
+msgid "See the media kit"
+msgstr ""
+
+#: templates/pages/home.html:59
+msgid ""
+"Twenty years of editions, digitised and searchable by year, edition and "
+"topic."
+msgstr ""
+
+#: templates/pages/home.html:60
+msgid "Open the archive"
+msgstr ""
+
+#: templates/pages/home.html:64
+msgid "Monthly readers"
+msgstr ""
+
+#: templates/pages/home.html:65
+msgid "Print editions"
+msgstr ""
+
+#: templates/pages/home.html:66
+msgid "Years of archive"
+msgstr ""
+
+#: templates/pages/home.html:76
+msgid "Recent magazines"
+msgstr ""
+
+#: templates/pages/home.html:78
+msgid "All editions"
+msgstr ""
+
+#: templates/pages/home.html:91
+msgid "Browse by category"
+msgstr ""
+
+#: templates/pages/home.html:105
+msgid "Advertise with us"
+msgstr ""
+
+#: templates/pages/home.html:106
+msgid "Put your brand in front of the community."
+msgstr ""
+
+#: templates/pages/home.html:107
+msgid ""
+"Print placements, digital campaigns and sponsored stories, planned with our "
+"editorial team."
+msgstr ""
+
+#: templates/pages/home.html:110
+msgid "Request the media kit"
+msgstr ""
+
+#: templates/pages/home.html:111
+msgid "Talk to us"
+msgstr ""
+
+#: templates/pages/search.html:3
+#, python-format
+msgid "Search: %(query)s"
+msgstr ""
+
+#: templates/pages/search.html:9
+#, python-format
+msgid "Results for “%(query)s”"
+msgstr ""
+
+#: templates/pages/search.html:9
+msgid "Find a story"
+msgstr ""
+
+#: templates/pages/search.html:16
+msgid "Search articles…"
+msgstr ""
+
+#: templates/pages/search.html:22
+#, python-format
+msgid "%(counter)s result"
+msgid_plural "%(counter)s results"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/pages/search.html:28
+msgid "Nothing matched"
+msgstr ""
+
+#: templates/pages/search.html:29
+msgid "Try a shorter word, a different spelling, or browse by category."
+msgstr ""
+
+#: templates/pages/search.html:30
+msgid "Browse articles"
+msgstr ""

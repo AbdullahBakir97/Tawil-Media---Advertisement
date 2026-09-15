@@ -1,0 +1,1060 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-15 12:42+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: project/settings.py:57
+msgid "Founder & Creative Director"
+msgstr "المؤسس والمدير الإبداعي"
+
+#: project/settings.py:60
+msgid ""
+"Leading innovation in media and advertising with over a decade of industry "
+"expertise. Committed to delivering excellence and creative solutions."
+msgstr ""
+"يقود الابتكار في الإعلام والإعلان بخبرة تتجاوز عقداً من الزمن، ملتزماً "
+"بتقديم التميّز والحلول الإبداعية."
+
+#: source/apps/users/admin.py:25
+msgid "Personal info"
+msgstr "المعلومات الشخصية"
+
+#: source/apps/users/admin.py:26
+msgid "Status"
+msgstr "الحالة"
+
+#: source/apps/users/admin.py:27
+msgid "Permissions"
+msgstr "الصلاحيات"
+
+#: source/apps/users/admin.py:28
+msgid "Important dates"
+msgstr "تواريخ مهمة"
+
+#: source/apps/users/forms.py:12
+msgid "Email"
+msgstr "البريد الإلكتروني"
+
+#: source/apps/users/forms.py:13 source/apps/users/forms.py:35
+#: templates/auth/login.html:32 templates/auth/profile/settings.html:15
+#: templates/auth/profile/settings.html:48 templates/auth/register.html:46
+msgid "Password"
+msgstr "كلمة المرور"
+
+#: source/apps/users/forms.py:14
+msgid "Remember me"
+msgstr "تذكّرني"
+
+#: source/apps/users/forms.py:28
+msgid "Invalid e-mail address or password."
+msgstr "البريد الإلكتروني أو كلمة المرور غير صحيحة."
+
+#: source/apps/users/forms.py:30
+msgid "This account is inactive."
+msgstr "هذا الحساب غير مفعّل."
+
+#: source/apps/users/forms.py:36 templates/auth/profile/dashboard.html:43
+#: templates/auth/register.html:41
+msgid "Phone"
+msgstr "الهاتف"
+
+#: source/apps/users/forms.py:45 source/apps/users/forms.py:109
+msgid "An account with this e-mail already exists."
+msgstr "يوجد حساب مسجّل بهذا البريد الإلكتروني."
+
+#: source/apps/users/forms.py:70 templates/auth/password/change.html:24
+#: templates/auth/profile/settings.html:53
+msgid "New password"
+msgstr "كلمة المرور الجديدة"
+
+#: source/apps/users/forms.py:71
+msgid "Confirm password"
+msgstr "تأكيد كلمة المرور"
+
+#: source/apps/users/forms.py:81
+msgid "The two password fields didn't match."
+msgstr "كلمتا المرور غير متطابقتين."
+
+#: source/apps/users/forms.py:94
+msgid "Bio"
+msgstr "نبذة"
+
+#: source/apps/users/views.py:56
+#, python-format
+msgid "Welcome to Tawil Media, %(name)s!"
+msgstr "مرحبًا بك في طويل ميديا، %(name)s!"
+
+#: source/apps/users/views.py:77
+msgid "If an account exists for that address, a reset link has been sent."
+msgstr "إذا كان هناك حساب بهذا العنوان، فقد أُرسل رابط لإعادة التعيين."
+
+#: source/apps/users/views.py:88
+msgid "Your password has been changed. You are now signed in."
+msgstr "تم تغيير كلمة المرور. أنت الآن مسجّل الدخول."
+
+#: source/apps/users/views.py:106
+msgid "Your password has been changed."
+msgstr "تم تغيير كلمة المرور."
+
+#: source/apps/users/views.py:131
+msgid "Profile updated."
+msgstr "تم تحديث الملف الشخصي."
+
+#: source/apps/users/views.py:143
+msgid "Password updated."
+msgstr "تم تحديث كلمة المرور."
+
+#: source/apps/users/views.py:153
+msgid "Notification preferences will be available soon."
+msgstr "إعدادات الإشعارات ستتوفر قريبًا."
+
+#: templates/archives/browse.html:3 templates/archives/browse.html:8
+#: templates/archives/edition_detail.html:8 templates/archives/year.html:8
+#: templates/base/header/navigation.html:7
+#: templates/base/header/navigation.html:34 templates/pages/home.html:58
+msgid "Archive"
+msgstr "الأرشيف"
+
+#: templates/archives/browse.html:9
+msgid "Twenty years of editions"
+msgstr "عشرون عامًا من الإصدارات"
+
+#: templates/archives/browse.html:10
+msgid ""
+"Every digitised edition, year by year. Pick a year to see its issues and "
+"contents."
+msgstr ""
+"كل الإصدارات الرقمية، عامًا بعد عام. اختر عامًا لعرض أعداده ومحتوياته."
+
+#: templates/archives/browse.html:18
+#, python-format
+msgid "%(counter)s edition"
+msgid_plural "%(counter)s editions"
+msgstr[0] "لا إصدارات"
+msgstr[1] "إصدار واحد"
+msgstr[2] "إصداران"
+msgstr[3] "%(counter)s إصدارات"
+msgstr[4] "%(counter)s إصدارًا"
+msgstr[5] "%(counter)s إصدار"
+
+#: templates/archives/browse.html:24
+msgid "The archive is being digitised"
+msgstr "جارٍ رقمنة الأرشيف"
+
+#: templates/archives/browse.html:25
+msgid "Editions will appear here as they are scanned and catalogued."
+msgstr "ستظهر الإصدارات هنا فور مسحها وفهرستها."
+
+#: templates/archives/edition_detail.html:7 templates/archives/year.html:7
+#: templates/content/magazine_detail.html:8
+msgid "Breadcrumb"
+msgstr "مسار التنقل"
+
+#: templates/archives/edition_detail.html:18 templates/archives/year.html:23
+msgid "No cover"
+msgstr "بدون غلاف"
+
+#: templates/archives/edition_detail.html:23 templates/archives/year.html:26
+#, python-format
+msgid "Edition %(number)s"
+msgstr "العدد %(number)s"
+
+#: templates/archives/edition_detail.html:25 templates/archives/year.html:28
+msgid "Digitised"
+msgstr "رقمي"
+
+#: templates/archives/edition_detail.html:28
+#, python-format
+msgid "%(counter)s page"
+msgid_plural "%(counter)s pages"
+msgstr[0] "لا صفحات"
+msgstr[1] "صفحة واحدة"
+msgstr[2] "صفحتان"
+msgstr[3] "%(counter)s صفحات"
+msgstr[4] "%(counter)s صفحة"
+msgstr[5] "%(counter)s صفحة"
+
+#: templates/archives/edition_detail.html:32
+msgid "Contents"
+msgstr "المحتويات"
+
+#: templates/archives/edition_detail.html:47
+msgid "Contents not digitised yet."
+msgstr "لم تُرقمن المحتويات بعد."
+
+#: templates/archives/year.html:3
+#, python-format
+msgid "Archive %(year)s"
+msgstr "أرشيف %(year)s"
+
+#: templates/archives/year.html:13
+msgid "Archive year"
+msgstr "سنة الأرشيف"
+
+#: templates/archives/year.html:35
+msgid "No editions for this year"
+msgstr "لا إصدارات في هذا العام"
+
+#: templates/auth/login.html:3 templates/auth/login.html:48
+#: templates/auth/register.html:66 templates/base/header/user-menu.html:59
+msgid "Sign in"
+msgstr "تسجيل الدخول"
+
+#: templates/auth/login.html:11
+msgid "Welcome back"
+msgstr "مرحبًا بعودتك"
+
+#: templates/auth/login.html:12
+msgid "Sign in to your account"
+msgstr "سجّل الدخول إلى حسابك"
+
+#: templates/auth/login.html:24 templates/auth/password/reset.html:21
+#: templates/auth/profile/settings.html:40 templates/auth/register.html:35
+#: templates/base/footer/main.html:43 templates/content/article_detail.html:67
+msgid "E-mail address"
+msgstr "البريد الإلكتروني"
+
+#: templates/auth/login.html:33
+msgid "Forgot password?"
+msgstr "نسيت كلمة المرور؟"
+
+#: templates/auth/login.html:37 templates/auth/register.html:49
+msgid "Show password"
+msgstr "إظهار كلمة المرور"
+
+#: templates/auth/login.html:45
+msgid "Keep me signed in"
+msgstr "أبقني مسجّل الدخول"
+
+#: templates/auth/login.html:53
+msgid "New here?"
+msgstr "جديد هنا؟"
+
+#: templates/auth/login.html:53 templates/auth/register.html:3
+#: templates/auth/register.html:11
+msgid "Create an account"
+msgstr "إنشاء حساب"
+
+#: templates/auth/password/change.html:3
+#: templates/auth/password/change.html:11
+msgid "Choose a new password"
+msgstr "اختر كلمة مرور جديدة"
+
+#: templates/auth/password/change.html:12
+msgid "Use at least 8 characters. You'll be signed in afterwards."
+msgstr "استخدم 8 أحرف على الأقل. سيتم تسجيل دخولك بعد ذلك."
+
+#: templates/auth/password/change.html:16
+msgid "This reset link has expired or was already used."
+msgstr "انتهت صلاحية هذا الرابط أو سبق استخدامه."
+
+#: templates/auth/password/change.html:16
+msgid "Request a new one"
+msgstr "اطلب رابطًا جديدًا"
+
+#: templates/auth/password/change.html:29
+#: templates/auth/profile/settings.html:54
+msgid "Confirm new password"
+msgstr "تأكيد كلمة المرور الجديدة"
+
+#: templates/auth/password/change.html:33
+#: templates/auth/profile/settings.html:55
+msgid "Show passwords"
+msgstr "إظهار كلمات المرور"
+
+#: templates/auth/password/change.html:35
+msgid "Save password"
+msgstr "حفظ كلمة المرور"
+
+#: templates/auth/password/change.html:41
+#: templates/auth/password/reset.html:31
+msgid "Back to sign in"
+msgstr "العودة إلى تسجيل الدخول"
+
+#: templates/auth/password/reset.html:3 templates/auth/password/reset.html:11
+msgid "Reset your password"
+msgstr "إعادة تعيين كلمة المرور"
+
+#: templates/auth/password/reset.html:12
+msgid ""
+"Enter your e-mail address and we'll send you a link to choose a new "
+"password."
+msgstr "أدخل بريدك الإلكتروني وسنرسل لك رابطًا لاختيار كلمة مرور جديدة."
+
+#: templates/auth/password/reset.html:26
+msgid "Send reset link"
+msgstr "إرسال رابط إعادة التعيين"
+
+#: templates/auth/profile/dashboard.html:3
+msgid "Your account"
+msgstr "حسابك"
+
+#: templates/auth/profile/dashboard.html:8
+#: templates/auth/profile/settings.html:8 templates/notifications/list.html:6
+msgid "Account"
+msgstr "الحساب"
+
+#: templates/auth/profile/dashboard.html:12
+#, python-format
+msgid "Hello, %(name)s"
+msgstr "مرحبًا، %(name)s"
+
+#: templates/auth/profile/dashboard.html:13
+msgid "Verified"
+msgstr "موثّق"
+
+#: templates/auth/profile/dashboard.html:15
+#: templates/auth/profile/settings.html:3
+#: templates/auth/profile/settings.html:9
+#: templates/base/header/user-menu.html:49
+msgid "Settings"
+msgstr "الإعدادات"
+
+#: templates/auth/profile/dashboard.html:21
+#: templates/auth/profile/settings.html:16
+#: templates/auth/profile/settings.html:61
+#: templates/base/header/user-menu.html:27
+#: templates/base/header/user-menu.html:50
+#: templates/notifications/dropdown.html:4 templates/notifications/list.html:3
+#: templates/notifications/list.html:6
+msgid "Notifications"
+msgstr "الإشعارات"
+
+#: templates/auth/profile/dashboard.html:23
+msgid "unread"
+msgstr "غير مقروء"
+
+#: templates/auth/profile/dashboard.html:26
+#: templates/content/magazine_list.html:8 templates/pages/home.html:75
+msgid "Editions"
+msgstr "الإصدارات"
+
+#: templates/auth/profile/dashboard.html:27
+msgid "Read the latest"
+msgstr "اقرأ الأحدث"
+
+#: templates/auth/profile/dashboard.html:28 templates/pages/home.html:46
+msgid "Almadina magazine"
+msgstr "مجلة المدينة"
+
+#: templates/auth/profile/dashboard.html:31 templates/pages/home.html:52
+msgid "Advertising"
+msgstr "الإعلانات"
+
+#: templates/auth/profile/dashboard.html:32
+msgid "Plan a campaign"
+msgstr "خطّط لحملة"
+
+#: templates/auth/profile/dashboard.html:33
+msgid "Print, digital and social"
+msgstr "ورقي ورقمي ووسائل التواصل"
+
+#: templates/auth/profile/dashboard.html:39
+#: templates/auth/profile/settings.html:14
+#: templates/auth/profile/settings.html:22
+#: templates/base/header/user-menu.html:48
+msgid "Profile"
+msgstr "الملف الشخصي"
+
+#: templates/auth/profile/dashboard.html:41
+msgid "Name"
+msgstr "الاسم"
+
+#: templates/auth/profile/dashboard.html:42
+msgid "E-mail"
+msgstr "البريد الإلكتروني"
+
+#: templates/auth/profile/dashboard.html:44
+msgid "Member since"
+msgstr "عضو منذ"
+
+#: templates/auth/profile/dashboard.html:46
+msgid "Edit profile"
+msgstr "تعديل الملف الشخصي"
+
+#: templates/auth/profile/dashboard.html:49 templates/base/footer/main.html:37
+#: templates/content/article_detail.html:63
+msgid "Newsletter"
+msgstr "النشرة البريدية"
+
+#: templates/auth/profile/dashboard.html:50
+msgid "Stories in your inbox"
+msgstr "قصص في بريدك"
+
+#: templates/auth/profile/dashboard.html:51
+msgid "Once a week, the new edition and our best reporting."
+msgstr "مرة في الأسبوع: العدد الجديد وأفضل تقاريرنا."
+
+#: templates/auth/profile/dashboard.html:55
+msgid "Subscribe with this e-mail"
+msgstr "اشترك بهذا البريد"
+
+#: templates/auth/profile/settings.html:13
+msgid "Settings sections"
+msgstr "أقسام الإعدادات"
+
+#: templates/auth/profile/settings.html:17
+msgid "Back to account"
+msgstr "العودة إلى الحساب"
+
+#: templates/auth/profile/settings.html:23
+msgid "How you appear on the site and how we reach you."
+msgstr "كيف تظهر على الموقع وكيف نتواصل معك."
+
+#: templates/auth/profile/settings.html:32
+msgid "Photo"
+msgstr "الصورة"
+
+#: templates/auth/profile/settings.html:32
+#: templates/auth/profile/settings.html:41 templates/auth/register.html:41
+msgid "optional"
+msgstr "اختياري"
+
+#: templates/auth/profile/settings.html:37 templates/auth/register.html:23
+msgid "First name"
+msgstr "الاسم الأول"
+
+#: templates/auth/profile/settings.html:38 templates/auth/register.html:28
+msgid "Last name"
+msgstr "اسم العائلة"
+
+#: templates/auth/profile/settings.html:41
+msgid "Short bio"
+msgstr "نبذة قصيرة"
+
+#: templates/auth/profile/settings.html:43
+msgid "Save changes"
+msgstr "حفظ التغييرات"
+
+#: templates/auth/profile/settings.html:49
+msgid "Choose a strong password you don't use elsewhere."
+msgstr "اختر كلمة مرور قوية لا تستخدمها في مكان آخر."
+
+#: templates/auth/profile/settings.html:56
+msgid "Update password"
+msgstr "تحديث كلمة المرور"
+
+#: templates/auth/profile/settings.html:62
+msgid "Choose what we tell you about."
+msgstr "اختر ما نخبرك به."
+
+#: templates/auth/profile/settings.html:65
+msgid "New edition released"
+msgstr "صدور عدد جديد"
+
+#: templates/auth/profile/settings.html:66
+msgid "Weekly newsletter"
+msgstr "النشرة الأسبوعية"
+
+#: templates/auth/profile/settings.html:67
+msgid "Replies and mentions"
+msgstr "الردود والإشارات"
+
+#: templates/auth/profile/settings.html:68
+msgid "Offers from advertisers"
+msgstr "عروض من المعلنين"
+
+#: templates/auth/profile/settings.html:69
+msgid "Save preferences"
+msgstr "حفظ التفضيلات"
+
+#: templates/auth/register.html:12
+msgid "Save stories, manage your newsletter and subscribe to editions."
+msgstr "احفظ القصص، وأدر نشرتك البريدية، واشترك في الإصدارات."
+
+#: templates/auth/register.html:54
+msgid "At least 8 characters. Avoid your name or a common word."
+msgstr "8 أحرف على الأقل. تجنّب اسمك أو كلمة شائعة."
+
+#: templates/auth/register.html:58
+#, python-format
+msgid ""
+"I agree to the <a href=\"%(terms_url)s\" class=\"link-underline\">terms</a> "
+"and the <a href=\"%(privacy_url)s\" class=\"link-underline\">privacy "
+"policy</a>."
+msgstr ""
+"أوافق على <a href=\"%(terms_url)s\" class=\"link-underline\">الشروط</a> و<a "
+"href=\"%(privacy_url)s\" class=\"link-underline\">سياسة الخصوصية</a>."
+
+#: templates/auth/register.html:61
+msgid "Create account"
+msgstr "إنشاء الحساب"
+
+#: templates/auth/register.html:66
+msgid "Already have an account?"
+msgstr "لديك حساب بالفعل؟"
+
+#: templates/base/base.html:78
+msgid "Skip to main content"
+msgstr "الانتقال إلى المحتوى"
+
+#: templates/base/components/pagination.html:8
+msgid "Pagination"
+msgstr "تصفّح الصفحات"
+
+#: templates/base/components/pagination.html:11
+msgid "Previous"
+msgstr "السابق"
+
+#: templates/base/components/pagination.html:27
+msgid "Next"
+msgstr "التالي"
+
+#: templates/base/footer/main.html:8
+msgid ""
+"Professional media and advertising platform serving Arabic-speaking "
+"communities in Germany and beyond."
+msgstr ""
+"منصة إعلامية وإعلانية احترافية تخدم الجاليات الناطقة بالعربية في ألمانيا "
+"وخارجها."
+
+#: templates/base/footer/main.html:16 templates/base/footer/main.html:17
+msgid "Company"
+msgstr "الشركة"
+
+#: templates/base/footer/main.html:19 templates/base/header/navigation.html:15
+#: templates/base/header/navigation.html:35
+msgid "About us"
+msgstr "من نحن"
+
+#: templates/base/footer/main.html:20 templates/base/header/navigation.html:16
+#: templates/base/header/navigation.html:36
+msgid "Contact"
+msgstr "اتصل بنا"
+
+#: templates/base/footer/main.html:21 templates/base/header/navigation.html:18
+msgid "Careers"
+msgstr "الوظائف"
+
+#: templates/base/footer/main.html:22 templates/base/header/navigation.html:17
+#: templates/base/header/navigation.html:37
+msgid "Advertise"
+msgstr "أعلن معنا"
+
+#: templates/base/footer/main.html:26 templates/base/footer/main.html:27
+msgid "Read"
+msgstr "اقرأ"
+
+#: templates/base/footer/main.html:29 templates/base/header/navigation.html:5
+#: templates/base/header/navigation.html:32
+#: templates/content/article_list.html:3 templates/content/article_list.html:9
+msgid "Articles"
+msgstr "المقالات"
+
+#: templates/base/footer/main.html:30 templates/base/header/navigation.html:6
+#: templates/base/header/navigation.html:33
+#: templates/content/magazine_detail.html:9
+#: templates/content/magazine_list.html:3
+#: templates/content/magazine_list.html:9
+msgid "Magazines"
+msgstr "المجلات"
+
+#: templates/base/footer/main.html:31
+msgid "Archives"
+msgstr "الأرشيف"
+
+#: templates/base/footer/main.html:32
+msgid "Help centre"
+msgstr "مركز المساعدة"
+
+#: templates/base/footer/main.html:38
+msgid "The new edition and the best stories, once a week."
+msgstr "العدد الجديد وأفضل القصص، مرة في الأسبوع."
+
+#: templates/base/footer/main.html:45 templates/content/article_detail.html:68
+msgid "you@example.com"
+msgstr "you@example.com"
+
+#: templates/base/footer/main.html:46 templates/content/article_detail.html:69
+msgid "Subscribe"
+msgstr "اشترك"
+
+#: templates/base/footer/main.html:54
+msgid "All rights reserved."
+msgstr "جميع الحقوق محفوظة."
+
+#: templates/base/footer/main.html:56
+msgid "Terms"
+msgstr "الشروط"
+
+#: templates/base/footer/main.html:57
+msgid "Privacy"
+msgstr "الخصوصية"
+
+#: templates/base/footer/main.html:58
+msgid "Cookies"
+msgstr "ملفات تعريف الارتباط"
+
+#: templates/base/footer/main.html:59
+msgid "Sitemap"
+msgstr "خريطة الموقع"
+
+#: templates/base/header/company-info.html:4
+#, python-format
+msgid "Welcome to %(SITE_NAME)s"
+msgstr "مرحبًا بك في %(SITE_NAME)s"
+
+#: templates/base/header/company-info.html:5
+msgid "Your gateway to professional media"
+msgstr "بوابتك إلى الإعلام الاحترافي"
+
+#: templates/base/header/company-info.html:7
+msgid ""
+"Connect with your audience through powerful content and strategic "
+"advertising. We create media experiences that get results."
+msgstr ""
+"تواصل مع جمهورك عبر محتوى قوي وإعلانات استراتيجية. نصنع تجارب إعلامية تحقق "
+"النتائج."
+
+#: templates/base/header/company-info.html:16
+msgid "Professional media solutions"
+msgstr "حلول إعلامية احترافية"
+
+#: templates/base/header/company-info.html:24
+msgid "Strategic advertising"
+msgstr "إعلانات استراتيجية"
+
+#: templates/base/header/company-info.html:32
+msgid "Creative content development"
+msgstr "تطوير محتوى إبداعي"
+
+#: templates/base/header/header.html:9
+#, python-format
+msgid "%(SITE_NAME)s home"
+msgstr "الصفحة الرئيسية لـ%(SITE_NAME)s"
+
+#: templates/base/header/magazine-slider.html:3
+msgid "Latest editions"
+msgstr "أحدث الإصدارات"
+
+#: templates/base/header/magazine-slider.html:23
+msgid "Previous edition"
+msgstr "الإصدار السابق"
+
+#: templates/base/header/magazine-slider.html:31
+msgid "Next edition"
+msgstr "الإصدار التالي"
+
+#: templates/base/header/magazine-slider.html:41
+msgid "Our magazines"
+msgstr "مجلاتنا"
+
+#: templates/base/header/magazine-slider.html:42
+msgid "New editions are published here."
+msgstr "تُنشر الإصدارات الجديدة هنا."
+
+#: templates/base/header/navigation.html:2
+msgid "Main navigation"
+msgstr "التنقل الرئيسي"
+
+#: templates/base/header/navigation.html:4
+#: templates/base/header/navigation.html:31
+msgid "Home"
+msgstr "الرئيسية"
+
+#: templates/base/header/navigation.html:11
+msgid "More"
+msgstr "المزيد"
+
+#: templates/base/header/navigation.html:23
+msgid "Toggle menu"
+msgstr "فتح القائمة"
+
+#: templates/base/header/navigation.html:39
+#: templates/base/header/search.html:7 templates/errors/404.html:11
+#: templates/pages/search.html:3 templates/pages/search.html:8
+#: templates/pages/search.html:13 templates/pages/search.html:18
+msgid "Search"
+msgstr "بحث"
+
+#: templates/base/header/navigation.html:40
+#: templates/base/header/search.html:4
+msgid "Search…"
+msgstr "ابحث…"
+
+#: templates/base/header/owner-info.html:3
+msgid "Meet our director"
+msgstr "تعرّف على مديرنا"
+
+#: templates/base/header/owner-info.html:15
+msgid "Years experience"
+msgstr "سنوات خبرة"
+
+#: templates/base/header/owner-info.html:15
+msgid "Projects"
+msgstr "مشروع"
+
+#: templates/base/header/owner-info.html:15
+msgid "Happy clients"
+msgstr "عميل سعيد"
+
+#: templates/base/header/search.html:3
+msgid "Search articles and magazines"
+msgstr "ابحث في المقالات والمجلات"
+
+#: templates/base/header/user-menu.html:5
+msgid "Change language"
+msgstr "تغيير اللغة"
+
+#: templates/base/header/user-menu.html:20
+msgid "Toggle dark mode"
+msgstr "تبديل الوضع الداكن"
+
+#: templates/base/header/user-menu.html:33
+msgid "Loading…"
+msgstr "جارٍ التحميل…"
+
+#: templates/base/header/user-menu.html:47
+msgid "Admin"
+msgstr "الإدارة"
+
+#: templates/base/header/user-menu.html:53
+msgid "Sign out"
+msgstr "تسجيل الخروج"
+
+#: templates/base/header/user-menu.html:60
+msgid "Sign up"
+msgstr "إنشاء حساب"
+
+#: templates/content/article_detail.html:15
+msgid "Draft"
+msgstr "مسودة"
+
+#: templates/content/article_detail.html:26
+#: templates/content/partials/article_card.html:18
+#, python-format
+msgid "%(minutes)s min read"
+msgstr "%(minutes)s دقائق قراءة"
+
+#: templates/content/article_detail.html:44
+msgid "Share"
+msgstr "مشاركة"
+
+#: templates/content/article_detail.html:49
+msgid "Copy link"
+msgstr "نسخ الرابط"
+
+#: templates/content/article_detail.html:55 templates/pages/home.html:90
+msgid "Topics"
+msgstr "المواضيع"
+
+#: templates/content/article_detail.html:64
+msgid "Stories like this, weekly."
+msgstr "قصص كهذه، أسبوعيًا."
+
+#: templates/content/article_detail.html:79
+msgid "Gallery"
+msgstr "معرض الصور"
+
+#: templates/content/article_detail.html:100
+msgid "Related stories"
+msgstr "قصص ذات صلة"
+
+#: templates/content/article_list.html:8
+msgid "Category"
+msgstr "التصنيف"
+
+#: templates/content/article_list.html:8
+msgid "Tag"
+msgstr "الوسم"
+
+#: templates/content/article_list.html:8 templates/pages/home.html:14
+msgid "Journal"
+msgstr "المجلة"
+
+#: templates/content/article_list.html:10
+msgid "Reporting, culture and community from Berlin and beyond."
+msgstr "تقارير وثقافة ومجتمع من برلين وخارجها."
+
+#: templates/content/article_list.html:14
+msgid "Categories"
+msgstr "التصنيفات"
+
+#: templates/content/article_list.html:15
+msgid "All"
+msgstr "الكل"
+
+#: templates/content/article_list.html:45
+msgid "Nothing here yet"
+msgstr "لا شيء هنا بعد"
+
+#: templates/content/article_list.html:46
+msgid "New stories are published every week. Check back soon."
+msgstr "تُنشر قصص جديدة كل أسبوع. عُد قريبًا."
+
+#: templates/content/magazine_detail.html:28
+#, python-format
+msgid "%(counter)s article"
+msgid_plural "%(counter)s articles"
+msgstr[0] "لا مقالات"
+msgstr[1] "مقال واحد"
+msgstr[2] "مقالان"
+msgstr[3] "%(counter)s مقالات"
+msgstr[4] "%(counter)s مقالًا"
+msgstr[5] "%(counter)s مقال"
+
+#: templates/content/magazine_detail.html:32
+msgid "Advertise in the next edition"
+msgstr "أعلن في العدد القادم"
+
+#: templates/content/magazine_detail.html:33
+msgid "Browse the archive"
+msgstr "تصفّح الأرشيف"
+
+#: templates/content/magazine_detail.html:37
+msgid "In this issue"
+msgstr "في هذا العدد"
+
+#: templates/content/magazine_detail.html:46
+#: templates/content/partials/article_card.html:32
+#: templates/content/partials/article_card.html:47
+#, python-format
+msgid "%(minutes)s min"
+msgstr "%(minutes)s د"
+
+#: templates/content/magazine_detail.html:51
+msgid "The contents of this edition will be listed here."
+msgstr "ستُعرض محتويات هذا العدد هنا."
+
+#: templates/content/magazine_list.html:10
+msgid ""
+"Every edition of Almadina, the first Arabic magazine in Germany, from the "
+"newest issue back."
+msgstr "كل أعداد المدينة، أول مجلة عربية في ألمانيا، من الأحدث إلى الأقدم."
+
+#: templates/content/magazine_list.html:20
+msgid "No editions published yet"
+msgstr "لم تُنشر إصدارات بعد"
+
+#: templates/content/magazine_list.html:21
+msgid "The next edition will appear here as soon as it is released."
+msgstr "سيظهر العدد القادم هنا فور صدوره."
+
+#: templates/content/partials/magazine_card.html:11
+msgid "Edition"
+msgstr "العدد"
+
+#: templates/errors/404.html:3
+msgid "Page not found"
+msgstr "الصفحة غير موجودة"
+
+#: templates/errors/404.html:7
+msgid "We couldn't find that page."
+msgstr "لم نعثر على هذه الصفحة."
+
+#: templates/errors/404.html:8
+msgid ""
+"It may have moved, or the link might be wrong. Try the search or go back to "
+"the homepage."
+msgstr "ربما نُقلت أو أن الرابط خاطئ. جرّب البحث أو عُد إلى الصفحة الرئيسية."
+
+#: templates/errors/404.html:10
+msgid "Homepage"
+msgstr "الصفحة الرئيسية"
+
+#: templates/errors/500.html:3
+msgid "Something went wrong"
+msgstr "حدث خطأ ما"
+
+#: templates/errors/500.html:7
+msgid "Something went wrong on our side."
+msgstr "حدث خطأ من جهتنا."
+
+#: templates/errors/500.html:8
+msgid "We've been notified. Please try again in a moment."
+msgstr "تم إبلاغنا. يرجى المحاولة مرة أخرى بعد قليل."
+
+#: templates/errors/500.html:9
+msgid "Back to the homepage"
+msgstr "العودة إلى الصفحة الرئيسية"
+
+#: templates/notifications/dropdown.html:4
+#, python-format
+msgid "(%(counter)s unread)"
+msgid_plural "(%(counter)s unread)"
+msgstr[0] "(لا جديد)"
+msgstr[1] "(واحد غير مقروء)"
+msgstr[2] "(اثنان غير مقروءين)"
+msgstr[3] "(%(counter)s غير مقروءة)"
+msgstr[4] "(%(counter)s غير مقروءًا)"
+msgstr[5] "(%(counter)s غير مقروء)"
+
+#: templates/notifications/dropdown.html:8
+msgid "Mark all as read"
+msgstr "تعليم الكل كمقروء"
+
+#: templates/notifications/dropdown.html:25
+msgid "Mark as read"
+msgstr "تعليم كمقروء"
+
+#: templates/notifications/dropdown.html:33
+msgid "You're all caught up."
+msgstr "لا جديد لديك."
+
+#: templates/notifications/dropdown.html:38
+msgid "View all notifications"
+msgstr "عرض كل الإشعارات"
+
+#: templates/pages/home.html:4
+msgid "Media, magazines and archives from Berlin"
+msgstr "إعلام ومجلات وأرشيف من برلين"
+
+#: templates/pages/home.html:5
+msgid ""
+"Tawil Media publishes Almadina, the first Arabic magazine in Germany, "
+"alongside articles, editions and a growing archive."
+msgstr ""
+"تصدر طويل ميديا مجلة المدينة، أول مجلة عربية في ألمانيا، إلى جانب المقالات "
+"والإصدارات وأرشيف متنامٍ."
+
+#: templates/pages/home.html:15
+msgid "Latest stories"
+msgstr "أحدث القصص"
+
+#: templates/pages/home.html:17
+msgid "All articles"
+msgstr "كل المقالات"
+
+#: templates/pages/home.html:39
+msgid "What we do"
+msgstr "ماذا نقدّم"
+
+#: templates/pages/home.html:40
+msgid ""
+"Print, digital and advertising for a community of half a million readers"
+msgstr "ورقي ورقمي وإعلانات لمجتمع من نصف مليون قارئ"
+
+#: templates/pages/home.html:47
+msgid ""
+"The first Arabic magazine in Germany: culture, business and community, in "
+"print and online."
+msgstr "أول مجلة عربية في ألمانيا: ثقافة وأعمال ومجتمع، ورقيًا وعلى الإنترنت."
+
+#: templates/pages/home.html:48
+msgid "Browse editions"
+msgstr "تصفّح الإصدارات"
+
+#: templates/pages/home.html:53
+msgid ""
+"Reach Arabic-speaking readers across Germany with print, digital and social "
+"campaigns."
+msgstr ""
+"صِل إلى القرّاء الناطقين بالعربية في أنحاء ألمانيا عبر حملات ورقية ورقمية "
+"واجتماعية."
+
+#: templates/pages/home.html:54
+msgid "See the media kit"
+msgstr "اطّلع على الملف الإعلامي"
+
+#: templates/pages/home.html:59
+msgid ""
+"Twenty years of editions, digitised and searchable by year, edition and "
+"topic."
+msgstr ""
+"عشرون عامًا من الإصدارات، مرقمنة وقابلة للبحث حسب السنة والعدد والموضوع."
+
+#: templates/pages/home.html:60
+msgid "Open the archive"
+msgstr "افتح الأرشيف"
+
+#: templates/pages/home.html:64
+msgid "Monthly readers"
+msgstr "قارئ شهريًا"
+
+#: templates/pages/home.html:65
+msgid "Print editions"
+msgstr "إصدار ورقي"
+
+#: templates/pages/home.html:66
+msgid "Years of archive"
+msgstr "سنة من الأرشيف"
+
+#: templates/pages/home.html:76
+msgid "Recent magazines"
+msgstr "أحدث المجلات"
+
+#: templates/pages/home.html:78
+msgid "All editions"
+msgstr "كل الإصدارات"
+
+#: templates/pages/home.html:91
+msgid "Browse by category"
+msgstr "تصفّح حسب التصنيف"
+
+#: templates/pages/home.html:105
+msgid "Advertise with us"
+msgstr "أعلن معنا"
+
+#: templates/pages/home.html:106
+msgid "Put your brand in front of the community."
+msgstr "ضع علامتك التجارية أمام المجتمع."
+
+#: templates/pages/home.html:107
+msgid ""
+"Print placements, digital campaigns and sponsored stories, planned with our "
+"editorial team."
+msgstr "مساحات ورقية وحملات رقمية وقصص ممولة، بالتخطيط مع فريق التحرير."
+
+#: templates/pages/home.html:110
+msgid "Request the media kit"
+msgstr "اطلب الملف الإعلامي"
+
+#: templates/pages/home.html:111
+msgid "Talk to us"
+msgstr "تحدّث معنا"
+
+#: templates/pages/search.html:3
+#, python-format
+msgid "Search: %(query)s"
+msgstr "بحث: %(query)s"
+
+#: templates/pages/search.html:9
+#, python-format
+msgid "Results for “%(query)s”"
+msgstr "نتائج البحث عن «%(query)s»"
+
+#: templates/pages/search.html:9
+msgid "Find a story"
+msgstr "ابحث عن قصة"
+
+#: templates/pages/search.html:16
+msgid "Search articles…"
+msgstr "ابحث في المقالات…"
+
+#: templates/pages/search.html:22
+#, python-format
+msgid "%(counter)s result"
+msgid_plural "%(counter)s results"
+msgstr[0] "لا نتائج"
+msgstr[1] "نتيجة واحدة"
+msgstr[2] "نتيجتان"
+msgstr[3] "%(counter)s نتائج"
+msgstr[4] "%(counter)s نتيجة"
+msgstr[5] "%(counter)s نتيجة"
+
+#: templates/pages/search.html:28
+msgid "Nothing matched"
+msgstr "لا نتائج مطابقة"
+
+#: templates/pages/search.html:29
+msgid "Try a shorter word, a different spelling, or browse by category."
+msgstr "جرّب كلمة أقصر أو تهجئة مختلفة، أو تصفّح حسب التصنيف."
+
+#: templates/pages/search.html:30
+msgid "Browse articles"
+msgstr "تصفّح المقالات"

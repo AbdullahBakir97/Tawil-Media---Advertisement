@@ -1,28 +1,38 @@
 {% extends "base/base.html" %}
-{% block title %}Archive {{ archive_year.year }} – {{ SITE_NAME }}{% endblock %}
+{% load i18n %}
+{% block title %}{% blocktrans with year=archive_year.year %}Archive {{ year }}{% endblocktrans %} – {{ SITE_NAME }}{% endblock %}
 
 {% block content %}
 <div class="container">
-    <h1 class="text-3xl font-bold mb-2">{{ archive_year.year }}</h1>
-    {% if archive_year.description %}<p class="text-secondary mb-8">{{ archive_year.description }}</p>{% endif %}
+    <nav class="text-sm text-tertiary mb-4" aria-label="{% trans 'Breadcrumb' %}">
+        <a href="{% url 'archives:browse' %}" class="link-quiet">{% trans "Archive" %}</a>
+        <span aria-hidden="true" class="mx-2">/</span>
+        <span class="text-secondary">{{ archive_year.year }}</span>
+    </nav>
+    <header class="page-header" data-motion="fade-up">
+        <span class="eyebrow">{% trans "Archive year" %}</span>
+        <h1 class="tabular">{{ archive_year.year }}</h1>
+        {% if archive_year.description %}<p class="lead max-w-measure">{{ archive_year.description }}</p>{% endif %}
+    </header>
+
     {% if editions %}
-        <div class="grid gap-6 grid-cols-2 md:grid-cols-4">
+        <div class="grid gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4" data-motion="stagger">
             {% for edition in editions %}
-                <a href="{% url 'archives:edition' edition.slug %}" class="card bg-secondary rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
-                    {% if edition.cover_image %}
-                        <img src="{{ edition.cover_image.file.url }}" alt="{{ edition.title }}" class="w-full aspect-[3/4] object-cover" loading="lazy">
-                    {% endif %}
-                    <div class="p-4">
-                        <p class="text-xs text-tertiary">Edition {{ edition.edition_number }}</p>
-                        <h2 class="font-semibold">{{ edition.title }}</h2>
-                        <p class="text-xs text-tertiary mt-1">{{ edition.publication_date|date:"j M Y" }}</p>
+                <article class="card card--lift" data-lift>
+                    <a class="card-media card-media--portrait" href="{% url 'archives:edition' edition.slug %}" tabindex="-1" aria-hidden="true">
+                        {% if edition.cover_image %}<img src="{{ edition.cover_image.file.url }}" alt="" loading="lazy">{% else %}<div class="w-full h-full grid place-items-center text-tertiary text-sm">{% trans "No cover" %}</div>{% endif %}
+                    </a>
+                    <div class="card-body">
+                        <span class="kicker">{% blocktrans with number=edition.edition_number %}Edition {{ number }}{% endblocktrans %}</span>
+                        <h2 class="card-title"><a href="{% url 'archives:edition' edition.slug %}">{{ edition.title }}</a></h2>
+                        <div class="card-footer"><span>{{ edition.publication_date|date:"j M Y" }}</span>{% if edition.is_digitized %}<span class="badge badge-success">{% trans "Digitised" %}</span>{% endif %}</div>
                     </div>
-                </a>
+                </article>
             {% endfor %}
         </div>
         {% include "base/components/pagination.html" %}
     {% else %}
-        <p class="text-tertiary">No editions for this year.</p>
+        <div class="empty-state"><h3>{% trans "No editions for this year" %}</h3></div>
     {% endif %}
 </div>
 {% endblock %}

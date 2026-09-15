@@ -75,7 +75,7 @@
       {% if debug %}data-debug{% endif %}>
     <!-- Skip to main content -->
     <a href="#main-content" class="sr-only focus:not-sr-only">
-        Skip to main content
+        {% trans "Skip to main content" %}
     </a>
     
     {% include "base/header/header.html" with show_hero=show_hero %}
@@ -96,7 +96,7 @@
     </main>
     
     <!-- Footer -->
-    <footer class="bg-secondary text-white py-12">
+    <footer class="site-footer">
         <div class="container">
             {% include "base/footer/main.html" %}
         </div>

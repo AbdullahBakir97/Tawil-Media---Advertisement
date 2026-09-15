@@ -1,125 +1,115 @@
 {% extends "base/base.html" %}
-{% load static %}
+{% load static i18n %}
 
-{% block title %}{{ SITE_NAME }} – Professional Media &amp; Advertisement Platform{% endblock %}
-{% block meta_description %}Discover Tawil Media, your premier destination for professional media content and targeted advertising solutions.{% endblock %}
+{% block title %}{{ SITE_NAME }} – {% trans "Media, magazines and archives from Berlin" %}{% endblock %}
+{% block meta_description %}{% trans "Tawil Media publishes Almadina, the first Arabic magazine in Germany, alongside articles, editions and a growing archive." %}{% endblock %}
 
-{% block content %}{# hero is rendered by the header when show_hero is set #}
-<!-- Main Features Grid -->
-<div class="container mx-auto px-4 py-16">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8" data-motion="stagger">
-        <!-- Archives Section -->
-        <div class="bg-secondary p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
-            <div class="w-14 h-14 bg-primary-100 rounded-lg flex items-center justify-center mb-6">
-                <svg class="svg-icon w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/>
-                </svg>
-            </div>
-            <h2 class="text-2xl font-bold mb-4">Media Archives</h2>
-            <p class="text-secondary mb-6">Access and manage your media archives with our intuitive platform. Organize, search, and retrieve content efficiently.</p>
-            <a href="{% url 'archives:browse' %}" 
-               class="inline-flex items-center text-primary-600 hover:text-primary-700 font-semibold">
-                Browse Archives
-                <svg class="svg-icon w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                </svg>
-            </a>
+{% block content %}
+{# The hero (logos, partners, director, latest editions) is rendered by the header when show_hero is set. #}
+
+{% if featured_articles %}
+<section class="container section" id="latest">
+    <div class="section-head" data-motion="fade-up">
+        <div>
+            <span class="eyebrow">{% trans "Journal" %}</span>
+            <h2>{% trans "Latest stories" %}</h2>
         </div>
-
-        <!-- Articles Section -->
-        <div class="bg-secondary p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
-            <div class="w-14 h-14 bg-primary-100 rounded-lg flex items-center justify-center mb-6">
-                <svg class="svg-icon w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>
-                </svg>
-            </div>
-            <h2 class="text-2xl font-bold mb-4">Professional Articles</h2>
-            <p class="text-secondary mb-6">Explore our curated collection of professional articles and stay updated with industry insights.</p>
-            <a href="{% url 'articles:list' %}" 
-               class="inline-flex items-center text-primary-600 hover:text-primary-700 font-semibold">
-                Read Articles
-                <svg class="svg-icon w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                </svg>
-            </a>
-        </div>
-
-        <!-- Analytics Section -->
-        <div class="bg-secondary p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
-            <div class="w-14 h-14 bg-primary-100 rounded-lg flex items-center justify-center mb-6">
-                <svg class="svg-icon w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-                </svg>
-            </div>
-            <h2 class="text-2xl font-bold mb-4">Performance Analytics</h2>
-            <p class="text-secondary mb-6">Make data-driven decisions with our comprehensive analytics dashboard and reporting tools.</p>
-            <a href="{% url 'advertise' %}" 
-               class="inline-flex items-center text-primary-600 hover:text-primary-700 font-semibold">
-                View Analytics
-                <svg class="svg-icon w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                </svg>
-            </a>
+        <a href="{% url 'articles:list' %}" class="btn btn-outline btn-sm">{% trans "All articles" %}</a>
+    </div>
+    {% with lead=featured_articles|first %}
+    <div class="grid gap-6 lg:grid-cols-5" data-motion="stagger">
+        <div class="lg:col-span-3">{% include "content/partials/article_card.html" with article=lead variant="feature" %}</div>
+        <div class="lg:col-span-2 grid gap-4 content-start">
+            {% for article in featured_articles|slice:"1:4" %}{% include "content/partials/article_card.html" with variant="row" %}{% endfor %}
         </div>
     </div>
-</div>
-
-<!-- Latest content -->
-<section class="container">
-    <div class="flex items-end justify-between mb-6">
-        <h2 class="text-2xl font-bold">Latest articles</h2>
-        <a href="{% url 'articles:list' %}" class="text-primary-600 hover:underline">View all</a>
+    {% endwith %}
+    {% if featured_articles|length > 4 %}
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-6" data-motion="stagger">
+        {% for article in featured_articles|slice:"4:7" %}{% include "content/partials/article_card.html" %}{% endfor %}
     </div>
-    {% if featured_articles %}
-        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" data-motion="stagger">
-            {% for article in featured_articles %}
-                {% include "content/partials/article_card.html" %}
-            {% endfor %}
-        </div>
-    {% else %}
-        <p class="text-tertiary">No articles have been published yet.{% if user.is_staff %} Add some in the <a class="underline" href="{% url 'admin:index' %}">admin</a>.{% endif %}</p>
     {% endif %}
+</section>
+{% endif %}
+
+<section class="section section--brand" id="what-we-do">
+    <div class="container">
+        <div class="section-head section-head--on-brand" data-motion="fade-up">
+            <div>
+                <span class="eyebrow" style="color:var(--gold-400)">{% trans "What we do" %}</span>
+                <h2 class="text-on-brand" data-motion="words">{% trans "Print, digital and advertising for a community of half a million readers" %}</h2>
+            </div>
+        </div>
+        <div class="grid gap-6 md:grid-cols-3" data-motion="stagger">
+            <a href="{% url 'magazines:list' %}" class="feature-tile">
+                <span class="feature-icon"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg></span>
+                <h3>{% trans "Almadina magazine" %}</h3>
+                <p>{% trans "The first Arabic magazine in Germany: culture, business and community, in print and online." %}</p>
+                <span class="feature-link">{% trans "Browse editions" %} <span aria-hidden="true" class="rtl:rotate-180 inline-block">→</span></span>
+            </a>
+            <a href="{% url 'advertise' %}" class="feature-tile">
+                <span class="feature-icon"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/></svg></span>
+                <h3>{% trans "Advertising" %}</h3>
+                <p>{% trans "Reach Arabic-speaking readers across Germany with print, digital and social campaigns." %}</p>
+                <span class="feature-link">{% trans "See the media kit" %} <span aria-hidden="true" class="rtl:rotate-180 inline-block">→</span></span>
+            </a>
+            <a href="{% url 'archives:browse' %}" class="feature-tile">
+                <span class="feature-icon"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/></svg></span>
+                <h3>{% trans "Archive" %}</h3>
+                <p>{% trans "Twenty years of editions, digitised and searchable by year, edition and topic." %}</p>
+                <span class="feature-link">{% trans "Open the archive" %} <span aria-hidden="true" class="rtl:rotate-180 inline-block">→</span></span>
+            </a>
+        </div>
+        <div class="grid grid-cols-3 gap-6 mt-12 max-w-2xl" data-motion="stagger">
+            <div class="stat-tile stat-tile--on-brand"><div class="stat-value" data-motion="count" data-count="500" data-suffix="K+">500K+</div><div class="stat-label">{% trans "Monthly readers" %}</div></div>
+            <div class="stat-tile stat-tile--on-brand"><div class="stat-value" data-motion="count" data-count="47">47</div><div class="stat-label">{% trans "Print editions" %}</div></div>
+            <div class="stat-tile stat-tile--on-brand"><div class="stat-value" data-motion="count" data-count="20">20</div><div class="stat-label">{% trans "Years of archive" %}</div></div>
+        </div>
+    </div>
 </section>
 
 {% if latest_magazines %}
-<section class="container mt-16">
-    <div class="flex items-end justify-between mb-6">
-        <h2 class="text-2xl font-bold">Magazines</h2>
-        <a href="{% url 'magazines:list' %}" class="text-primary-600 hover:underline">View all</a>
+<section class="container section" id="editions">
+    <div class="section-head" data-motion="fade-up">
+        <div>
+            <span class="eyebrow">{% trans "Editions" %}</span>
+            <h2>{% trans "Recent magazines" %}</h2>
+        </div>
+        <a href="{% url 'magazines:list' %}" class="btn btn-outline btn-sm">{% trans "All editions" %}</a>
     </div>
-    <div class="grid gap-6 sm:grid-cols-3" data-motion="stagger">
-        {% for magazine in latest_magazines %}
-            {% include "content/partials/magazine_card.html" %}
-        {% endfor %}
+    <div class="grid gap-6 grid-cols-2 md:grid-cols-3" data-motion="stagger">
+        {% for magazine in latest_magazines %}{% include "content/partials/magazine_card.html" %}{% endfor %}
     </div>
 </section>
 {% endif %}
 
 {% if categories %}
-<section class="container mt-16 mb-16">
-    <h2 class="text-2xl font-bold mb-6">Browse by category</h2>
-    <div class="flex flex-wrap gap-2">
+<section class="container section pt-0" id="topics">
+    <div class="section-head" data-motion="fade-up">
+        <div>
+            <span class="eyebrow">{% trans "Topics" %}</span>
+            <h2>{% trans "Browse by category" %}</h2>
+        </div>
+    </div>
+    <div class="tag-list" data-motion="stagger">
         {% for category in categories %}
-            <a href="{% url 'articles:by_category' category.slug %}" class="px-4 py-2 rounded-full bg-tertiary hover:bg-primary-100 hover:text-primary-700 transition-colors">{{ category.name }}</a>
+            <a href="{% url 'articles:by_category' category.slug %}" class="tag text-base">{{ category.name }}</a>
         {% endfor %}
     </div>
 </section>
 {% endif %}
 
-<!-- CTA Section -->
-<div class="bg-primary-900 text-white" data-motion="fade-up">
-    <div class="container mx-auto px-4 py-16 text-center">
-        <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Transform Your Media Strategy?</h2>
-        <p class="text-xl text-gray-200 mb-8 max-w-2xl mx-auto">
-            Join thousands of professionals who trust Tawil Media for their media and advertising needs.
-        </p>
-        <a href="{% url 'register' %}" 
-           class="inline-flex items-center px-8 py-4 bg-white text-primary-900 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
-            Create Your Account
-            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-            </svg>
-        </a>
+<section class="container section">
+    <div class="cta-band" data-motion="scale-in">
+        <div>
+            <span class="eyebrow" style="color:var(--gold-400)">{% trans "Advertise with us" %}</span>
+            <h2 class="text-on-brand mt-2">{% trans "Put your brand in front of the community." %}</h2>
+            <p class="text-on-brand-muted mt-2 max-w-measure">{% trans "Print placements, digital campaigns and sponsored stories, planned with our editorial team." %}</p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+            <a href="{% url 'advertise' %}" class="btn btn-brand btn-lg">{% trans "Request the media kit" %}</a>
+            <a href="{% url 'contact' %}" class="btn btn-ghost btn-lg">{% trans "Talk to us" %}</a>
+        </div>
     </div>
-</div>
+</section>
 {% endblock %}

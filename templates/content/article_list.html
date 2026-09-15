@@ -1,33 +1,50 @@
 {% extends "base/base.html" %}
-{% block title %}{% if category %}{{ category.name }}{% elif tag %}#{{ tag }}{% else %}Articles{% endif %} – {{ SITE_NAME }}{% endblock %}
+{% load i18n %}
+{% block title %}{% if category %}{{ category.name }}{% elif tag %}#{{ tag }}{% else %}{% trans "Articles" %}{% endif %} – {{ SITE_NAME }}{% endblock %}
 
 {% block content %}
 <div class="container">
-    <header class="mb-8">
-        <h1 class="text-3xl font-bold">
-            {% if category %}{{ category.name }}{% elif tag %}Tagged “{{ tag }}”{% else %}Articles{% endif %}
-        </h1>
-        {% if category.description %}<p class="mt-2 text-secondary">{{ category.description }}</p>{% endif %}
+    <header class="page-header" data-motion="fade-up">
+        <span class="eyebrow">{% if category %}{% trans "Category" %}{% elif tag %}{% trans "Tag" %}{% else %}{% trans "Journal" %}{% endif %}</span>
+        <h1>{% if category %}{{ category.name }}{% elif tag %}#{{ tag }}{% else %}{% trans "Articles" %}{% endif %}</h1>
+        {% if category.description %}<p class="lead max-w-measure">{{ category.description }}</p>{% elif not category and not tag %}<p class="lead max-w-measure">{% trans "Reporting, culture and community from Berlin and beyond." %}</p>{% endif %}
     </header>
 
     {% if categories %}
-    <nav class="flex flex-wrap gap-2 mb-8" aria-label="Categories">
-        <a href="{% url 'articles:list' %}" class="px-3 py-1 rounded-full text-sm {% if not category %}bg-primary-600 text-white{% else %}bg-tertiary{% endif %}">All</a>
+    <nav class="filter-bar" aria-label="{% trans 'Categories' %}">
+        <a href="{% url 'articles:list' %}" class="filter-chip{% if not category %} is-active{% endif %}">{% trans "All" %}</a>
         {% for item in categories %}
-            <a href="{% url 'articles:by_category' item.slug %}" class="px-3 py-1 rounded-full text-sm {% if category == item %}bg-primary-600 text-white{% else %}bg-tertiary{% endif %}">{{ item.name }}</a>
+            <a href="{% url 'articles:by_category' item.slug %}" class="filter-chip{% if category == item %} is-active{% endif %}">{{ item.name }}</a>
         {% endfor %}
     </nav>
     {% endif %}
 
     {% if articles %}
-        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {% for article in articles %}
-                {% include "content/partials/article_card.html" %}
-            {% endfor %}
-        </div>
+        {% if page_obj.number == 1 and not tag %}
+            {% with lead=articles|first %}
+            <div class="grid gap-6 lg:grid-cols-5 mb-10" data-motion="stagger">
+                <div class="lg:col-span-3">{% include "content/partials/article_card.html" with article=lead variant="feature" %}</div>
+                <div class="lg:col-span-2 grid gap-4 content-start">
+                    {% for article in articles|slice:"1:4" %}{% include "content/partials/article_card.html" with variant="row" %}{% endfor %}
+                </div>
+            </div>
+            {% endwith %}
+            {% if articles|length > 4 %}
+            <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" data-motion="stagger">
+                {% for article in articles|slice:"4:" %}{% include "content/partials/article_card.html" %}{% endfor %}
+            </div>
+            {% endif %}
+        {% else %}
+            <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" data-motion="stagger">
+                {% for article in articles %}{% include "content/partials/article_card.html" %}{% endfor %}
+            </div>
+        {% endif %}
         {% include "base/components/pagination.html" %}
     {% else %}
-        <p class="text-tertiary">No published articles yet.</p>
+        <div class="empty-state">
+            <h3>{% trans "Nothing here yet" %}</h3>
+            <p>{% trans "New stories are published every week. Check back soon." %}</p>
+        </div>
     {% endif %}
 </div>
 {% endblock %}

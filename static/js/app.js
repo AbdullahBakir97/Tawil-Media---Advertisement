@@ -17,7 +17,6 @@ class App {
     init() {
         // Initialize state with default values
         state.init({
-            theme: localStorage.getItem('theme') || 'light',
             user: {
                 isAuthenticated: document.body.hasAttribute('data-user-authenticated'),
                 preferences: {}
@@ -70,9 +69,6 @@ class App {
             threshold: 0.01
         });
 
-        // Initialize theme handling
-        this.initializeTheme();
-
         // Scroll/entrance motion (GSAP) for [data-motion] elements
         motion.initMotion();
         motion.initHoverLift();
@@ -100,30 +96,6 @@ class App {
             enableResourceTiming: true,
             enableUserTiming: true,
             enableLongTaskMonitoring: true
-        });
-    }
-
-    initializeTheme() {
-        // Subscribe to theme changes
-        state.subscribe('theme', theme => {
-            document.documentElement.setAttribute('data-theme', theme);
-            localStorage.setItem('theme', theme);
-        });
-
-        // Handle theme toggle clicks
-        const themeToggle = document.getElementById('theme-toggle');
-        if (themeToggle) {
-            themeToggle.addEventListener('click', () => {
-                const currentTheme = state.get('theme');
-                state.set('theme', currentTheme === 'light' ? 'dark' : 'light');
-            });
-        }
-
-        // Handle system theme changes
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-            if (!localStorage.getItem('theme')) {
-                state.set('theme', e.matches ? 'dark' : 'light');
-            }
         });
     }
 

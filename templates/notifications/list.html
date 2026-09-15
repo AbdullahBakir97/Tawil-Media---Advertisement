@@ -1,8 +1,9 @@
 {% extends "base/base.html" %}
-{% block title %}Notifications – {{ SITE_NAME }}{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Notifications" %} – {{ SITE_NAME }}{% endblock %}
 {% block content %}
 <div class="container max-w-2xl">
-    <h1 class="text-3xl font-bold mb-6">Notifications</h1>
+    <header class="page-header"><span class="eyebrow">{% trans "Account" %}</span><h1>{% trans "Notifications" %}</h1></header>
     <div class="card bg-secondary rounded-xl shadow-sm overflow-hidden">
         {% include "notifications/dropdown.html" %}
     </div>

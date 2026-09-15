@@ -1,7 +1,9 @@
 from django.conf import settings
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
-from django.utils.text import slugify
+from django.utils.html import strip_tags
+from django.utils.text import Truncator, slugify
 from taggit.managers import TaggableManager
 
 from source.apps.core.models import TimeStampedModel
@@ -120,6 +122,31 @@ class Article(TimeStampedModel):
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return reverse("articles:detail", args=[self.slug])
+
+    @property
+    def cover(self):
+        """First attached image, used as the card and hero picture."""
+        for item in self.media.all():
+            if item.media_type == "image":
+                return item
+        return None
+
+    @property
+    def excerpt(self):
+        return Truncator(strip_tags(self.content)).words(32, truncate=" …")
+
+    @property
+    def reading_time(self):
+        """Minutes at ~200 words per minute, never below 1."""
+        words = len(strip_tags(self.content).split())
+        return max(1, round(words / 200))
+
+    @property
+    def primary_category(self):
+        return self.categories.first()
+
     def publish(self):
         """Mark the article as published and set the published_at date."""
         self.is_published = True
@@ -198,6 +225,9 @@ class Magazine(TimeStampedModel):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse("magazines:detail", args=[self.slug])
 
     def save(self, *args, **kwargs):
         if not self.slug:

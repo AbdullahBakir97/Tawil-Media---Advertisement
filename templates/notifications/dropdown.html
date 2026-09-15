@@ -1,11 +1,11 @@
-{% load humanize %}
+{% load humanize i18n %}
 <div class="notifications-panel">
     <div class="flex items-center justify-between p-4 border-b border-primary">
-        <h3 class="text-sm font-semibold">Notifications{% if unread_count %} <span class="ml-1 text-xs text-tertiary">({{ unread_count }} unread)</span>{% endif %}</h3>
+        <h3 class="text-sm font-semibold">{% trans "Notifications" %}{% if unread_count %} <span class="ms-1 text-xs text-tertiary">{% blocktrans count counter=unread_count %}({{ counter }} unread){% plural %}({{ counter }} unread){% endblocktrans %}</span>{% endif %}</h3>
         {% if unread_count %}
             <button type="button" class="text-xs text-primary-600 hover:underline"
                     hx-post="{% url 'notifications:mark_all_read' %}" hx-target="closest .notifications-panel" hx-swap="outerHTML">
-                Mark all as read
+                {% trans "Mark all as read" %}
             </button>
         {% endif %}
     </div>
@@ -22,7 +22,7 @@
                         <p class="text-xs text-tertiary mt-1">{{ notification.created_at|naturaltime }}</p>
                     </div>
                     {% if not notification.read %}
-                        <button type="button" class="text-xs text-tertiary hover:text-primary-600" aria-label="Mark as read"
+                        <button type="button" class="text-xs text-tertiary hover:text-primary-600" aria-label="{% trans 'Mark as read' %}"
                                 hx-post="{% url 'notifications:mark_read' notification.id %}" hx-target="closest .notifications-panel" hx-swap="outerHTML">
                             &#10003;
                         </button>
@@ -30,12 +30,12 @@
                 </div>
             </li>
         {% empty %}
-            <li class="p-4 text-center text-sm text-tertiary">You're all caught up.</li>
+            <li class="p-4 text-center text-sm text-tertiary">{% trans "You're all caught up." %}</li>
         {% endfor %}
     </ul>
     {% if notifications %}
     <div class="p-3 text-center border-t border-primary">
-        <a href="{% url 'notifications:list' %}" class="text-sm text-primary-600 hover:underline">View all notifications</a>
+        <a href="{% url 'notifications:list' %}" class="text-sm text-primary-600 hover:underline">{% trans "View all notifications" %}</a>
     </div>
     {% endif %}
 </div>

@@ -1,10 +1,14 @@
 {% extends "base/base.html" %}
-{% block title %}Page not found – {{ SITE_NAME }}{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Page not found" %} – {{ SITE_NAME }}{% endblock %}
 {% block content %}
-<div class="container text-center py-16">
-    <p class="text-6xl font-bold text-primary-600">404</p>
-    <h1 class="mt-4 text-2xl font-semibold">We couldn't find that page.</h1>
-    <p class="mt-2 text-secondary">It may have moved, or the link might be wrong.</p>
-    <a href="{% url 'home' %}" class="btn btn-primary mt-8">Back to the homepage</a>
+<div class="container text-center py-16" data-hero>
+    <p class="font-display text-7xl font-bold text-gold-600 dark:text-gold-400" data-hero-item>404</p>
+    <h1 class="mt-4 text-3xl" data-hero-item>{% trans "We couldn't find that page." %}</h1>
+    <p class="mt-2 text-secondary max-w-measure-narrow mx-auto" data-hero-item>{% trans "It may have moved, or the link might be wrong. Try the search or go back to the homepage." %}</p>
+    <div class="mt-8 flex flex-wrap justify-center gap-3" data-hero-item>
+        <a href="{% url 'home' %}" class="btn btn-primary">{% trans "Homepage" %}</a>
+        <a href="{% url 'search' %}" class="btn btn-secondary">{% trans "Search" %}</a>
+    </div>
 </div>
 {% endblock %}

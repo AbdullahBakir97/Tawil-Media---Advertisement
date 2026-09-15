@@ -1,4 +1,4 @@
-{% load static %}
+{% load static i18n %}
 <header class="site-header{% if show_hero %} site-header--hero{% endif %}">
     <div class="header-background" aria-hidden="true">
         <img src="{% static 'img/almadina-background.jpg' %}" alt="" data-hero-bg>
@@ -6,7 +6,7 @@
 
     <div class="header-nav-row">
         <div class="container header-nav-inner">
-            <a href="{% url 'home' %}" class="header-brand" aria-label="{{ SITE_NAME }} home">
+            <a href="{% url 'home' %}" class="header-brand" aria-label="{% blocktrans %}{{ SITE_NAME }} home{% endblocktrans %}">
                 <img src="{% static 'img/tawillogo.png' %}" alt="" class="header-brand-logo">
                 <span class="header-brand-name">{{ SITE_NAME }}</span>
             </a>

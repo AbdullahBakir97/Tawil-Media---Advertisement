@@ -1,25 +1,26 @@
-<nav class="site-nav" aria-label="Main navigation" x-data="{ mobileOpen: false, moreOpen: false }">
+{% load i18n %}
+<nav class="site-nav" aria-label="{% trans 'Main navigation' %}" x-data="{ mobileOpen: false, moreOpen: false }">
     <div class="site-nav-links">
-        <a href="{% url 'home' %}" class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}"><span data-nav-text>Home</span></a>
-        <a href="{% url 'articles:list' %}" class="nav-link {% if request.resolver_match.namespace == 'articles' %}active{% endif %}"><span data-nav-text>Articles</span></a>
-        <a href="{% url 'magazines:list' %}" class="nav-link {% if request.resolver_match.namespace == 'magazines' %}active{% endif %}"><span data-nav-text>Magazines</span></a>
-        <a href="{% url 'archives:browse' %}" class="nav-link {% if request.resolver_match.namespace == 'archives' %}active{% endif %}"><span data-nav-text>Archives</span></a>
+        <a href="{% url 'home' %}" class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}"><span data-nav-text>{% trans "Home" %}</span></a>
+        <a href="{% url 'articles:list' %}" class="nav-link {% if request.resolver_match.namespace == 'articles' %}active{% endif %}"><span data-nav-text>{% trans "Articles" %}</span></a>
+        <a href="{% url 'magazines:list' %}" class="nav-link {% if request.resolver_match.namespace == 'magazines' %}active{% endif %}"><span data-nav-text>{% trans "Magazines" %}</span></a>
+        <a href="{% url 'archives:browse' %}" class="nav-link {% if request.resolver_match.namespace == 'archives' %}active{% endif %}"><span data-nav-text>{% trans "Archive" %}</span></a>
 
         <div class="relative" @click.away="moreOpen = false" @keydown.escape.window="moreOpen = false">
             <button type="button" class="nav-link" @click="moreOpen = !moreOpen" aria-haspopup="true" :aria-expanded="moreOpen">
-                <span data-nav-text>More</span>
+                <span data-nav-text>{% trans "More" %}</span>
                 <svg class="w-4 h-4 transition-transform duration-200" :class="{ 'rotate-180': moreOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
             </button>
             <div x-show="moreOpen" x-cloak x-transition class="nav-dropdown" role="menu">
-                <a href="{% url 'about' %}" class="nav-dropdown-item" role="menuitem">About us</a>
-                <a href="{% url 'contact' %}" class="nav-dropdown-item" role="menuitem">Contact</a>
-                <a href="{% url 'advertise' %}" class="nav-dropdown-item" role="menuitem">Advertise</a>
-                <a href="{% url 'careers' %}" class="nav-dropdown-item" role="menuitem">Careers</a>
+                <a href="{% url 'about' %}" class="nav-dropdown-item" role="menuitem">{% trans "About us" %}</a>
+                <a href="{% url 'contact' %}" class="nav-dropdown-item" role="menuitem">{% trans "Contact" %}</a>
+                <a href="{% url 'advertise' %}" class="nav-dropdown-item" role="menuitem">{% trans "Advertise" %}</a>
+                <a href="{% url 'careers' %}" class="nav-dropdown-item" role="menuitem">{% trans "Careers" %}</a>
             </div>
         </div>
     </div>
 
-    <button type="button" class="nav-mobile-toggle" @click="mobileOpen = !mobileOpen" :aria-expanded="mobileOpen" aria-controls="mobile-nav" aria-label="Toggle menu">
+    <button type="button" class="nav-mobile-toggle" @click="mobileOpen = !mobileOpen" :aria-expanded="mobileOpen" aria-controls="mobile-nav" aria-label="{% trans 'Toggle menu' %}">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path x-show="!mobileOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
             <path x-show="mobileOpen" x-cloak stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
@@ -27,16 +28,16 @@
     </button>
 
     <div id="mobile-nav" class="nav-mobile" x-show="mobileOpen" x-cloak x-transition @click.away="mobileOpen = false">
-        <a href="{% url 'home' %}" class="nav-mobile-link">Home</a>
-        <a href="{% url 'articles:list' %}" class="nav-mobile-link">Articles</a>
-        <a href="{% url 'magazines:list' %}" class="nav-mobile-link">Magazines</a>
-        <a href="{% url 'archives:browse' %}" class="nav-mobile-link">Archives</a>
-        <a href="{% url 'about' %}" class="nav-mobile-link">About us</a>
-        <a href="{% url 'contact' %}" class="nav-mobile-link">Contact</a>
-        <a href="{% url 'advertise' %}" class="nav-mobile-link">Advertise</a>
+        <a href="{% url 'home' %}" class="nav-mobile-link">{% trans "Home" %}</a>
+        <a href="{% url 'articles:list' %}" class="nav-mobile-link">{% trans "Articles" %}</a>
+        <a href="{% url 'magazines:list' %}" class="nav-mobile-link">{% trans "Magazines" %}</a>
+        <a href="{% url 'archives:browse' %}" class="nav-mobile-link">{% trans "Archive" %}</a>
+        <a href="{% url 'about' %}" class="nav-mobile-link">{% trans "About us" %}</a>
+        <a href="{% url 'contact' %}" class="nav-mobile-link">{% trans "Contact" %}</a>
+        <a href="{% url 'advertise' %}" class="nav-mobile-link">{% trans "Advertise" %}</a>
         <form action="{% url 'search' %}" method="get" class="nav-mobile-search" role="search">
-            <label for="mobile-search" class="sr-only">Search</label>
-            <input id="mobile-search" type="search" name="q" placeholder="Search…" class="search-input" autocomplete="off">
+            <label for="mobile-search" class="sr-only">{% trans "Search" %}</label>
+            <input id="mobile-search" type="search" name="q" placeholder="{% trans 'Search…' %}" class="search-input" autocomplete="off" dir="auto">
         </form>
     </div>
 </nav>

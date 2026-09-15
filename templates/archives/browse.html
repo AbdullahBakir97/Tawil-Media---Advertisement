@@ -1,21 +1,29 @@
 {% extends "base/base.html" %}
-{% block title %}Archives – {{ SITE_NAME }}{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Archive" %} – {{ SITE_NAME }}{% endblock %}
 
 {% block content %}
 <div class="container">
-    <h1 class="text-3xl font-bold mb-2">Archives</h1>
-    <p class="text-secondary mb-8">Browse past editions by year.</p>
+    <header class="page-header" data-motion="fade-up">
+        <span class="eyebrow">{% trans "Archive" %}</span>
+        <h1>{% trans "Twenty years of editions" %}</h1>
+        <p class="lead max-w-measure">{% trans "Every digitised edition, year by year. Pick a year to see its issues and contents." %}</p>
+    </header>
+
     {% if years %}
-        <div class="grid gap-6 grid-cols-2 md:grid-cols-4">
+        <div class="grid gap-4 grid-cols-2 md:grid-cols-4 lg:grid-cols-5" data-motion="stagger">
             {% for year in years %}
-                <a href="{% url 'archives:year' year.year %}" class="card bg-secondary rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow">
-                    <p class="text-3xl font-bold">{{ year.year }}</p>
-                    <p class="text-sm text-tertiary mt-1">{{ year.total_editions }} edition{{ year.total_editions|pluralize }}</p>
+                <a href="{% url 'archives:year' year.year %}" class="year-tile" data-lift>
+                    <span class="year-tile-year tabular">{{ year.year }}</span>
+                    <span class="year-tile-meta">{% blocktrans count counter=year.total_editions %}{{ counter }} edition{% plural %}{{ counter }} editions{% endblocktrans %}</span>
                 </a>
             {% endfor %}
         </div>
     {% else %}
-        <p class="text-tertiary">The archive is empty.</p>
+        <div class="empty-state">
+            <h3>{% trans "The archive is being digitised" %}</h3>
+            <p>{% trans "Editions will appear here as they are scanned and catalogued." %}</p>
+        </div>
     {% endif %}
 </div>
 {% endblock %}

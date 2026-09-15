@@ -1,17 +1,52 @@
-<article class="card flex flex-col bg-secondary rounded-xl shadow-sm overflow-hidden">
-    <div class="p-6 flex-1 flex flex-col">
-        {% with article.categories.all|first as category %}
-            {% if category %}
-                <a href="{% url 'articles:by_category' category.slug %}" class="text-xs font-semibold uppercase tracking-wider text-primary-600">{{ category.name }}</a>
-            {% endif %}
-        {% endwith %}
-        <h3 class="mt-2 text-lg font-semibold leading-snug">
-            <a href="{% url 'articles:detail' article.slug %}" class="hover:text-primary-600">{{ article.title }}</a>
-        </h3>
-        <p class="mt-2 text-sm text-secondary line-clamp-3">{{ article.content|striptags|truncatewords:30 }}</p>
-        <p class="mt-auto pt-4 text-xs text-tertiary">
-            {% if article.author %}{{ article.author.get_full_name|default:article.author.email }} ·{% endif %}
-            {{ article.published_at|date:"j M Y" }}
-        </p>
+{% load static i18n %}
+{% comment %}
+Article card. Context: article (required), variant (optional: "feature" for the
+large image-led card, "row" for a horizontal list item). Default is the grid card.
+{% endcomment %}
+{% with cover=article.cover category=article.primary_category %}
+{% if variant == "feature" %}
+<article class="card card--feature card--lift" data-lift>
+    <div class="card-media">
+        {% if cover %}<img src="{{ cover.file.url }}" alt="{{ cover.alt_text }}" loading="lazy">{% else %}<img src="{% static 'img/almadina-background.jpg' %}" alt="" loading="lazy">{% endif %}
+    </div>
+    <div class="card-body">
+        {% if category %}<a href="{% url 'articles:by_category' category.slug %}" class="kicker">{{ category.name }}</a>{% endif %}
+        <h3 class="card-title"><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h3>
+        <p class="card-excerpt line-clamp-2">{{ article.excerpt }}</p>
+        <div class="card-footer">
+            <span>{% if article.author %}{{ article.author.get_full_name|default:article.author.email }}{% endif %}</span>
+            <span>{% blocktrans with minutes=article.reading_time %}{{ minutes }} min read{% endblocktrans %}</span>
+        </div>
     </div>
 </article>
+{% elif variant == "row" %}
+<article class="card card--row">
+    <a class="card-media" href="{{ article.get_absolute_url }}" tabindex="-1" aria-hidden="true">
+        {% if cover %}<img src="{{ cover.file.url }}" alt="" loading="lazy">{% else %}<img src="{% static 'img/pattern.svg' %}" alt="" loading="lazy" class="opacity-40">{% endif %}
+    </a>
+    <div class="card-body">
+        {% if category %}<span class="kicker">{{ category.name }}</span>{% endif %}
+        <h3 class="card-title text-base"><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h3>
+        <div class="card-footer">
+            <span>{{ article.published_at|date:"j M Y" }}</span>
+            <span>{% blocktrans with minutes=article.reading_time %}{{ minutes }} min{% endblocktrans %}</span>
+        </div>
+    </div>
+</article>
+{% else %}
+<article class="card card--lift" data-lift>
+    <a class="card-media" href="{{ article.get_absolute_url }}" tabindex="-1" aria-hidden="true">
+        {% if cover %}<img src="{{ cover.file.url }}" alt="" loading="lazy">{% else %}<img src="{% static 'img/pattern.svg' %}" alt="" loading="lazy" class="opacity-40 p-10 object-contain"> {% endif %}
+    </a>
+    <div class="card-body">
+        {% if category %}<a href="{% url 'articles:by_category' category.slug %}" class="kicker relative z-10">{{ category.name }}</a>{% endif %}
+        <h3 class="card-title"><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h3>
+        <p class="card-excerpt line-clamp-3">{{ article.excerpt }}</p>
+        <div class="card-footer">
+            <span>{% if article.author %}{{ article.author.get_full_name|default:article.author.email }} · {% endif %}{{ article.published_at|date:"j M Y" }}</span>
+            <span>{% blocktrans with minutes=article.reading_time %}{{ minutes }} min{% endblocktrans %}</span>
+        </div>
+    </div>
+</article>
+{% endif %}
+{% endwith %}

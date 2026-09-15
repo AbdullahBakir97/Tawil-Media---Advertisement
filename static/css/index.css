@@ -21,6 +21,7 @@
 @import './components/modals.css';
 @import './components/alerts.css';
 @import './components/badges.css';
+@import './components/layout.css';
 @import './components/header.css';
 
 @import './layouts/grid.css';

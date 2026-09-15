@@ -62,7 +62,9 @@ class PublicPagesTests(TestCase):
     def test_unknown_page_uses_custom_404(self):
         response = self.client.get("/definitely-not-here/")
         self.assertEqual(response.status_code, 404)
-        self.assertContains(response, "couldn't find that page", status_code=404)
+        self.assertContains(response, "Diese Seite wurde nicht gefunden", status_code=404)
+        english = self.client.get("/en/definitely-not-here/")
+        self.assertContains(english, "couldn't find that page", status_code=404)
 
 
 class AuthFlowTests(TestCase):
@@ -94,7 +96,9 @@ class AuthFlowTests(TestCase):
     def test_bad_login_shows_error(self):
         response = self.client.post(reverse("login"), {"email": "x@example.com", "password": "wrong"})
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Invalid e-mail address or password")
+        self.assertContains(response, "Ungültige E-Mail-Adresse oder ungültiges Passwort")
+        english = self.client.post("/en" + reverse("login"), {"email": "x@example.com", "password": "wrong"})
+        self.assertContains(english, "Invalid e-mail address or password")
 
     def test_password_change_and_profile_update(self):
         user = User.objects.create_user(email="u@example.com", password="a-long-passw0rd!", first_name="A", last_name="B")
