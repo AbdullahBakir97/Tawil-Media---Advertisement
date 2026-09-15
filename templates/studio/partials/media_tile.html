@@ -1,0 +1,15 @@
+{% load i18n %}
+<a class="media-tile {% if selected and selected.pk == item.pk %}is-selected{% endif %}" role="listitem"
+   href="{% url 'studio:media' %}?pk={{ item.pk }}"
+   hx-get="{% url 'studio:media' %}?pk={{ item.pk }}" hx-target="#media-details" hx-swap="outerHTML"
+   hx-on:click="document.querySelectorAll('.media-tile.is-selected').forEach(el => el.classList.remove('is-selected')); this.classList.add('is-selected')">
+    {% if item.is_image %}
+        <img src="{{ item.file.url }}" alt="" loading="lazy" style="object-position:{{ item.object_position }}">
+    {% else %}
+        <span class="media-tile-icon" aria-hidden="true">
+            <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg>
+        </span>
+    {% endif %}
+    <span class="media-tile-name">{{ item.label }}</span>
+    {% if item.is_image and not item.alt_text %}<span class="media-tile-flag" title="{% trans 'No alt text' %}">{% trans "alt" %}</span>{% endif %}
+</a>

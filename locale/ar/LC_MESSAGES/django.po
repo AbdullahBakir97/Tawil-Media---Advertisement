@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-15 15:43+0200\n"
+"POT-Creation-Date: 2026-09-15 16:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -49,7 +49,6 @@ msgid "Print"
 msgstr "مطبوع"
 
 #: source/apps/advertisements/models.py:164
-#| msgid "Digitised"
 msgid "Digital"
 msgstr "رقمي"
 
@@ -62,7 +61,6 @@ msgid "Bundle"
 msgstr "باقة"
 
 #: source/apps/advertisements/models.py:169
-#| msgid "Next edition"
 msgid "per edition"
 msgstr "لكل عدد"
 
@@ -71,7 +69,6 @@ msgid "per week"
 msgstr "أسبوعياً"
 
 #: source/apps/advertisements/models.py:171
-#| msgid "Readers a month"
 msgid "per month"
 msgstr "شهرياً"
 
@@ -80,7 +77,6 @@ msgid "per send"
 msgstr "لكل إرسال"
 
 #: source/apps/advertisements/models.py:173
-#| msgid "Render pages"
 msgid "per package"
 msgstr "لكل باقة"
 
@@ -88,6 +84,34 @@ msgstr "لكل باقة"
 #, python-format
 msgid "New campaign request: %(company)s"
 msgstr "طلب حملة جديد: %(company)s"
+
+#: source/apps/content/models.py:70
+msgid "Image"
+msgstr "صورة"
+
+#: source/apps/content/models.py:71
+msgid "Video"
+msgstr "فيديو"
+
+#: source/apps/content/models.py:72
+msgid "Document"
+msgstr "مستند"
+
+#: source/apps/studio/forms.py:107
+msgid "Files"
+msgstr "الملفات"
+
+#: source/apps/studio/forms.py:139
+msgid "What is in the picture?"
+msgstr "ما الذي تظهره الصورة؟"
+
+#: source/apps/studio/forms.py:140
+msgid "Shown under the image"
+msgstr "يظهر أسفل الصورة"
+
+#: source/apps/studio/forms.py:141
+msgid "Photographer or agency"
+msgstr "المصوّر أو الوكالة"
 
 #: source/apps/studio/models.py:36
 msgid "Highlight colour, e.g. gold."
@@ -187,19 +211,32 @@ msgstr "المساعدة"
 msgid "About"
 msgstr "من نحن"
 
-#: source/apps/studio/views.py:80
+#: source/apps/studio/views.py:83
 msgid "Hero saved."
 msgstr "تم حفظ الواجهة."
 
-#: source/apps/studio/views.py:124
+#: source/apps/studio/views.py:127
 msgid "Theme saved."
 msgstr "تم حفظ النمط."
 
-#: source/apps/studio/views.py:146
+#: source/apps/studio/views.py:149
 msgid "Announcement saved."
 msgstr "تم حفظ الإعلان."
 
-#: source/apps/studio/views.py:157
+#: source/apps/studio/views.py:197
+#, python-format
+msgid "%(count)d file(s) uploaded."
+msgstr "تم رفع %(count)d ملف."
+
+#: source/apps/studio/views.py:203
+msgid "File deleted."
+msgstr "تم حذف الملف."
+
+#: source/apps/studio/views.py:213
+msgid "Image details saved."
+msgstr "تم حفظ بيانات الصورة."
+
+#: source/apps/studio/views.py:227
 #, python-format
 msgid "%(count)d pages rendered."
 msgstr "تم إنشاء %(count)d صفحة."
@@ -753,8 +790,8 @@ msgstr "غير مقروء"
 
 #: templates/auth/profile/dashboard.html:26 templates/base/hero/_book.html:11
 #: templates/base/hero/_copy.html:16 templates/content/magazine_list.html:8
-#: templates/pages/home.html:77 templates/studio/base.html:46
-#: templates/studio/dashboard.html:59
+#: templates/pages/home.html:77 templates/studio/base.html:50
+#: templates/studio/dashboard.html:64
 msgid "Editions"
 msgstr "الإصدارات"
 
@@ -906,11 +943,11 @@ msgstr "الانتقال إلى المحتوى"
 msgid "Pagination"
 msgstr "تصفّح الصفحات"
 
-#: templates/base/components/pagination.html:11
+#: templates/base/components/pagination.html:11 templates/studio/media.html:47
 msgid "Previous"
 msgstr "السابق"
 
-#: templates/base/components/pagination.html:27
+#: templates/base/components/pagination.html:27 templates/studio/media.html:49
 msgid "Next"
 msgstr "التالي"
 
@@ -951,7 +988,7 @@ msgstr "المقالات"
 #: templates/base/header/navigation.html:36
 #: templates/content/magazine_detail.html:9
 #: templates/content/magazine_list.html:3
-#: templates/content/magazine_list.html:9 templates/studio/base.html:49
+#: templates/content/magazine_list.html:9 templates/studio/base.html:53
 msgid "Magazines"
 msgstr "المجلات"
 
@@ -1089,6 +1126,7 @@ msgstr "فتح القائمة"
 #: templates/base/header/search.html:7 templates/errors/404.html:11
 #: templates/pages/search.html:3 templates/pages/search.html:8
 #: templates/pages/search.html:13 templates/pages/search.html:18
+#: templates/studio/media.html:24
 msgid "Search"
 msgstr "بحث"
 
@@ -1189,7 +1227,7 @@ msgstr "رقم"
 msgid "Extent"
 msgstr "عدد الصفحات"
 
-#: templates/base/hero/_facts.html:8 templates/studio/dashboard.html:66
+#: templates/base/hero/_facts.html:8 templates/studio/dashboard.html:71
 #: templates/studio/reader.html:14
 #, python-format
 msgid "%(n)s page"
@@ -1316,7 +1354,7 @@ msgstr "التصنيفات"
 msgid "All"
 msgstr "الكل"
 
-#: templates/content/article_list.html:45
+#: templates/content/article_list.html:45 templates/studio/media.html:36
 msgid "Nothing here yet"
 msgstr "لا شيء هنا بعد"
 
@@ -1325,6 +1363,7 @@ msgid "New stories are published every week. Check back soon."
 msgstr "تُنشر قصص جديدة كل أسبوع. عُد قريبًا."
 
 #: templates/content/magazine_detail.html:28
+#: templates/studio/partials/media_details.html:50
 #, python-format
 msgid "%(counter)s article"
 msgid_plural "%(counter)s articles"
@@ -1634,6 +1673,7 @@ msgid "Delete this announcement?"
 msgstr "حذف هذا الإعلان؟"
 
 #: templates/studio/announcements.html:50
+#: templates/studio/partials/media_details.html:59
 msgid "Delete"
 msgstr "حذف"
 
@@ -1673,27 +1713,32 @@ msgid "Content"
 msgstr "المحتوى"
 
 #: templates/studio/base.html:28 templates/studio/dashboard.html:32
+#: templates/studio/media.html:9
+msgid "Media"
+msgstr "الوسائط"
+
+#: templates/studio/base.html:32 templates/studio/dashboard.html:37
 msgid "Ad slots"
 msgstr "أماكن الإعلانات"
 
-#: templates/studio/base.html:32 templates/studio/blocks/partners.html:6
-#: templates/studio/dashboard.html:37
+#: templates/studio/base.html:36 templates/studio/blocks/partners.html:6
+#: templates/studio/dashboard.html:42
 msgid "Partners"
 msgstr "الشركاء"
 
-#: templates/studio/base.html:36 templates/studio/dashboard.html:42
+#: templates/studio/base.html:40 templates/studio/dashboard.html:47
 msgid "Testimonials"
 msgstr "الشهادات"
 
-#: templates/studio/base.html:40 templates/studio/dashboard.html:47
+#: templates/studio/base.html:44 templates/studio/dashboard.html:52
 msgid "FAQ"
 msgstr "الأسئلة الشائعة"
 
-#: templates/studio/base.html:44 templates/studio/dashboard.html:52
+#: templates/studio/base.html:48 templates/studio/dashboard.html:57
 msgid "Timeline"
 msgstr "الخط الزمني"
 
-#: templates/studio/base.html:53
+#: templates/studio/base.html:57
 msgid "Atlas"
 msgstr "الأطلس"
 
@@ -1762,34 +1807,49 @@ msgid "The line above the navbar: notices, booked ad lines, live banners."
 msgstr "الشريط فوق القائمة: تنبيهات وأسطر إعلانية ولافتات مباشرة."
 
 #: templates/studio/dashboard.html:34
+#, python-format
+msgid "%(counter)s picture still has no alt text."
+msgid_plural "%(counter)s pictures still have no alt text."
+msgstr[0] "صورة واحدة ما زالت بلا نص بديل."
+msgstr[1] "صورتان ما زالتا بلا نص بديل."
+msgstr[2] "%(counter)s صور ما زالت بلا نص بديل."
+msgstr[3] "%(counter)s صورة ما زالت بلا نص بديل."
+msgstr[4] "%(counter)s صورة ما زالت بلا نص بديل."
+msgstr[5] "لا صور بلا نص بديل."
+
+#: templates/studio/dashboard.html:34
+msgid "Pictures with alt text, captions and a focal point for every crop."
+msgstr "صور مع نص بديل وتعليق ونقطة تركيز لكل قصّ."
+
+#: templates/studio/dashboard.html:39
 msgid "Booked placements with start and end dates."
 msgstr "أماكن محجوزة بتاريخ بداية ونهاية."
 
-#: templates/studio/dashboard.html:39
+#: templates/studio/dashboard.html:44
 msgid "Logos for the hero strip and the about page."
 msgstr "شعارات لشريط الواجهة وصفحة من نحن."
 
-#: templates/studio/dashboard.html:44
+#: templates/studio/dashboard.html:49
 msgid "Quotes from advertisers and readers."
 msgstr "آراء المعلنين والقرّاء."
 
-#: templates/studio/dashboard.html:49
+#: templates/studio/dashboard.html:54
 msgid "Questions for the help, advertising and about pages."
 msgstr "أسئلة لصفحات المساعدة والإعلانات ومن نحن."
 
-#: templates/studio/dashboard.html:54
+#: templates/studio/dashboard.html:59
 msgid "The years that made the magazine."
 msgstr "السنوات التي صنعت المجلة."
 
-#: templates/studio/dashboard.html:59
+#: templates/studio/dashboard.html:64
 msgid "Flip-book pages"
 msgstr "صفحات النسخة القابلة للتقليب"
 
-#: templates/studio/dashboard.html:59
+#: templates/studio/dashboard.html:64
 msgid "Add an edition"
 msgstr "أضف عدداً"
 
-#: templates/studio/dashboard.html:60
+#: templates/studio/dashboard.html:65
 msgid ""
 "Upload an edition's PDF and its pages are rendered automatically. Readers "
 "then turn them like a printed magazine."
@@ -1797,35 +1857,35 @@ msgstr ""
 "ارفع ملف PDF للعدد وتُنشأ صفحاته تلقائياً، فيقلّبها القرّاء كالمجلة "
 "المطبوعة."
 
-#: templates/studio/dashboard.html:66
+#: templates/studio/dashboard.html:71
 msgid "PDF uploaded, not rendered yet"
 msgstr "تم رفع الملف، ولم تُنشأ الصفحات بعد"
 
-#: templates/studio/dashboard.html:66
+#: templates/studio/dashboard.html:71
 msgid "No PDF yet"
 msgstr "لا يوجد ملف بعد"
 
-#: templates/studio/dashboard.html:69
+#: templates/studio/dashboard.html:74
 msgid "Open reader"
 msgstr "افتح القارئ"
 
-#: templates/studio/dashboard.html:74
+#: templates/studio/dashboard.html:79
 msgid "Re-render"
 msgstr "إعادة الإنشاء"
 
-#: templates/studio/dashboard.html:74
+#: templates/studio/dashboard.html:79
 msgid "Render pages"
 msgstr "إنشاء الصفحات"
 
-#: templates/studio/dashboard.html:77
+#: templates/studio/dashboard.html:82
 msgid "Upload PDF"
 msgstr "رفع ملف PDF"
 
-#: templates/studio/dashboard.html:81
+#: templates/studio/dashboard.html:86
 msgid "No editions yet"
 msgstr "لا توجد أعداد بعد"
 
-#: templates/studio/dashboard.html:81
+#: templates/studio/dashboard.html:86
 msgid "Add an edition with a cover and a PDF to fill the hero and the reader."
 msgstr "أضف عدداً بغلاف وملف PDF لتمتلئ الواجهة والقارئ."
 
@@ -1856,6 +1916,79 @@ msgstr "قيد الاستخدام"
 #: templates/studio/hero.html:31
 msgid "Use this"
 msgstr "استخدم هذا"
+
+#: templates/studio/media.html:3
+msgid "Media library"
+msgstr "مكتبة الوسائط"
+
+#: templates/studio/media.html:8
+msgid "Library"
+msgstr "المكتبة"
+
+#: templates/studio/media.html:10
+#, python-format
+msgid ""
+"%(counter)s file in the library. Set the alt text and the focal point once "
+"and every page uses them."
+msgid_plural ""
+"%(counter)s files in the library. Set the alt text and the focal point once "
+"and every page uses them."
+msgstr[0] ""
+"ملف واحد في المكتبة. اضبط النص البديل ونقطة التركيز مرة واحدة وتستخدمها كل "
+"صفحة."
+msgstr[1] ""
+"ملفان في المكتبة. اضبط النص البديل ونقطة التركيز مرة واحدة وتستخدمها كل "
+"صفحة."
+msgstr[2] ""
+"%(counter)s ملفات في المكتبة. اضبط النص البديل ونقطة التركيز مرة واحدة "
+"وتستخدمها كل صفحة."
+msgstr[3] ""
+"%(counter)s ملفاً في المكتبة. اضبط النص البديل ونقطة التركيز مرة واحدة "
+"وتستخدمها كل صفحة."
+msgstr[4] ""
+"%(counter)s ملف في المكتبة. اضبط النص البديل ونقطة التركيز مرة واحدة "
+"وتستخدمها كل صفحة."
+msgstr[5] ""
+"لا ملفات في المكتبة. اضبط النص البديل ونقطة التركيز مرة واحدة وتستخدمها كل "
+"صفحة."
+
+#: templates/studio/media.html:17
+msgid "Upload"
+msgstr "رفع"
+
+#: templates/studio/media.html:24
+msgid "Search alt text or file name"
+msgstr "ابحث في النص البديل أو اسم الملف"
+
+#: templates/studio/media.html:25
+#: templates/studio/partials/media_details.html:47
+msgid "Type"
+msgstr "النوع"
+
+#: templates/studio/media.html:26
+msgid "All types"
+msgstr "كل الأنواع"
+
+#: templates/studio/media.html:29
+msgid "Filter"
+msgstr "تصفية"
+
+#: templates/studio/media.html:37
+msgid ""
+"Upload the covers, portraits and edition pictures once; every template pulls"
+" from here."
+msgstr ""
+"ارفع صور الأغلفة والبورتريه وصور الأعداد مرة واحدة، وكل قالب في الموقع يأخذ "
+"منها."
+
+#: templates/studio/media.html:46
+msgid "Pages"
+msgstr "الصفحات"
+
+#: templates/studio/media.html:48
+#, python-format
+msgid "Page %(current)s of %(total)s"
+msgstr "الصفحة %(current)s من %(total)s"
 
 #: templates/studio/partials/ad_slot.html:13
 msgid "free"
@@ -1955,6 +2088,76 @@ msgstr "احفظ وحدّث الموقع"
 #: templates/studio/partials/hero_preview.html:6
 msgid "Full size"
 msgstr "بالحجم الكامل"
+
+#: templates/studio/partials/media_details.html:2
+msgid "File details"
+msgstr "بيانات الملف"
+
+#: templates/studio/partials/media_details.html:8
+msgid "Click the part of the picture that must always stay in view"
+msgstr "انقر على الجزء الذي يجب أن يبقى ظاهراً دائماً في الصورة"
+
+#: templates/studio/partials/media_details.html:12
+msgid "Click the subject. Crops on cards and heroes keep that point in frame."
+msgstr ""
+"انقر على موضوع الصورة. يحافظ القصّ في البطاقات وواجهات الصفحات على هذه "
+"النقطة داخل الإطار."
+
+#: templates/studio/partials/media_details.html:26
+msgid "Alt text"
+msgstr "النص البديل"
+
+#: templates/studio/partials/media_details.html:28
+msgid "What a reader who cannot see the picture needs to know."
+msgstr "ما يحتاج أن يعرفه قارئ لا يستطيع رؤية الصورة."
+
+#: templates/studio/partials/media_details.html:31
+msgid "Caption"
+msgstr "التعليق"
+
+#: templates/studio/partials/media_details.html:35
+msgid "Credit"
+msgstr "مصدر الصورة"
+
+#: templates/studio/partials/media_details.html:41
+msgid "Save"
+msgstr "حفظ"
+
+#: templates/studio/partials/media_details.html:42
+msgid "Centre"
+msgstr "توسيط"
+
+#: templates/studio/partials/media_details.html:48
+msgid "Size"
+msgstr "المقاس"
+
+#: templates/studio/partials/media_details.html:49
+msgid "Added"
+msgstr "أُضيفت"
+
+#: templates/studio/partials/media_details.html:50
+msgid "Used by"
+msgstr "مستخدمة في"
+
+#: templates/studio/partials/media_details.html:54
+msgid "Open the original"
+msgstr "فتح الملف الأصلي"
+
+#: templates/studio/partials/media_details.html:55
+msgid "Delete this file? Pages that use it lose their picture."
+msgstr "حذف هذا الملف؟ ستفقد الصفحات التي تستخدمه صورتها."
+
+#: templates/studio/partials/media_details.html:65
+msgid "Pick a file to edit its details."
+msgstr "اختر ملفاً لتحرير بياناته."
+
+#: templates/studio/partials/media_tile.html:14
+msgid "No alt text"
+msgstr "لا يوجد نص بديل"
+
+#: templates/studio/partials/media_tile.html:14
+msgid "alt"
+msgstr "بديل"
 
 #: templates/studio/partials/toolbar.html:6
 msgid "Announce"

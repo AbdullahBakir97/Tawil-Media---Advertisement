@@ -28,6 +28,11 @@
         <b>{{ announcements|length }}</b>
         <p>{% trans "The line above the navbar: notices, booked ad lines, live banners." %}</p>
     </a>
+    <a class="studio-card" href="{% url 'studio:media' %}">
+        <span class="eyebrow eyebrow--sky">{% trans "Media" %}</span>
+        <b>{{ media_count }}</b>
+        <p>{% if media_missing_alt %}{% blocktrans count counter=media_missing_alt %}{{ counter }} picture still has no alt text.{% plural %}{{ counter }} pictures still have no alt text.{% endblocktrans %}{% else %}{% trans "Pictures with alt text, captions and a focal point for every crop." %}{% endif %}</p>
+    </a>
     <a class="studio-card" href="/admin/studio/adslot/">
         <span class="eyebrow eyebrow--sky">{% trans "Ad slots" %}</span>
         <b>{{ ad_count }}</b>

@@ -1,4 +1,7 @@
 from django import forms
+from django.utils.translation import gettext_lazy as _
+
+from source.apps.content.models import Media
 
 from .models import Announcement, HeroConfig, Theme
 
@@ -71,3 +74,80 @@ class AnnouncementForm(forms.ModelForm):
                 field.widget.attrs.setdefault("class", "form-input")
             if name.endswith("_ar"):
                 field.widget.attrs["dir"] = "rtl"
+
+
+def _style(form):
+    """The studio's own input classes, applied once for every field."""
+    for name, field in form.fields.items():
+        if isinstance(field.widget, forms.CheckboxInput):
+            field.widget.attrs.setdefault("class", "form-checkbox")
+        elif isinstance(field.widget, forms.Select):
+            field.widget.attrs.setdefault("class", "form-select")
+        elif isinstance(field.widget, forms.Textarea):
+            field.widget.attrs.setdefault("class", "form-textarea")
+        elif not isinstance(field.widget, forms.FileInput):
+            field.widget.attrs.setdefault("class", "form-input")
+        if name.endswith("_ar"):
+            field.widget.attrs["dir"] = "rtl"
+
+
+class MultiFileInput(forms.ClearableFileInput):
+    """Django refuses `multiple` on the plain widget; the view reads the files
+    with `request.FILES.getlist`, so allowing it here is safe."""
+
+    allow_multiple_selected = True
+
+
+class MediaUploadForm(forms.Form):
+    """Several files at once. Each becomes its own Media row; the type is read
+    from the file itself rather than asked for."""
+
+    files = forms.FileField(
+        widget=MultiFileInput(attrs={"multiple": True, "accept": "image/*,video/*,.pdf"}),
+        label=_("Files"),
+    )
+
+    IMAGE = {"jpg", "jpeg", "png", "webp", "gif", "avif", "tif", "tiff", "bmp", "svg"}
+    VIDEO = {"mp4", "webm", "mov", "m4v", "ogv"}
+
+    @classmethod
+    def kind(cls, name):
+        suffix = name.rsplit(".", 1)[-1].lower() if "." in name else ""
+        if suffix in cls.IMAGE:
+            return "image"
+        return "video" if suffix in cls.VIDEO else "document"
+
+    def save(self, files):
+        return [Media.objects.create(file=item, media_type=self.kind(item.name)) for item in files]
+
+
+class MediaDetailsForm(forms.ModelForm):
+    """Alt text, caption, credit and the focal point. The focal point comes from
+    the picker as two hidden numbers between 0 and 1."""
+
+    class Meta:
+        model = Media
+        fields = ("alt_text", "caption", "credit", "focal_x", "focal_y")
+        widgets = {
+            "focal_x": forms.HiddenInput(),
+            "focal_y": forms.HiddenInput(),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        _style(self)
+        self.fields["alt_text"].widget.attrs["placeholder"] = _("What is in the picture?")
+        self.fields["caption"].widget.attrs["placeholder"] = _("Shown under the image")
+        self.fields["credit"].widget.attrs["placeholder"] = _("Photographer or agency")
+
+    def _clamp(self, name):
+        value = self.cleaned_data.get(name)
+        if value is None:
+            return 0.5
+        return min(1.0, max(0.0, value))
+
+    def clean_focal_x(self):
+        return self._clamp("focal_x")
+
+    def clean_focal_y(self):
+        return self._clamp("focal_y")

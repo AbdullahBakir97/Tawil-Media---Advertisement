@@ -1,0 +1,56 @@
+{% extends "studio/base.html" %}
+{% load i18n static %}
+{% block studio_title %}{% trans "Media library" %}{% endblock %}
+
+{% block studio_content %}
+<header class="studio-head">
+    <div>
+        <span class="eyebrow">{% trans "Library" %}</span>
+        <h1>{% trans "Media" %}</h1>
+        <p class="text-secondary mt-1">{% blocktrans count counter=total %}{{ counter }} file in the library. Set the alt text and the focal point once and every page uses them.{% plural %}{{ counter }} files in the library. Set the alt text and the focal point once and every page uses them.{% endblocktrans %}</p>
+    </div>
+    <form class="media-upload" method="post" enctype="multipart/form-data" action="{% url 'studio:media' %}">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="upload">
+        <label class="btn btn-primary btn-sm">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true" width="16" height="16"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>
+            {% trans "Upload" %}
+            <input type="file" name="files" multiple accept="image/*,video/*,.pdf" hidden onchange="this.form.submit()">
+        </label>
+    </form>
+</header>
+
+<form class="media-filters" method="get" action="{% url 'studio:media' %}">
+    <input class="form-input" type="search" name="q" value="{{ query }}" placeholder="{% trans 'Search alt text or file name' %}" aria-label="{% trans 'Search' %}">
+    <select class="form-select" name="kind" onchange="this.form.submit()" aria-label="{% trans 'Type' %}">
+        <option value="">{% trans "All types" %}</option>
+        {% for value, label in kinds %}<option value="{{ value }}" {% if kind == value %}selected{% endif %}>{{ label }}</option>{% endfor %}
+    </select>
+    <button class="btn btn-outline btn-sm" type="submit">{% trans "Filter" %}</button>
+</form>
+
+<div class="media-layout">
+    <div class="media-grid" role="list">
+        {% for item in items %}{% include "studio/partials/media_tile.html" %}{% empty %}
+        <div class="empty-state media-empty">
+            <h3>{% trans "Nothing here yet" %}</h3>
+            <p>{% trans "Upload the covers, portraits and edition pictures once; every template pulls from here." %}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% include "studio/partials/media_details.html" %}
+</div>
+
+{% if page_obj.has_other_pages %}
+<nav class="pagination" aria-label="{% trans 'Pages' %}">
+    {% if page_obj.has_previous %}<a class="btn btn-outline btn-sm" href="?page={{ page_obj.previous_page_number }}&q={{ query }}&kind={{ kind }}">{% trans "Previous" %}</a>{% endif %}
+    <span class="text-secondary text-sm">{% blocktrans with current=page_obj.number total=page_obj.paginator.num_pages %}Page {{ current }} of {{ total }}{% endblocktrans %}</span>
+    {% if page_obj.has_next %}<a class="btn btn-outline btn-sm" href="?page={{ page_obj.next_page_number }}&q={{ query }}&kind={{ kind }}">{% trans "Next" %}</a>{% endif %}
+</nav>
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/components/focal.js' %}"></script>
+{% endblock %}

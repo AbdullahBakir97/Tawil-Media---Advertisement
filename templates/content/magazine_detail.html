@@ -1,5 +1,5 @@
 {% extends "base/base.html" %}
-{% load static i18n %}
+{% load media_tags static i18n %}
 {% block title %}{{ magazine.title }} – {{ SITE_NAME }}{% endblock %}
 {% block meta_description %}{{ magazine.description|default:magazine.title|truncatewords:25 }}{% endblock %}
 
@@ -15,7 +15,7 @@
         <div class="lg:col-span-5" data-hero-item>
             <div class="magazine-cover-frame">
                 {% if magazine.cover_image %}
-                    <img src="{{ magazine.cover_image.file.url }}" alt="{{ magazine.cover_image.alt_text|default:magazine.title }}" data-hero-bg>
+                    {% picture magazine.cover_image sizes="(min-width: 64rem) 26rem, 70vw" loading="eager" fetchpriority="high" %}
                 {% else %}
                     <img src="{% static 'img/magazine-tawil.png' %}" alt="" data-hero-bg>
                 {% endif %}
