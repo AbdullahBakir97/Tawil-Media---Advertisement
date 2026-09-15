@@ -1,0 +1,72 @@
+{% extends "base/base.html" %}
+{% load i18n media_tags %}
+{% block title %}{{ event.label }} – {{ SITE_NAME }}{% endblock %}
+{% block meta_description %}{% if event.summary %}{{ event.summary|truncatewords:28 }}{% else %}{{ event.label }}{% if event.place %} · {{ event.place }}{% endif %}{% endif %}{% endblock %}
+
+{% block content %}
+{% include "content/partials/preview_banner.html" %}
+
+<article class="event-detail">
+    <header class="event-hero" data-hero>
+        {% if event.image %}<div class="event-hero-image" data-hero-bg aria-hidden="true">{% picture event.image sizes="100vw" alt="" loading="eager" fetchpriority="high" %}</div>{% endif %}
+        <div class="container event-hero-inner">
+            <span class="eyebrow" style="color:var(--gold-400)" data-hero-item>
+                {{ event.get_kind_display }}{% if event.is_online %} · {% trans "Online" %}{% endif %}{% if event.is_running %} · {% trans "Happening now" %}{% elif event.has_passed %} · {% trans "Past" %}{% endif %}
+            </span>
+            <h1 data-hero-item>{{ event.label }}</h1>
+            <p class="event-hero-when" data-hero-item>
+                <time datetime="{{ event.starts_at|date:'c' }}">{{ event.starts_at|date:"l, j F Y · H:i" }}</time>
+                {% if event.place %}<span>{{ event.place }}</span>{% endif %}
+            </p>
+        </div>
+    </header>
+
+    <div class="container section-tight">
+        <div class="event-layout">
+            <div class="event-body">
+                {% if event.summary %}<div class="prose prose-lg dark:prose-invert" lang="{{ LANGUAGE_CODE }}">{{ event.summary|linebreaks }}</div>{% endif %}
+                {% if not event.has_passed and event.registration_url %}
+                <a class="btn btn-primary btn-lg mt-6" href="{{ event.registration_url }}" rel="noopener" target="_blank">{% trans "Register" %}</a>
+                {% endif %}
+            </div>
+
+            <aside class="event-facts" aria-label="{% trans 'Details' %}">
+                <dl>
+                    <div>
+                        <dt>{% trans "When" %}</dt>
+                        <dd>
+                            <time datetime="{{ event.starts_at|date:'c' }}">{{ event.starts_at|date:"l, j F Y" }}</time><br>
+                            {{ event.starts_at|date:"H:i" }}{% if event.ends_at %}–{% if event.spans_days %}{{ event.ends_at|date:"j F, H:i" }}{% else %}{{ event.ends_at|date:"H:i" }}{% endif %}{% endif %}
+                        </dd>
+                    </div>
+                    {% if event.venue or event.address or event.city %}
+                    <div>
+                        <dt>{% trans "Where" %}</dt>
+                        <dd>{% if event.venue %}{{ event.venue }}<br>{% endif %}{% if event.address %}{{ event.address }}<br>{% endif %}{{ event.city }}</dd>
+                    </div>
+                    {% elif event.is_online %}
+                    <div><dt>{% trans "Where" %}</dt><dd>{% trans "Online" %}</dd></div>
+                    {% endif %}
+                    <div>
+                        <dt>{% trans "Entry" %}</dt>
+                        <dd>{% if event.price_note %}{{ event.price_note }}{% elif event.is_free %}{% trans "Free" %}{% else %}{% trans "On request" %}{% endif %}</dd>
+                    </div>
+                </dl>
+                <a class="link-underline text-sm" href="{% url 'events:list' %}">{% trans "All events" %}</a>
+            </aside>
+        </div>
+    </div>
+
+    {% if more %}
+    <section class="container section-tight">
+        <div class="section-head" data-motion="fade-up">
+            <div><span class="eyebrow">{% trans "Diary" %}</span><h2>{% trans "Coming up next" %}</h2></div>
+            <a class="btn btn-outline btn-sm" href="{% url 'events:list' %}">{% trans "All events" %}</a>
+        </div>
+        <div class="event-list" data-motion="stagger">
+            {% for event in more %}{% include "events/partials/_card.html" %}{% endfor %}
+        </div>
+    </section>
+    {% endif %}
+</article>
+{% endblock %}

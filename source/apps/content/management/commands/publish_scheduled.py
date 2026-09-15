@@ -12,6 +12,7 @@ from django.core.management.base import BaseCommand
 from django.utils import timezone
 
 from source.apps.content.models import Article, Magazine
+from source.apps.events.models import Event
 
 
 class Command(BaseCommand):
@@ -28,7 +29,7 @@ class Command(BaseCommand):
         now = timezone.now()
         published = 0
 
-        for model, label in ((Article, "article"), (Magazine, "edition")):
+        for model, label in ((Article, "article"), (Magazine, "edition"), (Event, "event")):
             for item in model.objects.due(now):
                 if options["dry_run"]:
                     self.stdout.write(f"would publish {label}: {item}")

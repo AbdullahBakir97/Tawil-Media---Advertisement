@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-15 16:22+0200\n"
+"POT-Creation-Date: 2026-09-15 17:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -138,6 +138,28 @@ msgstr "Notiz der Redaktion"
 msgid "What is still missing, for the desk only."
 msgstr "Was noch fehlt – nur für die Redaktion sichtbar."
 
+#: source/apps/events/models.py:65
+#| msgid "Edition"
+msgid "Edition launch"
+msgstr "Releaseabend"
+
+#: source/apps/events/models.py:66
+msgid "Panel or talk"
+msgstr "Podium oder Gespräch"
+
+#: source/apps/events/models.py:67
+#| msgid "Read"
+msgid "Reading"
+msgstr "Lesung"
+
+#: source/apps/events/models.py:68
+msgid "Community event"
+msgstr "Community-Abend"
+
+#: source/apps/events/models.py:69
+msgid "Other"
+msgstr "Sonstiges"
+
 #: source/apps/studio/forms.py:107
 msgid "Files"
 msgstr "Dateien"
@@ -252,45 +274,45 @@ msgstr "Hilfe"
 msgid "About"
 msgstr "Über uns"
 
-#: source/apps/studio/views.py:88
+#: source/apps/studio/views.py:90
 msgid "Hero saved."
 msgstr "Hero gespeichert."
 
-#: source/apps/studio/views.py:132
+#: source/apps/studio/views.py:134
 msgid "Theme saved."
 msgstr "Thema gespeichert."
 
-#: source/apps/studio/views.py:154
+#: source/apps/studio/views.py:156
 msgid "Announcement saved."
 msgstr "Ankündigung gespeichert."
 
-#: source/apps/studio/views.py:203
+#: source/apps/studio/views.py:206
 msgid "That date could not be read."
 msgstr "Dieses Datum konnte nicht gelesen werden."
 
-#: source/apps/studio/views.py:209
+#: source/apps/studio/views.py:212
 msgid "Unknown move."
 msgstr "Unbekannter Schritt."
 
-#: source/apps/studio/views.py:212
+#: source/apps/studio/views.py:215
 #, python-format
 msgid "“%(title)s” is now %(status)s."
 msgstr "„%(title)s“ ist jetzt %(status)s."
 
-#: source/apps/studio/views.py:266
+#: source/apps/studio/views.py:269
 #, python-format
 msgid "%(count)d file(s) uploaded."
 msgstr "%(count)d Datei(en) hochgeladen."
 
-#: source/apps/studio/views.py:272
+#: source/apps/studio/views.py:275
 msgid "File deleted."
 msgstr "Datei gelöscht."
 
-#: source/apps/studio/views.py:282
+#: source/apps/studio/views.py:285
 msgid "Image details saved."
 msgstr "Bildangaben gespeichert."
 
-#: source/apps/studio/views.py:296
+#: source/apps/studio/views.py:299
 #, python-format
 msgid "%(count)d pages rendered."
 msgstr "%(count)d Seiten erzeugt."
@@ -597,8 +619,8 @@ msgid "Company"
 msgstr "Unternehmen"
 
 #: templates/advertising/partials/planner_form.html:18
-#: templates/base/footer/main.html:20 templates/base/header/navigation.html:19
-#: templates/base/header/navigation.html:39
+#: templates/base/footer/main.html:20 templates/base/header/navigation.html:20
+#: templates/base/header/navigation.html:40
 msgid "Contact"
 msgstr "Kontakt"
 
@@ -619,7 +641,7 @@ msgid "Anything we should know?"
 msgstr "Gibt es etwas, das wir wissen sollten?"
 
 #: templates/advertising/partials/planner_form.html:38
-#: templates/base/footer/main.html:58
+#: templates/base/footer/main.html:59
 msgid "Privacy"
 msgstr "Datenschutz"
 
@@ -631,7 +653,8 @@ msgstr "Anfrage senden"
 #: templates/archives/edition_detail.html:8 templates/archives/year.html:8
 #: templates/base/header/mega-menu.html:10
 #: templates/base/header/navigation.html:10
-#: templates/base/header/navigation.html:37 templates/pages/home.html:60
+#: templates/base/header/navigation.html:38 templates/events/list.html:60
+#: templates/pages/home.html:60
 msgid "Archive"
 msgstr "Archiv"
 
@@ -709,7 +732,7 @@ msgid "No editions for this year"
 msgstr "Keine Ausgaben in diesem Jahr"
 
 #: templates/auth/login.html:3 templates/auth/login.html:48
-#: templates/auth/register.html:66 templates/base/header/navigation.html:47
+#: templates/auth/register.html:66 templates/base/header/navigation.html:48
 #: templates/base/header/user-menu.html:59
 msgid "Sign in"
 msgstr "Anmelden"
@@ -724,7 +747,7 @@ msgstr "Melden Sie sich bei Ihrem Konto an"
 
 #: templates/auth/login.html:24 templates/auth/password/reset.html:21
 #: templates/auth/profile/settings.html:40 templates/auth/register.html:35
-#: templates/base/footer/main.html:44 templates/content/article_detail.html:78
+#: templates/base/footer/main.html:45 templates/content/article_detail.html:78
 msgid "E-mail address"
 msgstr "E-Mail-Adresse"
 
@@ -881,7 +904,7 @@ msgstr "Mitglied seit"
 msgid "Edit profile"
 msgstr "Profil bearbeiten"
 
-#: templates/auth/profile/dashboard.html:49 templates/base/footer/main.html:38
+#: templates/auth/profile/dashboard.html:49 templates/base/footer/main.html:39
 #: templates/content/article_detail.html:74
 msgid "Newsletter"
 msgstr "Newsletter"
@@ -1015,16 +1038,16 @@ msgstr ""
 "in Deutschland und darüber hinaus."
 
 #: templates/base/footer/main.html:19 templates/base/header/navigation.html:18
-#: templates/base/header/navigation.html:38
+#: templates/base/header/navigation.html:39
 msgid "About us"
 msgstr "Über uns"
 
-#: templates/base/footer/main.html:21 templates/base/header/navigation.html:21
+#: templates/base/footer/main.html:21 templates/base/header/navigation.html:22
 msgid "Careers"
 msgstr "Karriere"
 
-#: templates/base/footer/main.html:22 templates/base/header/navigation.html:20
-#: templates/base/header/navigation.html:40
+#: templates/base/footer/main.html:22 templates/base/header/navigation.html:21
+#: templates/base/header/navigation.html:41
 #: templates/base/hero/newsroom.html:43
 msgid "Advertise"
 msgstr "Werben"
@@ -1034,7 +1057,7 @@ msgid "Read"
 msgstr "Lesen"
 
 #: templates/base/footer/main.html:29 templates/base/header/navigation.html:6
-#: templates/base/header/navigation.html:35
+#: templates/base/header/navigation.html:36
 #: templates/content/article_list.html:3 templates/content/article_list.html:9
 #: templates/studio/partials/desk_board.html:4
 msgid "Articles"
@@ -1046,7 +1069,7 @@ msgid "Writers"
 msgstr "Autorinnen und Autoren"
 
 #: templates/base/footer/main.html:31 templates/base/header/navigation.html:9
-#: templates/base/header/navigation.html:36
+#: templates/base/header/navigation.html:37
 #: templates/content/magazine_detail.html:10
 #: templates/content/magazine_list.html:3
 #: templates/content/magazine_list.html:9 templates/studio/base.html:57
@@ -1057,35 +1080,41 @@ msgstr "Magazine"
 msgid "Archives"
 msgstr "Archiv"
 
-#: templates/base/footer/main.html:33
+#: templates/base/footer/main.html:33 templates/base/header/navigation.html:19
+#: templates/events/list.html:3 templates/events/list.html:10
+#: templates/studio/partials/desk_board.html:18
+msgid "Events"
+msgstr "Veranstaltungen"
+
+#: templates/base/footer/main.html:34
 msgid "Help centre"
 msgstr "Hilfe"
 
-#: templates/base/footer/main.html:39
+#: templates/base/footer/main.html:40
 msgid "The new edition and the best stories, once a week."
 msgstr "Die neue Ausgabe und die besten Geschichten, einmal pro Woche."
 
-#: templates/base/footer/main.html:46 templates/content/article_detail.html:79
+#: templates/base/footer/main.html:47 templates/content/article_detail.html:79
 msgid "you@example.com"
 msgstr "sie@beispiel.de"
 
-#: templates/base/footer/main.html:47 templates/content/article_detail.html:80
+#: templates/base/footer/main.html:48 templates/content/article_detail.html:80
 msgid "Subscribe"
 msgstr "Abonnieren"
 
-#: templates/base/footer/main.html:55
+#: templates/base/footer/main.html:56
 msgid "All rights reserved."
 msgstr "Alle Rechte vorbehalten."
 
-#: templates/base/footer/main.html:57
+#: templates/base/footer/main.html:58
 msgid "Terms"
 msgstr "AGB"
 
-#: templates/base/footer/main.html:59
+#: templates/base/footer/main.html:60
 msgid "Cookies"
 msgstr "Cookies"
 
-#: templates/base/footer/main.html:60
+#: templates/base/footer/main.html:61
 msgid "Sitemap"
 msgstr "Sitemap"
 
@@ -1159,7 +1188,7 @@ msgid "New editions are published here."
 msgstr "Neue Ausgaben erscheinen hier."
 
 #: templates/base/header/mega-menu.html:6
-#: templates/content/category_hub.html:39
+#: templates/content/category_hub.html:40
 #: templates/content/contributor_detail.html:41 templates/pages/home.html:19
 msgid "All articles"
 msgstr "Alle Artikel"
@@ -1173,7 +1202,7 @@ msgid "Main navigation"
 msgstr "Hauptnavigation"
 
 #: templates/base/header/navigation.html:4
-#: templates/base/header/navigation.html:34
+#: templates/base/header/navigation.html:35
 msgid "Home"
 msgstr "Start"
 
@@ -1181,11 +1210,11 @@ msgstr "Start"
 msgid "More"
 msgstr "Mehr"
 
-#: templates/base/header/navigation.html:26
+#: templates/base/header/navigation.html:27
 msgid "Toggle menu"
 msgstr "Menü umschalten"
 
-#: templates/base/header/navigation.html:42
+#: templates/base/header/navigation.html:43
 #: templates/base/header/search.html:7 templates/errors/404.html:11
 #: templates/pages/search.html:3 templates/pages/search.html:8
 #: templates/pages/search.html:13 templates/pages/search.html:18
@@ -1193,12 +1222,12 @@ msgstr "Menü umschalten"
 msgid "Search"
 msgstr "Suche"
 
-#: templates/base/header/navigation.html:43
+#: templates/base/header/navigation.html:44
 #: templates/base/header/search.html:4
 msgid "Search…"
 msgstr "Suchen…"
 
-#: templates/base/header/navigation.html:48
+#: templates/base/header/navigation.html:49
 #: templates/base/header/user-menu.html:60
 msgid "Sign up"
 msgstr "Registrieren"
@@ -1406,7 +1435,7 @@ msgid "Categories"
 msgstr "Kategorien"
 
 #: templates/content/article_list.html:15
-#: templates/content/category_hub.html:19
+#: templates/content/category_hub.html:20
 #: templates/studio/partials/toolbar.html:7
 msgid "All"
 msgstr "Alle"
@@ -1425,12 +1454,11 @@ msgstr ""
 msgid "Everything we publish under %(name)s."
 msgstr "Alles, was wir unter %(name)s veröffentlichen."
 
-#: templates/content/category_hub.html:11
-#| msgid "Interaction"
+#: templates/content/category_hub.html:12
 msgid "Section"
 msgstr "Rubrik"
 
-#: templates/content/category_hub.html:14
+#: templates/content/category_hub.html:15
 #: templates/content/contributor_detail.html:19
 #: templates/content/magazine_detail.html:29
 #: templates/studio/partials/media_details.html:50
@@ -1440,33 +1468,29 @@ msgid_plural "%(counter)s articles"
 msgstr[0] "%(counter)s Artikel"
 msgstr[1] "%(counter)s Artikel"
 
-#: templates/content/category_hub.html:18
-#| msgid "editions"
+#: templates/content/category_hub.html:19
 msgid "Sections"
 msgstr "Rubriken"
 
-#: templates/content/category_hub.html:37
-#| msgid "Nothing selected yet."
+#: templates/content/category_hub.html:38
 msgid "Nothing in this section yet"
 msgstr "In dieser Rubrik ist noch nichts erschienen"
 
-#: templates/content/category_hub.html:38
+#: templates/content/category_hub.html:39
 msgid "The first stories filed here will appear on this page."
 msgstr "Die ersten Beiträge dieser Rubrik erscheinen auf dieser Seite."
 
-#: templates/content/category_hub.html:50
+#: templates/content/category_hub.html:51
 msgid "Bylines"
 msgstr "Wer schreibt"
 
-#: templates/content/category_hub.html:51
+#: templates/content/category_hub.html:52
 #, python-format
-#| msgid "One less %(name)s"
 msgid "Who writes %(name)s"
 msgstr "Wer %(name)s schreibt"
 
-#: templates/content/category_hub.html:53
+#: templates/content/category_hub.html:54
 #: templates/content/contributor_detail.html:45
-#| msgid "All types"
 msgid "All writers"
 msgstr "Alle Autorinnen und Autoren"
 
@@ -1484,7 +1508,6 @@ msgid "Website"
 msgstr "Website"
 
 #: templates/content/contributor_detail.html:39
-#| msgid "No themes yet"
 msgid "No articles yet"
 msgstr "Noch keine Beiträge"
 
@@ -1497,12 +1520,10 @@ msgid "The reporters, photographers and columnists behind Almadina."
 msgstr "Die Reporterinnen, Fotografen und Kolumnisten hinter Almadina."
 
 #: templates/content/contributor_list.html:9
-#| msgid "The desk"
 msgid "The team"
 msgstr "Das Team"
 
 #: templates/content/contributor_list.html:10
-#| msgid "Who we work with"
 msgid "Who writes for us"
 msgstr "Wer für uns schreibt"
 
@@ -1515,12 +1536,10 @@ msgstr ""
 " Zu jedem Namen hier gehört eine Seite mit den Beiträgen."
 
 #: templates/content/contributor_list.html:34
-#| msgid "The rate card is being prepared"
 msgid "The team page is being prepared"
 msgstr "Die Teamseite wird vorbereitet"
 
 #: templates/content/contributor_list.html:35
-#| msgid "Formats and prices appear here as soon as they are entered."
 msgid ""
 "Names, portraits and short biographies appear here as soon as they are "
 "entered."
@@ -1624,6 +1643,107 @@ msgstr "Wir wurden benachrichtigt. Bitte versuchen Sie es gleich noch einmal."
 #: templates/errors/500.html:9
 msgid "Back to the homepage"
 msgstr "Zurück zur Startseite"
+
+#: templates/events/detail.html:14 templates/events/detail.html:45
+#: templates/events/partials/_card.html:8
+msgid "Online"
+msgstr "Online"
+
+#: templates/events/detail.html:14 templates/events/list.html:20
+msgid "Happening now"
+msgstr "Läuft gerade"
+
+#: templates/events/detail.html:14
+msgid "Past"
+msgstr "Vergangen"
+
+#: templates/events/detail.html:26 templates/events/list.html:29
+msgid "Register"
+msgstr "Anmelden"
+
+#: templates/events/detail.html:30 templates/events/list.html:28
+msgid "Details"
+msgstr "Details"
+
+#: templates/events/detail.html:33
+msgid "When"
+msgstr "Wann"
+
+#: templates/events/detail.html:41 templates/events/detail.html:45
+msgid "Where"
+msgstr "Wo"
+
+#: templates/events/detail.html:48
+msgid "Entry"
+msgstr "Eintritt"
+
+#: templates/events/detail.html:49
+msgid "Free"
+msgstr "Frei"
+
+#: templates/events/detail.html:49
+msgid "On request"
+msgstr "Auf Anfrage"
+
+#: templates/events/detail.html:52 templates/events/detail.html:61
+msgid "All events"
+msgstr "Alle Veranstaltungen"
+
+#: templates/events/detail.html:60 templates/events/list.html:9
+msgid "Diary"
+msgstr "Termine"
+
+#: templates/events/detail.html:60
+msgid "Coming up next"
+msgstr "Als Nächstes"
+
+#: templates/events/list.html:4
+msgid ""
+"Edition launches, panels, readings and community evenings with Almadina in "
+"Berlin and beyond."
+msgstr ""
+"Releaseabende, Podien, Lesungen und Community-Abende mit Almadina in Berlin "
+"und darüber hinaus."
+
+#: templates/events/list.html:11
+msgid ""
+"Edition launches, panels, readings and community evenings. Come and meet the"
+" people who make the magazine."
+msgstr ""
+"Releaseabende, Podien, Lesungen und Community-Abende. Kommen Sie vorbei und "
+"lernen Sie die Menschen hinter dem Magazin kennen."
+
+#: templates/events/list.html:20
+msgid "Next up"
+msgstr "Als Nächstes"
+
+#: templates/events/list.html:39
+msgid "Coming up"
+msgstr "Demnächst"
+
+#: templates/events/list.html:39
+msgid "Also in the diary"
+msgstr "Weitere Termine"
+
+#: templates/events/list.html:50
+msgid "Nothing in the diary yet"
+msgstr "Noch keine Termine"
+
+#: templates/events/list.html:51
+msgid ""
+"The next launch or panel will be announced here. The newsletter carries the "
+"invitation first."
+msgstr ""
+"Der nächste Releaseabend oder das nächste Podium wird hier angekündigt. Im "
+"Newsletter steht die Einladung zuerst."
+
+#: templates/events/list.html:52
+msgid "Read the magazine"
+msgstr "Das Magazin lesen"
+
+#: templates/events/list.html:60
+msgid "What we have held"
+msgstr "Was bereits stattfand"
 
 #: templates/notifications/dropdown.html:4
 #, python-format

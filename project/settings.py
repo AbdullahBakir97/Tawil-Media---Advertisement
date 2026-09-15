@@ -102,6 +102,7 @@ LOCAL_APPS = [
     "source.apps.seo_analytics",
     "source.apps.newsletter",
     "source.apps.notifications",
+    "source.apps.events.apps.EventsConfig",
     "source.apps.studio.apps.StudioConfig",
 ]
 

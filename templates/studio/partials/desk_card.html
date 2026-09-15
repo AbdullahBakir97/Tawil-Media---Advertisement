@@ -6,6 +6,8 @@
         {% if kind == "article" %}{% if item.author %}{{ item.author.get_full_name|default:item.author.email }} · {% endif %}{% endif %}
         {% if status == "scheduled" and item.scheduled_for %}
             <time datetime="{{ item.scheduled_for|date:'c' }}">{{ item.scheduled_for|date:"j M, H:i" }}</time>
+        {% elif item.starts_at %}{# an event: its own date says more than when it was published #}
+            <time datetime="{{ item.starts_at|date:'c' }}">{{ item.starts_at|date:"j M Y, H:i" }}</time>
         {% elif item.published_at %}
             <time datetime="{{ item.published_at|date:'c' }}">{{ item.published_at|date:"j M Y" }}</time>
         {% else %}

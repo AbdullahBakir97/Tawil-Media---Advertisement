@@ -33,6 +33,7 @@
 @import './components/media-library.css';
 @import './components/desk.css';
 @import './components/authors.css';
+@import './components/events.css';
 @import './components/atlas.css';
 
 @import './layouts/grid.css';

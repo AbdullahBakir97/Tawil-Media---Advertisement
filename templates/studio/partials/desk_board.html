@@ -13,4 +13,11 @@
             {% for column in magazine_columns %}{% include "studio/partials/desk_column.html" with column=column kind="magazine" %}{% endfor %}
         </div>
     </section>
+
+    <section class="desk-section">
+        <h2 class="desk-section-title">{% trans "Events" %}</h2>
+        <div class="desk-columns">
+            {% for column in event_columns %}{% include "studio/partials/desk_column.html" with column=column kind="event" %}{% endfor %}
+        </div>
+    </section>
 </div>
