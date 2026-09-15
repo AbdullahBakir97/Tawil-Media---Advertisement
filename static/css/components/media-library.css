@@ -1,0 +1,81 @@
+/* The media library: grid of everything uploaded, details panel with the focal picker. */
+
+.studio-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1rem; margin-bottom: 1.5rem; }
+.media-upload label { cursor: pointer; }
+
+.media-filters { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.25rem; }
+.media-filters .form-input { flex: 1; min-width: 12rem; }
+.media-filters .form-select { width: auto; }
+
+.media-layout { display: grid; gap: 1.5rem; align-items: start; }
+@media (min-width: 1024px) { .media-layout { grid-template-columns: minmax(0, 1fr) 22rem; gap: 2rem; } }
+
+.media-grid { display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr)); }
+.media-tile {
+  position: relative; display: grid; grid-template-rows: 1fr auto;
+  border: 1px solid var(--border-primary); border-radius: var(--radius-lg);
+  background: var(--bg-secondary); overflow: hidden; color: inherit;
+  transition: border-color var(--transition-fast) ease, transform var(--transition-fast) var(--ease-out);
+}
+.media-tile:hover { transform: translateY(-2px); border-color: var(--sky-400); }
+.media-tile.is-selected { border-color: var(--gold-400); box-shadow: 0 0 0 2px rgb(242 178 92 / 0.35); }
+.media-tile img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.media-tile-icon { display: grid; place-items: center; aspect-ratio: 4 / 3; color: var(--text-tertiary); }
+.media-tile-icon svg { width: 2rem; height: 2rem; }
+.media-tile-name {
+  padding: 0.45rem 0.6rem; font-size: 0.68rem; color: var(--text-secondary);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  border-top: 1px solid var(--border-primary);
+  /* A German file name inside the Arabic page keeps its own direction, so the
+     ellipsis lands at the end of the name rather than in front of it. */
+  unicode-bidi: plaintext; text-align: start;
+}
+.media-tile-flag {
+  position: absolute; inset-block-start: 0.4rem; inset-inline-end: 0.4rem;
+  padding: 0.1rem 0.35rem; border-radius: var(--radius-sm);
+  background: var(--rose-500, #e11d48); color: #fff;
+  font-size: 0.58rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+}
+.media-empty { grid-column: 1 / -1; }
+
+.media-details { position: sticky; top: calc(var(--header-nav-height, 4.5rem) + 1rem); }
+.media-details-inner {
+  display: grid; gap: 1rem;
+  padding: 1.25rem;
+  border: 1px solid var(--border-primary); border-radius: var(--radius-xl);
+  background: var(--bg-secondary);
+}
+.media-details--empty { place-items: center; min-height: 10rem; text-align: center; }
+
+.focal-stage { display: grid; gap: 0.6rem; }
+.focal-canvas {
+  position: relative; display: block; width: 100%; padding: 0; overflow: hidden;
+  border: 1px solid var(--border-primary); border-radius: var(--radius-lg);
+  background: var(--bg-tertiary); cursor: crosshair;
+}
+.focal-canvas img { display: block; width: 100%; max-height: 16rem; object-fit: contain; }
+.focal-dot {
+  position: absolute; width: 1.1rem; height: 1.1rem; transform: translate(-50%, -50%);
+  border-radius: 50%; border: 2px solid #fff; background: var(--gold-400);
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.4), 0 2px 6px rgb(0 0 0 / 0.4);
+  pointer-events: none;
+}
+.focal-previews { display: flex; align-items: flex-end; gap: 0.5rem; }
+.focal-preview { display: block; overflow: hidden; border-radius: var(--radius-md); background: var(--bg-tertiary); }
+.focal-preview img { width: 100%; height: 100%; object-fit: cover; }
+.focal-preview--wide { width: 7rem; aspect-ratio: 16 / 9; }
+.focal-preview--square { width: 3.5rem; aspect-ratio: 1; }
+.focal-preview--tall { width: 3rem; aspect-ratio: 3 / 4; }
+
+.media-form { display: grid; gap: 0.75rem; }
+.media-form-actions { display: flex; gap: 0.5rem; }
+
+.media-facts { display: grid; gap: 0.35rem; font-size: var(--text-sm); }
+.media-facts > div { display: flex; justify-content: space-between; gap: 1rem; }
+.media-facts dt { color: var(--text-tertiary); }
+.media-facts dd { color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+
+.media-details-foot {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding-top: 0.75rem; border-top: 1px solid var(--border-primary);
+}

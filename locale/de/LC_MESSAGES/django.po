@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-15 15:43+0200\n"
+"POT-Creation-Date: 2026-09-15 16:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,7 +53,6 @@ msgid "Print"
 msgstr "Print"
 
 #: source/apps/advertisements/models.py:164
-#| msgid "Digitised"
 msgid "Digital"
 msgstr "Digital"
 
@@ -66,7 +65,6 @@ msgid "Bundle"
 msgstr "Paket"
 
 #: source/apps/advertisements/models.py:169
-#| msgid "Next edition"
 msgid "per edition"
 msgstr "pro Ausgabe"
 
@@ -75,7 +73,6 @@ msgid "per week"
 msgstr "pro Woche"
 
 #: source/apps/advertisements/models.py:171
-#| msgid "Readers a month"
 msgid "per month"
 msgstr "pro Monat"
 
@@ -84,7 +81,6 @@ msgid "per send"
 msgstr "pro Aussendung"
 
 #: source/apps/advertisements/models.py:173
-#| msgid "Render pages"
 msgid "per package"
 msgstr "pro Paket"
 
@@ -92,6 +88,34 @@ msgstr "pro Paket"
 #, python-format
 msgid "New campaign request: %(company)s"
 msgstr "Neue Kampagnenanfrage: %(company)s"
+
+#: source/apps/content/models.py:70
+msgid "Image"
+msgstr "Bild"
+
+#: source/apps/content/models.py:71
+msgid "Video"
+msgstr "Video"
+
+#: source/apps/content/models.py:72
+msgid "Document"
+msgstr "Dokument"
+
+#: source/apps/studio/forms.py:107
+msgid "Files"
+msgstr "Dateien"
+
+#: source/apps/studio/forms.py:139
+msgid "What is in the picture?"
+msgstr "Was ist auf dem Bild zu sehen?"
+
+#: source/apps/studio/forms.py:140
+msgid "Shown under the image"
+msgstr "Erscheint unter dem Bild"
+
+#: source/apps/studio/forms.py:141
+msgid "Photographer or agency"
+msgstr "Fotografin, Fotograf oder Agentur"
 
 #: source/apps/studio/models.py:36
 msgid "Highlight colour, e.g. gold."
@@ -191,19 +215,32 @@ msgstr "Hilfe"
 msgid "About"
 msgstr "Über uns"
 
-#: source/apps/studio/views.py:80
+#: source/apps/studio/views.py:83
 msgid "Hero saved."
 msgstr "Hero gespeichert."
 
-#: source/apps/studio/views.py:124
+#: source/apps/studio/views.py:127
 msgid "Theme saved."
 msgstr "Thema gespeichert."
 
-#: source/apps/studio/views.py:146
+#: source/apps/studio/views.py:149
 msgid "Announcement saved."
 msgstr "Ankündigung gespeichert."
 
-#: source/apps/studio/views.py:157
+#: source/apps/studio/views.py:197
+#, python-format
+msgid "%(count)d file(s) uploaded."
+msgstr "%(count)d Datei(en) hochgeladen."
+
+#: source/apps/studio/views.py:203
+msgid "File deleted."
+msgstr "Datei gelöscht."
+
+#: source/apps/studio/views.py:213
+msgid "Image details saved."
+msgstr "Bildangaben gespeichert."
+
+#: source/apps/studio/views.py:227
 #, python-format
 msgid "%(count)d pages rendered."
 msgstr "%(count)d Seiten erzeugt."
@@ -759,8 +796,8 @@ msgstr "ungelesen"
 
 #: templates/auth/profile/dashboard.html:26 templates/base/hero/_book.html:11
 #: templates/base/hero/_copy.html:16 templates/content/magazine_list.html:8
-#: templates/pages/home.html:77 templates/studio/base.html:46
-#: templates/studio/dashboard.html:59
+#: templates/pages/home.html:77 templates/studio/base.html:50
+#: templates/studio/dashboard.html:64
 msgid "Editions"
 msgstr "Ausgaben"
 
@@ -914,11 +951,11 @@ msgstr "Zum Inhalt springen"
 msgid "Pagination"
 msgstr "Seitennavigation"
 
-#: templates/base/components/pagination.html:11
+#: templates/base/components/pagination.html:11 templates/studio/media.html:47
 msgid "Previous"
 msgstr "Zurück"
 
-#: templates/base/components/pagination.html:27
+#: templates/base/components/pagination.html:27 templates/studio/media.html:49
 msgid "Next"
 msgstr "Weiter"
 
@@ -959,7 +996,7 @@ msgstr "Artikel"
 #: templates/base/header/navigation.html:36
 #: templates/content/magazine_detail.html:9
 #: templates/content/magazine_list.html:3
-#: templates/content/magazine_list.html:9 templates/studio/base.html:49
+#: templates/content/magazine_list.html:9 templates/studio/base.html:53
 msgid "Magazines"
 msgstr "Magazine"
 
@@ -1097,6 +1134,7 @@ msgstr "Menü umschalten"
 #: templates/base/header/search.html:7 templates/errors/404.html:11
 #: templates/pages/search.html:3 templates/pages/search.html:8
 #: templates/pages/search.html:13 templates/pages/search.html:18
+#: templates/studio/media.html:24
 msgid "Search"
 msgstr "Suche"
 
@@ -1198,7 +1236,7 @@ msgstr "Nr."
 msgid "Extent"
 msgstr "Umfang"
 
-#: templates/base/hero/_facts.html:8 templates/studio/dashboard.html:66
+#: templates/base/hero/_facts.html:8 templates/studio/dashboard.html:71
 #: templates/studio/reader.html:14
 #, python-format
 msgid "%(n)s page"
@@ -1321,7 +1359,7 @@ msgstr "Kategorien"
 msgid "All"
 msgstr "Alle"
 
-#: templates/content/article_list.html:45
+#: templates/content/article_list.html:45 templates/studio/media.html:36
 msgid "Nothing here yet"
 msgstr "Noch nichts hier"
 
@@ -1331,6 +1369,7 @@ msgstr ""
 "Jede Woche erscheinen neue Geschichten. Schauen Sie bald wieder vorbei."
 
 #: templates/content/magazine_detail.html:28
+#: templates/studio/partials/media_details.html:50
 #, python-format
 msgid "%(counter)s article"
 msgid_plural "%(counter)s articles"
@@ -1641,6 +1680,7 @@ msgid "Delete this announcement?"
 msgstr "Diese Ankündigung löschen?"
 
 #: templates/studio/announcements.html:50
+#: templates/studio/partials/media_details.html:59
 msgid "Delete"
 msgstr "Löschen"
 
@@ -1681,27 +1721,32 @@ msgid "Content"
 msgstr "Inhalte"
 
 #: templates/studio/base.html:28 templates/studio/dashboard.html:32
+#: templates/studio/media.html:9
+msgid "Media"
+msgstr "Medien"
+
+#: templates/studio/base.html:32 templates/studio/dashboard.html:37
 msgid "Ad slots"
 msgstr "Werbeplätze"
 
-#: templates/studio/base.html:32 templates/studio/blocks/partners.html:6
-#: templates/studio/dashboard.html:37
+#: templates/studio/base.html:36 templates/studio/blocks/partners.html:6
+#: templates/studio/dashboard.html:42
 msgid "Partners"
 msgstr "Partner"
 
-#: templates/studio/base.html:36 templates/studio/dashboard.html:42
+#: templates/studio/base.html:40 templates/studio/dashboard.html:47
 msgid "Testimonials"
 msgstr "Stimmen"
 
-#: templates/studio/base.html:40 templates/studio/dashboard.html:47
+#: templates/studio/base.html:44 templates/studio/dashboard.html:52
 msgid "FAQ"
 msgstr "FAQ"
 
-#: templates/studio/base.html:44 templates/studio/dashboard.html:52
+#: templates/studio/base.html:48 templates/studio/dashboard.html:57
 msgid "Timeline"
 msgstr "Zeitstrahl"
 
-#: templates/studio/base.html:53
+#: templates/studio/base.html:57
 msgid "Atlas"
 msgstr "Atlas"
 
@@ -1776,34 +1821,47 @@ msgstr ""
 "Die Leiste über der Navigation: Hinweise, gebuchte Werbezeilen, Live-Banner."
 
 #: templates/studio/dashboard.html:34
+#, python-format
+msgid "%(counter)s picture still has no alt text."
+msgid_plural "%(counter)s pictures still have no alt text."
+msgstr[0] "%(counter)s Bild hat noch keinen Alternativtext."
+msgstr[1] "%(counter)s Bilder haben noch keinen Alternativtext."
+
+#: templates/studio/dashboard.html:34
+msgid "Pictures with alt text, captions and a focal point for every crop."
+msgstr ""
+"Bilder mit Alternativtext, Bildunterschrift und einem Fokuspunkt für jeden "
+"Zuschnitt."
+
+#: templates/studio/dashboard.html:39
 msgid "Booked placements with start and end dates."
 msgstr "Gebuchte Platzierungen mit Start- und Enddatum."
 
-#: templates/studio/dashboard.html:39
+#: templates/studio/dashboard.html:44
 msgid "Logos for the hero strip and the about page."
 msgstr "Logos für die Hero-Leiste und die Über-uns-Seite."
 
-#: templates/studio/dashboard.html:44
+#: templates/studio/dashboard.html:49
 msgid "Quotes from advertisers and readers."
 msgstr "Stimmen von Werbekunden und Leserinnen und Lesern."
 
-#: templates/studio/dashboard.html:49
+#: templates/studio/dashboard.html:54
 msgid "Questions for the help, advertising and about pages."
 msgstr "Fragen für die Hilfe-, Werbe- und Über-uns-Seite."
 
-#: templates/studio/dashboard.html:54
+#: templates/studio/dashboard.html:59
 msgid "The years that made the magazine."
 msgstr "Die Jahre, die das Magazin geprägt haben."
 
-#: templates/studio/dashboard.html:59
+#: templates/studio/dashboard.html:64
 msgid "Flip-book pages"
 msgstr "Seiten der Blätterausgabe"
 
-#: templates/studio/dashboard.html:59
+#: templates/studio/dashboard.html:64
 msgid "Add an edition"
 msgstr "Ausgabe anlegen"
 
-#: templates/studio/dashboard.html:60
+#: templates/studio/dashboard.html:65
 msgid ""
 "Upload an edition's PDF and its pages are rendered automatically. Readers "
 "then turn them like a printed magazine."
@@ -1811,35 +1869,35 @@ msgstr ""
 "Laden Sie das PDF einer Ausgabe hoch; die Seiten werden automatisch erzeugt."
 " Leserinnen und Leser blättern dann wie im gedruckten Heft."
 
-#: templates/studio/dashboard.html:66
+#: templates/studio/dashboard.html:71
 msgid "PDF uploaded, not rendered yet"
 msgstr "PDF hochgeladen, noch nicht erzeugt"
 
-#: templates/studio/dashboard.html:66
+#: templates/studio/dashboard.html:71
 msgid "No PDF yet"
 msgstr "Noch kein PDF"
 
-#: templates/studio/dashboard.html:69
+#: templates/studio/dashboard.html:74
 msgid "Open reader"
 msgstr "Blätterausgabe öffnen"
 
-#: templates/studio/dashboard.html:74
+#: templates/studio/dashboard.html:79
 msgid "Re-render"
 msgstr "Neu erzeugen"
 
-#: templates/studio/dashboard.html:74
+#: templates/studio/dashboard.html:79
 msgid "Render pages"
 msgstr "Seiten erzeugen"
 
-#: templates/studio/dashboard.html:77
+#: templates/studio/dashboard.html:82
 msgid "Upload PDF"
 msgstr "PDF hochladen"
 
-#: templates/studio/dashboard.html:81
+#: templates/studio/dashboard.html:86
 msgid "No editions yet"
 msgstr "Noch keine Ausgaben"
 
-#: templates/studio/dashboard.html:81
+#: templates/studio/dashboard.html:86
 msgid "Add an edition with a cover and a PDF to fill the hero and the reader."
 msgstr ""
 "Legen Sie eine Ausgabe mit Titelbild und PDF an, damit Hero und "
@@ -1872,6 +1930,67 @@ msgstr "In Verwendung"
 #: templates/studio/hero.html:31
 msgid "Use this"
 msgstr "Dieses verwenden"
+
+#: templates/studio/media.html:3
+msgid "Media library"
+msgstr "Medienbibliothek"
+
+#: templates/studio/media.html:8
+msgid "Library"
+msgstr "Bibliothek"
+
+#: templates/studio/media.html:10
+#, python-format
+msgid ""
+"%(counter)s file in the library. Set the alt text and the focal point once "
+"and every page uses them."
+msgid_plural ""
+"%(counter)s files in the library. Set the alt text and the focal point once "
+"and every page uses them."
+msgstr[0] ""
+"%(counter)s Datei in der Bibliothek. Alternativtext und Fokuspunkt einmal "
+"setzen – jede Seite nutzt sie."
+msgstr[1] ""
+"%(counter)s Dateien in der Bibliothek. Alternativtext und Fokuspunkt einmal "
+"setzen – jede Seite nutzt sie."
+
+#: templates/studio/media.html:17
+msgid "Upload"
+msgstr "Hochladen"
+
+#: templates/studio/media.html:24
+msgid "Search alt text or file name"
+msgstr "Alternativtext oder Dateinamen suchen"
+
+#: templates/studio/media.html:25
+#: templates/studio/partials/media_details.html:47
+msgid "Type"
+msgstr "Art"
+
+#: templates/studio/media.html:26
+msgid "All types"
+msgstr "Alle Arten"
+
+#: templates/studio/media.html:29
+msgid "Filter"
+msgstr "Filtern"
+
+#: templates/studio/media.html:37
+msgid ""
+"Upload the covers, portraits and edition pictures once; every template pulls"
+" from here."
+msgstr ""
+"Laden Sie Titelbilder, Porträts und Ausgabenbilder einmal hoch – jede "
+"Vorlage bedient sich hier."
+
+#: templates/studio/media.html:46
+msgid "Pages"
+msgstr "Seiten"
+
+#: templates/studio/media.html:48
+#, python-format
+msgid "Page %(current)s of %(total)s"
+msgstr "Seite %(current)s von %(total)s"
 
 #: templates/studio/partials/ad_slot.html:13
 msgid "free"
@@ -1971,6 +2090,76 @@ msgstr "Speichern und Website aktualisieren"
 #: templates/studio/partials/hero_preview.html:6
 msgid "Full size"
 msgstr "Volle Größe"
+
+#: templates/studio/partials/media_details.html:2
+msgid "File details"
+msgstr "Dateiangaben"
+
+#: templates/studio/partials/media_details.html:8
+msgid "Click the part of the picture that must always stay in view"
+msgstr "Klicken Sie die Stelle im Bild an, die immer sichtbar bleiben soll"
+
+#: templates/studio/partials/media_details.html:12
+msgid "Click the subject. Crops on cards and heroes keep that point in frame."
+msgstr ""
+"Klicken Sie auf das Motiv. Zuschnitte auf Karten und im Kopfbereich halten "
+"diesen Punkt im Bild."
+
+#: templates/studio/partials/media_details.html:26
+msgid "Alt text"
+msgstr "Alternativtext"
+
+#: templates/studio/partials/media_details.html:28
+msgid "What a reader who cannot see the picture needs to know."
+msgstr "Was jemand wissen muss, der das Bild nicht sehen kann."
+
+#: templates/studio/partials/media_details.html:31
+msgid "Caption"
+msgstr "Bildunterschrift"
+
+#: templates/studio/partials/media_details.html:35
+msgid "Credit"
+msgstr "Bildnachweis"
+
+#: templates/studio/partials/media_details.html:41
+msgid "Save"
+msgstr "Speichern"
+
+#: templates/studio/partials/media_details.html:42
+msgid "Centre"
+msgstr "Mittig"
+
+#: templates/studio/partials/media_details.html:48
+msgid "Size"
+msgstr "Größe"
+
+#: templates/studio/partials/media_details.html:49
+msgid "Added"
+msgstr "Hinzugefügt"
+
+#: templates/studio/partials/media_details.html:50
+msgid "Used by"
+msgstr "Verwendet in"
+
+#: templates/studio/partials/media_details.html:54
+msgid "Open the original"
+msgstr "Original öffnen"
+
+#: templates/studio/partials/media_details.html:55
+msgid "Delete this file? Pages that use it lose their picture."
+msgstr "Diese Datei löschen? Seiten, die sie verwenden, verlieren ihr Bild."
+
+#: templates/studio/partials/media_details.html:65
+msgid "Pick a file to edit its details."
+msgstr "Wählen Sie eine Datei, um ihre Angaben zu bearbeiten."
+
+#: templates/studio/partials/media_tile.html:14
+msgid "No alt text"
+msgstr "Kein Alternativtext"
+
+#: templates/studio/partials/media_tile.html:14
+msgid "alt"
+msgstr "alt"
 
 #: templates/studio/partials/toolbar.html:6
 msgid "Announce"

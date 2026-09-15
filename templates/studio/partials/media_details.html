@@ -1,0 +1,68 @@
+{% load i18n %}
+<aside id="media-details" class="media-details" aria-label="{% trans 'File details' %}">
+{% if selected %}
+    <div class="media-details-inner" x-data="focal({ x: {{ selected.focal_x|stringformat:'.4f' }}, y: {{ selected.focal_y|stringformat:'.4f' }} })">
+        {% if selected.is_image %}
+        <div class="focal-stage">
+            <button type="button" class="focal-canvas" @click="pick($event)"
+                    aria-label="{% trans 'Click the part of the picture that must always stay in view' %}">
+                <img src="{{ selected.file.url }}" alt="{{ selected.alt_text }}">
+                <span class="focal-dot" :style="`left:${x * 100}%; top:${y * 100}%`" aria-hidden="true"></span>
+            </button>
+            <p class="meta">{% trans "Click the subject. Crops on cards and heroes keep that point in frame." %}</p>
+            <div class="focal-previews" aria-hidden="true">
+                <span class="focal-preview focal-preview--wide"><img src="{{ selected.file.url }}" alt="" :style="`object-position:${x * 100}% ${y * 100}%`"></span>
+                <span class="focal-preview focal-preview--square"><img src="{{ selected.file.url }}" alt="" :style="`object-position:${x * 100}% ${y * 100}%`"></span>
+                <span class="focal-preview focal-preview--tall"><img src="{{ selected.file.url }}" alt="" :style="`object-position:${x * 100}% ${y * 100}%`"></span>
+            </div>
+        </div>
+        {% endif %}
+
+        <form class="media-form" method="post" action="{% url 'studio:media' %}"
+              hx-post="{% url 'studio:media' %}" hx-target="#media-details" hx-swap="outerHTML">
+            {% csrf_token %}
+            <input type="hidden" name="pk" value="{{ selected.pk }}">
+            <div class="form-group">
+                <label class="form-label" for="{{ form.alt_text.id_for_label }}">{% trans "Alt text" %}</label>
+                {{ form.alt_text }}
+                <p class="form-hint">{% trans "What a reader who cannot see the picture needs to know." %}</p>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="{{ form.caption.id_for_label }}">{% trans "Caption" %}</label>
+                {{ form.caption }}
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="{{ form.credit.id_for_label }}">{% trans "Credit" %}</label>
+                {{ form.credit }}
+            </div>
+            <input type="hidden" name="focal_x" :value="x.toFixed(4)">
+            <input type="hidden" name="focal_y" :value="y.toFixed(4)">
+            <div class="media-form-actions">
+                <button class="btn btn-primary btn-sm" type="submit">{% trans "Save" %}</button>
+                <button class="btn btn-outline btn-sm" type="button" @click="reset()">{% trans "Centre" %}</button>
+            </div>
+        </form>
+
+        <dl class="media-facts">
+            <div><dt>{% trans "Type" %}</dt><dd>{{ selected.get_media_type_display }}</dd></div>
+            {% if selected.width %}<div><dt>{% trans "Size" %}</dt><dd dir="ltr">{{ selected.width }} × {{ selected.height }} px</dd></div>{% endif %}
+            <div><dt>{% trans "Added" %}</dt><dd>{{ selected.created_at|date:"j M Y" }}</dd></div>
+            <div><dt>{% trans "Used by" %}</dt><dd>{% blocktrans count counter=selected.article_media.count %}{{ counter }} article{% plural %}{{ counter }} articles{% endblocktrans %}</dd></div>
+        </dl>
+
+        <div class="media-details-foot">
+            <a class="link-underline text-sm" href="{{ selected.file.url }}" target="_blank" rel="noopener">{% trans "Open the original" %}</a>
+            <form method="post" action="{% url 'studio:media' %}" onsubmit="return confirm('{% trans "Delete this file? Pages that use it lose their picture." %}')">
+                {% csrf_token %}
+                <input type="hidden" name="pk" value="{{ selected.pk }}">
+                <input type="hidden" name="action" value="delete">
+                <button class="btn btn-ghost btn-sm text-error" type="submit">{% trans "Delete" %}</button>
+            </form>
+        </div>
+    </div>
+{% else %}
+    <div class="media-details-inner media-details--empty">
+        <p class="text-secondary">{% trans "Pick a file to edit its details." %}</p>
+    </div>
+{% endif %}
+</aside>

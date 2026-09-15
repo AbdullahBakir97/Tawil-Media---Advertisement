@@ -3,6 +3,7 @@ with HTMX and swap back the updated panel and preview."""
 
 from django.contrib import messages
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -12,9 +13,9 @@ from django.views import View
 from django.views.decorators.clickjacking import xframe_options_sameorigin
 from django.views.generic import TemplateView
 
-from source.apps.content.models import Article, Magazine
+from source.apps.content.models import Article, Magazine, Media
 
-from .forms import AnnouncementForm, HeroForm, ThemeForm
+from .forms import AnnouncementForm, HeroForm, MediaDetailsForm, MediaUploadForm, ThemeForm
 from .models import FAQ, AdSlot, Announcement, HeroConfig, Milestone, Partner, Testimonial, Theme
 from .services import render_magazine_pages
 
@@ -40,6 +41,8 @@ class DashboardView(StaffOnly, TemplateView):
             testimonial_count=Testimonial.objects.filter(is_active=True).count(),
             faq_count=FAQ.objects.filter(is_active=True).count(),
             milestone_count=Milestone.objects.filter(is_active=True).count(),
+            media_count=Media.objects.count(),
+            media_missing_alt=Media.objects.filter(media_type="image", alt_text="").count(),
             magazines=Magazine.objects.all()[:8],
         )
         return ctx
@@ -146,6 +149,73 @@ class AnnouncementListView(StaffOnly, View):
             messages.success(request, _("Announcement saved."))
             return redirect("studio:announcements")
         return render(request, "studio/announcements.html", {"items": Announcement.objects.all(), "form": form})
+
+
+class MediaLibraryView(StaffOnly, View):
+    """Every uploaded file in one place: upload, search, and set the alt text,
+    the caption, the credit and the focal point of each picture."""
+
+    PER_PAGE = 24
+
+    def _context(self, request, selected=None, form=None):
+        items = Media.objects.all()
+        query = request.GET.get("q", "").strip()
+        kind = request.GET.get("kind", "")
+        if query:
+            items = items.filter(alt_text__icontains=query) | items.filter(file__icontains=query)
+        if kind in dict(Media.MEDIA_TYPE_CHOICES):
+            items = items.filter(media_type=kind)
+        page = Paginator(items.distinct(), self.PER_PAGE).get_page(request.GET.get("page"))
+        visible = list(page.object_list)
+        selected = selected or (visible[0] if visible else None)
+        return {
+            "page_obj": page,
+            "items": visible,
+            "query": query,
+            "kind": kind,
+            "kinds": Media.MEDIA_TYPE_CHOICES,
+            "selected": selected,
+            "form": form or (MediaDetailsForm(instance=selected) if selected else None),
+            "upload_form": MediaUploadForm(),
+            "total": Media.objects.count(),
+        }
+
+    def get(self, request):
+        selected = None
+        if request.GET.get("pk"):
+            selected = get_object_or_404(Media, pk=request.GET["pk"])
+        ctx = self._context(request, selected=selected)
+        if request.headers.get("HX-Request") and request.GET.get("pk"):
+            return render(request, "studio/partials/media_details.html", ctx)
+        return render(request, "studio/media.html", ctx)
+
+    def post(self, request):
+        if request.POST.get("action") == "upload":
+            files = request.FILES.getlist("files")
+            if files:
+                created = MediaUploadForm().save(files)
+                messages.success(request, _("%(count)d file(s) uploaded.") % {"count": len(created)})
+            return redirect(f"{reverse('studio:media')}?pk={created[0].pk}" if files else "studio:media")
+
+        item = get_object_or_404(Media, pk=request.POST.get("pk"))
+        if request.POST.get("action") == "delete":
+            item.delete()
+            messages.success(request, _("File deleted."))
+            return redirect("studio:media")
+
+        form = MediaDetailsForm(request.POST, instance=item)
+        if form.is_valid():
+            item = form.save()
+            if request.headers.get("HX-Request"):
+                response = render(request, "studio/partials/media_details.html", self._context(request, selected=item))
+                response["HX-Trigger"] = "media-saved"
+                return response
+            messages.success(request, _("Image details saved."))
+            return redirect(f"{reverse('studio:media')}?pk={item.pk}")
+        ctx = self._context(request, selected=item, form=form)
+        if request.headers.get("HX-Request"):
+            return render(request, "studio/partials/media_details.html", ctx)
+        return render(request, "studio/media.html", ctx)
 
 
 class MagazinePagesView(StaffOnly, View):

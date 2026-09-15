@@ -30,6 +30,7 @@
 @import './components/reader.css';
 @import './components/advertising.css';
 @import './components/studio.css';
+@import './components/media-library.css';
 @import './components/atlas.css';
 
 @import './layouts/grid.css';

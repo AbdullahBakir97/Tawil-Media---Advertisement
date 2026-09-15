@@ -11,8 +11,18 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Media)
 class MediaAdmin(admin.ModelAdmin):
-    list_display = ('media_type', 'file', 'alt_text')
+    list_display = ('media_type', 'file', 'alt_text', 'credit', 'created_at')
     list_filter = ('media_type',)
+    search_fields = ('alt_text', 'caption', 'credit', 'file')
+    readonly_fields = ('width', 'height')
+    fieldsets = (
+        (None, {'fields': ('file', 'media_type', ('width', 'height'))}),
+        ('Description', {'fields': ('alt_text', 'caption', 'credit')}),
+        ('Focal point', {
+            'fields': ('focal_x', 'focal_y'),
+            'description': 'Easier to set in the Studio media library, where you click the picture itself.',
+        }),
+    )
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):

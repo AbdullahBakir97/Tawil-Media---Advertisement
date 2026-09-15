@@ -1,8 +1,8 @@
-{% load static i18n %}
+{% load media_tags static i18n %}
 <article class="card card--lift" data-lift>
     <a class="card-media card-media--portrait" href="{{ magazine.get_absolute_url }}" tabindex="-1" aria-hidden="true">
         {% if magazine.cover_image %}
-            <img src="{{ magazine.cover_image.file.url }}" alt="" loading="lazy">
+            {% picture magazine.cover_image sizes="(min-width: 64rem) 20rem, 45vw" alt="" %}
         {% else %}
             <img src="{% static 'img/magazine-tawil.png' %}" alt="" loading="lazy">
         {% endif %}

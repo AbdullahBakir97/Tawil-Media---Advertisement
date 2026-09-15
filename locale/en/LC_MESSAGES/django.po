@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-15 15:43+0200\n"
+"POT-Creation-Date: 2026-09-15 16:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,9 +23,7 @@ msgid "Founder & Creative Director"
 msgstr ""
 
 #: project/settings.py:61
-msgid ""
-"Leading innovation in media and advertising with over a decade of industry "
-"expertise. Committed to delivering excellence and creative solutions."
+msgid "Leading innovation in media and advertising with over a decade of industry expertise. Committed to delivering excellence and creative solutions."
 msgstr ""
 
 #: source/apps/advertisements/forms.py:21
@@ -81,6 +79,34 @@ msgstr ""
 #: source/apps/advertisements/views.py:85
 #, python-format
 msgid "New campaign request: %(company)s"
+msgstr ""
+
+#: source/apps/content/models.py:70
+msgid "Image"
+msgstr ""
+
+#: source/apps/content/models.py:71
+msgid "Video"
+msgstr ""
+
+#: source/apps/content/models.py:72
+msgid "Document"
+msgstr ""
+
+#: source/apps/studio/forms.py:107
+msgid "Files"
+msgstr ""
+
+#: source/apps/studio/forms.py:139
+msgid "What is in the picture?"
+msgstr ""
+
+#: source/apps/studio/forms.py:140
+msgid "Shown under the image"
+msgstr ""
+
+#: source/apps/studio/forms.py:141
+msgid "Photographer or agency"
 msgstr ""
 
 #: source/apps/studio/models.py:36
@@ -181,19 +207,32 @@ msgstr ""
 msgid "About"
 msgstr ""
 
-#: source/apps/studio/views.py:80
+#: source/apps/studio/views.py:83
 msgid "Hero saved."
 msgstr ""
 
-#: source/apps/studio/views.py:124
+#: source/apps/studio/views.py:127
 msgid "Theme saved."
 msgstr ""
 
-#: source/apps/studio/views.py:146
+#: source/apps/studio/views.py:149
 msgid "Announcement saved."
 msgstr ""
 
-#: source/apps/studio/views.py:157
+#: source/apps/studio/views.py:197
+#, python-format
+msgid "%(count)d file(s) uploaded."
+msgstr ""
+
+#: source/apps/studio/views.py:203
+msgid "File deleted."
+msgstr ""
+
+#: source/apps/studio/views.py:213
+msgid "Image details saved."
+msgstr ""
+
+#: source/apps/studio/views.py:227
 #, python-format
 msgid "%(count)d pages rendered."
 msgstr ""
@@ -294,10 +333,7 @@ msgstr ""
 
 #: templates/advertising/hub.html:4
 #, python-format
-msgid ""
-"Reach %(readers)s Arabic-speaking readers a month in print, online and on "
-"social. Formats, rates and a planner that prices your campaign as you build "
-"it."
+msgid "Reach %(readers)s Arabic-speaking readers a month in print, online and on social. Formats, rates and a planner that prices your campaign as you build it."
 msgstr ""
 
 #: templates/advertising/hub.html:11 templates/base/hero/newsroom.html:44
@@ -306,10 +342,7 @@ msgid "Your brand in front of %(readers)s readers"
 msgstr ""
 
 #: templates/advertising/hub.html:12
-msgid ""
-"Almadina reaches Arabic-speaking households, businesses and community "
-"organisations in Berlin and eleven more German cities. In print, online and "
-"on social, planned with our editorial team."
+msgid "Almadina reaches Arabic-speaking households, businesses and community organisations in Berlin and eleven more German cities. In print, online and on social, planned with our editorial team."
 msgstr ""
 
 #: templates/advertising/hub.html:14 templates/advertising/hub.html:36
@@ -403,9 +436,7 @@ msgid "Build your campaign"
 msgstr ""
 
 #: templates/advertising/hub.html:103
-msgid ""
-"Pick the placements and the editions. The estimate updates as you go; send "
-"it and we reply with a firm quote."
+msgid "Pick the placements and the editions. The estimate updates as you go; send it and we reply with a firm quote."
 msgstr ""
 
 #: templates/advertising/hub.html:117 templates/pages/home.html:113
@@ -473,8 +504,7 @@ msgstr ""
 
 #: templates/advertising/partials/planner_done.html:7
 #, python-format
-msgid ""
-"Thank you, %(company)s. We reply with a firm quote within two working days."
+msgid "Thank you, %(company)s. We reply with a firm quote within two working days."
 msgstr ""
 
 #: templates/advertising/partials/planner_done.html:14
@@ -531,9 +561,7 @@ msgid "Twenty years of editions"
 msgstr ""
 
 #: templates/archives/browse.html:10
-msgid ""
-"Every digitised edition, year by year. Pick a year to see its issues and "
-"contents."
+msgid "Every digitised edition, year by year. Pick a year to see its issues and contents."
 msgstr ""
 
 #: templates/archives/browse.html:18
@@ -677,8 +705,7 @@ msgid "Reset your password"
 msgstr ""
 
 #: templates/auth/password/reset.html:12
-msgid ""
-"Enter your e-mail address and we'll send you a link to choose a new password."
+msgid "Enter your e-mail address and we'll send you a link to choose a new password."
 msgstr ""
 
 #: templates/auth/password/reset.html:26
@@ -726,8 +753,8 @@ msgstr ""
 
 #: templates/auth/profile/dashboard.html:26 templates/base/hero/_book.html:11
 #: templates/base/hero/_copy.html:16 templates/content/magazine_list.html:8
-#: templates/pages/home.html:77 templates/studio/base.html:46
-#: templates/studio/dashboard.html:59
+#: templates/pages/home.html:77 templates/studio/base.html:50
+#: templates/studio/dashboard.html:64
 msgid "Editions"
 msgstr ""
 
@@ -854,10 +881,7 @@ msgstr ""
 
 #: templates/auth/register.html:58
 #, python-format
-msgid ""
-"I agree to the <a href=\"%(terms_url)s\" class=\"link-underline\">terms</a> "
-"and the <a href=\"%(privacy_url)s\" class=\"link-underline\">privacy policy</"
-"a>."
+msgid "I agree to the <a href=\"%(terms_url)s\" class=\"link-underline\">terms</a> and the <a href=\"%(privacy_url)s\" class=\"link-underline\">privacy policy</a>."
 msgstr ""
 
 #: templates/auth/register.html:61
@@ -876,18 +900,16 @@ msgstr ""
 msgid "Pagination"
 msgstr ""
 
-#: templates/base/components/pagination.html:11
+#: templates/base/components/pagination.html:11 templates/studio/media.html:47
 msgid "Previous"
 msgstr ""
 
-#: templates/base/components/pagination.html:27
+#: templates/base/components/pagination.html:27 templates/studio/media.html:49
 msgid "Next"
 msgstr ""
 
 #: templates/base/footer/main.html:8
-msgid ""
-"Professional media and advertising platform serving Arabic-speaking "
-"communities in Germany and beyond."
+msgid "Professional media and advertising platform serving Arabic-speaking communities in Germany and beyond."
 msgstr ""
 
 #: templates/base/footer/main.html:19 templates/base/header/navigation.html:18
@@ -919,7 +941,7 @@ msgstr ""
 #: templates/base/header/navigation.html:36
 #: templates/content/magazine_detail.html:9
 #: templates/content/magazine_list.html:3
-#: templates/content/magazine_list.html:9 templates/studio/base.html:49
+#: templates/content/magazine_list.html:9 templates/studio/base.html:53
 msgid "Magazines"
 msgstr ""
 
@@ -984,9 +1006,7 @@ msgid "Your gateway to professional media"
 msgstr ""
 
 #: templates/base/header/company-info.html:7
-msgid ""
-"Connect with your audience through powerful content and strategic "
-"advertising. We create media experiences that get results."
+msgid "Connect with your audience through powerful content and strategic advertising. We create media experiences that get results."
 msgstr ""
 
 #: templates/base/header/company-info.html:16
@@ -1054,7 +1074,7 @@ msgstr ""
 #: templates/base/header/navigation.html:42 templates/base/header/search.html:7
 #: templates/errors/404.html:11 templates/pages/search.html:3
 #: templates/pages/search.html:8 templates/pages/search.html:13
-#: templates/pages/search.html:18
+#: templates/pages/search.html:18 templates/studio/media.html:24
 msgid "Search"
 msgstr ""
 
@@ -1117,9 +1137,7 @@ msgstr ""
 
 #: templates/base/hero/_copy.html:7
 #, python-format
-msgid ""
-"Germany's first Arabic magazine, %(years)s years on: culture, business and "
-"community for half a million readers, in print, online and on social."
+msgid "Germany's first Arabic magazine, %(years)s years on: culture, business and community for half a million readers, in print, online and on social."
 msgstr ""
 
 #: templates/base/hero/_copy.html:9 templates/base/hero/newsroom.html:39
@@ -1152,7 +1170,7 @@ msgstr ""
 msgid "Extent"
 msgstr ""
 
-#: templates/base/hero/_facts.html:8 templates/studio/dashboard.html:66
+#: templates/base/hero/_facts.html:8 templates/studio/dashboard.html:71
 #: templates/studio/reader.html:14
 #, python-format
 msgid "%(n)s page"
@@ -1274,7 +1292,7 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: templates/content/article_list.html:45
+#: templates/content/article_list.html:45 templates/studio/media.html:36
 msgid "Nothing here yet"
 msgstr ""
 
@@ -1283,6 +1301,7 @@ msgid "New stories are published every week. Check back soon."
 msgstr ""
 
 #: templates/content/magazine_detail.html:28
+#: templates/studio/partials/media_details.html:50
 #, python-format
 msgid "%(counter)s article"
 msgid_plural "%(counter)s articles"
@@ -1309,9 +1328,7 @@ msgid "The contents of this edition will be listed here."
 msgstr ""
 
 #: templates/content/magazine_list.html:10
-msgid ""
-"Every edition of Almadina, the first Arabic magazine in Germany, from the "
-"newest issue back."
+msgid "Every edition of Almadina, the first Arabic magazine in Germany, from the newest issue back."
 msgstr ""
 
 #: templates/content/magazine_list.html:20
@@ -1337,9 +1354,7 @@ msgid "We couldn't find that page."
 msgstr ""
 
 #: templates/errors/404.html:8
-msgid ""
-"It may have moved, or the link might be wrong. Try the search or go back to "
-"the homepage."
+msgid "It may have moved, or the link might be wrong. Try the search or go back to the homepage."
 msgstr ""
 
 #: templates/errors/404.html:10
@@ -1390,9 +1405,7 @@ msgid "Media, magazines and archives from Berlin"
 msgstr ""
 
 #: templates/pages/home.html:5
-msgid ""
-"Tawil Media publishes Almadina, the first Arabic magazine in Germany, "
-"alongside articles, editions and a growing archive."
+msgid "Tawil Media publishes Almadina, the first Arabic magazine in Germany, alongside articles, editions and a growing archive."
 msgstr ""
 
 #: templates/pages/home.html:17
@@ -1404,20 +1417,15 @@ msgid "What we do"
 msgstr ""
 
 #: templates/pages/home.html:42
-msgid ""
-"Print, digital and advertising for a community of half a million readers"
+msgid "Print, digital and advertising for a community of half a million readers"
 msgstr ""
 
 #: templates/pages/home.html:49
-msgid ""
-"The first Arabic magazine in Germany: culture, business and community, in "
-"print and online."
+msgid "The first Arabic magazine in Germany: culture, business and community, in print and online."
 msgstr ""
 
 #: templates/pages/home.html:55
-msgid ""
-"Reach Arabic-speaking readers across Germany with print, digital and social "
-"campaigns."
+msgid "Reach Arabic-speaking readers across Germany with print, digital and social campaigns."
 msgstr ""
 
 #: templates/pages/home.html:56
@@ -1425,9 +1433,7 @@ msgid "See the media kit"
 msgstr ""
 
 #: templates/pages/home.html:61
-msgid ""
-"Twenty years of editions, digitised and searchable by year, edition and "
-"topic."
+msgid "Twenty years of editions, digitised and searchable by year, edition and topic."
 msgstr ""
 
 #: templates/pages/home.html:62
@@ -1459,9 +1465,7 @@ msgid "Put your brand in front of the community."
 msgstr ""
 
 #: templates/pages/home.html:109
-msgid ""
-"Print placements, digital campaigns and sponsored stories, planned with our "
-"editorial team."
+msgid "Print placements, digital campaigns and sponsored stories, planned with our editorial team."
 msgstr ""
 
 #: templates/pages/home.html:112
@@ -1510,9 +1514,7 @@ msgid "The line above the navbar"
 msgstr ""
 
 #: templates/studio/announcements.html:10
-msgid ""
-"Editorial notices, booked advertising lines and live banners. Items scroll "
-"in order and can be scheduled with a start and end date."
+msgid "Editorial notices, booked advertising lines and live banners. Items scroll in order and can be scheduled with a start and end date."
 msgstr ""
 
 #: templates/studio/announcements.html:17
@@ -1573,6 +1575,7 @@ msgid "Delete this announcement?"
 msgstr ""
 
 #: templates/studio/announcements.html:50
+#: templates/studio/partials/media_details.html:59
 msgid "Delete"
 msgstr ""
 
@@ -1612,27 +1615,32 @@ msgid "Content"
 msgstr ""
 
 #: templates/studio/base.html:28 templates/studio/dashboard.html:32
+#: templates/studio/media.html:9
+msgid "Media"
+msgstr ""
+
+#: templates/studio/base.html:32 templates/studio/dashboard.html:37
 msgid "Ad slots"
 msgstr ""
 
-#: templates/studio/base.html:32 templates/studio/blocks/partners.html:6
-#: templates/studio/dashboard.html:37
+#: templates/studio/base.html:36 templates/studio/blocks/partners.html:6
+#: templates/studio/dashboard.html:42
 msgid "Partners"
 msgstr ""
 
-#: templates/studio/base.html:36 templates/studio/dashboard.html:42
+#: templates/studio/base.html:40 templates/studio/dashboard.html:47
 msgid "Testimonials"
 msgstr ""
 
-#: templates/studio/base.html:40 templates/studio/dashboard.html:47
+#: templates/studio/base.html:44 templates/studio/dashboard.html:52
 msgid "FAQ"
 msgstr ""
 
-#: templates/studio/base.html:44 templates/studio/dashboard.html:52
+#: templates/studio/base.html:48 templates/studio/dashboard.html:57
 msgid "Timeline"
 msgstr ""
 
-#: templates/studio/base.html:53
+#: templates/studio/base.html:57
 msgid "Atlas"
 msgstr ""
 
@@ -1674,10 +1682,7 @@ msgid "Design and content, edited on the site"
 msgstr ""
 
 #: templates/studio/dashboard.html:10
-msgid ""
-"Change the home hero, give an edition its own look, run the announcement "
-"line and manage the blocks the company pages use. Everything you save here "
-"is live."
+msgid "Change the home hero, give an edition its own look, run the announcement line and manage the blocks the company pages use. Everything you save here is live."
 msgstr ""
 
 #: templates/studio/dashboard.html:12
@@ -1685,9 +1690,7 @@ msgid "View the site"
 msgstr ""
 
 #: templates/studio/dashboard.html:19
-msgid ""
-"Pick one of five designs, write the copy in three languages, switch blocks "
-"on and off."
+msgid "Pick one of five designs, write the copy in three languages, switch blocks on and off."
 msgstr ""
 
 #: templates/studio/dashboard.html:24
@@ -1699,75 +1702,82 @@ msgid "The line above the navbar: notices, booked ad lines, live banners."
 msgstr ""
 
 #: templates/studio/dashboard.html:34
-msgid "Booked placements with start and end dates."
+#, python-format
+msgid "%(counter)s picture still has no alt text."
+msgid_plural "%(counter)s pictures still have no alt text."
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/studio/dashboard.html:34
+msgid "Pictures with alt text, captions and a focal point for every crop."
 msgstr ""
 
 #: templates/studio/dashboard.html:39
-msgid "Logos for the hero strip and the about page."
+msgid "Booked placements with start and end dates."
 msgstr ""
 
 #: templates/studio/dashboard.html:44
-msgid "Quotes from advertisers and readers."
+msgid "Logos for the hero strip and the about page."
 msgstr ""
 
 #: templates/studio/dashboard.html:49
-msgid "Questions for the help, advertising and about pages."
+msgid "Quotes from advertisers and readers."
 msgstr ""
 
 #: templates/studio/dashboard.html:54
+msgid "Questions for the help, advertising and about pages."
+msgstr ""
+
+#: templates/studio/dashboard.html:59
 msgid "The years that made the magazine."
 msgstr ""
 
-#: templates/studio/dashboard.html:59
+#: templates/studio/dashboard.html:64
 msgid "Flip-book pages"
 msgstr ""
 
-#: templates/studio/dashboard.html:59
+#: templates/studio/dashboard.html:64
 msgid "Add an edition"
 msgstr ""
 
-#: templates/studio/dashboard.html:60
-msgid ""
-"Upload an edition's PDF and its pages are rendered automatically. Readers "
-"then turn them like a printed magazine."
+#: templates/studio/dashboard.html:65
+msgid "Upload an edition's PDF and its pages are rendered automatically. Readers then turn them like a printed magazine."
 msgstr ""
 
-#: templates/studio/dashboard.html:66
+#: templates/studio/dashboard.html:71
 msgid "PDF uploaded, not rendered yet"
 msgstr ""
 
-#: templates/studio/dashboard.html:66
+#: templates/studio/dashboard.html:71
 msgid "No PDF yet"
 msgstr ""
 
-#: templates/studio/dashboard.html:69
+#: templates/studio/dashboard.html:74
 msgid "Open reader"
 msgstr ""
 
-#: templates/studio/dashboard.html:74
+#: templates/studio/dashboard.html:79
 msgid "Re-render"
 msgstr ""
 
-#: templates/studio/dashboard.html:74
+#: templates/studio/dashboard.html:79
 msgid "Render pages"
 msgstr ""
 
-#: templates/studio/dashboard.html:77
+#: templates/studio/dashboard.html:82
 msgid "Upload PDF"
 msgstr ""
 
-#: templates/studio/dashboard.html:81
+#: templates/studio/dashboard.html:86
 msgid "No editions yet"
 msgstr ""
 
-#: templates/studio/dashboard.html:81
+#: templates/studio/dashboard.html:86
 msgid "Add an edition with a cover and a PDF to fill the hero and the reader."
 msgstr ""
 
 #: templates/studio/hero.html:10
-msgid ""
-"Choose a design, then write the copy. The preview below is the real hero "
-"with your live editions and stories."
+msgid "Choose a design, then write the copy. The preview below is the real hero with your live editions and stories."
 msgstr ""
 
 #: templates/studio/hero.html:12
@@ -1788,6 +1798,55 @@ msgstr ""
 
 #: templates/studio/hero.html:31
 msgid "Use this"
+msgstr ""
+
+#: templates/studio/media.html:3
+msgid "Media library"
+msgstr ""
+
+#: templates/studio/media.html:8
+msgid "Library"
+msgstr ""
+
+#: templates/studio/media.html:10
+#, python-format
+msgid "%(counter)s file in the library. Set the alt text and the focal point once and every page uses them."
+msgid_plural "%(counter)s files in the library. Set the alt text and the focal point once and every page uses them."
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/studio/media.html:17
+msgid "Upload"
+msgstr ""
+
+#: templates/studio/media.html:24
+msgid "Search alt text or file name"
+msgstr ""
+
+#: templates/studio/media.html:25
+#: templates/studio/partials/media_details.html:47
+msgid "Type"
+msgstr ""
+
+#: templates/studio/media.html:26
+msgid "All types"
+msgstr ""
+
+#: templates/studio/media.html:29
+msgid "Filter"
+msgstr ""
+
+#: templates/studio/media.html:37
+msgid "Upload the covers, portraits and edition pictures once; every template pulls from here."
+msgstr ""
+
+#: templates/studio/media.html:46
+msgid "Pages"
+msgstr ""
+
+#: templates/studio/media.html:48
+#, python-format
+msgid "Page %(current)s of %(total)s"
 msgstr ""
 
 #: templates/studio/partials/ad_slot.html:13
@@ -1887,6 +1946,74 @@ msgstr ""
 
 #: templates/studio/partials/hero_preview.html:6
 msgid "Full size"
+msgstr ""
+
+#: templates/studio/partials/media_details.html:2
+msgid "File details"
+msgstr ""
+
+#: templates/studio/partials/media_details.html:8
+msgid "Click the part of the picture that must always stay in view"
+msgstr ""
+
+#: templates/studio/partials/media_details.html:12
+msgid "Click the subject. Crops on cards and heroes keep that point in frame."
+msgstr ""
+
+#: templates/studio/partials/media_details.html:26
+msgid "Alt text"
+msgstr ""
+
+#: templates/studio/partials/media_details.html:28
+msgid "What a reader who cannot see the picture needs to know."
+msgstr ""
+
+#: templates/studio/partials/media_details.html:31
+msgid "Caption"
+msgstr ""
+
+#: templates/studio/partials/media_details.html:35
+msgid "Credit"
+msgstr ""
+
+#: templates/studio/partials/media_details.html:41
+msgid "Save"
+msgstr ""
+
+#: templates/studio/partials/media_details.html:42
+msgid "Centre"
+msgstr ""
+
+#: templates/studio/partials/media_details.html:48
+msgid "Size"
+msgstr ""
+
+#: templates/studio/partials/media_details.html:49
+msgid "Added"
+msgstr ""
+
+#: templates/studio/partials/media_details.html:50
+msgid "Used by"
+msgstr ""
+
+#: templates/studio/partials/media_details.html:54
+msgid "Open the original"
+msgstr ""
+
+#: templates/studio/partials/media_details.html:55
+msgid "Delete this file? Pages that use it lose their picture."
+msgstr ""
+
+#: templates/studio/partials/media_details.html:65
+msgid "Pick a file to edit its details."
+msgstr ""
+
+#: templates/studio/partials/media_tile.html:14
+msgid "No alt text"
+msgstr ""
+
+#: templates/studio/partials/media_tile.html:14
+msgid "alt"
 msgstr ""
 
 #: templates/studio/partials/toolbar.html:6
@@ -2040,10 +2167,7 @@ msgid "Outline"
 msgstr ""
 
 #: templates/studio/themes.html:10
-msgid ""
-"A theme is a set of colours and a display face. Mark one as the site "
-"default, or give a single edition its own so its page, cover frame and "
-"reader follow it."
+msgid "A theme is a set of colours and a display face. Mark one as the site default, or give a single edition its own so its page, cover frame and reader follow it."
 msgstr ""
 
 #: templates/studio/themes.html:23
@@ -2067,6 +2191,5 @@ msgid "No themes yet"
 msgstr ""
 
 #: templates/studio/themes.html:31
-msgid ""
-"Create one to change the site's colours, or to give an edition its own look."
+msgid "Create one to change the site's colours, or to give an edition its own look."
 msgstr ""

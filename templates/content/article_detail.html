@@ -1,5 +1,5 @@
 {% extends "base/base.html" %}
-{% load static i18n studio %}
+{% load static i18n studio media_tags %}
 {% block title %}{{ article.title }} – {{ SITE_NAME }}{% endblock %}
 {% block meta_description %}{{ article.excerpt }}{% endblock %}
 
@@ -28,8 +28,8 @@
         </div>
         {% if cover %}
         <figure class="article-cover" data-hero-item>
-            <img src="{{ cover.file.url }}" alt="{{ cover.alt_text }}" data-hero-bg>
-            {% if cover.alt_text %}<figcaption>{{ cover.alt_text }}</figcaption>{% endif %}
+            {% picture cover sizes="(min-width: 80rem) 72rem, 100vw" loading="eager" fetchpriority="high" %}
+            {% if cover.caption or cover.alt_text %}<figcaption>{{ cover.caption|default:cover.alt_text }}{% if cover.credit %} <span class="credit">{{ cover.credit }}</span>{% endif %}</figcaption>{% endif %}
         </figure>
         {% endif %}
     </header>

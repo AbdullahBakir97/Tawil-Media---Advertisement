@@ -1,13 +1,16 @@
 from django.conf import settings
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.html import strip_tags
 from django.utils.text import Truncator, slugify
+from django.utils.translation import gettext_lazy as _
 from taggit.managers import TaggableManager
 
 from source.apps.core.models import TimeStampedModel
 
+from .imaging import measure
 from .managers import ArticleManager, CategoryManager, MagazineManager, MediaManager
 
 
@@ -64,14 +67,30 @@ class Category(TimeStampedModel):
 
 class Media(TimeStampedModel):
     MEDIA_TYPE_CHOICES = [
-        ("image", "Image"),
-        ("video", "Video"),
-        ("document", "Document"),
+        ("image", _("Image")),
+        ("video", _("Video")),
+        ("document", _("Document")),
     ]
 
     file = models.FileField(upload_to="media/%Y/%m/%d/", verbose_name="Media File")
     media_type = models.CharField(max_length=50, choices=MEDIA_TYPE_CHOICES, verbose_name="Media Type")
     alt_text = models.CharField(max_length=255, blank=True, verbose_name="Alt Text")
+    caption = models.CharField(max_length=255, blank=True, verbose_name="Caption")
+    credit = models.CharField(max_length=160, blank=True, verbose_name="Credit")
+    width = models.PositiveIntegerField(null=True, blank=True, editable=False)
+    height = models.PositiveIntegerField(null=True, blank=True, editable=False)
+    focal_x = models.FloatField(
+        default=0.5,
+        validators=[MinValueValidator(0.0), MaxValueValidator(1.0)],
+        verbose_name="Focal point across",
+        help_text="0 is the left edge, 1 the right. Crops keep this point in view.",
+    )
+    focal_y = models.FloatField(
+        default=0.5,
+        validators=[MinValueValidator(0.0), MaxValueValidator(1.0)],
+        verbose_name="Focal point down",
+        help_text="0 is the top edge, 1 the bottom.",
+    )
 
     objects = MediaManager()
 
@@ -82,6 +101,35 @@ class Media(TimeStampedModel):
 
     def __str__(self):
         return f"{self.media_type} - {self.file.name}"
+
+    def save(self, *args, **kwargs):
+        """Remember the pixel size so templates can reserve the space before the
+        image loads. A file we cannot open (a PDF, a broken upload) simply keeps
+        no dimensions; nothing else depends on them."""
+        super().save(*args, **kwargs)
+        if self.media_type == "image" and (self.width is None or self.height is None):
+            size = measure(self.file)
+            if size:
+                type(self).objects.filter(pk=self.pk).update(width=size[0], height=size[1])
+                self.width, self.height = size
+
+    @property
+    def is_image(self):
+        return self.media_type == "image"
+
+    @property
+    def aspect_ratio(self):
+        """CSS ratio for the box the image will fill, or None when unknown."""
+        return f"{self.width} / {self.height}" if self.width and self.height else None
+
+    @property
+    def object_position(self):
+        """The focal point as a CSS object-position, so a crop keeps the subject."""
+        return f"{round(self.focal_x * 100)}% {round(self.focal_y * 100)}%"
+
+    @property
+    def label(self):
+        return self.alt_text or self.caption or self.file.name.rsplit("/", 1)[-1]
 
     @classmethod
     def upload_media(cls, file, media_type, alt_text=''):
