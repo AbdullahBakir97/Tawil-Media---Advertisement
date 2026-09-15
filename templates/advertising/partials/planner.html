@@ -1,0 +1,62 @@
+{% load i18n %}
+{% comment %}Campaign planner. Server holds the prices; the browser only counts.{% endcomment %}
+<div id="planner-panel" class="planner" x-data="planner()" x-init="init()">
+    <script type="application/json" id="planner-data">[{% for card in rate_cards %}{"slug": "{{ card.slug|escapejs }}", "name": "{{ card.name|escapejs }}", "price": {{ card.price|stringformat:"f" }}}{% if not forloop.last %}, {% endif %}{% endfor %}]</script>
+
+    <div class="planner-pick">
+        <div class="planner-block">
+            <span class="eyebrow">{% trans "1 · Placements" %}</span>
+            <div class="planner-rows">
+                {% for card in rate_cards %}
+                <div class="planner-row" :class="{ 'is-picked': qty('{{ card.slug }}') > 0 }">
+                    <div class="planner-row-main">
+                        <strong>{{ card.name }}</strong>
+                        <span class="meta">{{ card.get_channel_display }}{% if card.size_label %} · {{ card.size_label }}{% endif %} · {{ card.price|floatformat:0 }} € {{ card.get_unit_display }}</span>
+                    </div>
+                    <div class="planner-qty">
+                        <button type="button" @click="dec('{{ card.slug }}')" :disabled="qty('{{ card.slug }}') === 0" aria-label="{% blocktrans with name=card.name %}One less {{ name }}{% endblocktrans %}">−</button>
+                        <span x-text="qty('{{ card.slug }}')">0</span>
+                        <button type="button" @click="inc('{{ card.slug }}')" aria-label="{% blocktrans with name=card.name %}One more {{ name }}{% endblocktrans %}">+</button>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-secondary">{% trans "No placements are on sale yet." %}</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        {% if editions %}
+        <div class="planner-block">
+            <span class="eyebrow">{% trans "2 · Editions" %}</span>
+            <p class="text-secondary text-sm">{% trans "Which editions should the print placements run in? Optional." %}</p>
+            <div class="planner-editions">
+                {% for edition in editions %}
+                <button type="button" class="planner-edition" :class="{ 'is-picked': editions.includes({{ edition.pk }}) }" @click="toggleEdition({{ edition.pk }})">
+                    <span>{{ edition.title }}</span>
+                    <span class="meta">{{ edition.published_at|date:"F Y" }}</span>
+                </button>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <aside class="planner-summary">
+        <span class="eyebrow">{% trans "Your campaign" %}</span>
+        <div class="planner-lines">
+            <template x-for="line in lines" :key="line.slug">
+                <div class="planner-line">
+                    <span x-text="`${line.quantity} × ${line.name}`"></span>
+                    <b x-text="format(line.total)"></b>
+                </div>
+            </template>
+            <p class="text-tertiary text-sm" x-show="!lines.length">{% trans "Nothing selected yet." %}</p>
+        </div>
+        <div class="planner-total">
+            <span>{% trans "Estimate" %}</span>
+            <b x-text="format(total)">0 €</b>
+        </div>
+        <p class="meta">{% trans "Net, plus VAT. An estimate, not an invoice." %}</p>
+        {% include "advertising/partials/planner_form.html" %}
+    </aside>
+</div>

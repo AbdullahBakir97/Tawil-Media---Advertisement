@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-15 15:22+0200\n"
+"POT-Creation-Date: 2026-09-15 15:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,6 +29,69 @@ msgid ""
 msgstr ""
 "Seit über einem Jahrzehnt treibt er Innovation in Medien und Werbung voran –"
 " mit dem Anspruch, Exzellenz und kreative Lösungen zu liefern."
+
+#: source/apps/advertisements/forms.py:21
+msgid "I agree that my details may be used to answer this request."
+msgstr ""
+"Ich bin einverstanden, dass meine Angaben zur Beantwortung dieser Anfrage "
+"verwendet werden."
+
+#: source/apps/advertisements/forms.py:46
+#: source/apps/advertisements/forms.py:48
+msgid "Your selection could not be read. Please choose the placements again."
+msgstr ""
+"Ihre Auswahl konnte nicht gelesen werden. Bitte wählen Sie die Platzierungen"
+" erneut."
+
+#: source/apps/advertisements/forms.py:59
+#: source/apps/advertisements/forms.py:70
+msgid "Choose at least one placement."
+msgstr "Wählen Sie mindestens eine Platzierung."
+
+#: source/apps/advertisements/models.py:163
+msgid "Print"
+msgstr "Print"
+
+#: source/apps/advertisements/models.py:164
+#| msgid "Digitised"
+msgid "Digital"
+msgstr "Digital"
+
+#: source/apps/advertisements/models.py:165
+msgid "Social"
+msgstr "Social"
+
+#: source/apps/advertisements/models.py:166
+msgid "Bundle"
+msgstr "Paket"
+
+#: source/apps/advertisements/models.py:169
+#| msgid "Next edition"
+msgid "per edition"
+msgstr "pro Ausgabe"
+
+#: source/apps/advertisements/models.py:170
+msgid "per week"
+msgstr "pro Woche"
+
+#: source/apps/advertisements/models.py:171
+#| msgid "Readers a month"
+msgid "per month"
+msgstr "pro Monat"
+
+#: source/apps/advertisements/models.py:172
+msgid "per send"
+msgstr "pro Aussendung"
+
+#: source/apps/advertisements/models.py:173
+#| msgid "Render pages"
+msgid "per package"
+msgstr "pro Paket"
+
+#: source/apps/advertisements/views.py:85
+#, python-format
+msgid "New campaign request: %(company)s"
+msgstr "Neue Kampagnenanfrage: %(company)s"
 
 #: source/apps/studio/models.py:36
 msgid "Highlight colour, e.g. gold."
@@ -71,10 +134,8 @@ msgid "Wrap a word in *asterisks* to colour it."
 msgstr "Ein Wort in *Sternchen* setzen, um es einzufärben."
 
 #: source/apps/studio/models.py:105
-#, fuzzy
-#| msgid "Advertise in the next edition"
 msgid "Leave empty to link the latest edition."
-msgstr "In der nächsten Ausgabe werben"
+msgstr "Leer lassen, um auf die neueste Ausgabe zu verlinken."
 
 #: source/apps/studio/models.py:109
 msgid "Leave empty to link the advertising page."
@@ -97,12 +158,11 @@ msgid "Heroes"
 msgstr "Heroes"
 
 #: source/apps/studio/models.py:151
-#, fuzzy
-#| msgid "Edit profile"
 msgid "Editorial"
-msgstr "Profil bearbeiten"
+msgstr "Redaktion"
 
 #: source/apps/studio/models.py:151 source/apps/studio/models.py:262
+#: templates/advertising/hub.html:3 templates/advertising/hub.html:10
 #: templates/auth/profile/dashboard.html:31 templates/pages/home.html:54
 msgid "Advertising"
 msgstr "Werbung"
@@ -128,8 +188,6 @@ msgid "Help"
 msgstr "Hilfe"
 
 #: source/apps/studio/models.py:262
-#, fuzzy
-#| msgid "About us"
 msgid "About"
 msgstr "Über uns"
 
@@ -146,11 +204,9 @@ msgid "Announcement saved."
 msgstr "Ankündigung gespeichert."
 
 #: source/apps/studio/views.py:157
-#, fuzzy, python-format
-#| msgid "%(counter)s page"
-#| msgid_plural "%(counter)s pages"
+#, python-format
 msgid "%(count)d pages rendered."
-msgstr "%(counter)s Seite"
+msgstr "%(count)d Seiten erzeugt."
 
 #: source/apps/users/admin.py:25
 msgid "Personal info"
@@ -190,8 +246,9 @@ msgstr "Ungültige E-Mail-Adresse oder ungültiges Passwort."
 msgid "This account is inactive."
 msgstr "Dieses Konto ist deaktiviert."
 
-#: source/apps/users/forms.py:36 templates/auth/profile/dashboard.html:43
-#: templates/auth/register.html:41
+#: source/apps/users/forms.py:36
+#: templates/advertising/partials/planner_form.html:30
+#: templates/auth/profile/dashboard.html:43 templates/auth/register.html:41
 msgid "Phone"
 msgstr "Telefon"
 
@@ -246,6 +303,246 @@ msgstr "Passwort aktualisiert."
 #: source/apps/users/views.py:153
 msgid "Notification preferences will be available soon."
 msgstr "Benachrichtigungseinstellungen sind bald verfügbar."
+
+#: templates/advertising/hub.html:4
+#, python-format
+msgid ""
+"Reach %(readers)s Arabic-speaking readers a month in print, online and on "
+"social. Formats, rates and a planner that prices your campaign as you build "
+"it."
+msgstr ""
+"Erreichen Sie %(readers)s arabischsprachige Leserinnen und Leser im Monat – "
+"gedruckt, online und in den sozialen Medien. Formate, Preise und ein Planer,"
+" der Ihre Kampagne beim Zusammenstellen berechnet."
+
+#: templates/advertising/hub.html:11 templates/base/hero/newsroom.html:44
+#, python-format
+msgid "Your brand in front of %(readers)s readers"
+msgstr "Ihre Marke vor %(readers)s Leserinnen und Lesern"
+
+#: templates/advertising/hub.html:12
+msgid ""
+"Almadina reaches Arabic-speaking households, businesses and community "
+"organisations in Berlin and eleven more German cities. In print, online and "
+"on social, planned with our editorial team."
+msgstr ""
+"Almadina erreicht arabischsprachige Haushalte, Unternehmen und Vereine in "
+"Berlin und elf weiteren deutschen Städten – gedruckt, online und in den "
+"sozialen Medien, geplant mit unserer Redaktion."
+
+#: templates/advertising/hub.html:14 templates/advertising/hub.html:36
+#: templates/auth/profile/dashboard.html:32
+msgid "Plan a campaign"
+msgstr "Kampagne planen"
+
+#: templates/advertising/hub.html:15
+msgid "Download the media kit"
+msgstr "Mediadaten herunterladen"
+
+#: templates/advertising/hub.html:16
+msgid "See the rates"
+msgstr "Preise ansehen"
+
+#: templates/advertising/hub.html:20 templates/base/hero/_copy.html:15
+msgid "Readers a month"
+msgstr "Leser pro Monat"
+
+#: templates/advertising/hub.html:21
+msgid "Read to the end"
+msgstr "Lesen bis zum Schluss"
+
+#: templates/advertising/hub.html:22
+msgid "Sectors reached"
+msgstr "Erreichte Branchen"
+
+#: templates/advertising/hub.html:23 templates/base/hero/_copy.html:17
+msgid "Years in Berlin"
+msgstr "Jahre in Berlin"
+
+#: templates/advertising/hub.html:33
+msgid "Formats"
+msgstr "Formate"
+
+#: templates/advertising/hub.html:34
+msgid "Where your advertisement appears"
+msgstr "Wo Ihre Anzeige erscheint"
+
+#: templates/advertising/hub.html:40
+msgid "Print · the magazine"
+msgstr "Print · das Heft"
+
+#: templates/advertising/hub.html:47
+msgid "Digital · the website and the newsletter"
+msgstr "Digital · Website und Newsletter"
+
+#: templates/advertising/hub.html:54
+msgid "Social · our channels"
+msgstr "Social · unsere Kanäle"
+
+#: templates/advertising/hub.html:62
+msgid "The rate card is being prepared"
+msgstr "Die Mediadaten werden vorbereitet"
+
+#: templates/advertising/hub.html:63
+msgid "Formats and prices appear here as soon as they are entered."
+msgstr "Formate und Preise erscheinen hier, sobald sie eingetragen sind."
+
+#: templates/advertising/hub.html:64
+msgid "Ask us for the rates"
+msgstr "Fragen Sie uns nach den Preisen"
+
+#: templates/advertising/hub.html:76
+msgid "Rates"
+msgstr "Preise"
+
+#: templates/advertising/hub.html:77
+msgid "What it costs"
+msgstr "Was es kostet"
+
+#: templates/advertising/hub.html:79
+#: templates/base/header/announcements.html:15
+msgid "Media kit"
+msgstr "Mediadaten"
+
+#: templates/advertising/hub.html:84
+msgid "popular"
+msgstr "beliebt"
+
+#: templates/advertising/hub.html:91
+msgid "All prices are net, plus VAT. Series and non-profit rates on request."
+msgstr ""
+"Alle Preise netto, zuzüglich Mehrwertsteuer. Serien- und Vereinspreise auf "
+"Anfrage."
+
+#: templates/advertising/hub.html:101
+msgid "Planner"
+msgstr "Planer"
+
+#: templates/advertising/hub.html:102
+msgid "Build your campaign"
+msgstr "Stellen Sie Ihre Kampagne zusammen"
+
+#: templates/advertising/hub.html:103
+msgid ""
+"Pick the placements and the editions. The estimate updates as you go; send "
+"it and we reply with a firm quote."
+msgstr ""
+"Wählen Sie Platzierungen und Ausgaben. Die Schätzung aktualisiert sich "
+"dabei; senden Sie sie ab, und wir antworten mit einem verbindlichen Angebot."
+
+#: templates/advertising/hub.html:117 templates/pages/home.html:113
+msgid "Talk to us"
+msgstr "Sprechen Sie mit uns"
+
+#: templates/advertising/hub.html:118
+msgid "Not sure which format fits?"
+msgstr "Unsicher, welches Format passt?"
+
+#: templates/advertising/hub.html:119
+msgid "Tell us who you want to reach and we plan the campaign with you."
+msgstr ""
+"Sagen Sie uns, wen Sie erreichen möchten – wir planen die Kampagne mit "
+"Ihnen."
+
+#: templates/advertising/hub.html:123
+msgid "Contact form"
+msgstr "Kontaktformular"
+
+#: templates/advertising/partials/planner.html:9
+msgid "1 · Placements"
+msgstr "1 · Platzierungen"
+
+#: templates/advertising/partials/planner.html:18
+#, python-format
+msgid "One less %(name)s"
+msgstr "Ein %(name)s weniger"
+
+#: templates/advertising/partials/planner.html:20
+#, python-format
+msgid "One more %(name)s"
+msgstr "Ein %(name)s mehr"
+
+#: templates/advertising/partials/planner.html:24
+msgid "No placements are on sale yet."
+msgstr "Es sind noch keine Platzierungen buchbar."
+
+#: templates/advertising/partials/planner.html:31
+msgid "2 · Editions"
+msgstr "2 · Ausgaben"
+
+#: templates/advertising/partials/planner.html:32
+msgid "Which editions should the print placements run in? Optional."
+msgstr "In welchen Ausgaben sollen die Printplatzierungen laufen? Optional."
+
+#: templates/advertising/partials/planner.html:46
+msgid "Your campaign"
+msgstr "Ihre Kampagne"
+
+#: templates/advertising/partials/planner.html:54
+msgid "Nothing selected yet."
+msgstr "Noch nichts ausgewählt."
+
+#: templates/advertising/partials/planner.html:57
+#: templates/advertising/partials/planner_done.html:12
+msgid "Estimate"
+msgstr "Schätzung"
+
+#: templates/advertising/partials/planner.html:60
+msgid "Net, plus VAT. An estimate, not an invoice."
+msgstr "Netto, zuzüglich Mehrwertsteuer. Eine Schätzung, keine Rechnung."
+
+#: templates/advertising/partials/planner_done.html:6
+msgid "Your request is with us"
+msgstr "Ihre Anfrage ist bei uns"
+
+#: templates/advertising/partials/planner_done.html:7
+#, python-format
+msgid ""
+"Thank you, %(company)s. We reply with a firm quote within two working days."
+msgstr ""
+"Vielen Dank, %(company)s. Wir antworten innerhalb von zwei Werktagen mit "
+"einem verbindlichen Angebot."
+
+#: templates/advertising/partials/planner_done.html:14
+#, python-format
+msgid "Questions in the meantime? Write to %(contact_email)s."
+msgstr "Fragen in der Zwischenzeit? Schreiben Sie an %(contact_email)s."
+
+#: templates/advertising/partials/planner_form.html:13
+#: templates/base/footer/main.html:16 templates/base/footer/main.html:17
+msgid "Company"
+msgstr "Unternehmen"
+
+#: templates/advertising/partials/planner_form.html:18
+#: templates/base/footer/main.html:20 templates/base/header/navigation.html:19
+#: templates/base/header/navigation.html:39
+msgid "Contact"
+msgstr "Kontakt"
+
+#: templates/advertising/partials/planner_form.html:25
+#: templates/auth/profile/dashboard.html:42
+msgid "E-mail"
+msgstr "E-Mail"
+
+#: templates/advertising/partials/planner_form.html:30
+#: templates/advertising/partials/planner_form.html:35
+#: templates/auth/profile/settings.html:32
+#: templates/auth/profile/settings.html:41 templates/auth/register.html:41
+msgid "optional"
+msgstr "optional"
+
+#: templates/advertising/partials/planner_form.html:35
+msgid "Anything we should know?"
+msgstr "Gibt es etwas, das wir wissen sollten?"
+
+#: templates/advertising/partials/planner_form.html:38
+#: templates/base/footer/main.html:57
+msgid "Privacy"
+msgstr "Datenschutz"
+
+#: templates/advertising/partials/planner_form.html:43
+msgid "Send the request"
+msgstr "Anfrage senden"
 
 #: templates/archives/browse.html:3 templates/archives/browse.html:8
 #: templates/archives/edition_detail.html:8 templates/archives/year.html:8
@@ -476,10 +773,6 @@ msgstr "Die neueste lesen"
 msgid "Almadina magazine"
 msgstr "Almadina-Magazin"
 
-#: templates/auth/profile/dashboard.html:32
-msgid "Plan a campaign"
-msgstr "Kampagne planen"
-
 #: templates/auth/profile/dashboard.html:33
 msgid "Print, digital and social"
 msgstr "Print, digital und Social Media"
@@ -495,10 +788,6 @@ msgstr "Profil"
 #: templates/studio/theme_form.html:18
 msgid "Name"
 msgstr "Name"
-
-#: templates/auth/profile/dashboard.html:42
-msgid "E-mail"
-msgstr "E-Mail"
 
 #: templates/auth/profile/dashboard.html:44
 msgid "Member since"
@@ -540,11 +829,6 @@ msgstr "Wie Sie auf der Website erscheinen und wie wir Sie erreichen."
 #: templates/auth/profile/settings.html:32
 msgid "Photo"
 msgstr "Foto"
-
-#: templates/auth/profile/settings.html:32
-#: templates/auth/profile/settings.html:41 templates/auth/register.html:41
-msgid "optional"
-msgstr "optional"
 
 #: templates/auth/profile/settings.html:37 templates/auth/register.html:23
 msgid "First name"
@@ -646,19 +930,10 @@ msgstr ""
 "Professionelle Medien- und Werbeplattform für arabischsprachige Communities "
 "in Deutschland und darüber hinaus."
 
-#: templates/base/footer/main.html:16 templates/base/footer/main.html:17
-msgid "Company"
-msgstr "Unternehmen"
-
 #: templates/base/footer/main.html:19 templates/base/header/navigation.html:18
 #: templates/base/header/navigation.html:38
 msgid "About us"
 msgstr "Über uns"
-
-#: templates/base/footer/main.html:20 templates/base/header/navigation.html:19
-#: templates/base/header/navigation.html:39
-msgid "Contact"
-msgstr "Kontakt"
 
 #: templates/base/footer/main.html:21 templates/base/header/navigation.html:21
 msgid "Careers"
@@ -716,10 +991,6 @@ msgstr "Alle Rechte vorbehalten."
 msgid "Terms"
 msgstr "AGB"
 
-#: templates/base/footer/main.html:57
-msgid "Privacy"
-msgstr "Datenschutz"
-
 #: templates/base/footer/main.html:58
 msgid "Cookies"
 msgstr "Cookies"
@@ -742,12 +1013,6 @@ msgstr "Aktuell"
 #: templates/base/header/announcements.html:12
 msgid "Ad"
 msgstr "Anzeige"
-
-#: templates/base/header/announcements.html:15
-#, fuzzy
-#| msgid "See the media kit"
-msgid "Media kit"
-msgstr "Mediadaten ansehen"
 
 #: templates/base/header/company-info.html:4
 #, python-format
@@ -919,14 +1184,6 @@ msgstr "Werben Sie bei uns"
 msgid "Open the flip-book"
 msgstr "Blätterausgabe öffnen"
 
-#: templates/base/hero/_copy.html:15
-msgid "Readers a month"
-msgstr "Leser pro Monat"
-
-#: templates/base/hero/_copy.html:17
-msgid "Years in Berlin"
-msgstr "Jahre in Berlin"
-
 #: templates/base/hero/_facts.html:7
 #: templates/content/partials/magazine_card.html:11
 msgid "Edition"
@@ -943,13 +1200,11 @@ msgstr "Umfang"
 
 #: templates/base/hero/_facts.html:8 templates/studio/dashboard.html:66
 #: templates/studio/reader.html:14
-#, fuzzy, python-format
-#| msgid "%(counter)s page"
-#| msgid_plural "%(counter)s pages"
+#, python-format
 msgid "%(n)s page"
 msgid_plural "%(n)s pages"
-msgstr[0] "%(counter)s Seite"
-msgstr[1] "%(counter)s Seiten"
+msgstr[0] "%(n)s Seite"
+msgstr[1] "%(n)s Seiten"
 
 #: templates/base/hero/_facts.html:9
 #: templates/studio/partials/hero_editor.html:51
@@ -992,29 +1247,18 @@ msgid "Germany's first Arabic magazine"
 msgstr "Das erste arabische Magazin in Deutschland"
 
 #: templates/base/hero/immersive.html:19
-#, fuzzy
-#| msgid "Advertise in the next edition"
 msgid "Also in this edition"
-msgstr "In der nächsten Ausgabe werben"
+msgstr "Außerdem in dieser Ausgabe"
 
 #: templates/base/hero/newsroom.html:20
 msgid "Cover story"
 msgstr "Titelgeschichte"
 
 #: templates/base/hero/newsroom.html:35
-#, fuzzy
-#| msgid "Print editions"
 msgid "Current edition"
-msgstr "Printausgaben"
-
-#: templates/base/hero/newsroom.html:44
-#, python-format
-msgid "Your brand in front of %(readers)s readers"
-msgstr "Ihre Marke vor %(readers)s Leserinnen und Lesern"
+msgstr "Aktuelle Ausgabe"
 
 #: templates/base/hero/newsroom.html:45
-#, fuzzy
-#| msgid "Request the media kit"
 msgid "Request media kit"
 msgstr "Mediadaten anfordern"
 
@@ -1131,10 +1375,8 @@ msgstr "Die nächste Ausgabe erscheint hier, sobald sie veröffentlicht ist."
 #: templates/content/partials/article_card.html:13
 #: templates/studio/partials/ad_slot.html:4
 #: templates/studio/partials/ad_slot.html:12
-#, fuzzy
-#| msgid "Advertise"
 msgid "Advertisement"
-msgstr "Werben"
+msgstr "Anzeige"
 
 #: templates/errors/404.html:3
 msgid "Page not found"
@@ -1290,10 +1532,6 @@ msgstr ""
 msgid "Request the media kit"
 msgstr "Mediadaten anfordern"
 
-#: templates/pages/home.html:113
-msgid "Talk to us"
-msgstr "Sprechen Sie mit uns"
-
 #: templates/pages/search.html:3
 #, python-format
 msgid "Search: %(query)s"
@@ -1416,10 +1654,8 @@ msgstr ""
 "Über der Navigation erscheint nichts, solange kein Eintrag angelegt ist."
 
 #: templates/studio/base.html:7
-#, fuzzy
-#| msgid "Settings sections"
 msgid "Studio sections"
-msgstr "Einstellungsbereiche"
+msgstr "Studio-Bereiche"
 
 #: templates/studio/base.html:8
 msgid "Design"
@@ -1431,10 +1667,8 @@ msgstr "Übersicht"
 
 #: templates/studio/base.html:15 templates/studio/dashboard.html:17
 #: templates/studio/hero.html:3 templates/studio/hero.html:9
-#, fuzzy
-#| msgid "Home"
 msgid "Home hero"
-msgstr "Start"
+msgstr "Hero der Startseite"
 
 #: templates/studio/base.html:19 templates/studio/dashboard.html:22
 #: templates/studio/theme_form.html:8 templates/studio/themes.html:3
@@ -1443,10 +1677,8 @@ msgid "Themes"
 msgstr "Themen"
 
 #: templates/studio/base.html:21
-#, fuzzy
-#| msgid "Contents"
 msgid "Content"
-msgstr "Inhalt"
+msgstr "Inhalte"
 
 #: templates/studio/base.html:28 templates/studio/dashboard.html:32
 msgid "Ad slots"
@@ -1474,10 +1706,8 @@ msgid "Atlas"
 msgstr "Atlas"
 
 #: templates/studio/blocks/faq.html:6
-#, fuzzy
-#| msgid "Permissions"
 msgid "Questions"
-msgstr "Berechtigungen"
+msgstr "Fragen"
 
 #: templates/studio/blocks/faq.html:6
 msgid "Frequently asked"
@@ -1504,10 +1734,9 @@ msgid "Our story"
 msgstr "Unsere Geschichte"
 
 #: templates/studio/blocks/timeline.html:6
-#, fuzzy, python-format
-#| msgid "Years in Berlin"
+#, python-format
 msgid "%(years)s years in Berlin"
-msgstr "Jahre in Berlin"
+msgstr "%(years)s Jahre in Berlin"
 
 #: templates/studio/dashboard.html:9
 msgid "Design and content, edited on the site"
@@ -1555,10 +1784,8 @@ msgid "Logos for the hero strip and the about page."
 msgstr "Logos für die Hero-Leiste und die Über-uns-Seite."
 
 #: templates/studio/dashboard.html:44
-#, fuzzy
-#| msgid "Offers from advertisers"
 msgid "Quotes from advertisers and readers."
-msgstr "Angebote von Werbepartnern"
+msgstr "Stimmen von Werbekunden und Leserinnen und Lesern."
 
 #: templates/studio/dashboard.html:49
 msgid "Questions for the help, advertising and about pages."
@@ -1573,10 +1800,8 @@ msgid "Flip-book pages"
 msgstr "Seiten der Blätterausgabe"
 
 #: templates/studio/dashboard.html:59
-#, fuzzy
-#| msgid "All editions"
 msgid "Add an edition"
-msgstr "Alle Ausgaben"
+msgstr "Ausgabe anlegen"
 
 #: templates/studio/dashboard.html:60
 msgid ""
@@ -1595,10 +1820,8 @@ msgid "No PDF yet"
 msgstr "Noch kein PDF"
 
 #: templates/studio/dashboard.html:69
-#, fuzzy
-#| msgid "Monthly readers"
 msgid "Open reader"
-msgstr "Leser pro Monat"
+msgstr "Blätterausgabe öffnen"
 
 #: templates/studio/dashboard.html:74
 msgid "Re-render"
@@ -1613,10 +1836,8 @@ msgid "Upload PDF"
 msgstr "PDF hochladen"
 
 #: templates/studio/dashboard.html:81
-#, fuzzy
-#| msgid "No editions published yet"
 msgid "No editions yet"
-msgstr "Noch keine Ausgaben veröffentlicht"
+msgstr "Noch keine Ausgaben"
 
 #: templates/studio/dashboard.html:81
 msgid "Add an edition with a cover and a PDF to fill the hero and the reader."
@@ -1633,10 +1854,8 @@ msgstr ""
 "der echte Hero mit Ihren Ausgaben und Beiträgen."
 
 #: templates/studio/hero.html:12
-#, fuzzy
-#| msgid "Back to the homepage"
 msgid "Open the home page"
-msgstr "Zurück zur Startseite"
+msgstr "Startseite öffnen"
 
 #: templates/studio/hero.html:16
 msgid "Designs"
@@ -1709,16 +1928,12 @@ msgid "Masthead with dateline"
 msgstr "Kopfzeile mit Datum"
 
 #: templates/studio/partials/hero_editor.html:40
-#, fuzzy
-#| msgid "Status"
 msgid "Statistics"
-msgstr "Status"
+msgstr "Zahlen"
 
 #: templates/studio/partials/hero_editor.html:41
-#, fuzzy
-#| msgid "Skip to main content"
 msgid "Edition facts and contents"
-msgstr "Zum Inhalt springen"
+msgstr "Angaben zur Ausgabe und Inhalt"
 
 #: templates/studio/partials/hero_editor.html:42
 msgid "Partner strip"
@@ -1737,10 +1952,8 @@ msgid "Primary link"
 msgstr "Erster Link"
 
 #: templates/studio/partials/hero_editor.html:49
-#, fuzzy
-#| msgid "Send reset link"
 msgid "Secondary link"
-msgstr "Link senden"
+msgstr "Zweiter Link"
 
 #: templates/studio/partials/hero_editor.html:52
 #: templates/studio/partials/toolbar.html:5
@@ -1768,16 +1981,12 @@ msgid "Hide the Studio bar"
 msgstr "Studio-Leiste ausblenden"
 
 #: templates/studio/reader.html:3
-#, fuzzy
-#| msgid "Read"
 msgid "Reader"
-msgstr "Lesen"
+msgstr "Blätterausgabe"
 
 #: templates/studio/reader.html:9 templates/studio/reader.html:59
-#, fuzzy
-#| msgid "Read the edition"
 msgid "Back to the edition"
-msgstr "Ausgabe lesen"
+msgstr "Zurück zur Ausgabe"
 
 #: templates/studio/reader.html:16
 msgid "Page thumbnails"
@@ -1800,10 +2009,8 @@ msgid "Copied"
 msgstr "Kopiert"
 
 #: templates/studio/reader.html:30
-#, fuzzy
-#| msgid "Share"
 msgid "Share page"
-msgstr "Teilen"
+msgstr "Seite teilen"
 
 #: templates/studio/reader.html:39 templates/studio/reader.html:47
 #, python-format
@@ -1815,10 +2022,8 @@ msgid "Drag a corner to turn the page"
 msgstr "Ecke ziehen, um zu blättern"
 
 #: templates/studio/reader.html:57
-#, fuzzy
-#| msgid "Contents not digitised yet."
 msgid "This edition is not digitised yet"
-msgstr "Inhalt noch nicht digitalisiert."
+msgstr "Diese Ausgabe ist noch nicht digitalisiert"
 
 #: templates/studio/reader.html:58
 msgid "Its pages appear here once the PDF has been uploaded and rendered."
@@ -1826,23 +2031,17 @@ msgstr ""
 "Die Seiten erscheinen hier, sobald das PDF hochgeladen und erzeugt ist."
 
 #: templates/studio/reader.html:66
-#, fuzzy
-#| msgid "Previous"
 msgid "Previous page"
-msgstr "Zurück"
+msgstr "Vorherige Seite"
 
 #: templates/studio/reader.html:71
-#, fuzzy
-#| msgid "Next"
 msgid "Next page"
-msgstr "Weiter"
+msgstr "Nächste Seite"
 
 #: templates/studio/theme_form.html:3 templates/studio/theme_form.html:9
 #: templates/studio/themes.html:12 templates/studio/themes.html:32
-#, fuzzy
-#| msgid "New here?"
 msgid "New theme"
-msgstr "Neu hier?"
+msgstr "Neues Thema"
 
 #: templates/studio/theme_form.html:19
 msgid "Slug"
@@ -1877,22 +2076,16 @@ msgid "Use as the site default"
 msgstr "Als Standard der Website verwenden"
 
 #: templates/studio/theme_form.html:28
-#, fuzzy
-#| msgid "Save changes"
 msgid "Save theme"
-msgstr "Änderungen speichern"
+msgstr "Thema speichern"
 
 #: templates/studio/theme_form.html:32
-#, fuzzy
-#| msgid "Previous"
 msgid "Preview"
-msgstr "Zurück"
+msgstr "Vorschau"
 
 #: templates/studio/theme_form.html:36
-#, fuzzy
-#| msgid "Put your brand in front of the community."
 msgid "The magazine of the community"
-msgstr "Zeigen Sie Ihre Marke der Community."
+msgstr "Das Magazin der Community"
 
 #: templates/studio/theme_form.html:37
 msgid "Panels, the hero and the footer use this ground."
@@ -1919,10 +2112,8 @@ msgid "Body text stays in the reading face. "
 msgstr "Fließtext bleibt in der Leseschrift. "
 
 #: templates/studio/theme_form.html:43
-#, fuzzy
-#| msgid "Copy link"
 msgid "A link"
-msgstr "Link kopieren"
+msgstr "Ein Link"
 
 #: templates/studio/theme_form.html:44
 msgid "Primary"
@@ -1947,8 +2138,6 @@ msgid "radius"
 msgstr "Radius"
 
 #: templates/studio/themes.html:23
-#, fuzzy
-#| msgid "Editions"
 msgid "editions"
 msgstr "Ausgaben"
 
@@ -1957,16 +2146,12 @@ msgid "Site default"
 msgstr "Standard der Website"
 
 #: templates/studio/themes.html:26
-#, fuzzy
-#| msgid "Edition"
 msgid "Edit"
-msgstr "Ausgabe"
+msgstr "Bearbeiten"
 
 #: templates/studio/themes.html:30
-#, fuzzy
-#| msgid "Nothing here yet"
 msgid "No themes yet"
-msgstr "Noch nichts hier"
+msgstr "Noch keine Themen"
 
 #: templates/studio/themes.html:31
 msgid ""

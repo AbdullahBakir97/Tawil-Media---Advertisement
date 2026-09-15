@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-15 15:22+0200\n"
+"POT-Creation-Date: 2026-09-15 15:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,6 +26,61 @@ msgstr ""
 msgid ""
 "Leading innovation in media and advertising with over a decade of industry "
 "expertise. Committed to delivering excellence and creative solutions."
+msgstr ""
+
+#: source/apps/advertisements/forms.py:21
+msgid "I agree that my details may be used to answer this request."
+msgstr ""
+
+#: source/apps/advertisements/forms.py:46
+#: source/apps/advertisements/forms.py:48
+msgid "Your selection could not be read. Please choose the placements again."
+msgstr ""
+
+#: source/apps/advertisements/forms.py:59
+#: source/apps/advertisements/forms.py:70
+msgid "Choose at least one placement."
+msgstr ""
+
+#: source/apps/advertisements/models.py:163
+msgid "Print"
+msgstr ""
+
+#: source/apps/advertisements/models.py:164
+msgid "Digital"
+msgstr ""
+
+#: source/apps/advertisements/models.py:165
+msgid "Social"
+msgstr ""
+
+#: source/apps/advertisements/models.py:166
+msgid "Bundle"
+msgstr ""
+
+#: source/apps/advertisements/models.py:169
+msgid "per edition"
+msgstr ""
+
+#: source/apps/advertisements/models.py:170
+msgid "per week"
+msgstr ""
+
+#: source/apps/advertisements/models.py:171
+msgid "per month"
+msgstr ""
+
+#: source/apps/advertisements/models.py:172
+msgid "per send"
+msgstr ""
+
+#: source/apps/advertisements/models.py:173
+msgid "per package"
+msgstr ""
+
+#: source/apps/advertisements/views.py:85
+#, python-format
+msgid "New campaign request: %(company)s"
 msgstr ""
 
 #: source/apps/studio/models.py:36
@@ -97,6 +152,7 @@ msgid "Editorial"
 msgstr ""
 
 #: source/apps/studio/models.py:151 source/apps/studio/models.py:262
+#: templates/advertising/hub.html:3 templates/advertising/hub.html:10
 #: templates/auth/profile/dashboard.html:31 templates/pages/home.html:54
 msgid "Advertising"
 msgstr ""
@@ -180,8 +236,9 @@ msgstr ""
 msgid "This account is inactive."
 msgstr ""
 
-#: source/apps/users/forms.py:36 templates/auth/profile/dashboard.html:43
-#: templates/auth/register.html:41
+#: source/apps/users/forms.py:36
+#: templates/advertising/partials/planner_form.html:30
+#: templates/auth/profile/dashboard.html:43 templates/auth/register.html:41
 msgid "Phone"
 msgstr ""
 
@@ -233,6 +290,232 @@ msgstr ""
 
 #: source/apps/users/views.py:153
 msgid "Notification preferences will be available soon."
+msgstr ""
+
+#: templates/advertising/hub.html:4
+#, python-format
+msgid ""
+"Reach %(readers)s Arabic-speaking readers a month in print, online and on "
+"social. Formats, rates and a planner that prices your campaign as you build "
+"it."
+msgstr ""
+
+#: templates/advertising/hub.html:11 templates/base/hero/newsroom.html:44
+#, python-format
+msgid "Your brand in front of %(readers)s readers"
+msgstr ""
+
+#: templates/advertising/hub.html:12
+msgid ""
+"Almadina reaches Arabic-speaking households, businesses and community "
+"organisations in Berlin and eleven more German cities. In print, online and "
+"on social, planned with our editorial team."
+msgstr ""
+
+#: templates/advertising/hub.html:14 templates/advertising/hub.html:36
+#: templates/auth/profile/dashboard.html:32
+msgid "Plan a campaign"
+msgstr ""
+
+#: templates/advertising/hub.html:15
+msgid "Download the media kit"
+msgstr ""
+
+#: templates/advertising/hub.html:16
+msgid "See the rates"
+msgstr ""
+
+#: templates/advertising/hub.html:20 templates/base/hero/_copy.html:15
+msgid "Readers a month"
+msgstr ""
+
+#: templates/advertising/hub.html:21
+msgid "Read to the end"
+msgstr ""
+
+#: templates/advertising/hub.html:22
+msgid "Sectors reached"
+msgstr ""
+
+#: templates/advertising/hub.html:23 templates/base/hero/_copy.html:17
+msgid "Years in Berlin"
+msgstr ""
+
+#: templates/advertising/hub.html:33
+msgid "Formats"
+msgstr ""
+
+#: templates/advertising/hub.html:34
+msgid "Where your advertisement appears"
+msgstr ""
+
+#: templates/advertising/hub.html:40
+msgid "Print · the magazine"
+msgstr ""
+
+#: templates/advertising/hub.html:47
+msgid "Digital · the website and the newsletter"
+msgstr ""
+
+#: templates/advertising/hub.html:54
+msgid "Social · our channels"
+msgstr ""
+
+#: templates/advertising/hub.html:62
+msgid "The rate card is being prepared"
+msgstr ""
+
+#: templates/advertising/hub.html:63
+msgid "Formats and prices appear here as soon as they are entered."
+msgstr ""
+
+#: templates/advertising/hub.html:64
+msgid "Ask us for the rates"
+msgstr ""
+
+#: templates/advertising/hub.html:76
+msgid "Rates"
+msgstr ""
+
+#: templates/advertising/hub.html:77
+msgid "What it costs"
+msgstr ""
+
+#: templates/advertising/hub.html:79
+#: templates/base/header/announcements.html:15
+msgid "Media kit"
+msgstr ""
+
+#: templates/advertising/hub.html:84
+msgid "popular"
+msgstr ""
+
+#: templates/advertising/hub.html:91
+msgid "All prices are net, plus VAT. Series and non-profit rates on request."
+msgstr ""
+
+#: templates/advertising/hub.html:101
+msgid "Planner"
+msgstr ""
+
+#: templates/advertising/hub.html:102
+msgid "Build your campaign"
+msgstr ""
+
+#: templates/advertising/hub.html:103
+msgid ""
+"Pick the placements and the editions. The estimate updates as you go; send "
+"it and we reply with a firm quote."
+msgstr ""
+
+#: templates/advertising/hub.html:117 templates/pages/home.html:113
+msgid "Talk to us"
+msgstr ""
+
+#: templates/advertising/hub.html:118
+msgid "Not sure which format fits?"
+msgstr ""
+
+#: templates/advertising/hub.html:119
+msgid "Tell us who you want to reach and we plan the campaign with you."
+msgstr ""
+
+#: templates/advertising/hub.html:123
+msgid "Contact form"
+msgstr ""
+
+#: templates/advertising/partials/planner.html:9
+msgid "1 · Placements"
+msgstr ""
+
+#: templates/advertising/partials/planner.html:18
+#, python-format
+msgid "One less %(name)s"
+msgstr ""
+
+#: templates/advertising/partials/planner.html:20
+#, python-format
+msgid "One more %(name)s"
+msgstr ""
+
+#: templates/advertising/partials/planner.html:24
+msgid "No placements are on sale yet."
+msgstr ""
+
+#: templates/advertising/partials/planner.html:31
+msgid "2 · Editions"
+msgstr ""
+
+#: templates/advertising/partials/planner.html:32
+msgid "Which editions should the print placements run in? Optional."
+msgstr ""
+
+#: templates/advertising/partials/planner.html:46
+msgid "Your campaign"
+msgstr ""
+
+#: templates/advertising/partials/planner.html:54
+msgid "Nothing selected yet."
+msgstr ""
+
+#: templates/advertising/partials/planner.html:57
+#: templates/advertising/partials/planner_done.html:12
+msgid "Estimate"
+msgstr ""
+
+#: templates/advertising/partials/planner.html:60
+msgid "Net, plus VAT. An estimate, not an invoice."
+msgstr ""
+
+#: templates/advertising/partials/planner_done.html:6
+msgid "Your request is with us"
+msgstr ""
+
+#: templates/advertising/partials/planner_done.html:7
+#, python-format
+msgid ""
+"Thank you, %(company)s. We reply with a firm quote within two working days."
+msgstr ""
+
+#: templates/advertising/partials/planner_done.html:14
+#, python-format
+msgid "Questions in the meantime? Write to %(contact_email)s."
+msgstr ""
+
+#: templates/advertising/partials/planner_form.html:13
+#: templates/base/footer/main.html:16 templates/base/footer/main.html:17
+msgid "Company"
+msgstr ""
+
+#: templates/advertising/partials/planner_form.html:18
+#: templates/base/footer/main.html:20 templates/base/header/navigation.html:19
+#: templates/base/header/navigation.html:39
+msgid "Contact"
+msgstr ""
+
+#: templates/advertising/partials/planner_form.html:25
+#: templates/auth/profile/dashboard.html:42
+msgid "E-mail"
+msgstr ""
+
+#: templates/advertising/partials/planner_form.html:30
+#: templates/advertising/partials/planner_form.html:35
+#: templates/auth/profile/settings.html:32
+#: templates/auth/profile/settings.html:41 templates/auth/register.html:41
+msgid "optional"
+msgstr ""
+
+#: templates/advertising/partials/planner_form.html:35
+msgid "Anything we should know?"
+msgstr ""
+
+#: templates/advertising/partials/planner_form.html:38
+#: templates/base/footer/main.html:57
+msgid "Privacy"
+msgstr ""
+
+#: templates/advertising/partials/planner_form.html:43
+msgid "Send the request"
 msgstr ""
 
 #: templates/archives/browse.html:3 templates/archives/browse.html:8
@@ -457,10 +740,6 @@ msgstr ""
 msgid "Almadina magazine"
 msgstr ""
 
-#: templates/auth/profile/dashboard.html:32
-msgid "Plan a campaign"
-msgstr ""
-
 #: templates/auth/profile/dashboard.html:33
 msgid "Print, digital and social"
 msgstr ""
@@ -474,10 +753,6 @@ msgstr ""
 
 #: templates/auth/profile/dashboard.html:41 templates/studio/theme_form.html:18
 msgid "Name"
-msgstr ""
-
-#: templates/auth/profile/dashboard.html:42
-msgid "E-mail"
 msgstr ""
 
 #: templates/auth/profile/dashboard.html:44
@@ -519,11 +794,6 @@ msgstr ""
 
 #: templates/auth/profile/settings.html:32
 msgid "Photo"
-msgstr ""
-
-#: templates/auth/profile/settings.html:32
-#: templates/auth/profile/settings.html:41 templates/auth/register.html:41
-msgid "optional"
 msgstr ""
 
 #: templates/auth/profile/settings.html:37 templates/auth/register.html:23
@@ -620,18 +890,9 @@ msgid ""
 "communities in Germany and beyond."
 msgstr ""
 
-#: templates/base/footer/main.html:16 templates/base/footer/main.html:17
-msgid "Company"
-msgstr ""
-
 #: templates/base/footer/main.html:19 templates/base/header/navigation.html:18
 #: templates/base/header/navigation.html:38
 msgid "About us"
-msgstr ""
-
-#: templates/base/footer/main.html:20 templates/base/header/navigation.html:19
-#: templates/base/header/navigation.html:39
-msgid "Contact"
 msgstr ""
 
 #: templates/base/footer/main.html:21 templates/base/header/navigation.html:21
@@ -690,10 +951,6 @@ msgstr ""
 msgid "Terms"
 msgstr ""
 
-#: templates/base/footer/main.html:57
-msgid "Privacy"
-msgstr ""
-
 #: templates/base/footer/main.html:58
 msgid "Cookies"
 msgstr ""
@@ -715,10 +972,6 @@ msgstr ""
 #: templates/base/header/announcements.html:11
 #: templates/base/header/announcements.html:12
 msgid "Ad"
-msgstr ""
-
-#: templates/base/header/announcements.html:15
-msgid "Media kit"
 msgstr ""
 
 #: templates/base/header/company-info.html:4
@@ -885,14 +1138,6 @@ msgstr ""
 msgid "Open the flip-book"
 msgstr ""
 
-#: templates/base/hero/_copy.html:15
-msgid "Readers a month"
-msgstr ""
-
-#: templates/base/hero/_copy.html:17
-msgid "Years in Berlin"
-msgstr ""
-
 #: templates/base/hero/_facts.html:7
 #: templates/content/partials/magazine_card.html:11
 msgid "Edition"
@@ -964,11 +1209,6 @@ msgstr ""
 
 #: templates/base/hero/newsroom.html:35
 msgid "Current edition"
-msgstr ""
-
-#: templates/base/hero/newsroom.html:44
-#, python-format
-msgid "Your brand in front of %(readers)s readers"
 msgstr ""
 
 #: templates/base/hero/newsroom.html:45
@@ -1226,10 +1466,6 @@ msgstr ""
 
 #: templates/pages/home.html:112
 msgid "Request the media kit"
-msgstr ""
-
-#: templates/pages/home.html:113
-msgid "Talk to us"
 msgstr ""
 
 #: templates/pages/search.html:3

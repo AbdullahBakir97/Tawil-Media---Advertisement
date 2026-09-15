@@ -1,0 +1,44 @@
+{% load i18n %}
+<form id="planner-form" class="planner-form" method="post" action="{% url 'advertising:request' %}"
+      hx-post="{% url 'advertising:request' %}" hx-target="#planner-panel" hx-swap="outerHTML show:#planner:top" novalidate>
+    {% csrf_token %}
+    {% if form.non_field_errors or form.selection.errors %}
+    <div class="alert alert-error" role="alert"><div class="alert-body">
+        {% for error in form.non_field_errors %}{{ error }}{% endfor %}
+        {% for error in form.selection.errors %}{{ error }}{% endfor %}
+    </div></div>
+    {% endif %}
+    <div class="form-row">
+        <div class="form-group">
+            <label class="form-label" for="{{ form.company.id_for_label }}">{% trans "Company" %}</label>
+            {{ form.company }}
+            {% for error in form.company.errors %}<p class="form-error">{{ error }}</p>{% endfor %}
+        </div>
+        <div class="form-group">
+            <label class="form-label" for="{{ form.contact_name.id_for_label }}">{% trans "Contact" %}</label>
+            {{ form.contact_name }}
+            {% for error in form.contact_name.errors %}<p class="form-error">{{ error }}</p>{% endfor %}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group">
+            <label class="form-label" for="{{ form.email.id_for_label }}">{% trans "E-mail" %}</label>
+            {{ form.email }}
+            {% for error in form.email.errors %}<p class="form-error">{{ error }}</p>{% endfor %}
+        </div>
+        <div class="form-group">
+            <label class="form-label" for="{{ form.phone.id_for_label }}">{% trans "Phone" %} <span class="optional">{% trans "optional" %}</span></label>
+            {{ form.phone }}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="form-label" for="{{ form.message.id_for_label }}">{% trans "Anything we should know?" %} <span class="optional">{% trans "optional" %}</span></label>
+        {{ form.message }}
+    </div>
+    <label class="form-check">{{ form.consent }} <span>{{ form.consent.label }} <a href="{% url 'privacy' %}" class="link-underline">{% trans "Privacy" %}</a></span></label>
+    {% for error in form.consent.errors %}<p class="form-error">{{ error }}</p>{% endfor %}
+
+    <input type="hidden" name="selection" :value="JSON.stringify(selected)">
+    <input type="hidden" name="edition_ids" :value="editions.join(',')">
+    <button class="btn btn-primary btn-block" type="submit" :disabled="!lines.length">{% trans "Send the request" %}</button>
+</form>
