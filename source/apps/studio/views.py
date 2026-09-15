@@ -22,13 +22,20 @@ from source.apps.newsletter.composer import render_issue
 from source.apps.newsletter.models import LANGUAGES, Issue, IssueBlock, NewsletterSubscriber
 from source.apps.newsletter.sending import send_issue, send_test
 
+from .collections import CollectionView
 from .forms import (
+    AdSlotForm,
     AnnouncementForm,
     ArticleForm,
+    FAQForm,
     HeroForm,
     IssueForm,
+    MagazineForm,
     MediaDetailsForm,
     MediaUploadForm,
+    MilestoneForm,
+    PartnerForm,
+    TestimonialForm,
     ThemeForm,
 )
 from .models import FAQ, AdSlot, Announcement, HeroConfig, Milestone, Partner, PressKit, Testimonial, Theme
@@ -544,3 +551,142 @@ class PressView(TemplateView):
 def studio_toolbar(request):
     """Small partial rendered from base.html for staff."""
     return HttpResponse(status=204)
+
+
+# ---------------------------------------------------------------------------
+# The short lists. Each declares only what makes it different; the shared
+# CollectionView in collections.py does the rest.
+# ---------------------------------------------------------------------------
+
+
+class AdSlotListView(StaffOnly, CollectionView):
+    model = AdSlot
+    form_class = AdSlotForm
+    url_name = "studio:ad_slots"
+    title = _("Ad slots")
+    lead = _("Where adverts appear, who booked them and for how long.")
+    empty_title = _("No ad slots yet")
+    empty_lead = _("Add one and it appears wherever its key is placed in the design.")
+
+    def get_queryset(self):
+        return AdSlot.objects.order_by("key", "-weight")
+
+    def row_label(self, item):
+        return item.advertiser or item.key
+
+    def row_meta(self, item):
+        parts = [item.key, item.get_format_display()]
+        if item.starts_at or item.ends_at:
+            starts = f"{item.starts_at:%d.%m.%Y}" if item.starts_at else "…"
+            ends = f"{item.ends_at:%d.%m.%Y}" if item.ends_at else "…"
+            parts.append(f"{starts} – {ends}")
+        return " · ".join(parts)
+
+
+class PartnerListView(StaffOnly, CollectionView):
+    model = Partner
+    form_class = PartnerForm
+    url_name = "studio:partners"
+    order_field = "order"
+    title = _("Partners")
+    lead = _("The logos shown across the site.")
+    empty_title = _("No partners yet")
+    empty_lead = _("Upload a logo and it joins the row on the front page.")
+
+    def row_meta(self, item):
+        return item.url
+
+
+class TestimonialListView(StaffOnly, CollectionView):
+    model = Testimonial
+    form_class = TestimonialForm
+    url_name = "studio:testimonials"
+    order_field = "order"
+    title = _("Voices")
+    lead = _("What readers and partners say about the magazine.")
+    empty_title = _("No voices yet")
+    empty_lead = _("Add a quote and it appears where the design asks for one.")
+
+    def row_label(self, item):
+        return item.name
+
+    def row_meta(self, item):
+        return item.role
+
+
+class FAQListView(StaffOnly, CollectionView):
+    model = FAQ
+    form_class = FAQForm
+    url_name = "studio:faq"
+    order_field = "order"
+    title = _("FAQ")
+    lead = _("The questions each page answers, in the order they are asked.")
+    empty_title = _("No questions yet")
+    empty_lead = _("Add the first one and it appears on the page you choose.")
+
+    def get_queryset(self):
+        return FAQ.objects.order_by("page", "order")
+
+    def row_label(self, item):
+        return item.question_de or item.question_en or item.question_ar
+
+    def row_meta(self, item):
+        return item.get_page_display()
+
+
+class MilestoneListView(StaffOnly, CollectionView):
+    model = Milestone
+    form_class = MilestoneForm
+    url_name = "studio:timeline"
+    title = _("Timeline")
+    lead = _("The years that shaped the magazine.")
+    empty_title = _("No milestones yet")
+    empty_lead = _("Add a year and it appears on the timeline.")
+
+    def get_queryset(self):
+        return Milestone.objects.order_by("year")
+
+    def row_label(self, item):
+        return item.title_de or item.title_en or item.title_ar
+
+    def row_meta(self, item):
+        return str(item.year)
+
+
+class MagazineEditorView(StaffOnly, View):
+    """An edition's details and its contents.
+
+    Like the article editor, saving never changes the workflow state — an
+    edition goes live from the desk, deliberately.
+    """
+
+    def get(self, request, pk=None):
+        if pk is None and request.GET.get("new") is None:
+            return render(request, "studio/magazine_list.html", {
+                "magazines": Magazine.objects.select_related("cover_image").order_by("-issue_number", "-created_at"),
+            })
+        magazine = get_object_or_404(Magazine, pk=pk) if pk else Magazine()
+        return render(request, "studio/magazine_edit.html", self._context(magazine))
+
+    def _context(self, magazine, form=None):
+        return {
+            "magazine": magazine if magazine.pk else None,
+            "form": form or MagazineForm(instance=magazine),
+            "is_new": magazine.pk is None,
+        }
+
+    def post(self, request, pk=None):
+        magazine = get_object_or_404(Magazine, pk=pk) if pk else Magazine()
+        if request.POST.get("action") == "delete" and magazine.pk:
+            title = magazine.title
+            magazine.delete()
+            messages.success(request, _("“%(title)s” was deleted.") % {"title": title})
+            return redirect("studio:magazines")
+
+        form = MagazineForm(request.POST, request.FILES, instance=magazine)
+        if not form.is_valid():
+            messages.error(request, _("Something in the form needs attention."))
+            return render(request, "studio/magazine_edit.html", self._context(magazine, form))
+        magazine = form.save()
+        messages.success(request, _("Saved."))
+        return redirect("studio:magazine_edit", pk=magazine.pk)

@@ -151,3 +151,41 @@
 .nl-panel--danger { border-color: rgb(225 29 72 / 0.35); }
 .btn-danger { color: var(--rose-500, #e11d48); }
 .btn-danger:hover { background: rgb(225 29 72 / 0.08); }
+
+/* ---------- Shared collection pages ---------- */
+.collection-rows { display: grid; gap: 0.5rem; }
+.collection-row {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--border-primary); border-radius: var(--radius-lg);
+  background: var(--bg-secondary);
+  transition: border-color var(--transition-fast) ease;
+}
+.collection-row:hover { border-color: var(--sky-400); }
+.collection-row.is-editing { border-color: var(--gold-400); background: rgb(242 178 92 / 0.06); }
+/* Switched off, not deleted — the usual way to retire a row. */
+.collection-row.is-off { opacity: 0.55; }
+.collection-row.is-off:hover { opacity: 1; }
+.collection-row-body { flex: 1; min-width: 0; display: grid; gap: 0.1rem; }
+.collection-row-body strong { overflow-wrap: anywhere; }
+.collection-row-meta { font-size: var(--text-sm); color: var(--text-tertiary); overflow-wrap: anywhere; }
+.collection-row-actions { display: flex; align-items: center; gap: 0.35rem; flex: 0 0 auto; flex-wrap: wrap; }
+.collection-row-actions form { display: flex; gap: 0.25rem; }
+
+/* ---------- Editions ---------- */
+.edition-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr)); }
+.edition-card {
+  display: grid; gap: 0.6rem; padding: 0.85rem;
+  border: 1px solid var(--border-primary); border-radius: var(--radius-xl);
+  background: var(--bg-secondary); color: inherit;
+  transition: border-color var(--transition-fast) ease, transform var(--transition-fast) var(--ease-out);
+}
+.edition-card:hover { border-color: var(--sky-400); transform: translateY(-2px); }
+.edition-card-cover {
+  display: grid; place-items: center; overflow: hidden;
+  aspect-ratio: 3 / 4; border-radius: var(--radius-lg); background: var(--bg-tertiary, #e9edf2);
+}
+.edition-card-cover img { width: 100%; height: 100%; object-fit: cover; }
+.edition-card-blank { font-size: var(--text-sm); color: var(--text-tertiary); }
+.edition-card-body { display: grid; gap: 0.15rem; min-width: 0; }
+.edition-card-body strong { overflow-wrap: anywhere; }

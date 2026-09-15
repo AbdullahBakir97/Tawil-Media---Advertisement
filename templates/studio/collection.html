@@ -1,0 +1,87 @@
+{% extends "studio/base.html" %}
+{% load i18n %}
+{% block studio_title %}{{ title }}{% endblock %}
+
+{% block studio_content %}
+<header class="studio-head">
+    <div>
+        <span class="eyebrow">{% trans "Studio" %}</span>
+        <h1>{{ title }}</h1>
+        {% if lead %}<p class="text-secondary mt-1">{{ lead }}</p>{% endif %}
+    </div>
+    {% if editing %}<a class="btn btn-outline btn-sm" href="{% url url_name %}">{% trans "New entry" %}</a>{% endif %}
+</header>
+
+<div class="nl-layout">
+    <div class="collection-rows">
+        {% for row in items %}
+        <article class="collection-row {% if not row.is_active %}is-off{% endif %} {% if row.is_editing %}is-editing{% endif %}">
+            <div class="collection-row-body">
+                <strong>{{ row.label }}</strong>
+                {% if row.meta %}<span class="collection-row-meta">{{ row.meta }}</span>{% endif %}
+            </div>
+
+            <div class="collection-row-actions">
+                {% if can_reorder %}
+                <form method="post" action="{% url url_name %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="move">
+                    <input type="hidden" name="pk" value="{{ row.object.pk }}">
+                    <button class="nl-move" name="direction" value="up" aria-label="{% trans 'Move up' %}" {% if forloop.first %}disabled{% endif %}>↑</button>
+                    <button class="nl-move" name="direction" value="down" aria-label="{% trans 'Move down' %}" {% if forloop.last %}disabled{% endif %}>↓</button>
+                </form>
+                {% endif %}
+
+                {% if can_switch_off %}
+                <form method="post" action="{% url url_name %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="toggle">
+                    <input type="hidden" name="pk" value="{{ row.object.pk }}">
+                    <button class="btn btn-outline btn-xs" type="submit">
+                        {% if row.is_active %}{% trans "Switch off" %}{% else %}{% trans "Switch on" %}{% endif %}
+                    </button>
+                </form>
+                {% endif %}
+
+                <a class="btn btn-outline btn-xs" href="{% url url_name %}?edit={{ row.object.pk }}">{% trans "Edit" %}</a>
+
+                <form method="post" action="{% url url_name %}"
+                      onsubmit="return confirm('{% trans "Delete this entry for good?" %}')">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="delete">
+                    <input type="hidden" name="pk" value="{{ row.object.pk }}">
+                    <button class="nl-move nl-move--remove" type="submit" aria-label="{% trans 'Delete' %}">×</button>
+                </form>
+            </div>
+        </article>
+        {% empty %}
+        <div class="empty-state">
+            <h3>{{ empty_title }}</h3>
+            <p>{{ empty_lead }}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <aside class="nl-new">
+        <h2 class="nl-new-title">{% if editing %}{% trans "Edit entry" %}{% else %}{% trans "New entry" %}{% endif %}</h2>
+        <form method="post" action="{% url url_name %}" enctype="multipart/form-data" class="grid gap-3">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="save">
+            {% if editing %}<input type="hidden" name="pk" value="{{ editing }}">{% endif %}
+            {% for field in form %}
+            <div class="form-group {% if field.field.widget.input_type == 'checkbox' %}form-group--inline{% endif %}">
+                <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}<p class="form-hint">{{ field.help_text }}</p>{% endif %}
+                {% for error in field.errors %}<p class="form-error">{{ error }}</p>{% endfor %}
+            </div>
+            {% endfor %}
+            {% for error in form.non_field_errors %}<p class="form-error">{{ error }}</p>{% endfor %}
+            <div class="btn-group">
+                <button class="btn btn-primary btn-sm" type="submit">{% trans "Save" %}</button>
+                {% if editing %}<a class="btn btn-ghost btn-sm" href="{% url url_name %}">{% trans "Cancel" %}</a>{% endif %}
+            </div>
+        </form>
+    </aside>
+</div>
+{% endblock %}

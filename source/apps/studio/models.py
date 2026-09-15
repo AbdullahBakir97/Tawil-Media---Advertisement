@@ -191,16 +191,16 @@ class AdSlot(TimeStampedModel):
         ("mobile", "Mobile banner · 320×100"),
     ]
 
-    key = models.SlugField(max_length=60, help_text=_("Where it renders, e.g. home-leaderboard, article-rectangle."))
-    format = models.CharField(max_length=20, choices=FORMATS, default="leaderboard")
-    advertiser = models.CharField(max_length=120, blank=True)
-    image = models.ImageField(upload_to="studio/ads/")
-    url = models.URLField(blank=True)
-    alt_text = models.CharField(max_length=200, blank=True)
-    is_active = models.BooleanField(default=True)
-    starts_at = models.DateTimeField(null=True, blank=True)
-    ends_at = models.DateTimeField(null=True, blank=True)
-    weight = models.PositiveSmallIntegerField(default=1, help_text=_("Higher wins when several bookings share a key."))
+    key = models.SlugField(max_length=60, help_text=_("Where it renders, e.g. home-leaderboard, article-rectangle."), verbose_name=_("Placement key"))
+    format = models.CharField(max_length=20, choices=FORMATS, default="leaderboard", verbose_name=_("Format"))
+    advertiser = models.CharField(max_length=120, blank=True, verbose_name=_("Advertiser"))
+    image = models.ImageField(upload_to="studio/ads/", verbose_name=_("Image"))
+    url = models.URLField(blank=True, verbose_name=_("Link"))
+    alt_text = models.CharField(max_length=200, blank=True, verbose_name=_("Alt text"))
+    is_active = models.BooleanField(default=True, verbose_name=_("Shown on the site"))
+    starts_at = models.DateTimeField(null=True, blank=True, verbose_name=_("Runs from"))
+    ends_at = models.DateTimeField(null=True, blank=True, verbose_name=_("Runs until"))
+    weight = models.PositiveSmallIntegerField(default=1, help_text=_("Higher wins when several bookings share a key."), verbose_name=_("Weight"))
 
     class Meta:
         ordering = ["key", "-weight"]
@@ -220,11 +220,11 @@ class AdSlot(TimeStampedModel):
 
 
 class Partner(TimeStampedModel):
-    name = models.CharField(max_length=120)
-    logo = models.ImageField(upload_to="studio/partners/")
-    url = models.URLField(blank=True)
-    is_active = models.BooleanField(default=True)
-    order = models.PositiveSmallIntegerField(default=0)
+    name = models.CharField(max_length=120, verbose_name=_("Name"))
+    logo = models.ImageField(upload_to="studio/partners/", verbose_name=_("Logo"))
+    url = models.URLField(blank=True, verbose_name=_("Link"))
+    is_active = models.BooleanField(default=True, verbose_name=_("Shown on the site"))
+    order = models.PositiveSmallIntegerField(default=0, verbose_name=_("Order"))
 
     class Meta:
         ordering = ["order", "name"]
@@ -331,14 +331,14 @@ class PressAsset(TimeStampedModel):
 
 
 class Testimonial(TimeStampedModel):
-    quote_de = models.TextField()
-    quote_ar = models.TextField(blank=True)
-    quote_en = models.TextField(blank=True)
-    name = models.CharField(max_length=120)
-    role = models.CharField(max_length=160, blank=True, help_text=_("Role and company"))
-    avatar = models.ImageField(upload_to="studio/testimonials/", blank=True)
-    is_active = models.BooleanField(default=True)
-    order = models.PositiveSmallIntegerField(default=0)
+    quote_de = models.TextField(verbose_name=_("Quote (German)"))
+    quote_ar = models.TextField(blank=True, verbose_name=_("Quote (Arabic)"))
+    quote_en = models.TextField(blank=True, verbose_name=_("Quote (English)"))
+    name = models.CharField(max_length=120, verbose_name=_("Name"))
+    role = models.CharField(max_length=160, blank=True, help_text=_("Role and company"), verbose_name=_("Role"))
+    avatar = models.ImageField(upload_to="studio/testimonials/", blank=True, verbose_name=_("Portrait"))
+    is_active = models.BooleanField(default=True, verbose_name=_("Shown on the site"))
+    order = models.PositiveSmallIntegerField(default=0, verbose_name=_("Order"))
 
     class Meta:
         ordering = ["order", "-created_at"]
@@ -358,15 +358,15 @@ class Testimonial(TimeStampedModel):
 class FAQ(TimeStampedModel):
     PAGES = [("help", _("Help")), ("advertise", _("Advertising")), ("about", _("About"))]
 
-    page = models.CharField(max_length=20, choices=PAGES, default="help")
-    question_de = models.CharField(max_length=200)
-    question_ar = models.CharField(max_length=200, blank=True)
-    question_en = models.CharField(max_length=200, blank=True)
-    answer_de = models.TextField()
-    answer_ar = models.TextField(blank=True)
-    answer_en = models.TextField(blank=True)
-    is_active = models.BooleanField(default=True)
-    order = models.PositiveSmallIntegerField(default=0)
+    page = models.CharField(max_length=20, choices=PAGES, default="help", verbose_name=_("Page"))
+    question_de = models.CharField(max_length=200, verbose_name=_("Question (German)"))
+    question_ar = models.CharField(max_length=200, blank=True, verbose_name=_("Question (Arabic)"))
+    question_en = models.CharField(max_length=200, blank=True, verbose_name=_("Question (English)"))
+    answer_de = models.TextField(verbose_name=_("Answer (German)"))
+    answer_ar = models.TextField(blank=True, verbose_name=_("Answer (Arabic)"))
+    answer_en = models.TextField(blank=True, verbose_name=_("Answer (English)"))
+    is_active = models.BooleanField(default=True, verbose_name=_("Shown on the site"))
+    order = models.PositiveSmallIntegerField(default=0, verbose_name=_("Order"))
 
     class Meta:
         ordering = ["page", "order"]
@@ -386,14 +386,14 @@ class FAQ(TimeStampedModel):
 
 
 class Milestone(TimeStampedModel):
-    year = models.PositiveSmallIntegerField()
-    title_de = models.CharField(max_length=120)
-    title_ar = models.CharField(max_length=120, blank=True)
-    title_en = models.CharField(max_length=120, blank=True)
-    text_de = models.TextField(blank=True)
-    text_ar = models.TextField(blank=True)
-    text_en = models.TextField(blank=True)
-    is_active = models.BooleanField(default=True)
+    year = models.PositiveSmallIntegerField(verbose_name=_("Year"))
+    title_de = models.CharField(max_length=120, verbose_name=_("Title (German)"))
+    title_ar = models.CharField(max_length=120, blank=True, verbose_name=_("Title (Arabic)"))
+    title_en = models.CharField(max_length=120, blank=True, verbose_name=_("Title (English)"))
+    text_de = models.TextField(blank=True, verbose_name=_("Text (German)"))
+    text_ar = models.TextField(blank=True, verbose_name=_("Text (Arabic)"))
+    text_en = models.TextField(blank=True, verbose_name=_("Text (English)"))
+    is_active = models.BooleanField(default=True, verbose_name=_("Shown on the site"))
 
     class Meta:
         ordering = ["year"]

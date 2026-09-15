@@ -1,0 +1,72 @@
+{% extends "studio/base.html" %}
+{% load i18n %}
+{% block studio_title %}{% if is_new %}{% trans "New edition" %}{% else %}{{ magazine.title }}{% endif %}{% endblock %}
+
+{% block studio_content %}
+<header class="studio-head">
+    <div>
+        <span class="eyebrow">{% trans "Edition" %}</span>
+        <h1>{% if is_new %}{% trans "New edition" %}{% else %}{{ magazine.title }}{% endif %}</h1>
+        {% if not is_new %}<p class="text-secondary mt-1">{{ magazine.get_status_display }}{% if magazine.published_at %} · {{ magazine.published_at|date:"j M Y" }}{% endif %}</p>{% endif %}
+    </div>
+    <div class="btn-group">
+        {% if not is_new %}<a class="btn btn-outline btn-sm" href="{{ magazine.preview_url }}" target="_blank" rel="noopener">{% trans "Preview" %}</a>{% endif %}
+        <a class="btn btn-outline btn-sm" href="{% url 'studio:magazines' %}">{% trans "All editions" %}</a>
+    </div>
+</header>
+
+<form method="post" enctype="multipart/form-data" class="article-editor"
+      action="{% if is_new %}{% url 'studio:magazines' %}{% else %}{% url 'studio:magazine_edit' magazine.pk %}{% endif %}">
+    {% csrf_token %}
+    <div class="article-editor-main">
+        <section class="nl-panel">
+            <h2 class="nl-panel-title">{% trans "The edition" %}</h2>
+            {% for field in form %}{% if field.name != "articles" and field.name != "cover_image" and field.name != "theme" %}
+            <div class="form-group">
+                <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}<p class="form-hint">{{ field.help_text }}</p>{% endif %}
+                {% for error in field.errors %}<p class="form-error">{{ error }}</p>{% endfor %}
+            </div>
+            {% endif %}{% endfor %}
+        </section>
+
+        <section class="nl-panel">
+            <h2 class="nl-panel-title">{% trans "What is in it" %}</h2>
+            <p class="form-hint">{% trans "The published pieces that belong to this issue." %}</p>
+            {% for field in form %}{% if field.name == "articles" %}
+            <div class="check-list check-list--media">{{ field }}</div>
+            {% for error in field.errors %}<p class="form-error">{{ error }}</p>{% endfor %}
+            {% endif %}{% endfor %}
+        </section>
+    </div>
+
+    <aside class="article-editor-side">
+        <section class="nl-panel">
+            <h2 class="nl-panel-title">{% trans "Save" %}</h2>
+            <button class="btn btn-primary btn-block" type="submit">{% trans "Save" %}</button>
+            <p class="form-hint">{% trans "Saving never publishes. An edition goes live from the desk." %}</p>
+        </section>
+
+        <section class="nl-panel">
+            <h2 class="nl-panel-title">{% trans "Cover and look" %}</h2>
+            {% for field in form %}{% if field.name == "cover_image" or field.name == "theme" %}
+            <div class="form-group">
+                <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% for error in field.errors %}<p class="form-error">{{ error }}</p>{% endfor %}
+            </div>
+            {% endif %}{% endfor %}
+            <a class="link-underline text-sm" href="{% url 'studio:media' %}">{% trans "Upload more" %}</a>
+        </section>
+
+        {% if not is_new %}
+        <section class="nl-panel nl-panel--danger">
+            <h2 class="nl-panel-title">{% trans "Delete" %}</h2>
+            <button class="btn btn-ghost btn-block btn-danger" type="submit" name="action" value="delete"
+                    onclick="return confirm('{% trans "Delete this edition for good?" %}')">{% trans "Delete this edition" %}</button>
+        </section>
+        {% endif %}
+    </aside>
+</form>
+{% endblock %}

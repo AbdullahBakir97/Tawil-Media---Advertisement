@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-15 22:08+0200\n"
+"POT-Creation-Date: 2026-09-15 22:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -85,7 +85,7 @@ msgstr "لكل باقة"
 msgid "New campaign request: %(company)s"
 msgstr "طلب حملة جديد: %(company)s"
 
-#: source/apps/content/models.py:97
+#: source/apps/content/models.py:97 source/apps/studio/models.py:197
 msgid "Image"
 msgstr "صورة"
 
@@ -109,15 +109,15 @@ msgstr "المعرّف"
 msgid "Content"
 msgstr "المحتوى"
 
-#: source/apps/content/models.py:279
+#: source/apps/content/models.py:279 source/apps/studio/models.py:390
 msgid "Title (German)"
 msgstr "العنوان (بالألمانية)"
 
-#: source/apps/content/models.py:280
+#: source/apps/content/models.py:280 source/apps/studio/models.py:391
 msgid "Title (Arabic)"
 msgstr "العنوان (بالعربية)"
 
-#: source/apps/content/models.py:281
+#: source/apps/content/models.py:281 source/apps/studio/models.py:392
 msgid "Title (English)"
 msgstr "العنوان (بالإنجليزية)"
 
@@ -138,15 +138,15 @@ msgstr "المقدمة (بالعربية)"
 msgid "Standfirst (English)"
 msgstr "المقدمة (بالإنجليزية)"
 
-#: source/apps/content/models.py:286
+#: source/apps/content/models.py:286 source/apps/studio/models.py:393
 msgid "Text (German)"
 msgstr "النص (بالألمانية)"
 
-#: source/apps/content/models.py:287
+#: source/apps/content/models.py:287 source/apps/studio/models.py:394
 msgid "Text (Arabic)"
 msgstr "النص (بالعربية)"
 
-#: source/apps/content/models.py:288
+#: source/apps/content/models.py:288 source/apps/studio/models.py:395
 msgid "Text (English)"
 msgstr "النص (بالإنجليزية)"
 
@@ -163,22 +163,18 @@ msgid "Media Attachments"
 msgstr "الصور المرفقة"
 
 #: source/apps/content/models.py:295
-#| msgid "Published"
 msgid "Is Published"
 msgstr "منشور"
 
 #: source/apps/content/models.py:296
-#| msgid "Published"
 msgid "Published At"
 msgstr "تاريخ النشر"
 
 #: source/apps/content/models.py:297
-#| msgid "Skip to main content"
 msgid "Sponsored content"
 msgstr "مادة مموّلة"
 
 #: source/apps/content/models.py:298
-#| msgid "Sponsorship"
 msgid "Sponsor"
 msgstr "الراعي"
 
@@ -241,15 +237,15 @@ msgstr "لقاء الجالية"
 msgid "Other"
 msgstr "أخرى"
 
-#: source/apps/newsletter/models.py:16 source/apps/studio/views.py:255
+#: source/apps/newsletter/models.py:16 source/apps/studio/views.py:262
 msgid "German"
 msgstr "الألمانية"
 
-#: source/apps/newsletter/models.py:16 source/apps/studio/views.py:255
+#: source/apps/newsletter/models.py:16 source/apps/studio/views.py:262
 msgid "Arabic"
 msgstr "العربية"
 
-#: source/apps/newsletter/models.py:16 source/apps/studio/views.py:255
+#: source/apps/newsletter/models.py:16 source/apps/studio/views.py:262
 msgid "English"
 msgstr "الإنجليزية"
 
@@ -308,6 +304,7 @@ msgstr "مقال"
 
 #: source/apps/newsletter/models.py:91 templates/base/hero/_facts.html:7
 #: templates/content/partials/magazine_card.html:11
+#: templates/studio/magazine_edit.html:8
 msgid "Edition"
 msgstr "العدد"
 
@@ -323,7 +320,7 @@ msgid "Advertisement"
 msgstr "إعلان"
 
 #: source/apps/newsletter/models.py:94 source/apps/newsletter/models.py:108
-#: templates/studio/newsletter_edit.html:117
+#: source/apps/studio/forms.py:221 templates/studio/newsletter_edit.html:117
 msgid "Text"
 msgstr "نص"
 
@@ -332,8 +329,9 @@ msgstr "نص"
 msgid "Kind"
 msgstr "النوع"
 
-#: source/apps/newsletter/models.py:99 source/apps/studio/models.py:310
-#: templates/studio/announcements.html:27
+#: source/apps/newsletter/models.py:99 source/apps/studio/models.py:227
+#: source/apps/studio/models.py:310 source/apps/studio/models.py:341
+#: source/apps/studio/models.py:369 templates/studio/announcements.html:27
 msgid "Order"
 msgstr "الترتيب"
 
@@ -355,49 +353,84 @@ msgstr "كتلة"
 msgid "Blocks"
 msgstr "الكتل"
 
-#: source/apps/studio/forms.py:109
+#: source/apps/studio/collections.py:94
+msgid "Unknown action."
+msgstr "إجراء غير معروف."
+
+#: source/apps/studio/collections.py:103 source/apps/studio/views.py:280
+#: source/apps/studio/views.py:688
+msgid "Something in the form needs attention."
+msgstr "هناك ما يحتاج إلى تصحيح في النموذج."
+
+#: source/apps/studio/collections.py:111 source/apps/studio/views.py:293
+#: source/apps/studio/views.py:691
+msgid "Saved."
+msgstr "حُفظ."
+
+#: source/apps/studio/collections.py:118
+#, python-format
+msgid "“%(label)s” was deleted."
+msgstr "حُذف «%(label)s»."
+
+#: source/apps/studio/forms.py:112
 msgid "Files"
 msgstr "الملفات"
 
-#: source/apps/studio/forms.py:141
+#: source/apps/studio/forms.py:144
 msgid "What is in the picture?"
 msgstr "ما الذي تظهره الصورة؟"
 
-#: source/apps/studio/forms.py:142
+#: source/apps/studio/forms.py:145
 msgid "Shown under the image"
 msgstr "يظهر أسفل الصورة"
 
-#: source/apps/studio/forms.py:143
+#: source/apps/studio/forms.py:146
 msgid "Photographer or agency"
 msgstr "المصوّر أو الوكالة"
 
-#: source/apps/studio/forms.py:169
+#: source/apps/studio/forms.py:172
 msgid "What the inbox shows first"
 msgstr "ما يظهر أولاً في صندوق الوارد"
 
-#: source/apps/studio/forms.py:170
+#: source/apps/studio/forms.py:173
 msgid "The line after the subject"
 msgstr "السطر الذي يلي الموضوع"
 
-#: source/apps/studio/forms.py:171
+#: source/apps/studio/forms.py:174
 msgid "A few lines from the desk"
 msgstr "بضعة أسطر من هيئة التحرير"
 
-#: source/apps/studio/forms.py:210
+#: source/apps/studio/forms.py:218 source/apps/studio/forms.py:327
 msgid "Leave empty and one is made from the title."
 msgstr "اتركه فارغاً ويُشتق من العنوان."
 
-#: source/apps/studio/forms.py:211
+#: source/apps/studio/forms.py:219
 msgid "What the desk calls this piece"
 msgstr "ما تسمّي به هيئة التحرير هذه المادة"
 
-#: source/apps/studio/forms.py:217
+#: source/apps/studio/forms.py:232
 msgid "No byline yet"
 msgstr "لا توقيع بعد"
 
-#: source/apps/studio/forms.py:222
+#: source/apps/studio/forms.py:237
 msgid "Say who paid for it — a sponsored piece must name its sponsor."
 msgstr "اذكر الجهة الممولة – المادة المموّلة يجب أن تسمّي راعيها."
+
+#: source/apps/studio/forms.py:254
+msgid "Where it renders, e.g. home-leaderboard."
+msgstr "أين يظهر، مثل home-leaderboard."
+
+#: source/apps/studio/forms.py:255
+msgid "Describes the advert for anyone who cannot see it."
+msgstr "يصف الإعلان لمن لا يستطيع رؤيته."
+
+#: source/apps/studio/forms.py:261
+msgid "The booking has to end after it starts."
+msgstr "يجب أن ينتهي الحجز بعد بدايته."
+
+#: source/apps/studio/forms.py:335
+msgid "No cover yet"
+msgstr "لا غلاف بعد"
 
 #: source/apps/studio/models.py:36
 msgid "Highlight colour, e.g. gold."
@@ -481,14 +514,63 @@ msgstr "مباشر"
 msgid "Where it renders, e.g. home-leaderboard, article-rectangle."
 msgstr "مكان الظهور، مثل home-leaderboard أو article-rectangle."
 
+#: source/apps/studio/models.py:194
+#| msgid "1 · Placements"
+msgid "Placement key"
+msgstr "مفتاح الموضع"
+
+#: source/apps/studio/models.py:195
+#| msgid "Formats"
+msgid "Format"
+msgstr "المقاس"
+
+#: source/apps/studio/models.py:196
+#| msgid "Advertise"
+msgid "Advertiser"
+msgstr "المعلن"
+
+#: source/apps/studio/models.py:198 source/apps/studio/models.py:225
+#: templates/studio/announcements.html:24
+msgid "Link"
+msgstr "الرابط"
+
+#: source/apps/studio/models.py:199
+#: templates/studio/partials/media_details.html:26
+msgid "Alt text"
+msgstr "النص البديل"
+
+#: source/apps/studio/models.py:200 source/apps/studio/models.py:226
+#: source/apps/studio/models.py:340 source/apps/studio/models.py:368
+#: source/apps/studio/models.py:396
+#| msgid "Shown under the image"
+msgid "Shown on the site"
+msgstr "ظاهر على الموقع"
+
+#: source/apps/studio/models.py:201
+msgid "Runs from"
+msgstr "يبدأ في"
+
+#: source/apps/studio/models.py:202
+msgid "Runs until"
+msgstr "ينتهي في"
+
 #: source/apps/studio/models.py:203
 msgid "Higher wins when several bookings share a key."
 msgstr "الأعلى يفوز عند تشارك عدة حجوزات المكان نفسه."
 
-#: source/apps/studio/models.py:244 templates/auth/profile/dashboard.html:41
+#: source/apps/studio/models.py:203
+msgid "Weight"
+msgstr "الأولوية"
+
+#: source/apps/studio/models.py:223 source/apps/studio/models.py:244
+#: source/apps/studio/models.py:337 templates/auth/profile/dashboard.html:41
 #: templates/studio/theme_form.html:18
 msgid "Name"
 msgstr "الاسم"
+
+#: source/apps/studio/models.py:224 source/apps/studio/models.py:293
+msgid "Logo"
+msgstr "الشعار"
 
 #: source/apps/studio/models.py:245
 msgid "In force"
@@ -550,10 +632,6 @@ msgstr "الملف الصحفي"
 msgid "Press kits"
 msgstr "الملفات الصحفية"
 
-#: source/apps/studio/models.py:293
-msgid "Logo"
-msgstr "الشعار"
-
 #: source/apps/studio/models.py:294
 msgid "Logo, one colour"
 msgstr "الشعار بلون واحد"
@@ -562,7 +640,7 @@ msgstr "الشعار بلون واحد"
 msgid "Cover"
 msgstr "الغلاف"
 
-#: source/apps/studio/models.py:296
+#: source/apps/studio/models.py:296 source/apps/studio/models.py:339
 msgid "Portrait"
 msgstr "صورة شخصية"
 
@@ -593,6 +671,7 @@ msgstr "الملف"
 #: source/apps/studio/models.py:307
 #: templates/content/partials/preview_banner.html:9
 #: templates/studio/article_edit.html:19
+#: templates/studio/magazine_edit.html:13
 #: templates/studio/newsletter_edit.html:128
 #: templates/studio/theme_form.html:32
 msgid "Preview"
@@ -615,9 +694,28 @@ msgstr "مادة صحفية"
 msgid "Press assets"
 msgstr "المواد الصحفية"
 
+#: source/apps/studio/models.py:334
+#| msgid "Role (German)"
+msgid "Quote (German)"
+msgstr "الاقتباس (بالألمانية)"
+
+#: source/apps/studio/models.py:335
+#| msgid "Role (Arabic)"
+msgid "Quote (Arabic)"
+msgstr "الاقتباس (بالعربية)"
+
+#: source/apps/studio/models.py:336
+#| msgid "Role (English)"
+msgid "Quote (English)"
+msgstr "الاقتباس (بالإنجليزية)"
+
 #: source/apps/studio/models.py:338
 msgid "Role and company"
 msgstr "الوظيفة والشركة"
+
+#: source/apps/studio/models.py:338
+msgid "Role"
+msgstr "الصفة"
 
 #: source/apps/studio/models.py:359
 msgid "Help"
@@ -627,103 +725,218 @@ msgstr "المساعدة"
 msgid "About"
 msgstr "من نحن"
 
-#: source/apps/studio/views.py:101
+#: source/apps/studio/models.py:361
+#| msgid "Pages"
+msgid "Page"
+msgstr "الصفحة"
+
+#: source/apps/studio/models.py:362
+#| msgid "Text (German)"
+msgid "Question (German)"
+msgstr "السؤال (بالألمانية)"
+
+#: source/apps/studio/models.py:363
+#| msgid "Text (Arabic)"
+msgid "Question (Arabic)"
+msgstr "السؤال (بالعربية)"
+
+#: source/apps/studio/models.py:364
+#| msgid "Text (English)"
+msgid "Question (English)"
+msgstr "السؤال (بالإنجليزية)"
+
+#: source/apps/studio/models.py:365
+#| msgid "Text (German)"
+msgid "Answer (German)"
+msgstr "الإجابة (بالألمانية)"
+
+#: source/apps/studio/models.py:366
+#| msgid "Text (Arabic)"
+msgid "Answer (Arabic)"
+msgstr "الإجابة (بالعربية)"
+
+#: source/apps/studio/models.py:367
+#| msgid "Text (English)"
+msgid "Answer (English)"
+msgstr "الإجابة (بالإنجليزية)"
+
+#: source/apps/studio/models.py:389
+msgid "Year"
+msgstr "السنة"
+
+#: source/apps/studio/views.py:108
 msgid "Hero saved."
 msgstr "تم حفظ الواجهة."
 
-#: source/apps/studio/views.py:145
+#: source/apps/studio/views.py:152
 msgid "Theme saved."
 msgstr "تم حفظ النمط."
 
-#: source/apps/studio/views.py:167
+#: source/apps/studio/views.py:174
 msgid "Announcement saved."
 msgstr "تم حفظ الإعلان."
 
-#: source/apps/studio/views.py:217 source/apps/studio/views.py:443
+#: source/apps/studio/views.py:224 source/apps/studio/views.py:450
 msgid "That date could not be read."
 msgstr "تعذّرت قراءة هذا التاريخ."
 
-#: source/apps/studio/views.py:223
+#: source/apps/studio/views.py:230
 msgid "Unknown move."
 msgstr "خطوة غير معروفة."
 
-#: source/apps/studio/views.py:226
+#: source/apps/studio/views.py:233
 #, python-format
 msgid "“%(title)s” is now %(status)s."
 msgstr "«%(title)s» الآن %(status)s."
 
-#: source/apps/studio/views.py:268
+#: source/apps/studio/views.py:275 source/apps/studio/views.py:683
 #, python-format
 msgid "“%(title)s” was deleted."
 msgstr "حُذفت «%(title)s»."
 
-#: source/apps/studio/views.py:273
-msgid "Something in the form needs attention."
-msgstr "هناك ما يحتاج إلى تصحيح في النموذج."
-
-#: source/apps/studio/views.py:284
+#: source/apps/studio/views.py:291
 msgid "Saved and sent to review."
 msgstr "حُفظ وأُرسل للمراجعة."
 
-#: source/apps/studio/views.py:286
-msgid "Saved."
-msgstr "حُفظ."
-
-#: source/apps/studio/views.py:333
+#: source/apps/studio/views.py:340
 #, python-format
 msgid "%(count)d file(s) uploaded."
 msgstr "تم رفع %(count)d ملف."
 
-#: source/apps/studio/views.py:339
+#: source/apps/studio/views.py:346
 msgid "File deleted."
 msgstr "تم حذف الملف."
 
-#: source/apps/studio/views.py:349
+#: source/apps/studio/views.py:356
 msgid "Image details saved."
 msgstr "تم حفظ بيانات الصورة."
 
-#: source/apps/studio/views.py:363
+#: source/apps/studio/views.py:370
 #, python-format
 msgid "%(count)d pages rendered."
 msgstr "تم إنشاء %(count)d صفحة."
 
-#: source/apps/studio/views.py:431
+#: source/apps/studio/views.py:438
 msgid "This issue has already gone out. Duplicate it to send another."
 msgstr "أُرسل هذا العدد بالفعل. أنشئ نسخة منه لإرسال عدد آخر."
 
-#: source/apps/studio/views.py:449
+#: source/apps/studio/views.py:456
 msgid "Queued to go out."
 msgstr "تمت جدولته للإرسال."
 
-#: source/apps/studio/views.py:457
+#: source/apps/studio/views.py:464
 #, python-format
 msgid "Test sent to %(email)s."
 msgstr "أُرسلت نسخة اختبارية إلى %(email)s."
 
-#: source/apps/studio/views.py:460
+#: source/apps/studio/views.py:467
 #, python-format
 msgid "Sent to %(count)d subscribers."
 msgstr "أُرسل إلى %(count)d مشترك."
 
-#: source/apps/studio/views.py:466
+#: source/apps/studio/views.py:473
 msgid "Issue saved."
 msgstr "تم حفظ العدد."
 
-#: source/apps/studio/views.py:533
+#: source/apps/studio/views.py:540
 msgid "Brand"
 msgstr "لون العلامة"
 
-#: source/apps/studio/views.py:534
+#: source/apps/studio/views.py:541
 msgid "Brand, deep"
 msgstr "لون العلامة الداكن"
 
-#: source/apps/studio/views.py:535
+#: source/apps/studio/views.py:542
 msgid "Editorial gold"
 msgstr "ذهبي التحرير"
 
-#: source/apps/studio/views.py:536 templates/studio/theme_form.html:23
+#: source/apps/studio/views.py:543 templates/studio/theme_form.html:23
 msgid "Interaction"
 msgstr "التفاعل"
+
+#: source/apps/studio/views.py:566 templates/studio/base.html:44
+#: templates/studio/dashboard.html:42
+msgid "Ad slots"
+msgstr "أماكن الإعلانات"
+
+#: source/apps/studio/views.py:567
+msgid "Where adverts appear, who booked them and for how long."
+msgstr "أين تظهر الإعلانات ومن حجزها ولأي مدة."
+
+#: source/apps/studio/views.py:568
+msgid "No ad slots yet"
+msgstr "لا مساحات إعلانية بعد"
+
+#: source/apps/studio/views.py:569
+msgid "Add one and it appears wherever its key is placed in the design."
+msgstr "أضف واحدة فتظهر حيثما وُضع مفتاحها في التصميم."
+
+#: source/apps/studio/views.py:591 templates/studio/base.html:48
+#: templates/studio/blocks/partners.html:6 templates/studio/dashboard.html:47
+msgid "Partners"
+msgstr "الشركاء"
+
+#: source/apps/studio/views.py:592
+msgid "The logos shown across the site."
+msgstr "الشعارات التي تظهر في أنحاء الموقع."
+
+#: source/apps/studio/views.py:593
+msgid "No partners yet"
+msgstr "لا شركاء بعد"
+
+#: source/apps/studio/views.py:594
+msgid "Upload a logo and it joins the row on the front page."
+msgstr "ارفع شعاراً فينضم إلى الصف في الصفحة الرئيسية."
+
+#: source/apps/studio/views.py:605 templates/studio/blocks/testimonials.html:6
+msgid "Voices"
+msgstr "آراء"
+
+#: source/apps/studio/views.py:606
+msgid "What readers and partners say about the magazine."
+msgstr "ما يقوله القرّاء والشركاء عن المجلة."
+
+#: source/apps/studio/views.py:607
+msgid "No voices yet"
+msgstr "لا أصوات بعد"
+
+#: source/apps/studio/views.py:608
+msgid "Add a quote and it appears where the design asks for one."
+msgstr "أضف اقتباساً فيظهر حيث يطلبه التصميم."
+
+#: source/apps/studio/views.py:622 templates/studio/base.html:56
+#: templates/studio/dashboard.html:57
+msgid "FAQ"
+msgstr "الأسئلة الشائعة"
+
+#: source/apps/studio/views.py:623
+msgid "The questions each page answers, in the order they are asked."
+msgstr "الأسئلة التي تجيب عنها كل صفحة، بالترتيب الذي تُطرح به."
+
+#: source/apps/studio/views.py:624
+msgid "No questions yet"
+msgstr "لا أسئلة بعد"
+
+#: source/apps/studio/views.py:625
+msgid "Add the first one and it appears on the page you choose."
+msgstr "أضف الأول فيظهر في الصفحة التي تختارها."
+
+#: source/apps/studio/views.py:641 templates/studio/base.html:60
+#: templates/studio/dashboard.html:62
+msgid "Timeline"
+msgstr "الخط الزمني"
+
+#: source/apps/studio/views.py:642
+msgid "The years that shaped the magazine."
+msgstr "الأعوام التي شكّلت المجلة."
+
+#: source/apps/studio/views.py:643
+msgid "No milestones yet"
+msgstr "لا محطات بعد"
+
+#: source/apps/studio/views.py:644
+msgid "Add a year and it appears on the timeline."
+msgstr "أضف عاماً فيظهر على الخط الزمني."
 
 #: source/apps/users/admin.py:25
 msgid "Personal info"
@@ -1097,6 +1310,7 @@ msgid "Breadcrumb"
 msgstr "مسار التنقل"
 
 #: templates/archives/edition_detail.html:18 templates/archives/year.html:23
+#: templates/studio/magazine_list.html:20
 msgid "No cover"
 msgstr "بدون غلاف"
 
@@ -1274,7 +1488,9 @@ msgstr "غير مقروء"
 #: templates/auth/profile/dashboard.html:26 templates/base/hero/_book.html:11
 #: templates/base/hero/_copy.html:16 templates/content/magazine_list.html:8
 #: templates/pages/home.html:77 templates/studio/base.html:62
-#: templates/studio/dashboard.html:69 templates/studio/newsletter_edit.html:67
+#: templates/studio/dashboard.html:69 templates/studio/magazine_list.html:3
+#: templates/studio/magazine_list.html:9
+#: templates/studio/newsletter_edit.html:67
 #: templates/studio/partials/desk_board.html:11
 msgid "Editions"
 msgstr "الإصدارات"
@@ -1749,6 +1965,7 @@ msgstr "في هذا العدد"
 
 #: templates/base/hero/_facts.html:16 templates/base/hero/light.html:18
 #: templates/base/hero/newsroom.html:40 templates/pages/home.html:80
+#: templates/studio/magazine_edit.html:14
 msgid "All editions"
 msgstr "كل الإصدارات"
 
@@ -2391,10 +2608,6 @@ msgstr "النص · العربية"
 msgid "Text · English"
 msgstr "النص · الإنجليزية"
 
-#: templates/studio/announcements.html:24
-msgid "Link"
-msgstr "الرابط"
-
 #: templates/studio/announcements.html:25
 msgid "Starts"
 msgstr "يبدأ"
@@ -2425,7 +2638,8 @@ msgid "Delete this announcement?"
 msgstr "حذف هذا الإعلان؟"
 
 #: templates/studio/announcements.html:50
-#: templates/studio/article_edit.html:109
+#: templates/studio/article_edit.html:109 templates/studio/collection.html:53
+#: templates/studio/magazine_edit.html:65
 #: templates/studio/partials/media_details.html:59
 msgid "Delete"
 msgstr "حذف"
@@ -2473,6 +2687,8 @@ msgid "For readers"
 msgstr "للقرّاء"
 
 #: templates/studio/article_edit.html:70 templates/studio/article_edit.html:71
+#: templates/studio/collection.html:81 templates/studio/magazine_edit.html:46
+#: templates/studio/magazine_edit.html:47
 #: templates/studio/newsletter_edit.html:39
 #: templates/studio/partials/media_details.html:41
 msgid "Save"
@@ -2501,6 +2717,7 @@ msgid "The first one becomes the cover."
 msgstr "تصبح الأولى صورة الغلاف."
 
 #: templates/studio/article_edit.html:93
+#: templates/studio/magazine_edit.html:60
 msgid "Upload more"
 msgstr "رفع المزيد"
 
@@ -2553,26 +2770,9 @@ msgstr "الكتابة"
 msgid "Media"
 msgstr "الوسائط"
 
-#: templates/studio/base.html:44 templates/studio/dashboard.html:42
-msgid "Ad slots"
-msgstr "أماكن الإعلانات"
-
-#: templates/studio/base.html:48 templates/studio/blocks/partners.html:6
-#: templates/studio/dashboard.html:47
-msgid "Partners"
-msgstr "الشركاء"
-
 #: templates/studio/base.html:52 templates/studio/dashboard.html:52
 msgid "Testimonials"
 msgstr "الشهادات"
-
-#: templates/studio/base.html:56 templates/studio/dashboard.html:57
-msgid "FAQ"
-msgstr "الأسئلة الشائعة"
-
-#: templates/studio/base.html:60 templates/studio/dashboard.html:62
-msgid "Timeline"
-msgstr "الخط الزمني"
 
 #: templates/studio/base.html:69
 msgid "Atlas"
@@ -2595,10 +2795,6 @@ msgid "Who we work with"
 msgstr "من نعمل معهم"
 
 #: templates/studio/blocks/testimonials.html:6
-msgid "Voices"
-msgstr "آراء"
-
-#: templates/studio/blocks/testimonials.html:6
 msgid "What advertisers and readers say"
 msgstr "ما يقوله المعلنون والقرّاء"
 
@@ -2610,6 +2806,49 @@ msgstr "قصتنا"
 #, python-format
 msgid "%(years)s years in Berlin"
 msgstr "‏%(years)s عاماً في برلين"
+
+#: templates/studio/collection.html:8 templates/studio/magazine_list.html:8
+msgid "Studio"
+msgstr "الاستوديو"
+
+#: templates/studio/collection.html:12 templates/studio/collection.html:66
+msgid "New entry"
+msgstr "مدخل جديد"
+
+#: templates/studio/collection.html:30
+#: templates/studio/partials/newsletter_blocks.html:20
+msgid "Move up"
+msgstr "لأعلى"
+
+#: templates/studio/collection.html:31
+#: templates/studio/partials/newsletter_blocks.html:21
+msgid "Move down"
+msgstr "لأسفل"
+
+#: templates/studio/collection.html:41
+msgid "Switch off"
+msgstr "إيقاف"
+
+#: templates/studio/collection.html:41
+msgid "Switch on"
+msgstr "تشغيل"
+
+#: templates/studio/collection.html:46 templates/studio/themes.html:26
+msgid "Edit"
+msgstr "تعديل"
+
+#: templates/studio/collection.html:49
+msgid "Delete this entry for good?"
+msgstr "حذف هذا المدخل نهائياً؟"
+
+#: templates/studio/collection.html:66
+msgid "Edit entry"
+msgstr "تعديل المدخل"
+
+#: templates/studio/collection.html:82
+#: templates/studio/partials/desk_card.html:35
+msgid "Cancel"
+msgstr "إلغاء"
 
 #: templates/studio/dashboard.html:9
 msgid "Design and content, edited on the site"
@@ -2721,7 +2960,7 @@ msgstr "إنشاء الصفحات"
 msgid "Upload PDF"
 msgstr "رفع ملف PDF"
 
-#: templates/studio/dashboard.html:91
+#: templates/studio/dashboard.html:91 templates/studio/magazine_list.html:33
 msgid "No editions yet"
 msgstr "لا توجد أعداد بعد"
 
@@ -2774,6 +3013,56 @@ msgstr "قيد الاستخدام"
 #: templates/studio/hero.html:31
 msgid "Use this"
 msgstr "استخدم هذا"
+
+#: templates/studio/magazine_edit.html:3 templates/studio/magazine_edit.html:9
+#: templates/studio/magazine_list.html:12
+msgid "New edition"
+msgstr "عدد جديد"
+
+#: templates/studio/magazine_edit.html:23
+msgid "The edition"
+msgstr "العدد"
+
+#: templates/studio/magazine_edit.html:35
+msgid "What is in it"
+msgstr "ما يحتويه"
+
+#: templates/studio/magazine_edit.html:36
+msgid "The published pieces that belong to this issue."
+msgstr "المواد المنشورة التي تخص هذا العدد."
+
+#: templates/studio/magazine_edit.html:48
+msgid "Saving never publishes. An edition goes live from the desk."
+msgstr "الحفظ لا ينشر أبداً. يُنشر العدد من لوح التحرير."
+
+#: templates/studio/magazine_edit.html:52
+msgid "Cover and look"
+msgstr "الغلاف والمظهر"
+
+#: templates/studio/magazine_edit.html:67
+msgid "Delete this edition for good?"
+msgstr "حذف هذا العدد نهائياً؟"
+
+#: templates/studio/magazine_edit.html:67
+msgid "Delete this edition"
+msgstr "حذف العدد"
+
+#: templates/studio/magazine_list.html:10
+msgid "Every issue of the magazine, its cover, its contents and its PDF."
+msgstr "كل عدد من المجلة، غلافه ومحتواه وملف PDF الخاص به."
+
+#: templates/studio/magazine_list.html:25
+#, python-format
+msgid "Issue %(n)s"
+msgstr "العدد %(n)s"
+
+#: templates/studio/magazine_list.html:27
+msgid "PDF"
+msgstr "PDF"
+
+#: templates/studio/magazine_list.html:34
+msgid "Start one and it appears in the archive once it goes live."
+msgstr "ابدأ عدداً فيظهر في الأرشيف فور نشره."
 
 #: templates/studio/media.html:3
 msgid "Media library"
@@ -3024,10 +3313,6 @@ msgstr "نشر"
 msgid "Back"
 msgstr "رجوع"
 
-#: templates/studio/partials/desk_card.html:35
-msgid "Cancel"
-msgstr "إلغاء"
-
 #: templates/studio/partials/desk_card.html:36
 msgid "Publish now"
 msgstr "انشر الآن"
@@ -3149,10 +3434,6 @@ msgstr ""
 "انقر على موضوع الصورة. يحافظ القصّ في البطاقات وواجهات الصفحات على هذه "
 "النقطة داخل الإطار."
 
-#: templates/studio/partials/media_details.html:26
-msgid "Alt text"
-msgstr "النص البديل"
-
 #: templates/studio/partials/media_details.html:28
 msgid "What a reader who cannot see the picture needs to know."
 msgstr "ما يحتاج أن يعرفه قارئ لا يستطيع رؤية الصورة."
@@ -3208,14 +3489,6 @@ msgstr "(لا شيء بعد)"
 #: templates/studio/partials/newsletter_blocks.html:12
 msgid "Points at nothing — it will not appear in the letter."
 msgstr "لا يشير إلى شيء – لن يظهر في النشرة."
-
-#: templates/studio/partials/newsletter_blocks.html:20
-msgid "Move up"
-msgstr "لأعلى"
-
-#: templates/studio/partials/newsletter_blocks.html:21
-msgid "Move down"
-msgstr "لأسفل"
 
 #: templates/studio/partials/newsletter_blocks.html:27
 msgid "Remove"
@@ -3486,10 +3759,6 @@ msgstr "أعداد"
 #: templates/studio/themes.html:25
 msgid "Site default"
 msgstr "افتراضي الموقع"
-
-#: templates/studio/themes.html:26
-msgid "Edit"
-msgstr "تعديل"
 
 #: templates/studio/themes.html:30
 msgid "No themes yet"
