@@ -4,6 +4,7 @@
 {% block meta_description %}{{ article.excerpt }}{% endblock %}
 
 {% block content %}
+{% include "content/partials/preview_banner.html" %}
 {% with cover=article.cover %}
 <article class="article">
     <header class="container article-header" data-hero>

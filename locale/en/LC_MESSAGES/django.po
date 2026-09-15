@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-15 16:01+0200\n"
+"POT-Creation-Date: 2026-09-15 16:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -93,6 +93,43 @@ msgstr ""
 msgid "Document"
 msgstr ""
 
+#: source/apps/content/workflow.py:27 templates/content/article_detail.html:16
+msgid "Draft"
+msgstr ""
+
+#: source/apps/content/workflow.py:28
+msgid "In review"
+msgstr ""
+
+#: source/apps/content/workflow.py:29
+msgid "Scheduled"
+msgstr ""
+
+#: source/apps/content/workflow.py:30
+msgid "Published"
+msgstr ""
+
+#: source/apps/content/workflow.py:50 source/apps/users/admin.py:26
+msgid "Status"
+msgstr ""
+
+#: source/apps/content/workflow.py:52
+#: templates/studio/partials/desk_card.html:38
+msgid "Goes live"
+msgstr ""
+
+#: source/apps/content/workflow.py:52
+msgid "Leave empty to publish by hand."
+msgstr ""
+
+#: source/apps/content/workflow.py:55
+msgid "Desk note"
+msgstr ""
+
+#: source/apps/content/workflow.py:55
+msgid "What is still missing, for the desk only."
+msgstr ""
+
 #: source/apps/studio/forms.py:107
 msgid "Files"
 msgstr ""
@@ -173,7 +210,7 @@ msgstr ""
 msgid "Heroes"
 msgstr ""
 
-#: source/apps/studio/models.py:151
+#: source/apps/studio/models.py:151 templates/studio/desk.html:8
 msgid "Editorial"
 msgstr ""
 
@@ -207,42 +244,51 @@ msgstr ""
 msgid "About"
 msgstr ""
 
-#: source/apps/studio/views.py:83
+#: source/apps/studio/views.py:88
 msgid "Hero saved."
 msgstr ""
 
-#: source/apps/studio/views.py:127
+#: source/apps/studio/views.py:132
 msgid "Theme saved."
 msgstr ""
 
-#: source/apps/studio/views.py:149
+#: source/apps/studio/views.py:154
 msgid "Announcement saved."
 msgstr ""
 
-#: source/apps/studio/views.py:197
+#: source/apps/studio/views.py:203
+msgid "That date could not be read."
+msgstr ""
+
+#: source/apps/studio/views.py:209
+msgid "Unknown move."
+msgstr ""
+
+#: source/apps/studio/views.py:212
+#, python-format
+msgid "“%(title)s” is now %(status)s."
+msgstr ""
+
+#: source/apps/studio/views.py:266
 #, python-format
 msgid "%(count)d file(s) uploaded."
 msgstr ""
 
-#: source/apps/studio/views.py:203
+#: source/apps/studio/views.py:272
 msgid "File deleted."
 msgstr ""
 
-#: source/apps/studio/views.py:213
+#: source/apps/studio/views.py:282
 msgid "Image details saved."
 msgstr ""
 
-#: source/apps/studio/views.py:227
+#: source/apps/studio/views.py:296
 #, python-format
 msgid "%(count)d pages rendered."
 msgstr ""
 
 #: source/apps/users/admin.py:25
 msgid "Personal info"
-msgstr ""
-
-#: source/apps/users/admin.py:26
-msgid "Status"
 msgstr ""
 
 #: source/apps/users/admin.py:27
@@ -580,7 +626,7 @@ msgid "Editions will appear here as they are scanned and catalogued."
 msgstr ""
 
 #: templates/archives/edition_detail.html:7 templates/archives/year.html:7
-#: templates/content/magazine_detail.html:8
+#: templates/content/magazine_detail.html:9
 msgid "Breadcrumb"
 msgstr ""
 
@@ -641,7 +687,7 @@ msgstr ""
 
 #: templates/auth/login.html:24 templates/auth/password/reset.html:21
 #: templates/auth/profile/settings.html:40 templates/auth/register.html:35
-#: templates/base/footer/main.html:43 templates/content/article_detail.html:68
+#: templates/base/footer/main.html:43 templates/content/article_detail.html:69
 msgid "E-mail address"
 msgstr ""
 
@@ -753,8 +799,9 @@ msgstr ""
 
 #: templates/auth/profile/dashboard.html:26 templates/base/hero/_book.html:11
 #: templates/base/hero/_copy.html:16 templates/content/magazine_list.html:8
-#: templates/pages/home.html:77 templates/studio/base.html:50
-#: templates/studio/dashboard.html:64
+#: templates/pages/home.html:77 templates/studio/base.html:54
+#: templates/studio/dashboard.html:69
+#: templates/studio/partials/desk_board.html:11
 msgid "Editions"
 msgstr ""
 
@@ -791,7 +838,7 @@ msgid "Edit profile"
 msgstr ""
 
 #: templates/auth/profile/dashboard.html:49 templates/base/footer/main.html:37
-#: templates/content/article_detail.html:64
+#: templates/content/article_detail.html:65
 msgid "Newsletter"
 msgstr ""
 
@@ -934,14 +981,15 @@ msgstr ""
 #: templates/base/footer/main.html:29 templates/base/header/navigation.html:6
 #: templates/base/header/navigation.html:35
 #: templates/content/article_list.html:3 templates/content/article_list.html:9
+#: templates/studio/partials/desk_board.html:4
 msgid "Articles"
 msgstr ""
 
 #: templates/base/footer/main.html:30 templates/base/header/navigation.html:9
 #: templates/base/header/navigation.html:36
-#: templates/content/magazine_detail.html:9
+#: templates/content/magazine_detail.html:10
 #: templates/content/magazine_list.html:3
-#: templates/content/magazine_list.html:9 templates/studio/base.html:53
+#: templates/content/magazine_list.html:9 templates/studio/base.html:57
 msgid "Magazines"
 msgstr ""
 
@@ -957,11 +1005,11 @@ msgstr ""
 msgid "The new edition and the best stories, once a week."
 msgstr ""
 
-#: templates/base/footer/main.html:45 templates/content/article_detail.html:69
+#: templates/base/footer/main.html:45 templates/content/article_detail.html:70
 msgid "you@example.com"
 msgstr ""
 
-#: templates/base/footer/main.html:46 templates/content/article_detail.html:70
+#: templates/base/footer/main.html:46 templates/content/article_detail.html:71
 msgid "Subscribe"
 msgstr ""
 
@@ -982,7 +1030,7 @@ msgid "Sitemap"
 msgstr ""
 
 #: templates/base/header/announcements.html:4
-#: templates/studio/announcements.html:3 templates/studio/base.html:24
+#: templates/studio/announcements.html:3 templates/studio/base.html:28
 #: templates/studio/dashboard.html:27
 msgid "Announcements"
 msgstr ""
@@ -1170,7 +1218,7 @@ msgstr ""
 msgid "Extent"
 msgstr ""
 
-#: templates/base/hero/_facts.html:8 templates/studio/dashboard.html:71
+#: templates/base/hero/_facts.html:8 templates/studio/dashboard.html:76
 #: templates/studio/reader.html:14
 #, python-format
 msgid "%(n)s page"
@@ -1183,7 +1231,7 @@ msgstr[1] ""
 msgid "Price"
 msgstr ""
 
-#: templates/base/hero/_facts.html:14 templates/content/magazine_detail.html:37
+#: templates/base/hero/_facts.html:14 templates/content/magazine_detail.html:38
 msgid "In this issue"
 msgstr ""
 
@@ -1233,37 +1281,33 @@ msgstr ""
 msgid "Request media kit"
 msgstr ""
 
-#: templates/content/article_detail.html:15
-msgid "Draft"
-msgstr ""
-
-#: templates/content/article_detail.html:26
+#: templates/content/article_detail.html:27
 #: templates/content/partials/article_card.html:18
 #, python-format
 msgid "%(minutes)s min read"
 msgstr ""
 
-#: templates/content/article_detail.html:45
+#: templates/content/article_detail.html:46
 msgid "Share"
 msgstr ""
 
-#: templates/content/article_detail.html:50
+#: templates/content/article_detail.html:51
 msgid "Copy link"
 msgstr ""
 
-#: templates/content/article_detail.html:56 templates/pages/home.html:92
+#: templates/content/article_detail.html:57 templates/pages/home.html:92
 msgid "Topics"
 msgstr ""
 
-#: templates/content/article_detail.html:65
+#: templates/content/article_detail.html:66
 msgid "Stories like this, weekly."
 msgstr ""
 
-#: templates/content/article_detail.html:80
+#: templates/content/article_detail.html:81
 msgid "Gallery"
 msgstr ""
 
-#: templates/content/article_detail.html:101
+#: templates/content/article_detail.html:102
 msgid "Related stories"
 msgstr ""
 
@@ -1300,7 +1344,7 @@ msgstr ""
 msgid "New stories are published every week. Check back soon."
 msgstr ""
 
-#: templates/content/magazine_detail.html:28
+#: templates/content/magazine_detail.html:29
 #: templates/studio/partials/media_details.html:50
 #, python-format
 msgid "%(counter)s article"
@@ -1308,22 +1352,22 @@ msgid_plural "%(counter)s articles"
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/content/magazine_detail.html:32
+#: templates/content/magazine_detail.html:33
 msgid "Advertise in the next edition"
 msgstr ""
 
-#: templates/content/magazine_detail.html:33
+#: templates/content/magazine_detail.html:34
 msgid "Browse the archive"
 msgstr ""
 
-#: templates/content/magazine_detail.html:46
+#: templates/content/magazine_detail.html:47
 #: templates/content/partials/article_card.html:32
 #: templates/content/partials/article_card.html:47
 #, python-format
 msgid "%(minutes)s min"
 msgstr ""
 
-#: templates/content/magazine_detail.html:51
+#: templates/content/magazine_detail.html:52
 msgid "The contents of this edition will be listed here."
 msgstr ""
 
@@ -1343,6 +1387,24 @@ msgstr ""
 #: templates/studio/partials/ad_slot.html:4
 #: templates/studio/partials/ad_slot.html:12
 msgid "Advertisement"
+msgstr ""
+
+#: templates/content/partials/preview_banner.html:9
+#: templates/studio/theme_form.html:32
+msgid "Preview"
+msgstr ""
+
+#: templates/content/partials/preview_banner.html:11
+#, python-format
+msgid "Not public yet — goes live on %(when)s."
+msgstr ""
+
+#: templates/content/partials/preview_banner.html:13
+msgid "Not public yet. Only the desk and anyone with this link can read it."
+msgstr ""
+
+#: templates/content/partials/preview_banner.html:16
+msgid "Back to the desk"
 msgstr ""
 
 #: templates/errors/404.html:3
@@ -1614,33 +1676,38 @@ msgstr ""
 msgid "Content"
 msgstr ""
 
-#: templates/studio/base.html:28 templates/studio/dashboard.html:32
+#: templates/studio/base.html:24 templates/studio/dashboard.html:32
+#: templates/studio/desk.html:3
+msgid "Desk"
+msgstr ""
+
+#: templates/studio/base.html:32 templates/studio/dashboard.html:37
 #: templates/studio/media.html:9
 msgid "Media"
 msgstr ""
 
-#: templates/studio/base.html:32 templates/studio/dashboard.html:37
+#: templates/studio/base.html:36 templates/studio/dashboard.html:42
 msgid "Ad slots"
 msgstr ""
 
-#: templates/studio/base.html:36 templates/studio/blocks/partners.html:6
-#: templates/studio/dashboard.html:42
+#: templates/studio/base.html:40 templates/studio/blocks/partners.html:6
+#: templates/studio/dashboard.html:47
 msgid "Partners"
 msgstr ""
 
-#: templates/studio/base.html:40 templates/studio/dashboard.html:47
+#: templates/studio/base.html:44 templates/studio/dashboard.html:52
 msgid "Testimonials"
 msgstr ""
 
-#: templates/studio/base.html:44 templates/studio/dashboard.html:52
+#: templates/studio/base.html:48 templates/studio/dashboard.html:57
 msgid "FAQ"
 msgstr ""
 
-#: templates/studio/base.html:48 templates/studio/dashboard.html:57
+#: templates/studio/base.html:52 templates/studio/dashboard.html:62
 msgid "Timeline"
 msgstr ""
 
-#: templates/studio/base.html:57
+#: templates/studio/base.html:61
 msgid "Atlas"
 msgstr ""
 
@@ -1702,79 +1769,98 @@ msgid "The line above the navbar: notices, booked ad lines, live banners."
 msgstr ""
 
 #: templates/studio/dashboard.html:34
+msgid "Drafts, pieces in review and everything queued to go live."
+msgstr ""
+
+#: templates/studio/dashboard.html:39
 #, python-format
 msgid "%(counter)s picture still has no alt text."
 msgid_plural "%(counter)s pictures still have no alt text."
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/studio/dashboard.html:34
+#: templates/studio/dashboard.html:39
 msgid "Pictures with alt text, captions and a focal point for every crop."
 msgstr ""
 
-#: templates/studio/dashboard.html:39
+#: templates/studio/dashboard.html:44
 msgid "Booked placements with start and end dates."
 msgstr ""
 
-#: templates/studio/dashboard.html:44
+#: templates/studio/dashboard.html:49
 msgid "Logos for the hero strip and the about page."
 msgstr ""
 
-#: templates/studio/dashboard.html:49
+#: templates/studio/dashboard.html:54
 msgid "Quotes from advertisers and readers."
 msgstr ""
 
-#: templates/studio/dashboard.html:54
+#: templates/studio/dashboard.html:59
 msgid "Questions for the help, advertising and about pages."
 msgstr ""
 
-#: templates/studio/dashboard.html:59
+#: templates/studio/dashboard.html:64
 msgid "The years that made the magazine."
 msgstr ""
 
-#: templates/studio/dashboard.html:64
+#: templates/studio/dashboard.html:69
 msgid "Flip-book pages"
 msgstr ""
 
-#: templates/studio/dashboard.html:64
+#: templates/studio/dashboard.html:69
 msgid "Add an edition"
 msgstr ""
 
-#: templates/studio/dashboard.html:65
+#: templates/studio/dashboard.html:70
 msgid "Upload an edition's PDF and its pages are rendered automatically. Readers then turn them like a printed magazine."
 msgstr ""
 
-#: templates/studio/dashboard.html:71
+#: templates/studio/dashboard.html:76
 msgid "PDF uploaded, not rendered yet"
 msgstr ""
 
-#: templates/studio/dashboard.html:71
+#: templates/studio/dashboard.html:76
 msgid "No PDF yet"
 msgstr ""
 
-#: templates/studio/dashboard.html:74
+#: templates/studio/dashboard.html:79
 msgid "Open reader"
 msgstr ""
 
-#: templates/studio/dashboard.html:79
+#: templates/studio/dashboard.html:84
 msgid "Re-render"
 msgstr ""
 
-#: templates/studio/dashboard.html:79
+#: templates/studio/dashboard.html:84
 msgid "Render pages"
 msgstr ""
 
-#: templates/studio/dashboard.html:82
+#: templates/studio/dashboard.html:87
 msgid "Upload PDF"
 msgstr ""
 
-#: templates/studio/dashboard.html:86
+#: templates/studio/dashboard.html:91
 msgid "No editions yet"
 msgstr ""
 
-#: templates/studio/dashboard.html:86
+#: templates/studio/dashboard.html:91
 msgid "Add an edition with a cover and a PDF to fill the hero and the reader."
 msgstr ""
+
+#: templates/studio/desk.html:9
+msgid "The desk"
+msgstr ""
+
+#: templates/studio/desk.html:10
+msgid "Everything the team is working on, from the first draft to the moment it goes live."
+msgstr ""
+
+#: templates/studio/desk.html:13
+#, python-format
+msgid "%(counter)s piece is past its time and waiting for the scheduler."
+msgid_plural "%(counter)s pieces are past their time and waiting for the scheduler."
+msgstr[0] ""
+msgstr[1] ""
 
 #: templates/studio/hero.html:10
 msgid "Choose a design, then write the copy. The preview below is the real hero with your live editions and stories."
@@ -1851,6 +1937,43 @@ msgstr ""
 
 #: templates/studio/partials/ad_slot.html:13
 msgid "free"
+msgstr ""
+
+#: templates/studio/partials/desk_card.html:14
+msgid "no picture"
+msgstr ""
+
+#: templates/studio/partials/desk_card.html:24
+msgid "To review"
+msgstr ""
+
+#: templates/studio/partials/desk_card.html:25
+#: templates/studio/partials/desk_card.html:28
+msgid "Publish"
+msgstr ""
+
+#: templates/studio/partials/desk_card.html:27
+msgid "Back"
+msgstr ""
+
+#: templates/studio/partials/desk_card.html:30
+msgid "Cancel"
+msgstr ""
+
+#: templates/studio/partials/desk_card.html:31
+msgid "Publish now"
+msgstr ""
+
+#: templates/studio/partials/desk_card.html:33
+msgid "Take down"
+msgstr ""
+
+#: templates/studio/partials/desk_card.html:40
+msgid "Schedule"
+msgstr ""
+
+#: templates/studio/partials/desk_column.html:9
+msgid "Nothing here."
 msgstr ""
 
 #: templates/studio/partials/hero_editor.html:6
@@ -2120,10 +2243,6 @@ msgstr ""
 
 #: templates/studio/theme_form.html:28
 msgid "Save theme"
-msgstr ""
-
-#: templates/studio/theme_form.html:32
-msgid "Preview"
 msgstr ""
 
 #: templates/studio/theme_form.html:36

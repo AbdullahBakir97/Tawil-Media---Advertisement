@@ -7,6 +7,8 @@ from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
+from django.utils import timezone
+from django.utils.dateparse import parse_datetime
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views import View
@@ -14,6 +16,7 @@ from django.views.decorators.clickjacking import xframe_options_sameorigin
 from django.views.generic import TemplateView
 
 from source.apps.content.models import Article, Magazine, Media
+from source.apps.content.workflow import BOARD_ORDER, PUBLISHED, SCHEDULED, STATUS_CHOICES
 
 from .forms import AnnouncementForm, HeroForm, MediaDetailsForm, MediaUploadForm, ThemeForm
 from .models import FAQ, AdSlot, Announcement, HeroConfig, Milestone, Partner, Testimonial, Theme
@@ -41,6 +44,8 @@ class DashboardView(StaffOnly, TemplateView):
             testimonial_count=Testimonial.objects.filter(is_active=True).count(),
             faq_count=FAQ.objects.filter(is_active=True).count(),
             milestone_count=Milestone.objects.filter(is_active=True).count(),
+            desk_open=Article.objects.exclude(status=PUBLISHED).count()
+            + Magazine.objects.exclude(status=PUBLISHED).count(),
             media_count=Media.objects.count(),
             media_missing_alt=Media.objects.filter(media_type="image", alt_text="").count(),
             magazines=Magazine.objects.all()[:8],
@@ -149,6 +154,70 @@ class AnnouncementListView(StaffOnly, View):
             messages.success(request, _("Announcement saved."))
             return redirect("studio:announcements")
         return render(request, "studio/announcements.html", {"items": Announcement.objects.all(), "form": form})
+
+
+class DeskView(StaffOnly, View):
+    """The editorial board. Four columns — draft, in review, scheduled, live —
+    and one click to move a piece along. Articles and editions share it, because
+    the desk plans them together."""
+
+    RECENT_LIVE = 8
+
+    def _columns(self, model):
+        columns = []
+        for status in BOARD_ORDER:
+            items = model.objects.in_status(status)
+            if status == PUBLISHED:
+                items = items[: self.RECENT_LIVE]
+            elif status == SCHEDULED:
+                items = items.order_by("scheduled_for")
+            columns.append({"status": status, "label": dict(STATUS_CHOICES)[status], "items": list(items)})
+        return columns
+
+    def _context(self):
+        return {
+            "article_columns": self._columns(Article),
+            "magazine_columns": self._columns(Magazine),
+            "due_now": Article.objects.due().count() + Magazine.objects.due().count(),
+            "now": timezone.now(),
+        }
+
+    def get(self, request):
+        return render(request, "studio/desk.html", self._context())
+
+    def post(self, request):
+        """One move per post: to draft, to review, scheduled or live."""
+        model = Magazine if request.POST.get("kind") == "magazine" else Article
+        item = get_object_or_404(model, pk=request.POST.get("pk"))
+        move = request.POST.get("move")
+
+        if move == "draft":
+            item.back_to_draft(request.POST.get("note", ""))
+        elif move == "review":
+            item.send_to_review(request.POST.get("note", ""))
+        elif move == "live":
+            item.go_live()
+        elif move == "schedule":
+            when = parse_datetime(request.POST.get("when", "") or "")
+            if when is None:
+                messages.error(request, _("That date could not be read."))
+                return self._respond(request)
+            if timezone.is_naive(when):
+                when = timezone.make_aware(when)
+            item.schedule(when)
+        else:
+            messages.error(request, _("Unknown move."))
+            return self._respond(request)
+
+        messages.success(request, _("“%(title)s” is now %(status)s.") % {
+            "title": item.title, "status": item.get_status_display().lower()
+        })
+        return self._respond(request)
+
+    def _respond(self, request):
+        if request.headers.get("HX-Request"):
+            return render(request, "studio/partials/desk_board.html", self._context())
+        return redirect("studio:desk")
 
 
 class MediaLibraryView(StaffOnly, View):

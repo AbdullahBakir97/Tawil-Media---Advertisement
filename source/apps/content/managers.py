@@ -1,5 +1,7 @@
 from django.db import models
 
+from .workflow import EditorialQuerySet
+
 
 class CategoryQuerySet(models.QuerySet):
     def active(self):
@@ -25,7 +27,7 @@ class MediaManager(models.Manager):
         return self.get_queryset().images()
 
 
-class ArticleQuerySet(models.QuerySet):
+class ArticleQuerySet(EditorialQuerySet):
     def published(self):
         return self.filter(is_published=True)
 
@@ -43,9 +45,16 @@ class ArticleManager(models.Manager):
     def by_author(self, author):
         return self.get_queryset().by_author(author)
 
+    def due(self, now=None):
+        return self.get_queryset().due(now)
+
+    def in_status(self, status):
+        return self.get_queryset().in_status(status)
 
 
-class MagazineQuerySet(models.QuerySet):
+
+
+class MagazineQuerySet(EditorialQuerySet):
     def published(self):
         return self.filter(is_published=True)
 
@@ -55,3 +64,10 @@ class MagazineManager(models.Manager):
 
     def published(self):
         return self.get_queryset().published()
+
+    def due(self, now=None):
+        return self.get_queryset().due(now)
+
+    def in_status(self, status):
+        return self.get_queryset().in_status(status)
+

@@ -4,6 +4,7 @@
 {% block meta_description %}{{ magazine.description|default:magazine.title|truncatewords:25 }}{% endblock %}
 
 {% block content %}
+{% include "content/partials/preview_banner.html" %}
 <div class="container" data-hero>
     <nav class="text-sm text-tertiary mb-6" aria-label="{% trans 'Breadcrumb' %}" data-hero-item>
         <a href="{% url 'magazines:list' %}" class="link-quiet">{% trans "Magazines" %}</a>
