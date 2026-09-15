@@ -1,0 +1,18 @@
+{% extends "base/base.html" %}
+{% block title %}Magazines – {{ SITE_NAME }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-3xl font-bold mb-8">Magazines</h1>
+    {% if magazines %}
+        <div class="grid gap-6 grid-cols-2 md:grid-cols-4">
+            {% for magazine in magazines %}
+                {% include "content/partials/magazine_card.html" %}
+            {% endfor %}
+        </div>
+        {% include "base/components/pagination.html" %}
+    {% else %}
+        <p class="text-tertiary">No magazines have been published yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

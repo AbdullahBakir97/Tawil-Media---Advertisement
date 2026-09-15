@@ -1,0 +1,17 @@
+<article class="card flex flex-col bg-secondary rounded-xl shadow-sm overflow-hidden">
+    <div class="p-6 flex-1 flex flex-col">
+        {% with article.categories.all|first as category %}
+            {% if category %}
+                <a href="{% url 'articles:by_category' category.slug %}" class="text-xs font-semibold uppercase tracking-wider text-primary-600">{{ category.name }}</a>
+            {% endif %}
+        {% endwith %}
+        <h3 class="mt-2 text-lg font-semibold leading-snug">
+            <a href="{% url 'articles:detail' article.slug %}" class="hover:text-primary-600">{{ article.title }}</a>
+        </h3>
+        <p class="mt-2 text-sm text-secondary line-clamp-3">{{ article.content|striptags|truncatewords:30 }}</p>
+        <p class="mt-auto pt-4 text-xs text-tertiary">
+            {% if article.author %}{{ article.author.get_full_name|default:article.author.email }} ·{% endif %}
+            {{ article.published_at|date:"j M Y" }}
+        </p>
+    </div>
+</article>

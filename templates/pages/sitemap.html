@@ -1,0 +1,21 @@
+{% extends "base/base.html" %}
+{% block title %}Sitemap – {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<div class="container max-w-3xl">
+    <h1 class="text-3xl font-bold mb-6">Sitemap</h1>
+    <ul class="grid sm:grid-cols-2 gap-2 list-disc pl-6">
+        <li><a class="hover:underline" href="{% url 'home' %}">Home</a></li>
+        <li><a class="hover:underline" href="{% url 'articles:list' %}">Articles</a></li>
+        <li><a class="hover:underline" href="{% url 'magazines:list' %}">Magazines</a></li>
+        <li><a class="hover:underline" href="{% url 'archives:browse' %}">Archives</a></li>
+        <li><a class="hover:underline" href="{% url 'about' %}">About us</a></li>
+        <li><a class="hover:underline" href="{% url 'contact' %}">Contact</a></li>
+        <li><a class="hover:underline" href="{% url 'advertise' %}">Advertise</a></li>
+        <li><a class="hover:underline" href="{% url 'careers' %}">Careers</a></li>
+        <li><a class="hover:underline" href="{% url 'help' %}">Help</a></li>
+        <li><a class="hover:underline" href="{% url 'privacy' %}">Privacy</a></li>
+        <li><a class="hover:underline" href="{% url 'terms' %}">Terms</a></li>
+        <li><a class="hover:underline" href="{% url 'cookies' %}">Cookies</a></li>
+    </ul>
+</div>
+{% endblock %}

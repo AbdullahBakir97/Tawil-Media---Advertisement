@@ -1,0 +1,9 @@
+Hello {{ user.get_full_name|default:user.email }},
+
+Someone requested a password reset for your Tawil Media account. If that was you, open the link below to choose a new password:
+
+{{ protocol }}://{{ domain }}{% url 'password_reset_confirm' uidb64=uid token=token %}
+
+If you didn't request this, you can ignore this e-mail.
+
+— The Tawil Media team

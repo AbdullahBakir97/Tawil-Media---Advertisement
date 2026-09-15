@@ -14,33 +14,9 @@
             <p class="text-tertiary">Sign in to your account</p>
         </div>
 
-        <!-- Social Login -->
-        <div class="space-y-3 mb-6">
-            <button type="button" 
-                    class="w-full flex items-center justify-center gap-3 px-4 py-2 bg-white text-gray-700 rounded-md border border-gray-300 hover:bg-gray-50 transition-colors">
-                <img src="{% static 'img/icons/google.svg' %}" alt="Google" class="w-5 h-5">
-                Continue with Google
-            </button>
-            <button type="button"
-                    class="w-full flex items-center justify-center gap-3 px-4 py-2 bg-[#1877F2] text-white rounded-md hover:bg-[#1865F2] transition-colors">
-                <img src="{% static 'img/icons/facebook.svg' %}" alt="Facebook" class="w-5 h-5">
-                Continue with Facebook
-            </button>
-        </div>
-
-        <!-- Divider -->
-        <div class="relative my-6">
-            <div class="absolute inset-0 flex items-center">
-                <div class="w-full border-t border-primary"></div>
-            </div>
-            <div class="relative flex justify-center text-sm">
-                <span class="px-2 bg-secondary text-tertiary">Or continue with</span>
-            </div>
-        </div>
-
         <!-- Login Form -->
-        <form hx-post="{% url 'login' %}" 
-              hx-swap="outerHTML"
+        <form id="login-form" hx-post="{% url 'login' %}" 
+              hx-swap="outerHTML" hx-select="#login-form"
               class="space-y-6">
             {% csrf_token %}
             
@@ -128,19 +104,6 @@
 </div>
 {% endblock %}
 
-{% block extra_css %}
-<style>
-    .htmx-indicator {
-        display: none;
-    }
-    .htmx-request .htmx-indicator {
-        display: inline-flex;
-    }
-    .htmx-request .htmx-default {
-        display: none;
-    }
-</style>
-{% endblock %}
 
 {% block extra_js %}
 <script type="module">
@@ -149,12 +112,5 @@
         document.getElementById('email').focus();
     });
 
-    // Handle form submission feedback
-    document.body.addEventListener('htmx:afterRequest', function(evt) {
-        if (evt.detail.successful && evt.detail.xhr.responseURL) {
-            // Redirect on successful login
-            window.location.href = evt.detail.xhr.responseURL;
-        }
-    });
 </script>
 {% endblock %}

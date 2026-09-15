@@ -1,0 +1,27 @@
+{% extends "base/base.html" %}
+{% block title %}{% if query %}Search: {{ query }}{% else %}Search{% endif %} – {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<div class="container max-w-3xl">
+    <h1 class="text-3xl font-bold mb-6">Search</h1>
+    <form action="{% url 'search' %}" method="get" class="flex gap-2 mb-8" role="search">
+        <label for="search-page-input" class="sr-only">Search</label>
+        <input id="search-page-input" type="search" name="q" value="{{ query }}" placeholder="Search articles…" class="form-input flex-1" autocomplete="off" autofocus>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    {% if query %}
+        <p class="text-sm text-tertiary mb-6">{{ page_obj.paginator.count }} result{{ page_obj.paginator.count|pluralize }} for “{{ query }}”</p>
+        <ul class="divide-y divide-primary">
+            {% for article in results %}
+                <li class="py-4">
+                    <a href="{% url 'articles:detail' article.slug %}" class="text-lg font-semibold hover:text-primary-600">{{ article.title }}</a>
+                    <p class="text-sm text-secondary mt-1">{{ article.content|striptags|truncatewords:30 }}</p>
+                </li>
+            {% empty %}
+                <li class="py-4 text-tertiary">Nothing matched. Try a different term.</li>
+            {% endfor %}
+        </ul>
+        {% include "base/components/pagination.html" %}
+    {% endif %}
+</div>
+{% endblock %}

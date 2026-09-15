@@ -53,7 +53,7 @@ h6 {
 }
 
 /* Paragraphs */
-p {
+.prose p, article p {
   margin-bottom: var(--spacing-4);
   max-width: 65ch;
 }
@@ -100,8 +100,6 @@ li {
 .text-left { text-align: left; }
 .text-right { text-align: right; }
 
-.text-primary { color: var(--color-primary); }
-.text-secondary { color: var(--color-secondary); }
 .text-accent { color: var(--color-accent); }
 .text-success { color: var(--color-success); }
 .text-error { color: var(--color-error); }

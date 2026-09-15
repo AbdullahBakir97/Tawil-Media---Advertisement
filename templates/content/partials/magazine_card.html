@@ -1,0 +1,13 @@
+<article class="card bg-secondary rounded-xl shadow-sm overflow-hidden">
+    <a href="{% url 'magazines:detail' magazine.slug %}" class="block">
+        {% if magazine.cover_image %}
+            <img src="{{ magazine.cover_image.file.url }}" alt="{{ magazine.cover_image.alt_text|default:magazine.title }}" class="w-full aspect-[3/4] object-cover" loading="lazy">
+        {% else %}
+            <div class="w-full aspect-[3/4] bg-tertiary flex items-center justify-center text-tertiary">No cover</div>
+        {% endif %}
+        <div class="p-4">
+            <h3 class="font-semibold">{{ magazine.title }}</h3>
+            <p class="text-xs text-tertiary mt-1">{{ magazine.published_at|date:"F Y" }}</p>
+        </div>
+    </a>
+</article>

@@ -1,14 +1,10 @@
 from django.contrib import admin
-from .models import Category, Tag, Media, Article, Magazine
+
+from .models import Article, Category, Magazine, Media
+
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('name', 'slug')
-    search_fields = ('name',)
-    prepopulated_fields = {'slug': ('name',)}  # Automatically populate slug from name
-
-@admin.register(Tag)
-class TagAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug')
     search_fields = ('name',)
     prepopulated_fields = {'slug': ('name',)}  # Automatically populate slug from name

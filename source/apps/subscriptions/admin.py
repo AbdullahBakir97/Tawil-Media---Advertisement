@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import SubscriptionPlan, Subscription, Billing, FeatureAccess, DiscountCode
+
+from .models import Billing, DiscountCode, FeatureAccess, Subscription, SubscriptionPlan
+
 
 @admin.register(SubscriptionPlan)
 class SubscriptionPlanAdmin(admin.ModelAdmin):

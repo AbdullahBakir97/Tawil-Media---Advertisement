@@ -23,6 +23,14 @@
   --color-gray-800: #1f2937;
   --color-gray-900: #111827;
   
+  /* Aliases used by component styles */
+  --color-white: #ffffff;
+  --color-primary: var(--color-primary-600);
+  --color-primary-dark: var(--color-primary-700);
+  --color-secondary: var(--color-gray-600);
+  --color-secondary-dark: var(--color-gray-700);
+  --color-accent: #f59e0b;
+
   /* Semantic Colors */
   --color-success: #10b981;
   --color-warning: #f59e0b;
@@ -33,6 +41,9 @@
   --font-sans: 'Noto Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-serif: 'Noto Serif', Georgia, serif;
   --font-arabic: 'Noto Sans Arabic', sans-serif;
+  --font-family-primary: var(--font-sans);
+  --font-family-secondary: var(--font-serif);
+  --font-family-arabic: var(--font-arabic);
   
   /* Font Sizes */
   --text-xs: 0.75rem;   /* 12px */
@@ -112,6 +123,11 @@
   
   --border-primary: var(--color-gray-200);
   --border-secondary: var(--color-gray-300);
+}
+
+/* Alpine.js: hide elements until initialised */
+[x-cloak] {
+  display: none !important;
 }
 
 /* Dark Theme */

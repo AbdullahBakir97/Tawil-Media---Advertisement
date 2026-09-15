@@ -289,7 +289,7 @@ class Analytics {
 
     async sendToServer(payload) {
         try {
-            const response = await fetch('/api/analytics', {
+            const response = await fetch(this.options.endpoint || '/api/analytics', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -303,7 +303,8 @@ class Analytics {
             }
         } catch (error) {
             console.error('Failed to send analytics:', error);
-            this.queue.push(payload);
+            // Re-queue but cap the backlog so a dead endpoint cannot grow memory forever.
+            if (this.queue.length < 50) this.queue.push(payload);
         }
     }
 

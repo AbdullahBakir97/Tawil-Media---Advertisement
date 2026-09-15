@@ -1,0 +1,12 @@
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+extend-exclude = ["*/migrations/*", "node_modules", "staticfiles"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "DJ"]
+# DJ001: null=True on string fields is pre-existing and needs migrations to change; tracked as follow-up.
+ignore = ["E501", "DJ001"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["source", "project"]

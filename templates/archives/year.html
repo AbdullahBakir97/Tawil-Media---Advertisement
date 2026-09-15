@@ -1,0 +1,28 @@
+{% extends "base/base.html" %}
+{% block title %}Archive {{ archive_year.year }} – {{ SITE_NAME }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-3xl font-bold mb-2">{{ archive_year.year }}</h1>
+    {% if archive_year.description %}<p class="text-secondary mb-8">{{ archive_year.description }}</p>{% endif %}
+    {% if editions %}
+        <div class="grid gap-6 grid-cols-2 md:grid-cols-4">
+            {% for edition in editions %}
+                <a href="{% url 'archives:edition' edition.slug %}" class="card bg-secondary rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                    {% if edition.cover_image %}
+                        <img src="{{ edition.cover_image.file.url }}" alt="{{ edition.title }}" class="w-full aspect-[3/4] object-cover" loading="lazy">
+                    {% endif %}
+                    <div class="p-4">
+                        <p class="text-xs text-tertiary">Edition {{ edition.edition_number }}</p>
+                        <h2 class="font-semibold">{{ edition.title }}</h2>
+                        <p class="text-xs text-tertiary mt-1">{{ edition.publication_date|date:"j M Y" }}</p>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+        {% include "base/components/pagination.html" %}
+    {% else %}
+        <p class="text-tertiary">No editions for this year.</p>
+    {% endif %}
+</div>
+{% endblock %}

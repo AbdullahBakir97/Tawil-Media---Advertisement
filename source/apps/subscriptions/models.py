@@ -1,5 +1,7 @@
 from django.db import models
+
 from source.apps.core.models import TimeStampedModel
+
 
 class SubscriptionPlan(TimeStampedModel):
     name = models.CharField(max_length=255, verbose_name="Plan Name")

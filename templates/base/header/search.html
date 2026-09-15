@@ -76,14 +76,12 @@
 </div>
 
 <script type="module">
-    import { SearchManager } from '{% static "js/components/search.js" %}';
+    import SearchComponent from '{% static "js/components/search.js" %}';
     
     // Initialize search component
-    const searchManager = new SearchManager({
-        inputSelector: '#search-input',
-        suggestionsSelector: '#search-suggestions',
-        recentSearchesSelector: '#recent-searches',
-        maxRecentSearches: 5
+    new SearchComponent({
+        searchInputSelector: '#search-input',
+        suggestionsContainerSelector: '#search-suggestions'
     });
 
     // Initialize Alpine.js store

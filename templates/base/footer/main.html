@@ -74,7 +74,10 @@
     <div>
         <h3 class="text-sm font-semibold text-white uppercase tracking-wider">Stay Updated</h3>
         <p class="mt-4 text-gray-400">Subscribe to our newsletter for the latest updates and exclusive content.</p>
-        <form class="mt-4" action="{% url 'newsletter:subscribe' %}" method="POST">
+        <form class="mt-4" action="{% url 'newsletter:subscribe' %}" method="POST"
+              hx-post="{% url 'newsletter:subscribe' %}"
+              hx-target="find .newsletter-message"
+              hx-swap="innerHTML">
             {% csrf_token %}
             <div class="flex space-x-2">
                 <input type="email" 
@@ -82,12 +85,7 @@
                        required
                        placeholder="Enter your email"
                        class="form-input flex-1 bg-gray-800 border-gray-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
-                <button type="submit" 
-                        class="btn btn-primary"
-                        hx-post="{% url 'newsletter:subscribe' %}"
-                        hx-trigger="click"
-                        hx-target="next .newsletter-message"
-                        hx-swap="outerHTML">
+                <button type="submit" class="btn btn-primary">
                     Subscribe
                 </button>
             </div>

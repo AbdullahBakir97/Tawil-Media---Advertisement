@@ -165,3 +165,13 @@
 .htmx-request.pulse {
   animation: pulse 1s ease-in-out infinite;
 }
+
+/* HTMX request indicators (htmx's inline styles are disabled in htmx-conf.js) */
+.htmx-indicator {
+  opacity: 0;
+  transition: opacity var(--transition-fast) ease-in;
+}
+.htmx-request .htmx-indicator,
+.htmx-request.htmx-indicator {
+  opacity: 1;
+}

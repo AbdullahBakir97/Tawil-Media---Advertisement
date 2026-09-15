@@ -1,0 +1,9 @@
+{% if suggestions %}
+<ul class="py-1" role="listbox">
+    {% for article in suggestions %}
+        <li role="option">
+            <a href="{% url 'articles:detail' article.slug %}" class="block px-4 py-2 text-sm hover:bg-tertiary">{{ article.title }}</a>
+        </li>
+    {% endfor %}
+</ul>
+{% endif %}

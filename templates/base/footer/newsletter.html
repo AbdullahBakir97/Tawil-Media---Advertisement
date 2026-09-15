@@ -13,6 +13,7 @@
                   hx-target="#newsletter-response"
                   hx-swap="innerHTML"
                   hx-indicator=".newsletter-loading">
+                {% csrf_token %}
                 
                 <div class="flex space-x-2">
                     <div class="relative flex-1">
