@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Partner Icon 2 - Network -->
+    <circle cx="30" cy="30" r="29" 
+            fill="url(#partner2-gradient)"
+            stroke="rgba(255,255,255,0.3)"
+            stroke-width="2"/>
+    
+    <!-- Connection Points -->
+    <circle cx="30" cy="30" r="5" fill="rgba(255,255,255,0.9)"/>
+    <circle cx="20" cy="20" r="3" fill="rgba(255,255,255,0.7)"/>
+    <circle cx="40" cy="20" r="3" fill="rgba(255,255,255,0.7)"/>
+    <circle cx="20" cy="40" r="3" fill="rgba(255,255,255,0.7)"/>
+    <circle cx="40" cy="40" r="3" fill="rgba(255,255,255,0.7)"/>
+    
+    <!-- Connection Lines -->
+    <path d="M30 30L20 20M30 30L40 20M30 30L20 40M30 30L40 40" 
+          stroke="rgba(255,255,255,0.5)"
+          stroke-width="2"/>
+    
+    <defs>
+        <linearGradient id="partner2-gradient" x1="30" y1="0" x2="30" y2="60">
+            <stop offset="0%" stop-color="rgba(255,255,255,0.2)"/>
+            <stop offset="100%" stop-color="rgba(255,255,255,0.05)"/>
+        </linearGradient>
+    </defs>
+</svg>
