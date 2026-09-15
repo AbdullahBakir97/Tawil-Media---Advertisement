@@ -15,12 +15,12 @@ from django.views import View
 from django.views.decorators.clickjacking import xframe_options_sameorigin
 from django.views.generic import TemplateView
 
-from source.apps.content.models import Article, Magazine, Media
+from source.apps.content.models import Article, Contributor, Magazine, Media
 from source.apps.content.workflow import BOARD_ORDER, PUBLISHED, SCHEDULED, STATUS_CHOICES
 from source.apps.events.models import Event
 
 from .forms import AnnouncementForm, HeroForm, MediaDetailsForm, MediaUploadForm, ThemeForm
-from .models import FAQ, AdSlot, Announcement, HeroConfig, Milestone, Partner, Testimonial, Theme
+from .models import FAQ, AdSlot, Announcement, HeroConfig, Milestone, Partner, PressKit, Testimonial, Theme
 from .services import render_magazine_pages
 
 
@@ -311,6 +311,37 @@ class ReaderView(View):
             "studio/reader.html",
             {"magazine": magazine, "pages": pages, "theme": magazine.theme, "hide_footer": True},
         )
+
+
+class PressView(TemplateView):
+    """The press page. Public.
+
+    The kit holds only what a journalist cannot work out for themselves — the
+    boilerplate, the contact and the downloadable assets. The numbers, the
+    colours and the current edition are read from the site's own data, so the
+    page cannot quietly go stale.
+    """
+
+    template_name = "studio/press.html"
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        kit = PressKit.current()
+        theme = Theme.objects.filter(is_default=True).first()
+        ctx.update(
+            kit=kit,
+            assets=list(kit.assets.all()) if kit else [],
+            theme=theme,
+            palette=[
+                (_("Brand"), getattr(theme, "brand", "#0b2545")),
+                (_("Brand, deep"), getattr(theme, "brand_deep", "#08182e")),
+                (_("Editorial gold"), getattr(theme, "accent", "#f2b25c")),
+                (_("Interaction"), getattr(theme, "interaction", "#0284c7")),
+            ],
+            latest_edition=Magazine.objects.published().select_related("cover_image").first(),
+            contributors=Contributor.objects.filter(is_active=True).select_related("portrait")[:4],
+        )
+        return ctx
 
 
 def studio_toolbar(request):

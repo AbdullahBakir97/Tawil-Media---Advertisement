@@ -1,0 +1,135 @@
+{% extends "base/base.html" %}
+{% load i18n static media_tags studio %}
+{% block title %}{% trans "Press" %} – {{ SITE_NAME }}{% endblock %}
+{% block meta_description %}{% trans "Logos, colours, facts and the boilerplate for anyone writing about Almadina, plus who to ask." %}{% endblock %}
+
+{% block content %}
+<header class="press-hero" data-hero>
+    <div class="container">
+        <span class="eyebrow" style="color:var(--gold-400)" data-hero-item>{% trans "Press" %}</span>
+        <h1 data-hero-item>{% trans "Writing about us" %}</h1>
+        <p class="lead text-on-brand-muted max-w-measure mt-3" data-hero-item>{% trans "Everything you need in one place: the logos, the colours, the facts and the paragraph you may quote. Anything missing, just ask." %}</p>
+        {% if kit.archive %}
+        <a class="btn btn-brand btn-lg mt-5" href="{{ kit.archive.url }}" download data-hero-item>{% trans "Download everything" %}</a>
+        {% endif %}
+    </div>
+</header>
+
+{# ---------- The facts ---------- #}
+<section class="container section-tight">
+    <div class="section-head" data-motion="fade-up">
+        <div><span class="eyebrow">{% trans "In short" %}</span><h2>{% trans "The magazine in numbers" %}</h2></div>
+    </div>
+    <div class="press-facts" data-motion="stagger">
+        <div><b>{{ ADVERTISING_STATS.monthly_readers }}</b><span>{% trans "Readers a month" %}</span></div>
+        <div><b>{{ ADVERTISING_STATS.industry_reach }}</b><span>{% trans "Sectors reached" %}</span></div>
+        <div><b>{{ YEARS_ACTIVE }}</b><span>{% trans "Years in Berlin" %}</span></div>
+        <div><b>3</b><span>{% trans "Languages" %}</span></div>
+    </div>
+</section>
+
+{# ---------- Boilerplate ---------- #}
+{% if kit.boilerplate %}
+<section class="container section-tight">
+    <div class="section-head" data-motion="fade-up">
+        <div><span class="eyebrow">{% trans "Boilerplate" %}</span><h2>{% trans "How to describe us" %}</h2></div>
+    </div>
+    <blockquote class="press-boilerplate" data-motion="fade-up">
+        <p>{{ kit.boilerplate|linebreaksbr }}</p>
+        <footer>{% trans "Please quote this paragraph as it stands." %}</footer>
+    </blockquote>
+</section>
+{% endif %}
+
+{# ---------- Logos and pictures ---------- #}
+<section class="container section-tight">
+    <div class="section-head" data-motion="fade-up">
+        <div>
+            <span class="eyebrow">{% trans "Assets" %}</span>
+            <h2>{% trans "Logos and pictures" %}</h2>
+            <p class="text-secondary max-w-measure mt-2">{% trans "Please use the logo as supplied: no stretching, no recolouring, and keep clear space around it." %}</p>
+        </div>
+    </div>
+
+    {% if assets %}
+    <div class="press-assets" data-motion="stagger">
+        {% for asset in assets %}
+        <figure class="press-asset press-asset--{{ asset.background }}">
+            <div class="press-asset-preview">
+                {% if asset.thumbnail %}<img src="{{ asset.thumbnail.url }}" alt="{{ asset.label }}" loading="lazy">
+                {% else %}<span class="press-asset-ext">{{ asset.extension }}</span>{% endif %}
+            </div>
+            <figcaption>
+                <strong>{{ asset.label }}</strong>
+                <span class="press-asset-meta">{{ asset.get_kind_display }} · {{ asset.get_background_display }}{% if asset.extension %} · {{ asset.extension }}{% endif %}</span>
+                {% if asset.credit %}<span class="press-asset-credit">{{ asset.credit }}</span>{% endif %}
+                <a class="btn btn-outline btn-sm" href="{{ asset.file.url }}" download>{% trans "Download" %}</a>
+            </figcaption>
+        </figure>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <h3>{% trans "The assets are being prepared" %}</h3>
+        <p>{% trans "Logos and pictures appear here as soon as they are uploaded. Until then, write to us and we send them by e-mail." %}</p>
+    </div>
+    {% endif %}
+</section>
+
+{# ---------- Colours ---------- #}
+<section class="container section-tight">
+    <div class="section-head" data-motion="fade-up">
+        <div><span class="eyebrow">{% trans "Colours" %}</span><h2>{% trans "Our palette" %}</h2></div>
+    </div>
+    <div class="press-palette" data-motion="stagger">
+        {% for name, value in palette %}
+        <div class="press-swatch">
+            <span class="press-swatch-chip" style="background:{{ value }}"></span>
+            <strong>{{ name }}</strong>
+            <code dir="ltr">{{ value }}</code>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+{# ---------- The current edition ---------- #}
+{% if latest_edition %}
+<section class="container section-tight">
+    <div class="press-edition" data-motion="fade-up">
+        {% if latest_edition.cover_image %}
+        <div class="press-edition-cover">{% picture latest_edition.cover_image sizes="14rem" alt="" %}</div>
+        {% endif %}
+        <div>
+            <span class="eyebrow">{% trans "Current edition" %}</span>
+            <h2 class="mt-1">{{ latest_edition.title }}</h2>
+            {% if latest_edition.description %}<p class="text-secondary max-w-measure mt-2">{{ latest_edition.description|truncatewords:40 }}</p>{% endif %}
+            <div class="btn-group mt-4">
+                <a class="btn btn-outline btn-sm" href="{{ latest_edition.get_absolute_url }}">{% trans "About this edition" %}</a>
+                {% if latest_edition.cover_image %}<a class="btn btn-outline btn-sm" href="{{ latest_edition.cover_image.file.url }}" download>{% trans "Cover in print quality" %}</a>{% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{# ---------- Who to ask ---------- #}
+<section class="container section">
+    <div class="cta-band" data-motion="fade-up">
+        <div>
+            <span class="eyebrow" style="color:var(--gold-400)">{% trans "Press contact" %}</span>
+            {% if kit.contact_name %}
+                <h2 class="text-on-brand mt-1">{{ kit.contact_name }}</h2>
+                {% if kit.contact_role %}<p class="text-on-brand-muted mt-1">{{ kit.contact_role }}</p>{% endif %}
+            {% else %}
+                <h2 class="text-on-brand mt-1">{% trans "Ask us anything" %}</h2>
+                <p class="text-on-brand-muted mt-1">{% trans "Interviews, figures, older editions — we answer within two working days." %}</p>
+            {% endif %}
+        </div>
+        <div class="btn-group">
+            {% if kit.contact_email %}<a class="btn btn-brand" href="mailto:{{ kit.contact_email }}">{{ kit.contact_email }}</a>{% endif %}
+            {% if kit.contact_phone %}<a class="btn btn-ghost" href="tel:{{ kit.contact_phone }}" dir="ltr">{{ kit.contact_phone }}</a>{% endif %}
+            {% if not kit.contact_email %}<a class="btn btn-brand" href="{% url 'contact' %}">{% trans "Contact form" %}</a>{% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

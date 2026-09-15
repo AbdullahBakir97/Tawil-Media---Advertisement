@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-15 17:20+0200\n"
+"POT-Creation-Date: 2026-09-15 17:27+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -122,7 +122,7 @@ msgid "Status"
 msgstr "Status"
 
 #: source/apps/content/workflow.py:52
-#: templates/studio/partials/desk_card.html:38
+#: templates/studio/partials/desk_card.html:40
 msgid "Goes live"
 msgstr "Erscheint am"
 
@@ -139,7 +139,6 @@ msgid "What is still missing, for the desk only."
 msgstr "Was noch fehlt – nur für die Redaktion sichtbar."
 
 #: source/apps/events/models.py:65
-#| msgid "Edition"
 msgid "Edition launch"
 msgstr "Releaseabend"
 
@@ -148,7 +147,6 @@ msgid "Panel or talk"
 msgstr "Podium oder Gespräch"
 
 #: source/apps/events/models.py:67
-#| msgid "Read"
 msgid "Reading"
 msgstr "Lesung"
 
@@ -244,7 +242,7 @@ msgstr "Heroes"
 msgid "Editorial"
 msgstr "Redaktion"
 
-#: source/apps/studio/models.py:151 source/apps/studio/models.py:262
+#: source/apps/studio/models.py:151 source/apps/studio/models.py:359
 #: templates/advertising/hub.html:3 templates/advertising/hub.html:10
 #: templates/auth/profile/dashboard.html:31 templates/pages/home.html:54
 msgid "Advertising"
@@ -262,15 +260,159 @@ msgstr "Wo die Anzeige erscheint, z. B. home-leaderboard, article-rectangle."
 msgid "Higher wins when several bookings share a key."
 msgstr "Höher gewinnt, wenn mehrere Buchungen denselben Platz teilen."
 
-#: source/apps/studio/models.py:241
+#: source/apps/studio/models.py:244 templates/auth/profile/dashboard.html:41
+#: templates/studio/theme_form.html:18
+msgid "Name"
+msgstr "Name"
+
+#: source/apps/studio/models.py:245
+msgid "In force"
+msgstr "Gültig"
+
+#: source/apps/studio/models.py:247
+msgid "Boilerplate (German)"
+msgstr "Kurzporträt (Deutsch)"
+
+#: source/apps/studio/models.py:248
+#| msgid "The years that made the magazine."
+msgid "The paragraph a journalist may quote about the magazine."
+msgstr "Der Absatz, den Medien über das Magazin zitieren dürfen."
+
+#: source/apps/studio/models.py:249
+msgid "Boilerplate (Arabic)"
+msgstr "Kurzporträt (Arabisch)"
+
+#: source/apps/studio/models.py:250
+msgid "Boilerplate (English)"
+msgstr "Kurzporträt (Englisch)"
+
+#: source/apps/studio/models.py:252 templates/studio/press.html:119
+#| msgid "Contact"
+msgid "Press contact"
+msgstr "Pressekontakt"
+
+#: source/apps/studio/models.py:253
+msgid "Role (German)"
+msgstr "Funktion (Deutsch)"
+
+#: source/apps/studio/models.py:254
+msgid "Role (Arabic)"
+msgstr "Funktion (Arabisch)"
+
+#: source/apps/studio/models.py:255
+#| msgid "Text · English"
+msgid "Role (English)"
+msgstr "Funktion (Englisch)"
+
+#: source/apps/studio/models.py:256
+msgid "Press e-mail"
+msgstr "Presse-E-Mail"
+
+#: source/apps/studio/models.py:257
+#| msgid "Phone"
+msgid "Press phone"
+msgstr "Pressetelefon"
+
+#: source/apps/studio/models.py:259
+msgid "Everything as one download"
+msgstr "Alles als ein Download"
+
+#: source/apps/studio/models.py:260
+msgid "Optional zip with the logos and the boilerplate."
+msgstr "Optionales ZIP mit den Logos und dem Kurzporträt."
+
+#: source/apps/studio/models.py:263 source/apps/studio/models.py:302
+msgid "Press kit"
+msgstr "Pressemappe"
+
+#: source/apps/studio/models.py:264
+msgid "Press kits"
+msgstr "Pressemappen"
+
+#: source/apps/studio/models.py:293
+msgid "Logo"
+msgstr "Logo"
+
+#: source/apps/studio/models.py:294
+msgid "Logo, one colour"
+msgstr "Logo, einfarbig"
+
+#: source/apps/studio/models.py:295
+#| msgid "Cover story"
+msgid "Cover"
+msgstr "Titelbild"
+
+#: source/apps/studio/models.py:296
+msgid "Portrait"
+msgstr "Porträt"
+
+#: source/apps/studio/models.py:297
+#| msgid "Photo"
+msgid "Photograph"
+msgstr "Foto"
+
+#: source/apps/studio/models.py:300
+msgid "For light backgrounds"
+msgstr "Für helle Hintergründe"
+
+#: source/apps/studio/models.py:300
+msgid "For dark backgrounds"
+msgstr "Für dunkle Hintergründe"
+
+#: source/apps/studio/models.py:303
+msgid "Label"
+msgstr "Bezeichnung"
+
+#: source/apps/studio/models.py:304 templates/studio/announcements.html:20
+msgid "Kind"
+msgstr "Art"
+
+#: source/apps/studio/models.py:305
+msgid "Shown on"
+msgstr "Einsatz auf"
+
+#: source/apps/studio/models.py:306
+#| msgid "Files"
+msgid "File"
+msgstr "Datei"
+
+#: source/apps/studio/models.py:307
+#: templates/content/partials/preview_banner.html:9
+#: templates/studio/theme_form.html:32
+msgid "Preview"
+msgstr "Vorschau"
+
+#: source/apps/studio/models.py:308
+msgid "Optional. Needed when the file itself is not a web image, e.g. an EPS."
+msgstr ""
+"Optional. Nötig, wenn die Datei selbst kein Webbild ist, etwa eine EPS."
+
+#: source/apps/studio/models.py:309
+#: templates/studio/partials/media_details.html:35
+msgid "Credit"
+msgstr "Bildnachweis"
+
+#: source/apps/studio/models.py:310 templates/studio/announcements.html:27
+msgid "Order"
+msgstr "Reihenfolge"
+
+#: source/apps/studio/models.py:313
+msgid "Press asset"
+msgstr "Pressematerial"
+
+#: source/apps/studio/models.py:314
+msgid "Press assets"
+msgstr "Pressematerialien"
+
+#: source/apps/studio/models.py:338
 msgid "Role and company"
 msgstr "Funktion und Unternehmen"
 
-#: source/apps/studio/models.py:262
+#: source/apps/studio/models.py:359
 msgid "Help"
 msgstr "Hilfe"
 
-#: source/apps/studio/models.py:262
+#: source/apps/studio/models.py:359
 msgid "About"
 msgstr "Über uns"
 
@@ -316,6 +458,23 @@ msgstr "Bildangaben gespeichert."
 #, python-format
 msgid "%(count)d pages rendered."
 msgstr "%(count)d Seiten erzeugt."
+
+#: source/apps/studio/views.py:336
+msgid "Brand"
+msgstr "Marke"
+
+#: source/apps/studio/views.py:337
+msgid "Brand, deep"
+msgstr "Marke, dunkel"
+
+#: source/apps/studio/views.py:338
+#| msgid "Editorial"
+msgid "Editorial gold"
+msgstr "Redaktionsgold"
+
+#: source/apps/studio/views.py:339 templates/studio/theme_form.html:23
+msgid "Interaction"
+msgstr "Interaktion"
 
 #: source/apps/users/admin.py:25
 msgid "Personal info"
@@ -449,6 +608,7 @@ msgid "See the rates"
 msgstr "Preise ansehen"
 
 #: templates/advertising/hub.html:20 templates/base/hero/_copy.html:15
+#: templates/studio/press.html:24
 msgid "Readers a month"
 msgstr "Leser pro Monat"
 
@@ -456,11 +616,12 @@ msgstr "Leser pro Monat"
 msgid "Read to the end"
 msgstr "Lesen bis zum Schluss"
 
-#: templates/advertising/hub.html:22
+#: templates/advertising/hub.html:22 templates/studio/press.html:25
 msgid "Sectors reached"
 msgstr "Erreichte Branchen"
 
 #: templates/advertising/hub.html:23 templates/base/hero/_copy.html:17
+#: templates/studio/press.html:26
 msgid "Years in Berlin"
 msgstr "Jahre in Berlin"
 
@@ -549,7 +710,7 @@ msgstr ""
 "Sagen Sie uns, wen Sie erreichen möchten – wir planen die Kampagne mit "
 "Ihnen."
 
-#: templates/advertising/hub.html:123
+#: templates/advertising/hub.html:123 templates/studio/press.html:131
 msgid "Contact form"
 msgstr "Kontaktformular"
 
@@ -641,7 +802,7 @@ msgid "Anything we should know?"
 msgstr "Gibt es etwas, das wir wissen sollten?"
 
 #: templates/advertising/partials/planner_form.html:38
-#: templates/base/footer/main.html:59
+#: templates/base/footer/main.html:60
 msgid "Privacy"
 msgstr "Datenschutz"
 
@@ -747,7 +908,7 @@ msgstr "Melden Sie sich bei Ihrem Konto an"
 
 #: templates/auth/login.html:24 templates/auth/password/reset.html:21
 #: templates/auth/profile/settings.html:40 templates/auth/register.html:35
-#: templates/base/footer/main.html:45 templates/content/article_detail.html:78
+#: templates/base/footer/main.html:46 templates/content/article_detail.html:78
 msgid "E-mail address"
 msgstr "E-Mail-Adresse"
 
@@ -891,11 +1052,6 @@ msgstr "Print, digital und Social Media"
 msgid "Profile"
 msgstr "Profil"
 
-#: templates/auth/profile/dashboard.html:41
-#: templates/studio/theme_form.html:18
-msgid "Name"
-msgstr "Name"
-
 #: templates/auth/profile/dashboard.html:44
 msgid "Member since"
 msgstr "Mitglied seit"
@@ -904,7 +1060,7 @@ msgstr "Mitglied seit"
 msgid "Edit profile"
 msgstr "Profil bearbeiten"
 
-#: templates/auth/profile/dashboard.html:49 templates/base/footer/main.html:39
+#: templates/auth/profile/dashboard.html:49 templates/base/footer/main.html:40
 #: templates/content/article_detail.html:74
 msgid "Newsletter"
 msgstr "Newsletter"
@@ -1046,29 +1202,34 @@ msgstr "Über uns"
 msgid "Careers"
 msgstr "Karriere"
 
-#: templates/base/footer/main.html:22 templates/base/header/navigation.html:21
+#: templates/base/footer/main.html:22 templates/studio/press.html:3
+#: templates/studio/press.html:9
+msgid "Press"
+msgstr "Presse"
+
+#: templates/base/footer/main.html:23 templates/base/header/navigation.html:21
 #: templates/base/header/navigation.html:41
 #: templates/base/hero/newsroom.html:43
 msgid "Advertise"
 msgstr "Werben"
 
-#: templates/base/footer/main.html:26 templates/base/footer/main.html:27
+#: templates/base/footer/main.html:27 templates/base/footer/main.html:28
 msgid "Read"
 msgstr "Lesen"
 
-#: templates/base/footer/main.html:29 templates/base/header/navigation.html:6
+#: templates/base/footer/main.html:30 templates/base/header/navigation.html:6
 #: templates/base/header/navigation.html:36
 #: templates/content/article_list.html:3 templates/content/article_list.html:9
 #: templates/studio/partials/desk_board.html:4
 msgid "Articles"
 msgstr "Artikel"
 
-#: templates/base/footer/main.html:30 templates/base/header/mega-menu.html:11
+#: templates/base/footer/main.html:31 templates/base/header/mega-menu.html:11
 #: templates/content/contributor_list.html:3
 msgid "Writers"
 msgstr "Autorinnen und Autoren"
 
-#: templates/base/footer/main.html:31 templates/base/header/navigation.html:9
+#: templates/base/footer/main.html:32 templates/base/header/navigation.html:9
 #: templates/base/header/navigation.html:37
 #: templates/content/magazine_detail.html:10
 #: templates/content/magazine_list.html:3
@@ -1076,45 +1237,45 @@ msgstr "Autorinnen und Autoren"
 msgid "Magazines"
 msgstr "Magazine"
 
-#: templates/base/footer/main.html:32
+#: templates/base/footer/main.html:33
 msgid "Archives"
 msgstr "Archiv"
 
-#: templates/base/footer/main.html:33 templates/base/header/navigation.html:19
+#: templates/base/footer/main.html:34 templates/base/header/navigation.html:19
 #: templates/events/list.html:3 templates/events/list.html:10
 #: templates/studio/partials/desk_board.html:18
 msgid "Events"
 msgstr "Veranstaltungen"
 
-#: templates/base/footer/main.html:34
+#: templates/base/footer/main.html:35
 msgid "Help centre"
 msgstr "Hilfe"
 
-#: templates/base/footer/main.html:40
+#: templates/base/footer/main.html:41
 msgid "The new edition and the best stories, once a week."
 msgstr "Die neue Ausgabe und die besten Geschichten, einmal pro Woche."
 
-#: templates/base/footer/main.html:47 templates/content/article_detail.html:79
+#: templates/base/footer/main.html:48 templates/content/article_detail.html:79
 msgid "you@example.com"
 msgstr "sie@beispiel.de"
 
-#: templates/base/footer/main.html:48 templates/content/article_detail.html:80
+#: templates/base/footer/main.html:49 templates/content/article_detail.html:80
 msgid "Subscribe"
 msgstr "Abonnieren"
 
-#: templates/base/footer/main.html:56
+#: templates/base/footer/main.html:57
 msgid "All rights reserved."
 msgstr "Alle Rechte vorbehalten."
 
-#: templates/base/footer/main.html:58
+#: templates/base/footer/main.html:59
 msgid "Terms"
 msgstr "AGB"
 
-#: templates/base/footer/main.html:60
+#: templates/base/footer/main.html:61
 msgid "Cookies"
 msgstr "Cookies"
 
-#: templates/base/footer/main.html:61
+#: templates/base/footer/main.html:62
 msgid "Sitemap"
 msgstr "Sitemap"
 
@@ -1376,7 +1537,7 @@ msgstr "Außerdem in dieser Ausgabe"
 msgid "Cover story"
 msgstr "Titelgeschichte"
 
-#: templates/base/hero/newsroom.html:35
+#: templates/base/hero/newsroom.html:35 templates/studio/press.html:103
 msgid "Current edition"
 msgstr "Aktuelle Ausgabe"
 
@@ -1588,11 +1749,6 @@ msgstr "Die nächste Ausgabe erscheint hier, sobald sie veröffentlicht ist."
 msgid "Advertisement"
 msgstr "Anzeige"
 
-#: templates/content/partials/preview_banner.html:9
-#: templates/studio/theme_form.html:32
-msgid "Preview"
-msgstr "Vorschau"
-
 #: templates/content/partials/preview_banner.html:11
 #, python-format
 msgid "Not public yet — goes live on %(when)s."
@@ -1644,7 +1800,7 @@ msgstr "Wir wurden benachrichtigt. Bitte versuchen Sie es gleich noch einmal."
 msgid "Back to the homepage"
 msgstr "Zurück zur Startseite"
 
-#: templates/events/detail.html:14 templates/events/detail.html:45
+#: templates/events/detail.html:14 templates/events/detail.html:48
 #: templates/events/partials/_card.html:8
 msgid "Online"
 msgstr "Online"
@@ -1657,43 +1813,43 @@ msgstr "Läuft gerade"
 msgid "Past"
 msgstr "Vergangen"
 
-#: templates/events/detail.html:26 templates/events/list.html:29
+#: templates/events/detail.html:29 templates/events/list.html:29
 msgid "Register"
 msgstr "Anmelden"
 
-#: templates/events/detail.html:30 templates/events/list.html:28
+#: templates/events/detail.html:33 templates/events/list.html:28
 msgid "Details"
 msgstr "Details"
 
-#: templates/events/detail.html:33
+#: templates/events/detail.html:36
 msgid "When"
 msgstr "Wann"
 
-#: templates/events/detail.html:41 templates/events/detail.html:45
+#: templates/events/detail.html:44 templates/events/detail.html:48
 msgid "Where"
 msgstr "Wo"
 
-#: templates/events/detail.html:48
+#: templates/events/detail.html:51
 msgid "Entry"
 msgstr "Eintritt"
 
-#: templates/events/detail.html:49
+#: templates/events/detail.html:52
 msgid "Free"
 msgstr "Frei"
 
-#: templates/events/detail.html:49
+#: templates/events/detail.html:52
 msgid "On request"
 msgstr "Auf Anfrage"
 
-#: templates/events/detail.html:52 templates/events/detail.html:61
+#: templates/events/detail.html:55 templates/events/detail.html:64
 msgid "All events"
 msgstr "Alle Veranstaltungen"
 
-#: templates/events/detail.html:60 templates/events/list.html:9
+#: templates/events/detail.html:63 templates/events/list.html:9
 msgid "Diary"
 msgstr "Termine"
 
-#: templates/events/detail.html:60
+#: templates/events/detail.html:63
 msgid "Coming up next"
 msgstr "Als Nächstes"
 
@@ -1918,10 +2074,6 @@ msgstr ""
 msgid "New item"
 msgstr "Neuer Eintrag"
 
-#: templates/studio/announcements.html:20
-msgid "Kind"
-msgstr "Art"
-
 #: templates/studio/announcements.html:21
 msgid "Text · Deutsch"
 msgstr "Text · Deutsch"
@@ -1945,10 +2097,6 @@ msgstr "Beginnt"
 #: templates/studio/announcements.html:26
 msgid "Ends"
 msgstr "Endet"
-
-#: templates/studio/announcements.html:27
-msgid "Order"
-msgstr "Reihenfolge"
 
 #: templates/studio/announcements.html:28
 msgid "Active"
@@ -2317,36 +2465,36 @@ msgstr "Seite %(current)s von %(total)s"
 msgid "free"
 msgstr "frei"
 
-#: templates/studio/partials/desk_card.html:14
+#: templates/studio/partials/desk_card.html:16
 msgid "no picture"
 msgstr "kein Bild"
 
-#: templates/studio/partials/desk_card.html:24
+#: templates/studio/partials/desk_card.html:26
 msgid "To review"
 msgstr "Zur Prüfung"
 
-#: templates/studio/partials/desk_card.html:25
-#: templates/studio/partials/desk_card.html:28
+#: templates/studio/partials/desk_card.html:27
+#: templates/studio/partials/desk_card.html:30
 msgid "Publish"
 msgstr "Veröffentlichen"
 
-#: templates/studio/partials/desk_card.html:27
+#: templates/studio/partials/desk_card.html:29
 msgid "Back"
 msgstr "Zurück"
 
-#: templates/studio/partials/desk_card.html:30
+#: templates/studio/partials/desk_card.html:32
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: templates/studio/partials/desk_card.html:31
+#: templates/studio/partials/desk_card.html:33
 msgid "Publish now"
 msgstr "Jetzt veröffentlichen"
 
-#: templates/studio/partials/desk_card.html:33
+#: templates/studio/partials/desk_card.html:35
 msgid "Take down"
 msgstr "Zurückziehen"
 
-#: templates/studio/partials/desk_card.html:40
+#: templates/studio/partials/desk_card.html:42
 msgid "Schedule"
 msgstr "Planen"
 
@@ -2475,10 +2623,6 @@ msgstr "Was jemand wissen muss, der das Bild nicht sehen kann."
 msgid "Caption"
 msgstr "Bildunterschrift"
 
-#: templates/studio/partials/media_details.html:35
-msgid "Credit"
-msgstr "Bildnachweis"
-
 #: templates/studio/partials/media_details.html:41
 msgid "Save"
 msgstr "Speichern"
@@ -2526,6 +2670,117 @@ msgstr "Ankündigen"
 #: templates/studio/partials/toolbar.html:8
 msgid "Hide the Studio bar"
 msgstr "Studio-Leiste ausblenden"
+
+#: templates/studio/press.html:4
+msgid ""
+"Logos, colours, facts and the boilerplate for anyone writing about Almadina,"
+" plus who to ask."
+msgstr ""
+"Logos, Farben, Zahlen und das Kurzporträt für alle, die über Almadina "
+"schreiben – und wen Sie fragen können."
+
+#: templates/studio/press.html:10
+msgid "Writing about us"
+msgstr "Über uns schreiben"
+
+#: templates/studio/press.html:11
+msgid ""
+"Everything you need in one place: the logos, the colours, the facts and the "
+"paragraph you may quote. Anything missing, just ask."
+msgstr ""
+"Alles an einer Stelle: die Logos, die Farben, die Zahlen und der Absatz, den"
+" Sie zitieren dürfen. Fehlt etwas, schreiben Sie uns."
+
+#: templates/studio/press.html:13
+msgid "Download everything"
+msgstr "Alles herunterladen"
+
+#: templates/studio/press.html:21
+msgid "In short"
+msgstr "Kurz gefasst"
+
+#: templates/studio/press.html:21
+msgid "The magazine in numbers"
+msgstr "Das Magazin in Zahlen"
+
+#: templates/studio/press.html:27
+msgid "Languages"
+msgstr "Sprachen"
+
+#: templates/studio/press.html:35
+msgid "Boilerplate"
+msgstr "Kurzporträt"
+
+#: templates/studio/press.html:35
+msgid "How to describe us"
+msgstr "So beschreiben Sie uns"
+
+#: templates/studio/press.html:39
+msgid "Please quote this paragraph as it stands."
+msgstr "Bitte zitieren Sie diesen Absatz unverändert."
+
+#: templates/studio/press.html:48
+msgid "Assets"
+msgstr "Materialien"
+
+#: templates/studio/press.html:49
+#| msgid "no picture"
+msgid "Logos and pictures"
+msgstr "Logos und Bilder"
+
+#: templates/studio/press.html:50
+msgid ""
+"Please use the logo as supplied: no stretching, no recolouring, and keep "
+"clear space around it."
+msgstr ""
+"Bitte verwenden Sie das Logo wie geliefert: nicht verzerren, nicht umfärben "
+"und rundherum Freiraum lassen."
+
+#: templates/studio/press.html:66
+msgid "Download"
+msgstr "Herunterladen"
+
+#: templates/studio/press.html:73
+#| msgid "The rate card is being prepared"
+msgid "The assets are being prepared"
+msgstr "Die Materialien werden vorbereitet"
+
+#: templates/studio/press.html:74
+#| msgid "Formats and prices appear here as soon as they are entered."
+msgid ""
+"Logos and pictures appear here as soon as they are uploaded. Until then, "
+"write to us and we send them by e-mail."
+msgstr ""
+"Logos und Bilder erscheinen hier, sobald sie hochgeladen sind. Bis dahin "
+"schicken wir sie Ihnen auf Anfrage per E-Mail."
+
+#: templates/studio/press.html:82
+msgid "Colours"
+msgstr "Farben"
+
+#: templates/studio/press.html:82
+msgid "Our palette"
+msgstr "Unsere Palette"
+
+#: templates/studio/press.html:107
+#| msgid "Also in this edition"
+msgid "About this edition"
+msgstr "Über diese Ausgabe"
+
+#: templates/studio/press.html:108
+msgid "Cover in print quality"
+msgstr "Titelbild in Druckqualität"
+
+#: templates/studio/press.html:124
+msgid "Ask us anything"
+msgstr "Fragen Sie uns"
+
+#: templates/studio/press.html:125
+msgid ""
+"Interviews, figures, older editions — we answer within two working days."
+msgstr ""
+"Interviews, Zahlen, ältere Ausgaben – wir antworten innerhalb von zwei "
+"Werktagen."
 
 #: templates/studio/reader.html:3
 msgid "Reader"
@@ -2605,10 +2860,6 @@ msgstr "Dunkelste Markenfläche"
 #: templates/studio/theme_form.html:22
 msgid "Accent"
 msgstr "Akzent"
-
-#: templates/studio/theme_form.html:23
-msgid "Interaction"
-msgstr "Interaktion"
 
 #: templates/studio/theme_form.html:24
 msgid "Display face"

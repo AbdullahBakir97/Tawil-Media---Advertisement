@@ -34,6 +34,7 @@
 @import './components/desk.css';
 @import './components/authors.css';
 @import './components/events.css';
+@import './components/press.css';
 @import './components/atlas.css';
 
 @import './layouts/grid.css';

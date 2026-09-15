@@ -1,6 +1,7 @@
 from django.urls import include, path
 
 from source.apps.advertisements.views import AdvertiseView
+from source.apps.studio.views import PressView
 
 from . import views
 
@@ -19,6 +20,7 @@ urlpatterns = [
     path("design/", views.StyleGuideView.as_view(), name="styleguide"),
     path("advertise/", AdvertiseView.as_view(), name="advertise"),
     path("advertise/", include("source.apps.advertisements.urls", namespace="advertising")),
+    path("press/", PressView.as_view(), name="press"),
 ]
 
 # Simple informational pages. Each renders templates/pages/<slug>.html.
