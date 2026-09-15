@@ -38,6 +38,19 @@ INTERNAL_IPS = ["127.0.0.1"]
 
 SITE_NAME = "Tawil Media"
 
+# Shown on the contact and advertise pages.
+CONTACT_DETAILS = {
+    "contact_email": os.environ.get("CONTACT_EMAIL", "info@tawilverlag.com"),
+    "contact_phone": os.environ.get("CONTACT_PHONE", "+49 30 000 0000"),
+    "company_address": {
+        "street": os.environ.get("COMPANY_STREET", ""),
+        "postal_code": os.environ.get("COMPANY_POSTAL_CODE", ""),
+        "city": os.environ.get("COMPANY_CITY", "Berlin"),
+        "country": os.environ.get("COMPANY_COUNTRY", "Germany"),
+    },
+}
+ADVERTISING_STATS = {"monthly_readers": "500K+", "engagement_rate": "85%", "industry_reach": "20+"}
+
 # ---------------------------------------------------------------------------
 # Applications
 # ---------------------------------------------------------------------------

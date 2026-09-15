@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db.models import Q
 from django.shortcuts import render
 from django.views.generic import ListView, TemplateView
@@ -18,12 +19,19 @@ class HomeView(TemplateView):
 
 
 class StaticPageView(TemplateView):
-    """Render a simple informational page from templates/pages/<page>.html."""
+    """Render an informational page from templates/pages/<page>.html."""
 
     page = None
 
     def get_template_names(self):
         return [f"pages/{self.page}.html"]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(settings.CONTACT_DETAILS)
+        if self.page == "advertise":
+            context.update(settings.ADVERTISING_STATS)
+        return context
 
 
 class SitemapView(TemplateView):
