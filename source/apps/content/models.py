@@ -2,7 +2,6 @@ from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.urls import reverse
-from django.utils import timezone
 from django.utils.html import strip_tags
 from django.utils.text import Truncator, slugify
 from django.utils.translation import gettext_lazy as _
@@ -12,6 +11,7 @@ from source.apps.core.models import TimeStampedModel
 
 from .imaging import measure
 from .managers import ArticleManager, CategoryManager, MagazineManager, MediaManager
+from .workflow import Editorial
 
 
 class Category(TimeStampedModel):
@@ -142,7 +142,7 @@ class Media(TimeStampedModel):
         return cls.objects.all()
 
 
-class Article(TimeStampedModel):
+class Article(Editorial, TimeStampedModel):
     title = models.CharField(max_length=255, verbose_name="Title")
     slug = models.SlugField(max_length=255, unique=True, verbose_name="Slug")
     content = models.TextField(verbose_name="Content")
@@ -170,6 +170,7 @@ class Article(TimeStampedModel):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
+        self.sync_publication()
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
@@ -198,16 +199,8 @@ class Article(TimeStampedModel):
         return self.categories.first()
 
     def publish(self):
-        """Mark the article as published and set the published_at date."""
-        self.is_published = True
-        self.published_at = timezone.now()
-        self.save()
-
-    def unpublish(self):
-        """Mark the article as unpublished."""
-        self.is_published = False
-        self.published_at = None
-        self.save()
+        """Put the article live now."""
+        return self.go_live()
 
     def add_category(self, category):
         """Add a category to the article."""
@@ -255,7 +248,7 @@ class Article(TimeStampedModel):
         article.delete()
 
 
-class Magazine(TimeStampedModel):
+class Magazine(Editorial, TimeStampedModel):
     title = models.CharField(max_length=255, verbose_name="Magazine Title")
     slug = models.SlugField(max_length=255, unique=True, verbose_name="Magazine Slug")
     description = models.TextField(blank=True, verbose_name="Description")
@@ -288,13 +281,12 @@ class Magazine(TimeStampedModel):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
+        self.sync_publication()
         super().save(*args, **kwargs)
 
     def publish(self):
-        """Mark the magazine as published and set the published_at date."""
-        self.is_published = True
-        self.published_at = timezone.now()
-        self.save()
+        """Put the edition live now."""
+        return self.go_live()
 
     def add_article(self, article):
         """Add an article to the magazine."""

@@ -1,0 +1,12 @@
+{% load i18n %}
+<div class="desk-column desk-column--{{ column.status }}">
+    <header class="desk-column-head">
+        <span class="desk-column-title">{{ column.label }}</span>
+        <span class="desk-count">{{ column.items|length }}</span>
+    </header>
+    <div class="desk-stack">
+        {% for item in column.items %}{% include "studio/partials/desk_card.html" with item=item kind=kind status=column.status %}{% empty %}
+        <p class="desk-empty">{% trans "Nothing here." %}</p>
+        {% endfor %}
+    </div>
+</div>

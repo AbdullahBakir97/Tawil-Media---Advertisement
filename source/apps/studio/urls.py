@@ -13,5 +13,6 @@ urlpatterns = [
     path("themes/<int:pk>/", views.ThemeEditView.as_view(), name="theme_edit"),
     path("announcements/", views.AnnouncementListView.as_view(), name="announcements"),
     path("media/", views.MediaLibraryView.as_view(), name="media"),
+    path("desk/", views.DeskView.as_view(), name="desk"),
     path("magazines/<slug:slug>/render/", views.MagazinePagesView.as_view(), name="magazine_render"),
 ]

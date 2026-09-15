@@ -1,0 +1,16 @@
+{% load i18n %}
+<div id="desk-board" class="desk">
+    <section class="desk-section">
+        <h2 class="desk-section-title">{% trans "Articles" %}</h2>
+        <div class="desk-columns">
+            {% for column in article_columns %}{% include "studio/partials/desk_column.html" with column=column kind="article" %}{% endfor %}
+        </div>
+    </section>
+
+    <section class="desk-section">
+        <h2 class="desk-section-title">{% trans "Editions" %}</h2>
+        <div class="desk-columns">
+            {% for column in magazine_columns %}{% include "studio/partials/desk_column.html" with column=column kind="magazine" %}{% endfor %}
+        </div>
+    </section>
+</div>

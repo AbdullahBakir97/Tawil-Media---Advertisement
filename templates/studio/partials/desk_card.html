@@ -1,0 +1,44 @@
+{% load i18n %}
+<article class="desk-card {% if item.is_due %}is-due{% endif %}">
+    <h3 class="desk-card-title"><a href="{% if item.is_live %}{{ item.get_absolute_url }}{% else %}{{ item.preview_url }}{% endif %}">{{ item.title }}</a></h3>
+
+    <p class="desk-card-meta">
+        {% if kind == "article" %}{% if item.author %}{{ item.author.get_full_name|default:item.author.email }} · {% endif %}{% endif %}
+        {% if status == "scheduled" and item.scheduled_for %}
+            <time datetime="{{ item.scheduled_for|date:'c' }}">{{ item.scheduled_for|date:"j M, H:i" }}</time>
+        {% elif item.published_at %}
+            <time datetime="{{ item.published_at|date:'c' }}">{{ item.published_at|date:"j M Y" }}</time>
+        {% else %}
+            {{ item.updated_at|date:"j M" }}
+        {% endif %}
+        {% if kind == "article" and not item.cover %} · <span class="desk-warn">{% trans "no picture" %}</span>{% endif %}
+    </p>
+
+    {% if item.editor_note %}<p class="desk-note">{{ item.editor_note }}</p>{% endif %}
+
+    <form class="desk-actions" method="post" action="{% url 'studio:desk' %}" hx-post="{% url 'studio:desk' %}" hx-target="#desk-board" hx-swap="outerHTML">
+        {% csrf_token %}
+        <input type="hidden" name="pk" value="{{ item.pk }}">
+        <input type="hidden" name="kind" value="{{ kind }}">
+        {% if status == "draft" %}
+            <button class="btn btn-outline btn-xs" name="move" value="review">{% trans "To review" %}</button>
+            <button class="btn btn-primary btn-xs" name="move" value="live">{% trans "Publish" %}</button>
+        {% elif status == "review" %}
+            <button class="btn btn-outline btn-xs" name="move" value="draft">{% trans "Back" %}</button>
+            <button class="btn btn-primary btn-xs" name="move" value="live">{% trans "Publish" %}</button>
+        {% elif status == "scheduled" %}
+            <button class="btn btn-outline btn-xs" name="move" value="draft">{% trans "Cancel" %}</button>
+            <button class="btn btn-primary btn-xs" name="move" value="live">{% trans "Publish now" %}</button>
+        {% else %}
+            <button class="btn btn-outline btn-xs" name="move" value="draft">{% trans "Take down" %}</button>
+        {% endif %}
+
+        {% if status != "published" %}
+        <label class="desk-schedule">
+            <span class="sr-only">{% trans "Goes live" %}</span>
+            <input class="form-input form-input--xs" type="datetime-local" name="when" value="{{ item.scheduled_for|date:'Y-m-d\TH:i' }}">
+            <button class="btn btn-outline btn-xs" name="move" value="schedule">{% trans "Schedule" %}</button>
+        </label>
+        {% endif %}
+    </form>
+</article>

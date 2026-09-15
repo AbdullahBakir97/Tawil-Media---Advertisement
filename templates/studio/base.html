@@ -19,6 +19,10 @@
             {% trans "Themes" %}
         </a>
         <span class="studio-nav-group">{% trans "Content" %}</span>
+        <a href="{% url 'studio:desk' %}" class="{% if request.resolver_match.url_name == 'desk' %}is-active{% endif %}">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="5" height="16" rx="1"/><rect x="10" y="4" width="5" height="11" rx="1"/><rect x="17" y="4" width="4" height="7" rx="1"/></svg>
+            {% trans "Desk" %}
+        </a>
         <a href="{% url 'studio:announcements' %}" class="{% if request.resolver_match.url_name == 'announcements' %}is-active{% endif %}">
             <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg>
             {% trans "Announcements" %}

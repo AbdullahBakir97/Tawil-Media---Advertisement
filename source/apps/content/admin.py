@@ -26,14 +26,26 @@ class MediaAdmin(admin.ModelAdmin):
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ('title', 'author', 'is_published', 'published_at')
+    list_display = ('title', 'author', 'status', 'scheduled_for', 'published_at')
     search_fields = ('title', 'author__email')
-    list_filter = ('is_published', 'categories')
+    list_filter = ('status', 'categories')
+    list_editable = ('status',)
     ordering = ('-published_at',)
+    readonly_fields = ('is_published', 'published_at', 'preview_token')
+    fieldsets = (
+        (None, {'fields': ('title', 'slug', 'content', 'author')}),
+        ('Filing', {'fields': ('categories', 'tags', 'media', 'is_sponsored', 'sponsor_name')}),
+        ('Workflow', {
+            'fields': ('status', 'scheduled_for', 'editor_note', 'is_published', 'published_at', 'preview_token'),
+            'description': 'The status decides whether the article is live; is_published follows it.',
+        }),
+    )
 
 @admin.register(Magazine)
 class MagazineAdmin(admin.ModelAdmin):
-    list_display = ('title', 'is_published', 'published_at')
+    list_display = ('title', 'issue_number', 'status', 'scheduled_for', 'published_at')
     search_fields = ('title',)
-    list_filter = ('is_published',)
+    list_filter = ('status',)
+    list_editable = ('status',)
     ordering = ('-published_at',)
+    readonly_fields = ('is_published', 'published_at', 'preview_token')

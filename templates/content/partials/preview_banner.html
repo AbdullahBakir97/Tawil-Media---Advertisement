@@ -1,0 +1,19 @@
+{% load i18n %}
+{% if is_preview %}
+<div class="preview-banner" role="status">
+    <div class="container preview-banner-inner">
+        <span class="preview-banner-mark" aria-hidden="true">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+        </span>
+        <p>
+            <strong>{% trans "Preview" %}</strong>
+            {% if object.status == "scheduled" and object.scheduled_for %}
+                {% blocktrans with when=object.scheduled_for|date:"j F Y, H:i" %}Not public yet — goes live on {{ when }}.{% endblocktrans %}
+            {% else %}
+                {% trans "Not public yet. Only the desk and anyone with this link can read it." %}
+            {% endif %}
+        </p>
+        {% if request.user.is_staff %}<a class="btn btn-ghost btn-sm" href="{% url 'studio:desk' %}">{% trans "Back to the desk" %}</a>{% endif %}
+    </div>
+</div>
+{% endif %}

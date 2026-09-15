@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.views.generic import DetailView, ListView
 
@@ -31,14 +32,20 @@ class ArticleDetailView(DetailView):
     context_object_name = "article"
 
     def get_queryset(self):
-        queryset = Article.objects.select_related("author").prefetch_related("categories", "tags", "media")
-        if self.request.user.is_staff:
-            return queryset  # editors can preview drafts
-        return queryset.published()
+        """Everything is fetched; `get_object` decides who may see an unpublished
+        piece, so a preview link works for someone without an account."""
+        return Article.objects.select_related("author").prefetch_related("categories", "tags", "media")
+
+    def get_object(self, queryset=None):
+        article = super().get_object(queryset)
+        if not article.can_be_seen_by(self.request):
+            raise Http404
+        return article
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         article = self.object
+        context["is_preview"] = not article.is_published
         context["related_articles"] = (
             Article.objects.published()
             .filter(categories__in=article.categories.all())
@@ -62,4 +69,15 @@ class MagazineDetailView(DetailView):
     context_object_name = "magazine"
 
     def get_queryset(self):
-        return Magazine.objects.published().select_related("cover_image").prefetch_related("articles")
+        return Magazine.objects.select_related("cover_image").prefetch_related("articles")
+
+    def get_object(self, queryset=None):
+        magazine = super().get_object(queryset)
+        if not magazine.can_be_seen_by(self.request):
+            raise Http404
+        return magazine
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["is_preview"] = not self.object.is_published
+        return context

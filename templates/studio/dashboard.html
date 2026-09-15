@@ -28,6 +28,11 @@
         <b>{{ announcements|length }}</b>
         <p>{% trans "The line above the navbar: notices, booked ad lines, live banners." %}</p>
     </a>
+    <a class="studio-card" href="{% url 'studio:desk' %}">
+        <span class="eyebrow eyebrow--sky">{% trans "Desk" %}</span>
+        <b>{{ desk_open }}</b>
+        <p>{% trans "Drafts, pieces in review and everything queued to go live." %}</p>
+    </a>
     <a class="studio-card" href="{% url 'studio:media' %}">
         <span class="eyebrow eyebrow--sky">{% trans "Media" %}</span>
         <b>{{ media_count }}</b>

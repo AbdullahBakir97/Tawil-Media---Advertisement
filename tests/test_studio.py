@@ -101,6 +101,5 @@ class ReaderTests(TestCase):
         self.assertContains(response, "flipbook(")
 
     def test_unpublished_edition_has_no_reader(self):
-        self.magazine.is_published = False
-        self.magazine.save()
+        self.magazine.unpublish()
         self.assertEqual(self.client.get("/magazines/edition-one/read/").status_code, 404)
