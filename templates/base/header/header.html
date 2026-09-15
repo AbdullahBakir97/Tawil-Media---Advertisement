@@ -1,0 +1,40 @@
+{% load static %}
+<header class="site-header{% if show_hero %} site-header--hero{% endif %}">
+    <div class="header-background" aria-hidden="true">
+        <img src="{% static 'img/almadina-background.jpg' %}" alt="">
+    </div>
+
+    <div class="header-nav-row">
+        <div class="container header-nav-inner">
+            <a href="{% url 'home' %}" class="header-brand" aria-label="{{ SITE_NAME }} home">
+                <img src="{% static 'img/tawillogo.png' %}" alt="" class="header-brand-logo">
+                <span class="header-brand-name">{{ SITE_NAME }}</span>
+            </a>
+            {% include "base/header/navigation.html" %}
+            <div class="header-tools">
+                {% include "base/header/search.html" %}
+                {% include "base/header/user-menu.html" %}
+            </div>
+        </div>
+    </div>
+
+    {% if show_hero %}
+    <div class="container header-hero">
+        <div class="header-left glass-panel">
+            <div class="logos-section">
+                <div class="main-logo">{% include "base/header/main-logo.html" %}</div>
+                <div class="secondary-logo-container">{% include "base/header/secondary-logo.html" %}</div>
+            </div>
+            <div class="partners-tree">{% include "base/header/partners-tree.html" %}</div>
+            <div class="company-info">{% include "base/header/company-info.html" %}</div>
+        </div>
+        <div class="header-right">
+            <div class="owner-section">
+                <div class="owner-info">{% include "base/header/owner-info.html" %}</div>
+                <div class="owner-image">{% include "base/header/owner-profile.html" %}</div>
+            </div>
+            <div class="magazine-section">{% include "base/header/magazine-slider.html" %}</div>
+        </div>
+    </div>
+    {% endif %}
+</header>

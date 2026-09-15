@@ -1,21 +1,112 @@
 {% extends "base/base.html" %}
-{% block title %}Sitemap – {{ SITE_NAME }}{% endblock %}
+{% load static %}
+
+{% block title %}Sitemap - Tawil Media{% endblock %}
+
 {% block content %}
-<div class="container max-w-3xl">
-    <h1 class="text-3xl font-bold mb-6">Sitemap</h1>
-    <ul class="grid sm:grid-cols-2 gap-2 list-disc pl-6">
-        <li><a class="hover:underline" href="{% url 'home' %}">Home</a></li>
-        <li><a class="hover:underline" href="{% url 'articles:list' %}">Articles</a></li>
-        <li><a class="hover:underline" href="{% url 'magazines:list' %}">Magazines</a></li>
-        <li><a class="hover:underline" href="{% url 'archives:browse' %}">Archives</a></li>
-        <li><a class="hover:underline" href="{% url 'about' %}">About us</a></li>
-        <li><a class="hover:underline" href="{% url 'contact' %}">Contact</a></li>
-        <li><a class="hover:underline" href="{% url 'advertise' %}">Advertise</a></li>
-        <li><a class="hover:underline" href="{% url 'careers' %}">Careers</a></li>
-        <li><a class="hover:underline" href="{% url 'help' %}">Help</a></li>
-        <li><a class="hover:underline" href="{% url 'privacy' %}">Privacy</a></li>
-        <li><a class="hover:underline" href="{% url 'terms' %}">Terms</a></li>
-        <li><a class="hover:underline" href="{% url 'cookies' %}">Cookies</a></li>
-    </ul>
-</div>
+<section class="sitemap">
+    <div class="sitemap-container">
+        <h1 class="sitemap-title">Sitemap</h1>
+        <p class="sitemap-subtitle">Find your way around Tawil Media</p>
+        
+        <div class="sitemap-grid">
+            <!-- Main Navigation -->
+            <div class="sitemap-section">
+                <h2>Main Navigation</h2>
+                <ul class="sitemap-list">
+                    <li>
+                        <a href="{% url 'home' %}" class="sitemap-link">
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'about' %}" class="sitemap-link">
+                            About Us
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'contact' %}" class="sitemap-link">
+                            Contact
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'advertise' %}" class="sitemap-link">
+                            Advertise
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Content -->
+            <div class="sitemap-section">
+                <h2>Content</h2>
+                <ul class="sitemap-list">
+                    <li>
+                        <a href="{% url 'articles:list' %}" class="sitemap-link">
+                            Articles
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'magazines:list' %}" class="sitemap-link">
+                            Magazines
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'archives:browse' %}" class="sitemap-link">
+                            Archives
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'search' %}" class="sitemap-link">
+                            Search
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Legal -->
+            <div class="sitemap-section">
+                <h2>Legal</h2>
+                <ul class="sitemap-list">
+                    <li>
+                        <a href="{% url 'terms' %}" class="sitemap-link">
+                            Terms of Service
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'privacy' %}" class="sitemap-link">
+                            Privacy Policy
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'cookies' %}" class="sitemap-link">
+                            Cookie Policy
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Support -->
+            <div class="sitemap-section">
+                <h2>Support</h2>
+                <ul class="sitemap-list">
+                    <li>
+                        <a href="{% url 'help' %}" class="sitemap-link">
+                            Help Center
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'careers' %}" class="sitemap-link">
+                            Careers
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/components/sitemap.css' %}">
 {% endblock %}

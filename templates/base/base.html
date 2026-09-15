@@ -77,25 +77,8 @@
         Skip to main content
     </a>
     
-    <!-- Header -->
-    <header class="bg-secondary shadow-sm">
-        <div class="container">
-            <nav class="flex items-center justify-between h-16">
-                <!-- Logo -->
-                <a href="{% url 'home' %}" class="flex items-center space-x-2">
-                    <img src="{% static 'img/logo.svg' %}" alt="Tawil Media Logo" class="h-8 w-auto">
-                    <span class="text-xl font-bold whitespace-nowrap hidden sm:inline">{{ SITE_NAME }}</span>
-                </a>
-                
-                <!-- Main Navigation -->
-                {% include "base/header/navigation.html" %}
-                
-                <!-- User Menu -->
-                {% include "base/header/user-menu.html" %}
-            </nav>
-        </div>
-    </header>
-    
+    {% include "base/header/header.html" with show_hero=show_hero %}
+
     <!-- Main Content -->
     <main id="main-content" class="min-h-screen py-8 bg-primary">
         {% if messages %}
@@ -123,6 +106,7 @@
 
     <!-- Application entry point (imports core, components and analytics modules) -->
     <script type="module" src="{% static 'js/app.js' %}"></script>
+    <script src="{% static 'js/components/nav-animation.js' %}" defer></script>
 
     <!-- Custom Scripts -->
     {% block extra_js %}{% endblock %}

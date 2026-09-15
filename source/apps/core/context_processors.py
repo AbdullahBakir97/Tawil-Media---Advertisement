@@ -3,7 +3,4 @@ from django.conf import settings
 
 def site(request):
     """Expose site-wide values to every template."""
-    return {
-        "SITE_NAME": settings.SITE_NAME,
-        "unread_notifications_count": 0,  # placeholder until notifications exist
-    }
+    return {"SITE_NAME": settings.SITE_NAME, "DIRECTOR": settings.DIRECTOR}

@@ -1,0 +1,18 @@
+<div class="owner-info-container">
+    <h3 class="owner-title">Meet Our Director</h3>
+    <div class="owner-details">
+        <h4 class="owner-name">{{ DIRECTOR.name }}</h4>
+        <p class="owner-position">{{ DIRECTOR.title }}</p>
+        <div class="owner-description">
+            <p>{{ DIRECTOR.bio }}</p>
+        </div>
+    </div>
+    <div class="owner-stats">
+        {% for stat in DIRECTOR.stats %}
+        <div class="stat-item">
+            <span class="stat-number">{{ stat.value }}</span>
+            <span class="stat-label">{{ stat.label }}</span>
+        </div>
+        {% endfor %}
+    </div>
+</div>

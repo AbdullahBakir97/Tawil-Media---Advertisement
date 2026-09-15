@@ -1,0 +1,41 @@
+{% load humanize %}
+<div class="notifications-panel">
+    <div class="flex items-center justify-between p-4 border-b border-primary">
+        <h3 class="text-sm font-semibold">Notifications{% if unread_count %} <span class="ml-1 text-xs text-tertiary">({{ unread_count }} unread)</span>{% endif %}</h3>
+        {% if unread_count %}
+            <button type="button" class="text-xs text-primary-600 hover:underline"
+                    hx-post="{% url 'notifications:mark_all_read' %}" hx-target="closest .notifications-panel" hx-swap="outerHTML">
+                Mark all as read
+            </button>
+        {% endif %}
+    </div>
+    <ul class="divide-y divide-primary max-h-96 overflow-y-auto">
+        {% for notification in notifications %}
+            <li class="p-4 {% if not notification.read %}bg-primary-50 dark:bg-primary-900/20{% endif %}">
+                <div class="flex items-start gap-3">
+                    <span class="mt-1 h-2 w-2 flex-shrink-0 rounded-full {% if notification.notification_type == 'success' %}bg-success{% elif notification.notification_type == 'error' %}bg-error{% elif notification.notification_type == 'warning' %}bg-warning{% else %}bg-primary-500{% endif %}"></span>
+                    <div class="min-w-0 flex-1">
+                        <p class="text-sm font-medium truncate">
+                            {% if notification.link %}<a href="{{ notification.link }}" class="hover:underline">{{ notification.title }}</a>{% else %}{{ notification.title }}{% endif %}
+                        </p>
+                        <p class="text-sm text-secondary mt-0.5">{{ notification.message }}</p>
+                        <p class="text-xs text-tertiary mt-1">{{ notification.created_at|naturaltime }}</p>
+                    </div>
+                    {% if not notification.read %}
+                        <button type="button" class="text-xs text-tertiary hover:text-primary-600" aria-label="Mark as read"
+                                hx-post="{% url 'notifications:mark_read' notification.id %}" hx-target="closest .notifications-panel" hx-swap="outerHTML">
+                            &#10003;
+                        </button>
+                    {% endif %}
+                </div>
+            </li>
+        {% empty %}
+            <li class="p-4 text-center text-sm text-tertiary">You're all caught up.</li>
+        {% endfor %}
+    </ul>
+    {% if notifications %}
+    <div class="p-3 text-center border-t border-primary">
+        <a href="{% url 'notifications:list' %}" class="text-sm text-primary-600 hover:underline">View all notifications</a>
+    </div>
+    {% endif %}
+</div>

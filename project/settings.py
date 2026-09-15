@@ -38,6 +38,38 @@ INTERNAL_IPS = ["127.0.0.1"]
 
 SITE_NAME = "Tawil Media"
 
+# Shown on the contact and advertise pages.
+CONTACT_DETAILS = {
+    "contact_email": os.environ.get("CONTACT_EMAIL", "info@tawilverlag.com"),
+    "contact_phone": os.environ.get("CONTACT_PHONE", "+49 30 000 0000"),
+    "company_address": {
+        "street": os.environ.get("COMPANY_STREET", ""),
+        "postal_code": os.environ.get("COMPANY_POSTAL_CODE", ""),
+        "city": os.environ.get("COMPANY_CITY", "Berlin"),
+        "country": os.environ.get("COMPANY_COUNTRY", "Germany"),
+    },
+}
+# Director block in the home-page header. Set DIRECTOR_PHOTO to a path under static/ (e.g. "img/director.jpg").
+DIRECTOR = {
+    "name": os.environ.get("DIRECTOR_NAME", "Mohamad Tawil"),
+    "title": os.environ.get("DIRECTOR_TITLE", "Founder & Creative Director"),
+    "bio": os.environ.get(
+        "DIRECTOR_BIO",
+        "Leading innovation in media and advertising with over a decade of industry expertise. "
+        "Committed to delivering excellence and creative solutions.",
+    ),
+    "photo": os.environ.get("DIRECTOR_PHOTO", ""),
+    "initials": "MT",
+    "linkedin": os.environ.get("DIRECTOR_LINKEDIN", ""),
+    "twitter": os.environ.get("DIRECTOR_TWITTER", ""),
+    "stats": [
+        {"value": "10+", "label": "Years experience"},
+        {"value": "500+", "label": "Projects"},
+        {"value": "100+", "label": "Happy clients"},
+    ],
+}
+ADVERTISING_STATS = {"monthly_readers": "500K+", "engagement_rate": "85%", "industry_reach": "20+"}
+
 # ---------------------------------------------------------------------------
 # Applications
 # ---------------------------------------------------------------------------
@@ -49,6 +81,7 @@ DJANGO_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.humanize",
 ]
 
 THIRD_PARTY_APPS = [
@@ -64,6 +97,8 @@ LOCAL_APPS = [
     "source.apps.subscriptions",
     "source.apps.payments",
     "source.apps.seo_analytics",
+    "source.apps.newsletter",
+    "source.apps.notifications",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -93,6 +128,8 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "source.apps.core.context_processors.site",
+                "source.apps.notifications.context_processors.notifications",
+                "source.apps.content.context_processors.header_magazines",
             ],
         },
     },
@@ -179,6 +216,9 @@ DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "Tawil Media <noreply@
 # ---------------------------------------------------------------------------
 
 TAGGIT_CASE_INSENSITIVE = True
+
+# Read notifications older than this are removed by `manage.py cleanup_notifications`.
+NOTIFICATION_CLEANUP_DAYS = 30
 
 # ---------------------------------------------------------------------------
 # Security (only enforced outside DEBUG)

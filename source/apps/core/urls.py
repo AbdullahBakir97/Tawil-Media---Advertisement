@@ -9,18 +9,10 @@ search_patterns = (
     "search",
 )
 
-newsletter_patterns = (
-    [
-        path("subscribe/", views.NewsletterSubscribeView.as_view(), name="subscribe"),
-    ],
-    "newsletter",
-)
-
 urlpatterns = [
     path("", views.HomeView.as_view(), name="home"),
     path("search/", views.SearchView.as_view(), name="search"),
     path("search/", include(search_patterns)),
-    path("newsletter/", include(newsletter_patterns)),
     path("sitemap/", views.SitemapView.as_view(), name="sitemap"),
 ]
 

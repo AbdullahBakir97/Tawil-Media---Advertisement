@@ -1,0 +1,46 @@
+{% load static %}
+<div class="magazine-slider-container">
+    <h3 class="slider-title">Latest Editions</h3>
+    {% if header_magazines %}
+    <div class="magazine-carousel" x-data="{ current: 0, count: {{ header_magazines|length }} }">
+        <div class="carousel-items">
+            {% for magazine in header_magazines %}
+            <a href="{% url 'magazines:detail' magazine.slug %}" class="carousel-item" x-show="current === {{ forloop.counter0 }}" x-transition.opacity{% if not forloop.first %} style="display:none"{% endif %}>
+                {% if magazine.cover_image %}
+                    <img src="{{ magazine.cover_image.file.url }}" alt="{{ magazine.title }}" class="magazine-cover" loading="lazy">
+                {% else %}
+                    <img src="{% static 'img/magazine-tawil.png' %}" alt="{{ magazine.title }}" class="magazine-cover" loading="lazy">
+                {% endif %}
+                <div class="magazine-info">
+                    <h4>{{ magazine.title }}</h4>
+                    <p>{{ magazine.published_at|date:"F Y" }}</p>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        {% if header_magazines|length > 1 %}
+        <div class="carousel-controls">
+            <button type="button" @click="current = (current - 1 + count) % count" class="control-btn" aria-label="Previous edition">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+            </button>
+            <div class="carousel-indicators">
+                {% for magazine in header_magazines %}
+                <button type="button" @click="current = {{ forloop.counter0 }}" :class="{ 'active': current === {{ forloop.counter0 }} }" class="indicator" aria-label="Show {{ magazine.title }}"></button>
+                {% endfor %}
+            </div>
+            <button type="button" @click="current = (current + 1) % count" class="control-btn" aria-label="Next edition">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+        </div>
+        {% endif %}
+    </div>
+    {% else %}
+    <a href="{% url 'magazines:list' %}" class="carousel-item">
+        <img src="{% static 'img/magazine-tawil.png' %}" alt="Tawil magazine" class="magazine-cover">
+        <div class="magazine-info">
+            <h4>Our magazines</h4>
+            <p>New editions are published here.</p>
+        </div>
+    </a>
+    {% endif %}
+</div>
