@@ -221,7 +221,12 @@ class ArticleForm(forms.ModelForm):
         self.fields["content"].label = _("Text")
         self.fields["categories"].queryset = Category.objects.all()
         # Only pictures are worth attaching by hand; the first one becomes the cover.
-        self.fields["media"].queryset = Media.objects.filter(media_type="image").order_by("-created_at")[:60]
+        # The limit goes through a subquery: a sliced queryset cannot be filtered
+        # again, and Django filters it to validate the submitted value, so slicing
+        # it directly makes every choice come back as "not a valid value".
+        self.fields["media"].queryset = Media.objects.filter(
+            pk__in=Media.objects.filter(media_type="image").order_by("-created_at").values("pk")[:60]
+        ).order_by("-created_at")
         self.fields["media"].label_from_instance = _picture_label
         self.fields["author"].queryset = get_user_model().objects.filter(is_active=True).order_by("first_name", "email")
         self.fields["author"].empty_label = _("No byline yet")

@@ -188,6 +188,15 @@ class ArticleEditorTests(TestCase):
         article = Article.objects.create(title="Auf dem Desk", content="x")
         self.assertContains(self.client.get("/studio/desk/"), f"/studio/articles/{article.pk}/")
 
+    def test_a_picture_can_actually_be_attached(self):
+        """The picker limits how many pictures it offers; that limit must not
+        make every choice invalid when the form is submitted."""
+        picture = Media.objects.create(alt_text="Ein Bild", media_type="image", file=an_image())
+        self.client.post("/studio/articles/new/", self.form_data(media=[picture.pk]))
+        article = Article.objects.get(title="Die Stadt am Morgen")
+        self.assertEqual(list(article.media.all()), [picture])
+        self.assertEqual(article.cover, picture)
+
     def test_only_pictures_are_offered_as_attachments(self):
         picture = Media.objects.create(alt_text="Ein Bild", media_type="image", file=an_image())
         video = Media.objects.create(alt_text="Ein Video", media_type="video",
