@@ -20,6 +20,7 @@ urlpatterns += i18n_patterns(
     path("", include("source.apps.core.urls")),
     path("accounts/", include("source.apps.users.urls")),
     path("articles/", include("source.apps.content.urls.articles", namespace="articles")),
+    path("authors/", include("source.apps.content.urls.authors", namespace="authors")),
     path("magazines/", include("source.apps.content.urls.magazines", namespace="magazines")),
     path("archives/", include("source.apps.archives.urls", namespace="archives")),
     path("newsletter/", include("source.apps.newsletter.urls", namespace="newsletter")),

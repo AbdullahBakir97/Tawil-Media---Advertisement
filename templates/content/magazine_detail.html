@@ -42,7 +42,7 @@
                         <li>
                             <span class="issue-toc-number tabular">{{ forloop.counter|stringformat:"02d" }}</span>
                             <div class="min-w-0">
-                                {% with category=article.primary_category %}{% if category %}<span class="kicker">{{ category.name }}</span>{% endif %}{% endwith %}
+                                {% with category=article.primary_category %}{% if category %}<span class="kicker">{{ category.label }}</span>{% endif %}{% endwith %}
                                 <a href="{{ article.get_absolute_url }}" class="issue-toc-title">{{ article.title }}</a>
                                 <p class="text-sm text-tertiary">{% if article.author %}{{ article.author.get_full_name|default:article.author.email }} · {% endif %}{% blocktrans with minutes=article.reading_time %}{{ minutes }} min{% endblocktrans %}</p>
                             </div>

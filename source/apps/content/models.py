@@ -8,6 +8,7 @@ from django.utils.translation import gettext_lazy as _
 from taggit.managers import TaggableManager
 
 from source.apps.core.models import TimeStampedModel
+from source.apps.studio.models import localized
 
 from .imaging import measure
 from .managers import ArticleManager, CategoryManager, MagazineManager, MediaManager
@@ -20,12 +21,25 @@ class Category(TimeStampedModel):
     description = models.TextField(blank=True, verbose_name="Category Description")
     is_active = models.BooleanField(default=True, verbose_name="Is Active")
 
+    # The hub reads in the visitor's language; `name` stays the desk's own label
+    # and is used wherever a translation has not been written yet.
+    name_de = models.CharField(max_length=255, blank=True, verbose_name="Name (German)")
+    name_ar = models.CharField(max_length=255, blank=True, verbose_name="Name (Arabic)")
+    name_en = models.CharField(max_length=255, blank=True, verbose_name="Name (English)")
+    intro_de = models.TextField(blank=True, verbose_name="Intro (German)")
+    intro_ar = models.TextField(blank=True, verbose_name="Intro (Arabic)")
+    intro_en = models.TextField(blank=True, verbose_name="Intro (English)")
+    accent = models.CharField(
+        max_length=7, blank=True, verbose_name="Accent colour", help_text="Optional, e.g. #f2b25c. Colours the hub header."
+    )
+    order = models.PositiveIntegerField(default=0, verbose_name="Order")
+
     objects = CategoryManager()
 
     class Meta:
         verbose_name = "Category"
         verbose_name_plural = "Categories"
-        ordering = ["name"]
+        ordering = ["order", "name"]
 
     def __str__(self):
         return self.name
@@ -34,6 +48,18 @@ class Category(TimeStampedModel):
         if not self.slug:
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse("articles:by_category", args=[self.slug])
+
+    @property
+    def label(self):
+        """The name in the visitor's language, or the desk's own label."""
+        return localized(self, "name") or self.name
+
+    @property
+    def intro(self):
+        return localized(self, "intro") or self.description
 
     def get_related_articles(self):
         """Fetch all articles related to this category."""
@@ -142,6 +168,87 @@ class Media(TimeStampedModel):
         return cls.objects.all()
 
 
+class Contributor(TimeStampedModel):
+    """A writer, photographer or columnist, with a page of their own.
+
+    A contributor may or may not have an account: a guest columnist who never
+    logs in still gets a page, and a member of the team is linked to their user
+    so their articles appear automatically.
+    """
+
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="contributor",
+        verbose_name="Account",
+        help_text="Optional. Links the page to the articles this person wrote.",
+    )
+    name = models.CharField(max_length=160, verbose_name="Name")
+    slug = models.SlugField(max_length=160, unique=True, blank=True, verbose_name="Slug")
+    portrait = models.ForeignKey(
+        Media, on_delete=models.SET_NULL, null=True, blank=True, related_name="contributor_portraits", verbose_name="Portrait"
+    )
+
+    role_de = models.CharField(max_length=120, blank=True, verbose_name="Role (German)")
+    role_ar = models.CharField(max_length=120, blank=True, verbose_name="Role (Arabic)")
+    role_en = models.CharField(max_length=120, blank=True, verbose_name="Role (English)")
+    bio_de = models.TextField(blank=True, verbose_name="Bio (German)")
+    bio_ar = models.TextField(blank=True, verbose_name="Bio (Arabic)")
+    bio_en = models.TextField(blank=True, verbose_name="Bio (English)")
+
+    email = models.EmailField(blank=True, verbose_name="Public e-mail")
+    website = models.URLField(blank=True, verbose_name="Website")
+    social_handle = models.CharField(max_length=120, blank=True, verbose_name="Social handle")
+    social_url = models.URLField(blank=True, verbose_name="Social link")
+
+    is_active = models.BooleanField(default=True, verbose_name="Shown on the site")
+    order = models.PositiveIntegerField(default=0, verbose_name="Order")
+
+    class Meta:
+        verbose_name = "Contributor"
+        verbose_name_plural = "Contributors"
+        ordering = ["order", "name"]
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse("authors:detail", args=[self.slug])
+
+    @property
+    def role(self):
+        return localized(self, "role")
+
+    @property
+    def bio(self):
+        return localized(self, "bio")
+
+    @property
+    def initials(self):
+        """Two letters for the fallback avatar when there is no portrait."""
+        parts = [part for part in self.name.split() if part]
+        return "".join(part[0] for part in parts[:2]).upper() or "?"
+
+    def articles(self):
+        """Published articles by this person, newest first. Empty without an
+        account, because that is what links a page to the writing."""
+        if not self.user_id:
+            return Article.objects.none()
+        return (
+            Article.objects.published()
+            .filter(author_id=self.user_id)
+            .select_related("author")
+            .prefetch_related("categories", "media")
+        )
+
+
 class Article(Editorial, TimeStampedModel):
     title = models.CharField(max_length=255, verbose_name="Title")
     slug = models.SlugField(max_length=255, unique=True, verbose_name="Slug")
@@ -197,6 +304,20 @@ class Article(Editorial, TimeStampedModel):
     @property
     def primary_category(self):
         return self.categories.first()
+
+    @property
+    def byline(self):
+        """The author's contributor page, when they have one. Falls back to None
+        so a byline without a page renders as plain text."""
+        return getattr(self.author, "contributor", None) if self.author_id else None
+
+    @property
+    def byline_name(self):
+        if self.byline:
+            return self.byline.name
+        if self.author:
+            return self.author.get_full_name() or self.author.email
+        return ""
 
     def publish(self):
         """Put the article live now."""

@@ -10,11 +10,11 @@ large image-led card, "row" for a horizontal list item). Default is the grid car
         {% if cover %}{% picture cover sizes="(min-width: 64rem) 50vw, 100vw" %}{% else %}<img src="{% static 'img/almadina-background.jpg' %}" alt="" loading="lazy">{% endif %}
     </div>
     <div class="card-body">
-        {% if article.is_sponsored %}<span class="sponsor-tag">{% trans "Advertisement" %}{% if article.sponsor_name %} · {{ article.sponsor_name }}{% endif %}</span>{% elif category %}<a href="{% url 'articles:by_category' category.slug %}" class="kicker">{{ category.name }}</a>{% endif %}
+        {% if article.is_sponsored %}<span class="sponsor-tag">{% trans "Advertisement" %}{% if article.sponsor_name %} · {{ article.sponsor_name }}{% endif %}</span>{% elif category %}<a href="{% url 'articles:by_category' category.slug %}" class="kicker">{{ category.label }}</a>{% endif %}
         <h3 class="card-title"><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h3>
         <p class="card-excerpt line-clamp-2">{{ article.excerpt }}</p>
         <div class="card-footer">
-            <span>{% if article.author %}{{ article.author.get_full_name|default:article.author.email }}{% endif %}</span>
+            <span>{% if article.byline %}<a class="byline-link" href="{{ article.byline.get_absolute_url }}">{{ article.byline.name }}</a>{% else %}{{ article.byline_name }}{% endif %}</span>
             <span>{% blocktrans with minutes=article.reading_time %}{{ minutes }} min read{% endblocktrans %}</span>
         </div>
     </div>
@@ -25,7 +25,7 @@ large image-led card, "row" for a horizontal list item). Default is the grid car
         {% if cover %}{% picture cover sizes="8rem" alt="" %}{% else %}<img src="{% static 'img/pattern.svg' %}" alt="" loading="lazy" class="opacity-40">{% endif %}
     </a>
     <div class="card-body">
-        {% if category %}<span class="kicker">{{ category.name }}</span>{% endif %}
+        {% if category %}<span class="kicker">{{ category.label }}</span>{% endif %}
         <h3 class="card-title text-base"><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h3>
         <div class="card-footer">
             <span>{{ article.published_at|date:"j M Y" }}</span>
@@ -39,11 +39,11 @@ large image-led card, "row" for a horizontal list item). Default is the grid car
         {% if cover %}{% picture cover sizes="(min-width: 64rem) 33vw, (min-width: 40rem) 50vw, 100vw" alt="" %}{% else %}<img src="{% static 'img/pattern.svg' %}" alt="" loading="lazy" class="opacity-40 p-10 object-contain"> {% endif %}
     </a>
     <div class="card-body">
-        {% if category %}<a href="{% url 'articles:by_category' category.slug %}" class="kicker relative z-10">{{ category.name }}</a>{% endif %}
+        {% if category %}<a href="{% url 'articles:by_category' category.slug %}" class="kicker relative z-10">{{ category.label }}</a>{% endif %}
         <h3 class="card-title"><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h3>
         <p class="card-excerpt line-clamp-3">{{ article.excerpt }}</p>
         <div class="card-footer">
-            <span>{% if article.author %}{{ article.author.get_full_name|default:article.author.email }} · {% endif %}{{ article.published_at|date:"j M Y" }}</span>
+            <span>{% if article.byline %}<a class="byline-link" href="{{ article.byline.get_absolute_url }}">{{ article.byline.name }}</a> · {% elif article.byline_name %}{{ article.byline_name }} · {% endif %}{{ article.published_at|date:"j M Y" }}</span>
             <span>{% blocktrans with minutes=article.reading_time %}{{ minutes }} min{% endblocktrans %}</span>
         </div>
     </div>
