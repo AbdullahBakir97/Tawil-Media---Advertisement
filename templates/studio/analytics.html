@@ -1,0 +1,179 @@
+{% extends "studio/base.html" %}
+{% load i18n l10n %}
+{% block studio_title %}{% trans "Readership" %}{% endblock %}
+
+{% block studio_content %}
+<header class="studio-head">
+    <div>
+        <span class="eyebrow">{% trans "Studio" %}</span>
+        <h1>{% trans "Readership" %}</h1>
+        <p class="text-secondary mt-1">{% trans "What is actually being read. Addresses are shortened before they are stored, so this counts networks, never people." %}</p>
+    </div>
+    {# Filters in one row above the charts. #}
+    <div class="range-tabs" role="group" aria-label="{% trans 'Period' %}">
+        {% for option in windows %}
+        <a class="range-tab {% if option == days %}is-active{% endif %}"
+           href="{% url 'studio:analytics' %}?days={{ option }}"
+           {% if option == days %}aria-current="true"{% endif %}>{% blocktrans with n=option %}{{ n }} days{% endblocktrans %}</a>
+        {% endfor %}
+    </div>
+</header>
+
+{% if not recording %}
+<div class="alert alert-warning" role="status"><div class="alert-body">
+    {% trans "Recording is switched off, so these numbers stand still. Set ANALYTICS_ENABLED=1 to start counting again." %}
+</div></div>
+{% endif %}
+
+{# ---------- The headline numbers: tiles, not charts ---------- #}
+<div class="stat-row">
+    <div class="stat-tile">
+        <span class="stat-label">{% trans "Page views" %}</span>
+        <b class="stat-figure">{{ totals.visits }}</b>
+    </div>
+    <div class="stat-tile">
+        <span class="stat-label">{% trans "Networks" %}</span>
+        <b class="stat-figure">{{ totals.networks }}</b>
+    </div>
+    <div class="stat-tile">
+        <span class="stat-label">{% trans "Signed in" %}</span>
+        <b class="stat-figure">{{ totals.readers }}</b>
+    </div>
+    <div class="stat-tile">
+        <span class="stat-label">{% trans "Busiest day" %}</span>
+        <b class="stat-figure stat-figure--sm">{% if busiest and busiest.visits %}{{ busiest.date|date:"j M" }}{% else %}—{% endif %}</b>
+        {% if busiest and busiest.visits %}<span class="stat-note">{% blocktrans count n=busiest.visits %}{{ n }} view{% plural %}{{ n }} views{% endblocktrans %}</span>{% endif %}
+    </div>
+</div>
+
+{# ---------- Trend over time: one series, one hue ---------- #}
+<section class="nl-panel chart-panel">
+    <h2 class="nl-panel-title">{% trans "Page views a day" %}</h2>
+    {% if totals.visits %}
+    <figure class="chart-figure">
+        {% comment %}localize off: the active locale formats 470.48 as "470,48",
+        which is not a number SVG accepts. Scales uniformly too: stretching the box would distort the stroke
+        and turn the dots into ellipses.{% endcomment %}
+        {% localize off %}
+        <svg class="traffic-chart" viewBox="0 0 {{ chart.width }} {{ chart.height }}" role="img"
+             aria-label="{% blocktrans with n=totals.visits %}Page views a day, {{ n }} in total{% endblocktrans %}">
+            <line class="traffic-grid" x1="0" y1="{{ chart.peak_y }}" x2="{{ chart.width }}" y2="{{ chart.peak_y }}"></line>
+            <line class="traffic-grid" x1="0" y1="{{ chart.baseline_y }}" x2="{{ chart.width }}" y2="{{ chart.baseline_y }}"></line>
+            <text class="traffic-tick" x="2" y="{{ chart.peak_y }}" dy="-3">{{ chart.peak }}</text>
+            <text class="traffic-tick" x="2" y="{{ chart.baseline_y }}" dy="10">0</text>
+            <polygon class="traffic-area" points="{{ chart.area }}"></polygon>
+            <polyline class="traffic-line" points="{{ chart.points }}"></polyline>
+            {% for dot in chart.dots %}
+            <g class="traffic-point">
+                <circle class="traffic-hit" cx="{{ dot.x }}" cy="{{ dot.y }}" r="14"></circle>
+                <circle class="traffic-dot" cx="{{ dot.x }}" cy="{{ dot.y }}" r="4"></circle>
+                <title>{{ dot.date|date:"j M Y" }} · {% blocktrans count n=dot.visits %}{{ n }} view{% plural %}{{ n }} views{% endblocktrans %}</title>
+            </g>
+            {% endfor %}
+            {% if chart.peak_dot %}
+            <circle class="traffic-peak-dot" cx="{{ chart.peak_dot.x }}" cy="{{ chart.peak_dot.y }}" r="4"></circle>
+            <text class="traffic-peak-label" x="{{ chart.peak_dot.x }}" y="{{ chart.peak_dot.y }}" dy="-10"
+                  text-anchor="{% if chart.peak_dot.x > 640 %}end{% elif chart.peak_dot.x < 80 %}start{% else %}middle{% endif %}">{{ chart.peak_dot.visits }}</text>
+            {% endif %}
+        </svg>
+        {% endlocalize %}
+        <figcaption class="chart-axis">
+            <span>{{ first_day|date:"j M" }}</span>
+            <span>{{ last_day|date:"j M" }}</span>
+        </figcaption>
+    </figure>
+
+    {# A table view, so nothing here is gated behind reading a picture. #}
+    <details class="chart-table">
+        <summary>{% trans "Show the numbers" %}</summary>
+        <table>
+            <thead><tr><th>{% trans "Day" %}</th><th>{% trans "Page views" %}</th></tr></thead>
+            <tbody>
+                {% for day in series %}<tr><td>{{ day.date|date:"j M Y" }}</td><td>{{ day.visits }}</td></tr>{% endfor %}
+            </tbody>
+        </table>
+    </details>
+    {% else %}
+    <div class="empty-state">
+        <h3>{% trans "Nothing recorded yet" %}</h3>
+        <p>{% trans "Visits appear here as readers arrive. Staff, crawlers and anyone asking not to be tracked are never counted." %}</p>
+    </div>
+    {% endif %}
+</section>
+
+<div class="nl-layout">
+    {# ---------- Magnitude by identity: ranked bars ---------- #}
+    <section class="nl-panel">
+        <h2 class="nl-panel-title">{% trans "Most read" %}</h2>
+        {% if top_pages %}
+        <ol class="rank-list">
+            {% for page in top_pages %}
+            <li class="rank-row">
+                <span class="rank-label" title="{{ page.url }}">{{ page.label }}</span>
+                <span class="rank-track">
+                    <span class="rank-bar" style="width: {% widthratio page.visits top_pages.0.visits 100 %}%"></span>
+                </span>
+                <span class="rank-value">{{ page.visits }}</span>
+            </li>
+            {% endfor %}
+        </ol>
+        {% else %}<p class="text-secondary text-sm">{% trans "No pages read in this period." %}</p>{% endif %}
+    </section>
+
+    <section class="nl-panel">
+        <h2 class="nl-panel-title">{% trans "Where readers came from" %}</h2>
+        {% if referrers %}
+        <ol class="rank-list">
+            {% for site in referrers %}
+            <li class="rank-row">
+                <span class="rank-label">{{ site.label }}</span>
+                <span class="rank-track">
+                    <span class="rank-bar" style="width: {% widthratio site.visits referrers.0.visits 100 %}%"></span>
+                </span>
+                <span class="rank-value">{{ site.visits }}</span>
+            </li>
+            {% endfor %}
+        </ol>
+        {% else %}<p class="text-secondary text-sm">{% trans "Nobody arrived from another site in this period — or referrers were not sent." %}</p>{% endif %}
+    </section>
+</div>
+
+{# ---------- More than a handful of classes: a table ---------- #}
+{% if rankings %}
+<section class="nl-panel">
+    <h2 class="nl-panel-title">{% trans "Search rankings" %}</h2>
+    <table class="studio-table">
+        <thead><tr><th>{% trans "Keyword" %}</th><th>{% trans "Page" %}</th><th>{% trans "Engine" %}</th><th>{% trans "Rank" %}</th><th>{% trans "Checked" %}</th></tr></thead>
+        <tbody>
+            {% for row in rankings %}
+            <tr>
+                <td>{{ row.keyword }}</td>
+                <td class="truncate">{{ row.url }}</td>
+                <td>{{ row.get_search_engine_display }}</td>
+                <td>{{ row.ranking }}</td>
+                <td>{{ row.checked_at|date:"j M Y" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endif %}
+
+{% if page_meta %}
+<section class="nl-panel">
+    <h2 class="nl-panel-title">{% trans "Page metadata" %}</h2>
+    <table class="studio-table">
+        <thead><tr><th>{% trans "Page" %}</th><th>{% trans "Meta title" %}</th><th>{% trans "Indexed" %}</th></tr></thead>
+        <tbody>
+            {% for row in page_meta %}
+            <tr>
+                <td class="truncate">{{ row.url }}</td>
+                <td>{{ row.meta_title }}</td>
+                <td>{% if row.no_index %}{% trans "No" %}{% else %}{% trans "Yes" %}{% endif %}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endif %}
+{% endblock %}

@@ -119,7 +119,15 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # Records one row per page a reader opens. Last, so it only sees responses
+    # every other middleware has already finished with.
+    "source.apps.seo_analytics.middleware.PageVisitMiddleware",
 ]
+
+# Readership recording. Addresses are truncated before they are stored, so a
+# row says "someone on this network", never "this person".
+ANALYTICS_ENABLED = os.environ.get("ANALYTICS_ENABLED", "1") != "0"
+ANALYTICS_RESPECT_DNT = os.environ.get("ANALYTICS_RESPECT_DNT", "1") != "0"
 
 ROOT_URLCONF = "project.urls"
 WSGI_APPLICATION = "project.wsgi.application"
