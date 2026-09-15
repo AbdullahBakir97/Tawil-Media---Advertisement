@@ -1,0 +1,105 @@
+/* The newsletter composer: issues, blocks, preview. */
+
+.nl-counts { display: flex; gap: 0.75rem; }
+.nl-counts > div {
+  display: grid; gap: 0.1rem; place-items: center;
+  min-width: 4rem; padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border-primary); border-radius: var(--radius-lg);
+  background: var(--bg-secondary);
+}
+.nl-counts dt { font-size: 0.58rem; letter-spacing: 0.12em; color: var(--text-tertiary); }
+.nl-counts dd { font-family: var(--font-display); font-size: var(--text-lg); font-weight: 700; color: var(--accent-ink); font-variant-numeric: tabular-nums; }
+
+.nl-layout { display: grid; gap: 1.5rem; align-items: start; }
+@media (min-width: 64rem) { .nl-layout { grid-template-columns: minmax(0, 1fr) 20rem; gap: 2rem; } }
+.nl-issues { display: grid; gap: 0.5rem; }
+.nl-issue {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--border-primary); border-radius: var(--radius-lg);
+  background: var(--bg-secondary); color: inherit;
+  transition: border-color var(--transition-fast) ease;
+}
+.nl-issue:hover { border-color: var(--sky-400); }
+.nl-issue--sent { opacity: 0.75; }
+.nl-issue-lang {
+  flex: 0 0 auto; width: 2.4rem; height: 2.4rem;
+  display: grid; place-items: center; border-radius: var(--radius-md);
+  background: var(--bg-brand); color: var(--gold-400);
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em;
+}
+.nl-issue-body { flex: 1; min-width: 0; display: grid; gap: 0.1rem; }
+.nl-issue-meta { font-size: var(--text-sm); color: var(--text-tertiary); }
+.nl-issue-status { font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-tertiary); }
+.nl-issue--scheduled .nl-issue-status { color: var(--accent-ink); }
+.nl-issue--sent .nl-issue-status { color: #15803d; }
+
+.nl-new, .nl-panel {
+  display: grid; gap: 0.85rem;
+  padding: 1.25rem;
+  border: 1px solid var(--border-primary); border-radius: var(--radius-xl);
+  background: var(--bg-secondary);
+}
+.nl-new-title, .nl-panel-title { font-size: var(--text-base); font-weight: 700; }
+
+.nl-edit { display: grid; gap: 1.5rem; align-items: start; }
+@media (min-width: 72rem) { .nl-edit { grid-template-columns: minmax(0, 1fr) 22rem; gap: 2rem; } }
+.nl-edit-main, .nl-edit-side { display: grid; gap: 1rem; align-content: start; }
+.nl-edit-side { position: sticky; top: calc(var(--header-nav-height, 4.5rem) + 1rem); }
+
+.nl-blocks { display: grid; gap: 0.5rem; margin: 0; padding: 0; list-style: none; counter-reset: block; }
+.nl-block {
+  display: flex; align-items: center; gap: 0.85rem; min-width: 0;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--border-primary); border-radius: var(--radius-lg);
+  background: var(--bg-primary);
+}
+.nl-block.is-empty { border-color: var(--rose-500, #e11d48); background: rgb(225 29 72 / 0.05); }
+.nl-block--lead { border-inline-start: 3px solid var(--gold-400); }
+.nl-block--ad { border-inline-start: 3px solid var(--text-tertiary); }
+.nl-block-kind {
+  flex: 0 0 auto; font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text-tertiary); width: 5rem;
+}
+.nl-block-body { flex: 1; min-width: 0; display: grid; gap: 0.1rem; }
+.nl-block-body strong { overflow-wrap: anywhere; }
+.nl-block-text { font-size: var(--text-sm); color: var(--text-secondary); }
+.nl-block-warn { font-size: 0.7rem; color: var(--rose-500, #e11d48); }
+.nl-block-actions { display: flex; gap: 0.25rem; flex: 0 0 auto; }
+.nl-move {
+  width: 1.75rem; height: 1.75rem; border-radius: var(--radius-md);
+  border: 1px solid var(--border-secondary); background: var(--bg-secondary);
+  color: var(--text-secondary); font-size: 0.85rem; line-height: 1;
+}
+.nl-move:hover:not(:disabled) { border-color: var(--sky-400); color: var(--link); }
+.nl-move:disabled { opacity: 0.3; }
+.nl-move--remove:hover { border-color: var(--rose-500, #e11d48); color: var(--rose-500, #e11d48); }
+
+.nl-picker { display: grid; gap: 1.1rem; }
+.nl-picker-group { display: grid; gap: 0.4rem; }
+.nl-picker-group h3 { font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-tertiary); }
+.nl-picker-group form {
+  display: flex; align-items: center; gap: 0.5rem; min-width: 0;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border-primary); border-radius: var(--radius-md);
+  background: var(--bg-primary);
+}
+.nl-picker-group form.grid { display: grid; }
+.nl-pick-title { flex: 1; min-width: 0; font-size: var(--text-sm); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; unicode-bidi: plaintext; }
+
+/* The mail is 600px wide by design, which is wider than this column. Render it
+   at its real width and scale the whole frame down, so the preview shows the
+   true layout rather than a clipped or reflowed one. */
+.nl-preview-frame {
+  position: relative; overflow: hidden;
+  height: 26rem; width: 100%;
+  border: 1px solid var(--border-primary); border-radius: var(--radius-lg);
+  background: #f4f6f8;
+}
+.nl-preview {
+  position: absolute; inset-block-start: 0; inset-inline-start: 0;
+  width: 600px; height: 54rem; border: 0;
+  transform: scale(0.48); transform-origin: top left;
+}
+[dir="rtl"] .nl-preview { transform-origin: top right; }
+.nl-rule { border: 0; border-top: 1px solid var(--border-primary); margin: 0.25rem 0; }

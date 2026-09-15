@@ -1,0 +1,23 @@
+{% extends "base/base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Unsubscribe" %} – {{ SITE_NAME }}{% endblock %}
+
+{% block content %}
+<section class="container section">
+    <div class="auth-card mx-auto">
+        <span class="eyebrow">{% trans "Newsletter" %}</span>
+        <h1 class="mt-1">{% trans "Leaving the list" %}</h1>
+        {% if subscriber %}
+            <p class="text-secondary mt-3">{% blocktrans with email=subscriber.email %}We will stop sending the newsletter to {{ email }}. You can subscribe again at any time.{% endblocktrans %}</p>
+            <form method="post" class="mt-5">
+                {% csrf_token %}
+                <button class="btn btn-primary" type="submit">{% trans "Yes, unsubscribe me" %}</button>
+                <a class="btn btn-ghost" href="/">{% trans "Keep receiving it" %}</a>
+            </form>
+        {% else %}
+            <p class="text-secondary mt-3">{% trans "Use the unsubscribe link at the bottom of any newsletter and we take you off the list straight away." %}</p>
+            <a class="btn btn-outline mt-5" href="{% url 'contact' %}">{% trans "Or write to us" %}</a>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

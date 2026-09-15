@@ -1,0 +1,179 @@
+{% extends "studio/base.html" %}
+{% load i18n %}
+{% block studio_title %}{{ issue.subject }}{% endblock %}
+
+{% block studio_content %}
+<header class="studio-head">
+    <div>
+        <span class="eyebrow">{% trans "Newsletter" %}</span>
+        <h1>{{ issue.subject }}</h1>
+        <p class="text-secondary mt-1">
+            {{ issue.get_language_display }} ·
+            {% blocktrans count counter=recipients %}{{ counter }} subscriber{% plural %}{{ counter }} subscribers{% endblocktrans %} ·
+            {{ issue.get_status_display }}
+        </p>
+    </div>
+    <a class="btn btn-outline btn-sm" href="{% url 'studio:newsletter' %}">{% trans "All issues" %}</a>
+</header>
+
+{% if issue.is_sent %}
+<div class="alert alert-info" role="status"><div class="alert-body">
+    {% blocktrans with when=issue.sent_at|date:"j F Y, H:i" count=issue.sent_count %}This issue went out on {{ when }} to {{ count }} subscribers and can no longer be changed.{% endblocktrans %}
+</div></div>
+{% endif %}
+
+<div class="nl-edit">
+    <div class="nl-edit-main">
+        <section class="nl-panel">
+            <h2 class="nl-panel-title">{% trans "The letter" %}</h2>
+            <form method="post" action="{% url 'studio:newsletter_edit' issue.pk %}" class="grid gap-3">
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="form-group">
+                    <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.help_text %}<p class="form-hint">{{ field.help_text }}</p>{% endif %}
+                    {% for error in field.errors %}<p class="form-error">{{ error }}</p>{% endfor %}
+                </div>
+                {% endfor %}
+                <div><button class="btn btn-primary btn-sm" type="submit" {% if issue.is_sent %}disabled{% endif %}>{% trans "Save" %}</button></div>
+            </form>
+        </section>
+
+        {% include "studio/partials/newsletter_blocks.html" %}
+
+        {% if not issue.is_sent %}
+        <section class="nl-panel">
+            <h2 class="nl-panel-title">{% trans "Add to the letter" %}</h2>
+            <div class="nl-picker">
+                {% if articles %}
+                <div class="nl-picker-group">
+                    <h3>{% trans "Articles" %}</h3>
+                    {% for article in articles %}
+                    <form method="post" action="{% url 'studio:newsletter_edit' issue.pk %}" hx-post="{% url 'studio:newsletter_edit' issue.pk %}" hx-target="#nl-blocks" hx-swap="outerHTML">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="add-block">
+                        <input type="hidden" name="target" value="{{ article.pk }}">
+                        <span class="nl-pick-title">{{ article.title }}</span>
+                        <button class="btn btn-outline btn-xs" name="kind" value="lead">{% trans "As lead" %}</button>
+                        <button class="btn btn-outline btn-xs" name="kind" value="article">{% trans "Add" %}</button>
+                    </form>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                {% if editions %}
+                <div class="nl-picker-group">
+                    <h3>{% trans "Editions" %}</h3>
+                    {% for edition in editions %}
+                    <form method="post" action="{% url 'studio:newsletter_edit' issue.pk %}" hx-post="{% url 'studio:newsletter_edit' issue.pk %}" hx-target="#nl-blocks" hx-swap="outerHTML">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="add-block">
+                        <input type="hidden" name="target" value="{{ edition.pk }}">
+                        <span class="nl-pick-title">{{ edition.title }}</span>
+                        <button class="btn btn-outline btn-xs" name="kind" value="edition">{% trans "Add" %}</button>
+                    </form>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                {% if events %}
+                <div class="nl-picker-group">
+                    <h3>{% trans "Events" %}</h3>
+                    {% for event in events %}
+                    <form method="post" action="{% url 'studio:newsletter_edit' issue.pk %}" hx-post="{% url 'studio:newsletter_edit' issue.pk %}" hx-target="#nl-blocks" hx-swap="outerHTML">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="add-block">
+                        <input type="hidden" name="target" value="{{ event.pk }}">
+                        <span class="nl-pick-title">{{ event.label }} · {{ event.starts_at|date:"j M" }}</span>
+                        <button class="btn btn-outline btn-xs" name="kind" value="event">{% trans "Add" %}</button>
+                    </form>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                {% if ads %}
+                <div class="nl-picker-group">
+                    <h3>{% trans "Advertisements" %}</h3>
+                    {% for ad in ads %}
+                    <form method="post" action="{% url 'studio:newsletter_edit' issue.pk %}" hx-post="{% url 'studio:newsletter_edit' issue.pk %}" hx-target="#nl-blocks" hx-swap="outerHTML">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="add-block">
+                        <input type="hidden" name="target" value="{{ ad.pk }}">
+                        <span class="nl-pick-title">{{ ad.advertiser|default:ad.key }}</span>
+                        <button class="btn btn-outline btn-xs" name="kind" value="ad">{% trans "Add" %}</button>
+                    </form>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <div class="nl-picker-group">
+                    <h3>{% trans "A note from the desk" %}</h3>
+                    <form method="post" action="{% url 'studio:newsletter_edit' issue.pk %}" class="grid gap-2" hx-post="{% url 'studio:newsletter_edit' issue.pk %}" hx-target="#nl-blocks" hx-swap="outerHTML">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="add-block">
+                        <input type="hidden" name="kind" value="text">
+                        <input class="form-input" type="text" name="heading" placeholder="{% trans 'Heading' %}">
+                        <textarea class="form-textarea" name="body" rows="3" placeholder="{% trans 'Text' %}"></textarea>
+                        <button class="btn btn-outline btn-sm" type="submit">{% trans "Add" %}</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+        {% endif %}
+    </div>
+
+    <aside class="nl-edit-side">
+        <section class="nl-panel">
+            <h2 class="nl-panel-title">{% trans "Preview" %}</h2>
+            <div class="nl-preview-frame">
+                <iframe class="nl-preview" src="{% url 'studio:newsletter_preview' issue.pk %}" title="{% trans 'Newsletter preview' %}" loading="lazy" scrolling="no"></iframe>
+            </div>
+            <a class="link-underline text-sm" href="{% url 'studio:newsletter_preview' issue.pk %}" target="_blank" rel="noopener">{% trans "Open the preview" %}</a>
+        </section>
+
+        {% if not issue.is_sent %}
+        <section class="nl-panel">
+            <h2 class="nl-panel-title">{% trans "Send" %}</h2>
+
+            <form method="post" action="{% url 'studio:newsletter_edit' issue.pk %}" class="grid gap-2">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="test">
+                <label class="form-label" for="nl-test">{% trans "Send a test first" %}</label>
+                <input class="form-input" type="email" id="nl-test" name="email" placeholder="sie@beispiel.de" required>
+                <button class="btn btn-outline btn-sm" type="submit">{% trans "Send the test" %}</button>
+            </form>
+
+            <hr class="nl-rule">
+
+            <form method="post" action="{% url 'studio:newsletter_edit' issue.pk %}" class="grid gap-2">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="schedule">
+                <label class="form-label" for="nl-when">{% trans "Goes out" %}</label>
+                <input class="form-input" type="datetime-local" id="nl-when" name="when" value="{{ issue.scheduled_for|date:'Y-m-d\TH:i' }}">
+                <button class="btn btn-outline btn-sm" type="submit">{% trans "Queue it" %}</button>
+            </form>
+            {% if issue.status == "scheduled" %}
+            <form method="post" action="{% url 'studio:newsletter_edit' issue.pk %}">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="unschedule">
+                <button class="btn btn-ghost btn-sm" type="submit">{% trans "Take it out of the queue" %}</button>
+            </form>
+            {% endif %}
+
+            <hr class="nl-rule">
+
+            <form method="post" action="{% url 'studio:newsletter_edit' issue.pk %}"
+                  onsubmit="return confirm('{% blocktrans count counter=recipients %}Send this letter to {{ counter }} subscriber now? This cannot be undone.{% plural %}Send this letter to {{ counter }} subscribers now? This cannot be undone.{% endblocktrans %}')">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="send">
+                <button class="btn btn-primary btn-block" type="submit" {% if not blocks %}disabled{% endif %}>
+                    {% blocktrans count counter=recipients %}Send to {{ counter }} subscriber{% plural %}Send to {{ counter }} subscribers{% endblocktrans %}
+                </button>
+                {% if not blocks %}<p class="form-hint">{% trans "Add something to the letter first." %}</p>{% endif %}
+            </form>
+        </section>
+        {% endif %}
+    </aside>
+</div>
+{% endblock %}

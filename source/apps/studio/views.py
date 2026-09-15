@@ -18,8 +18,11 @@ from django.views.generic import TemplateView
 from source.apps.content.models import Article, Contributor, Magazine, Media
 from source.apps.content.workflow import BOARD_ORDER, PUBLISHED, SCHEDULED, STATUS_CHOICES
 from source.apps.events.models import Event
+from source.apps.newsletter.composer import render_issue
+from source.apps.newsletter.models import LANGUAGES, Issue, IssueBlock, NewsletterSubscriber
+from source.apps.newsletter.sending import send_issue, send_test
 
-from .forms import AnnouncementForm, HeroForm, MediaDetailsForm, MediaUploadForm, ThemeForm
+from .forms import AnnouncementForm, HeroForm, IssueForm, MediaDetailsForm, MediaUploadForm, ThemeForm
 from .models import FAQ, AdSlot, Announcement, HeroConfig, Milestone, Partner, PressKit, Testimonial, Theme
 from .services import render_magazine_pages
 
@@ -311,6 +314,139 @@ class ReaderView(View):
             "studio/reader.html",
             {"magazine": magazine, "pages": pages, "theme": magazine.theme, "hide_footer": True},
         )
+
+
+class NewsletterListView(StaffOnly, View):
+    """Every issue: what went out, what is queued, what is still being written."""
+
+    def get(self, request):
+        return render(request, "studio/newsletter.html", {
+            "issues": Issue.objects.all()[:40],
+            "form": IssueForm(),
+            "subscriber_counts": {
+                code: NewsletterSubscriber.objects.filter(is_active=True, language=code).count()
+                for code, _label in LANGUAGES
+            },
+        })
+
+    def post(self, request):
+        form = IssueForm(request.POST)
+        if form.is_valid():
+            issue = form.save()
+            return redirect("studio:newsletter_edit", pk=issue.pk)
+        return render(request, "studio/newsletter.html", {"issues": Issue.objects.all()[:40], "form": form})
+
+
+class NewsletterEditView(StaffOnly, View):
+    """Compose one issue: the copy, the blocks, and a preview of the real mail."""
+
+    #: What the desk can drop in, and where each comes from.
+    def _choices(self):
+        return {
+            "articles": Article.objects.published().select_related("author").prefetch_related("media")[:12],
+            "editions": Magazine.objects.published().select_related("cover_image")[:6],
+            "events": Event.objects.upcoming()[:6],
+            "ads": AdSlot.objects.filter(is_active=True)[:6],
+        }
+
+    def _context(self, issue, form=None):
+        return {
+            "issue": issue,
+            "form": form or IssueForm(instance=issue),
+            "blocks": issue.blocks.select_related("article", "edition", "event", "ad_slot"),
+            "recipients": issue.recipients().count(),
+            **self._choices(),
+        }
+
+    def get(self, request, pk):
+        issue = get_object_or_404(Issue, pk=pk)
+        return render(request, "studio/newsletter_edit.html", self._context(issue))
+
+    def post(self, request, pk):
+        issue = get_object_or_404(Issue, pk=pk)
+        action = request.POST.get("action", "save")
+
+        if issue.is_sent and action != "duplicate":
+            messages.error(request, _("This issue has already gone out. Duplicate it to send another."))
+            return redirect("studio:newsletter_edit", pk=issue.pk)
+
+        if action == "add-block":
+            self._add_block(request, issue)
+        elif action == "remove-block":
+            issue.blocks.filter(pk=request.POST.get("block")).delete()
+        elif action == "move-block":
+            self._move_block(request, issue)
+        elif action == "schedule":
+            when = parse_datetime(request.POST.get("when", "") or "")
+            if when is None:
+                messages.error(request, _("That date could not be read."))
+            else:
+                if timezone.is_naive(when):
+                    when = timezone.make_aware(when)
+                issue.scheduled_for, issue.status = when, Issue.SCHEDULED
+                issue.save(update_fields=["scheduled_for", "status", "updated_at"])
+                messages.success(request, _("Queued to go out."))
+        elif action == "unschedule":
+            issue.status, issue.scheduled_for = Issue.DRAFT, None
+            issue.save(update_fields=["status", "scheduled_for", "updated_at"])
+        elif action == "test":
+            address = request.POST.get("email", "").strip()
+            if address:
+                send_test(issue, address)
+                messages.success(request, _("Test sent to %(email)s.") % {"email": address})
+        elif action == "send":
+            sent = send_issue(issue)
+            messages.success(request, _("Sent to %(count)d subscribers.") % {"count": sent})
+            return redirect("studio:newsletter")
+        else:
+            form = IssueForm(request.POST, instance=issue)
+            if form.is_valid():
+                issue = form.save()
+                messages.success(request, _("Issue saved."))
+            else:
+                return render(request, "studio/newsletter_edit.html", self._context(issue, form))
+
+        if request.headers.get("HX-Request"):
+            return render(request, "studio/partials/newsletter_blocks.html", self._context(issue))
+        return redirect("studio:newsletter_edit", pk=issue.pk)
+
+    def _add_block(self, request, issue):
+        kind = request.POST.get("kind", IssueBlock.ARTICLE)
+        target = request.POST.get("target")
+        block = IssueBlock(issue=issue, kind=kind, order=issue.blocks.count())
+        if kind in (IssueBlock.ARTICLE, IssueBlock.LEAD):
+            block.article_id = target
+        elif kind == IssueBlock.EDITION:
+            block.edition_id = target
+        elif kind == IssueBlock.EVENT:
+            block.event_id = target
+        elif kind == IssueBlock.AD:
+            block.ad_slot_id = target
+        elif kind == IssueBlock.TEXT:
+            block.heading = request.POST.get("heading", "")
+            block.body = request.POST.get("body", "")
+        block.save()
+
+    def _move_block(self, request, issue):
+        """Swap a block with its neighbour, which is all reordering needs."""
+        blocks = list(issue.blocks.all())
+        index = next((i for i, block in enumerate(blocks) if str(block.pk) == request.POST.get("block")), None)
+        if index is None:
+            return
+        target = index - 1 if request.POST.get("direction") == "up" else index + 1
+        if not 0 <= target < len(blocks):
+            return
+        blocks[index].order, blocks[target].order = target, index
+        IssueBlock.objects.bulk_update([blocks[index], blocks[target]], ["order"])
+
+
+@method_decorator(xframe_options_sameorigin, name="dispatch")
+class NewsletterPreviewView(StaffOnly, View):
+    """The issue as the e-mail really renders, framed by the composer."""
+
+    def get(self, request, pk):
+        issue = get_object_or_404(Issue, pk=pk)
+        return HttpResponse(render_issue(issue))
 
 
 class PressView(TemplateView):
