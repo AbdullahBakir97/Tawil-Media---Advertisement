@@ -1,0 +1,100 @@
+{% load static i18n %}
+<section class="atlas-section" id="heroes">
+  <h2>Home hero · five proposals</h2>
+  <p class="atlas-intro">Each block below is a working hero built with the system's own tokens, fonts and motion, at real size. Hover, resize, switch to Arabic and to dark mode before choosing. Any of them can be combined: for example, A's cover with D's masthead, or B's book with E's glass card.</p>
+
+  {% with cover=atlas_magazines.0 %}
+
+  {# ---------- A · Cover story ---------- #}
+  <h3 class="atlas-sub">A · Cover story <code>full-bleed cover, Ken Burns drift, headline words rise, story ticker</code></h3>
+  <p class="text-sm text-secondary mb-4 max-w-measure">Strongest magazine identity. The latest edition's photography fills the viewport; the headline is the lead story. Best when every edition has a strong cover image.</p>
+  <div class="hero-demo hero-a" data-hero>
+    <span class="hero-demo-label">Option <b>A</b> · Cover story</span>
+    <div class="hero-a-bg" data-hero-bg></div>
+    <div class="hero-a-body">
+      <span class="eyebrow" style="color:var(--gold-400)" data-hero-item>Almadina · Edition 47 · out now</span>
+      <h2 class="hero-a-title" data-hero-item>Berlin's Arab voices, <em>in print</em> and on screen</h2>
+      <p class="lead text-white/80" data-hero-item>Germany's first Arabic magazine, twenty years on: culture, business and community for half a million readers.</p>
+      <div class="btn-group" data-hero-item><a class="btn btn-brand btn-lg" href="#heroes">Read the edition</a><a class="btn btn-ghost btn-lg" href="#heroes">Advertise with us</a></div>
+    </div>
+    <div class="hero-a-ticker"><span>Culture · The Neukölln bookshop keeping Arabic poetry alive</span><span>Business · Twelve Syrian founders, one shared kitchen</span><span>Politics · What the new citizenship law means for you</span></div>
+  </div>
+
+  {# ---------- B · Split editorial ---------- #}
+  <h3 class="atlas-sub">B · Split editorial <code>headline and stats beside a 3D cover that follows the pointer</code></h3>
+  <p class="text-sm text-secondary mb-4 max-w-measure">Balanced: brand message and the physical magazine side by side. The book tilts toward the cursor and carries an "out now" badge. Works even when a cover image is plain.</p>
+  <div class="hero-demo hero-b" data-hero
+       x-data="{ rx: 6, ry: -18, move(e) { const r = $el.getBoundingClientRect(); this.ry = ((e.clientX - r.left) / r.width - 0.5) * 36; this.rx = (0.5 - (e.clientY - r.top) / r.height) * 20; }, reset() { this.rx = 6; this.ry = -18; } }"
+       @mousemove="move" @mouseleave="reset">
+    <span class="hero-demo-label">Option <b>B</b> · Split editorial</span>
+    <div>
+      <span class="eyebrow" style="color:var(--gold-400)" data-hero-item>Tawil Media · Berlin</span>
+      <h2 class="hero-b-title mt-3" data-hero-item>The magazine of the Arab community in Germany</h2>
+      <p class="lead text-on-brand-muted mt-4" data-hero-item>Stories, editions and advertising that reach half a million readers in print, online and on social.</p>
+      <div class="btn-group mt-6" data-hero-item><a class="btn btn-brand btn-lg" href="#heroes">Latest edition</a><a class="btn btn-outline btn-lg" href="#heroes">Media kit</a></div>
+      <div class="hero-b-stats" data-hero-item><div><b>500K+</b><span>Readers</span></div><div><b>47</b><span>Editions</span></div><div><b>20</b><span>Years</span></div></div>
+    </div>
+    <div class="hero-b-scene" data-hero-item>
+      <div class="hero-b-book" :style="`transform: rotateY(${ry}deg) rotateX(${rx}deg)`"><span class="hero-b-badge">Out now</span></div>
+    </div>
+  </div>
+
+  {# ---------- C · Newsstand ---------- #}
+  <h3 class="atlas-sub">C · Newsstand <code>three covers fanned under a centred headline; the fan opens on hover</code></h3>
+  <p class="text-sm text-secondary mb-4 max-w-measure">Light and warm, shows the archive depth at a glance. Covers link to their editions. Good if the brand should feel like a publisher rather than a news site.</p>
+  <div class="hero-demo hero-c" data-hero>
+    <span class="hero-demo-label">Option <b>C</b> · Newsstand</span>
+    <span class="eyebrow" data-hero-item>Twenty years · forty-seven editions</span>
+    <h2 class="hero-c-title" data-hero-item>Germany's first Arabic magazine, and the stories behind it</h2>
+    <div class="hero-c-rule" data-hero-item></div>
+    <div class="btn-group justify-center" data-hero-item><a class="btn btn-primary btn-lg" href="#heroes">Browse editions</a><a class="btn btn-link btn-lg" href="#heroes">Read the latest stories →</a></div>
+    <div class="hero-c-fan" data-hero-item>
+      <a class="hero-c-cover" href="#heroes" aria-label="Edition 45"></a>
+      <a class="hero-c-cover" href="#heroes" aria-label="Edition 47"></a>
+      <a class="hero-c-cover" href="#heroes" aria-label="Edition 46"></a>
+    </div>
+  </div>
+
+  {# ---------- D · Broadsheet ---------- #}
+  <h3 class="atlas-sub">D · Broadsheet <code>typographic masthead, dateline, three-column front page, category marquee</code></h3>
+  <p class="text-sm text-secondary mb-4 max-w-measure">No hero image at all: the type is the image. Feels like a serious newspaper front page and works with any content. Best for an editorial-first identity; least suited to promotion.</p>
+  <div class="hero-demo hero-d" data-hero>
+    <span class="hero-demo-label" style="inset-inline-start:auto;inset-inline-end:1rem">Option <b>D</b> · Broadsheet</span>
+    <div class="hero-d-masthead" data-hero-item><span>Berlin · Tuesday 15 September 2026</span><strong>Almadina</strong><span>Edition 47 · Autumn</span></div>
+    <h2 class="hero-d-title" data-hero-item>Half a million readers. One magazine.</h2>
+    <div class="hero-d-marquee" data-hero-item><span>Politics · Culture · Business · Berlin · Community · Diaspora · Opinion · Archive · Politics · Culture · Business · Berlin · Community · Diaspora · Opinion · Archive ·</span></div>
+    <div class="hero-d-cols" data-hero-item>
+      <div><span class="kicker">Culture</span><h3>The Neukölln bookshop keeping Arabic poetry alive</h3><p>How a family-run shop on Sonnenallee became a meeting point for three generations of readers.</p></div>
+      <div><span class="kicker">Business</span><h3>Twelve Syrian founders, one shared kitchen</h3><p>Inside the Kreuzberg co-working kitchen where a dozen food start-ups share ovens and orders.</p></div>
+      <div><span class="kicker">Politics</span><h3>What the new citizenship law means for you</h3><p>Dual nationality, shorter waits, new tests: the changes explained.</p></div>
+    </div>
+  </div>
+
+  {# ---------- E · Cinematic ---------- #}
+  <h3 class="atlas-sub">E · Cinematic <code>slow-zoom imagery, grain, glass card, scroll cue</code></h3>
+  <p class="text-sm text-secondary mb-4 max-w-measure">The most atmospheric. Photography or a short looping video behind a frosted card. Best for the brand story and the advertising pitch; needs strong imagery to work.</p>
+  <div class="hero-demo hero-e" data-hero>
+    <span class="hero-demo-label">Option <b>E</b> · Cinematic</span>
+    <div class="hero-e-bg" data-hero-bg></div>
+    <div class="hero-e-glass">
+      <span class="eyebrow" style="color:var(--gold-400)" data-hero-item>Tawil Media · since 2006</span>
+      <h2 class="hero-e-title" data-hero-item>Media that speaks the community's language</h2>
+      <p class="lead text-white/75" data-hero-item>Print, digital and advertising for Arabic-speaking Germany since 2006.</p>
+      <div class="btn-group justify-center" data-hero-item><a class="btn btn-brand btn-lg" href="#heroes">Our story</a><a class="btn btn-ghost btn-lg" href="#heroes">Advertise</a></div>
+    </div>
+    <span class="hero-e-cue" aria-hidden="true"></span>
+  </div>
+
+  {% endwith %}
+
+  <div class="panel mt-10 grid gap-3">
+    <span class="eyebrow">How to choose</span>
+    <div class="grid gap-4 md:grid-cols-5 text-sm">
+      <div><strong>A</strong><p class="text-secondary">Needs a strong cover photo each edition. Most "magazine".</p></div>
+      <div><strong>B</strong><p class="text-secondary">Safest all-rounder; brand and product together.</p></div>
+      <div><strong>C</strong><p class="text-secondary">Warm publisher feel; shows depth of archive.</p></div>
+      <div><strong>D</strong><p class="text-secondary">Editorial authority; no imagery needed.</p></div>
+      <div><strong>E</strong><p class="text-secondary">Atmosphere and pitch; needs great imagery or video.</p></div>
+    </div>
+  </div>
+</section>

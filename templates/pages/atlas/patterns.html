@@ -1,0 +1,74 @@
+{% load static i18n %}
+{# ---------- Sections and bands ---------- #}
+<section class="atlas-section" id="sections">
+  <h2>Sections and bands</h2>
+  <p class="atlas-intro">Page-level building blocks. Section heads pair an eyebrow, a headline and an action. The brand band and the CTA band are the two navy moments per page.</p>
+
+  <div class="demo demo--page grid gap-8">
+    <header class="page-header" style="padding-block:0"><span class="eyebrow">page-header</span><h1>Twenty years of editions</h1><p class="text-secondary">Every digitised issue, year by year.</p></header>
+    <div class="section-head" style="margin:0"><div><span class="eyebrow">section-head</span><h2>Latest stories</h2></div><a class="btn btn-outline btn-sm" href="#sections">All articles</a></div>
+    <div class="filter-bar" style="margin:0"><span class="filter-chip is-active">All</span><span class="filter-chip">Politics</span><span class="filter-chip">Culture</span><span class="filter-chip">Business</span></div>
+  </div>
+
+  <div class="section section--brand rounded-2xl mt-6" style="padding:2.5rem">
+    <div class="section-head section-head--on-brand"><div><span class="eyebrow" style="color:var(--gold-400)">section--brand</span><h2 class="text-on-brand">Print, digital and advertising for a community of half a million readers</h2></div></div>
+    <div class="grid gap-4 md:grid-cols-3">
+      <div class="feature-tile"><span class="feature-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg></span><h3>feature-tile</h3><p>Germany's first Arabic magazine: culture, business and community.</p><a class="feature-link" href="#sections">See editions →</a></div>
+      <div class="feature-tile"><span class="feature-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/></svg></span><h3>Advertising</h3><p>Reach Arabic-speaking readers across Germany in print, digital and social.</p><a class="feature-link" href="#sections">See media kit →</a></div>
+      <div class="feature-tile"><span class="feature-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/></svg></span><h3>Archive</h3><p>Twenty years of editions, digitised and searchable.</p><a class="feature-link" href="#sections">Open archive →</a></div>
+    </div>
+    <div class="grid grid-cols-3 gap-6 mt-8 max-w-xl">
+      <div class="stat-tile stat-tile--on-brand"><div class="stat-value">500K+</div><div class="stat-label">stat-tile--on-brand</div></div>
+      <div class="stat-tile stat-tile--on-brand"><div class="stat-value">47</div><div class="stat-label">Print editions</div></div>
+      <div class="stat-tile stat-tile--on-brand"><div class="stat-value">20</div><div class="stat-label">Years of archive</div></div>
+    </div>
+  </div>
+
+  <div class="cta-band mt-6">
+    <div><span class="eyebrow" style="color:var(--gold-400)">cta-band</span><h2 class="text-on-brand mt-1">Put your brand in front of the community.</h2><p class="text-on-brand-muted mt-1">Print placements, digital campaigns and sponsored stories, planned with our editorial team.</p></div>
+    <div class="btn-group"><a class="btn btn-brand" href="#sections">Request media kit</a><a class="btn btn-ghost" href="#sections">Talk to us</a></div>
+  </div>
+
+  <h3 class="atlas-sub">Footer <code>site-footer</code></h3>
+  <div class="site-footer rounded-2xl overflow-hidden" style="margin:0">
+    <div class="footer-grid" style="padding:2.5rem">
+      <div class="footer-brand"><img src="{% static 'img/Tawil-logo-02-300x95.png' %}" alt="" style="height:2rem;background:#fff;padding:0.25rem;border-radius:0.25rem"><p class="mt-3 text-sm text-on-brand-muted">Professional media and advertising platform for Arabic-speaking communities in Germany and beyond.</p></div>
+      <div><h4 class="footer-heading">Company</h4><ul class="footer-links"><li><a href="#sections">About</a></li><li><a href="#sections">Contact</a></li><li><a href="#sections">Careers</a></li></ul></div>
+      <div><h4 class="footer-heading">Read</h4><ul class="footer-links"><li><a href="#sections">Articles</a></li><li><a href="#sections">Magazines</a></li><li><a href="#sections">Archive</a></li></ul></div>
+      <div><h4 class="footer-heading">Newsletter</h4><div class="flex gap-2 mt-2"><input class="form-input form-input--on-brand" placeholder="you@example.com" aria-label="E-mail"><button class="btn btn-brand">Subscribe</button></div></div>
+    </div>
+  </div>
+</section>
+
+{# ---------- Editorial blocks ---------- #}
+<section class="atlas-section" id="editorial">
+  <h2>Editorial blocks</h2>
+  <p class="atlas-intro">Pieces of the article and edition pages: the article header, body typography with drop cap, share rail, issue table of contents, year tile and the cover frame.</p>
+
+  <div class="demo demo--page grid gap-8">
+    <header class="article-header" style="margin:0"><span class="badge badge-sky">Culture</span><h1 class="article-title mt-3">The Neukölln bookshop keeping Arabic poetry alive</h1><p class="dek">How a family-run shop on Sonnenallee became a meeting point for three generations of readers.</p><p class="article-byline"><span class="avatar avatar-sm">RH</span> <strong>Rania Haddad</strong> · 14 September 2026 · 6 min read</p></header>
+    <div class="grid gap-8 lg:grid-cols-[1fr_16rem]">
+      <div class="article-body"><p>On a grey Tuesday the shop is full. A student from Damascus reads Darwish aloud to a pensioner from Aleppo, and the owner refills the tea without being asked. Half of these titles are out of print everywhere else in Europe, and the shelves are arranged by city rather than by author.</p><blockquote class="pull-quote">“People come for a book and stay for the argument.”</blockquote><p>The shop opened in 2004 with a single shelf at the back of a grocery. Today it stocks four thousand titles.</p></div>
+      <aside class="article-aside grid gap-6 content-start">
+        <div><span class="eyebrow">Share</span><div class="flex gap-2 mt-2"><button class="icon-btn" aria-label="X">𝕏</button><button class="icon-btn" aria-label="Facebook">f</button><button class="icon-btn" aria-label="WhatsApp">w</button><button class="icon-btn" aria-label="Copy link">⧉</button></div></div>
+        <div><span class="eyebrow">Topics</span><div class="tag-list mt-2"><a class="tag" href="#editorial">#berlin</a><a class="tag" href="#editorial">#community</a></div></div>
+      </aside>
+    </div>
+  </div>
+
+  <div class="grid gap-6 lg:grid-cols-[18rem_1fr] mt-6">
+    <div class="magazine-cover-frame"><img src="{% static 'img/magazine-tawil.png' %}" alt="" class="rounded-lg"></div>
+    <ol class="issue-toc">
+      <li><span class="issue-toc-number">01</span><div><span class="kicker">Culture</span><a class="issue-toc-title" href="#editorial">The Neukölln bookshop keeping Arabic poetry alive</a><p class="meta">Rania Haddad · 6 min</p></div></li>
+      <li><span class="issue-toc-number">02</span><div><span class="kicker">Business</span><a class="issue-toc-title" href="#editorial">Twelve Syrian founders, one shared kitchen</a><p class="meta">Omar Khalil · 8 min</p></div></li>
+      <li><span class="issue-toc-number">03</span><div><span class="kicker">Politics</span><a class="issue-toc-title" href="#editorial">What the new citizenship law means for you</a><p class="meta">Editorial · 4 min</p></div></li>
+    </ol>
+  </div>
+
+  <div class="grid gap-4 grid-cols-2 md:grid-cols-4 mt-6">
+    <a class="year-tile" href="#editorial"><span class="year-tile-year">2026</span><span class="year-tile-meta">4 editions</span></a>
+    <a class="year-tile" href="#editorial"><span class="year-tile-year">2025</span><span class="year-tile-meta">4 editions</span></a>
+    <a class="year-tile" href="#editorial"><span class="year-tile-year">2024</span><span class="year-tile-meta">3 editions</span></a>
+    <a class="year-tile" href="#editorial"><span class="year-tile-year">2006</span><span class="year-tile-meta">First year</span></a>
+  </div>
+</section>

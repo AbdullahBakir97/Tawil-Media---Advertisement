@@ -1,0 +1,44 @@
+{% load i18n %}
+<section class="atlas-section" id="map">
+  <h2>Site map</h2>
+  <p class="atlas-intro">Every route the project serves today. <span class="atlas-status atlas-status--done">Done</span> pages are built on the design system; <span class="atlas-status atlas-status--placeholder">Placeholder</span> pages render but still carry sample copy; <span class="atlas-status atlas-status--planned">Planned</span> pages are listed in the roadmap below.</p>
+
+  <h3 class="atlas-sub">Public</h3>
+  <div class="atlas-map">
+    <a class="atlas-map-tile" href="{% url 'home' %}"><span class="atlas-status atlas-status--done">Done</span><strong>Home</strong><code>/</code><p>Hero, latest stories, what we do, editions, categories, advertising CTA.</p></a>
+    <a class="atlas-map-tile" href="{% url 'articles:list' %}"><span class="atlas-status atlas-status--done">Done</span><strong>Articles</strong><code>/articles/</code><p>Feature + rows + grid, category filter, elided pagination.</p></a>
+    <a class="atlas-map-tile" href="{% url 'articles:list' %}"><span class="atlas-status atlas-status--done">Done</span><strong>Article</strong><code>/articles/&lt;slug&gt;/</code><p>Drop cap body, share rail, topics, newsletter panel, related.</p></a>
+    <a class="atlas-map-tile" href="{% url 'magazines:list' %}"><span class="atlas-status atlas-status--done">Done</span><strong>Magazines</strong><code>/magazines/</code><p>Cover grid of every published edition.</p></a>
+    <a class="atlas-map-tile" href="{% url 'magazines:list' %}"><span class="atlas-status atlas-status--done">Done</span><strong>Edition</strong><code>/magazines/&lt;slug&gt;/</code><p>Cover frame, meta, table of contents.</p></a>
+    <a class="atlas-map-tile" href="{% url 'archives:browse' %}"><span class="atlas-status atlas-status--done">Done</span><strong>Archive</strong><code>/archives/ · /&lt;year&gt;/ · /edition/&lt;slug&gt;/</code><p>Year tiles, year page, edition detail, empty states.</p></a>
+    <a class="atlas-map-tile" href="{% url 'search' %}?q=berlin"><span class="atlas-status atlas-status--done">Done</span><strong>Search</strong><code>/search/?q=</code><p>Results list with live suggestions endpoint.</p></a>
+    <a class="atlas-map-tile" href="{% url 'sitemap' %}"><span class="atlas-status atlas-status--placeholder">Placeholder</span><strong>Sitemap</strong><code>/sitemap/</code><p>Plain list of links.</p></a>
+  </div>
+
+  <h3 class="atlas-sub">Company</h3>
+  <div class="atlas-map">
+    <a class="atlas-map-tile" href="{% url 'about' %}"><span class="atlas-status atlas-status--placeholder">Placeholder</span><strong>About</strong><code>/about/</code><p>Sample copy; needs story, team, timeline, partners.</p></a>
+    <a class="atlas-map-tile" href="{% url 'advertise' %}"><span class="atlas-status atlas-status--placeholder">Placeholder</span><strong>Advertise</strong><code>/advertise/</code><p>Needs rate cards, formats, audience, media kit, quote form.</p></a>
+    <a class="atlas-map-tile" href="{% url 'contact' %}"><span class="atlas-status atlas-status--placeholder">Placeholder</span><strong>Contact</strong><code>/contact/</code><p>Form, office details, map.</p></a>
+    <a class="atlas-map-tile" href="{% url 'careers' %}"><span class="atlas-status atlas-status--placeholder">Placeholder</span><strong>Careers</strong><code>/careers/</code><p>Open roles, culture.</p></a>
+    <a class="atlas-map-tile" href="{% url 'help' %}"><span class="atlas-status atlas-status--placeholder">Placeholder</span><strong>Help</strong><code>/help/</code><p>FAQ accordion, contact fallback.</p></a>
+    <a class="atlas-map-tile" href="{% url 'privacy' %}"><span class="atlas-status atlas-status--placeholder">Placeholder</span><strong>Privacy · Terms · Cookies</strong><code>/privacy/ · /terms/ · /cookies/</code><p>Legal pages, need real text and a legal layout with side TOC.</p></a>
+  </div>
+
+  <h3 class="atlas-sub">Account</h3>
+  <div class="atlas-map">
+    <a class="atlas-map-tile" href="{% url 'login' %}"><span class="atlas-status atlas-status--done">Done</span><strong>Sign in</strong><code>/accounts/login/</code><p>Auth shell, HTMX submit, show-password.</p></a>
+    <a class="atlas-map-tile" href="{% url 'register' %}"><span class="atlas-status atlas-status--done">Done</span><strong>Register</strong><code>/accounts/register/</code><p>Two-column names, inline validation.</p></a>
+    <a class="atlas-map-tile" href="{% url 'password_reset' %}"><span class="atlas-status atlas-status--done">Done</span><strong>Password reset · change</strong><code>/accounts/password/…</code><p>Request link, choose new password.</p></a>
+    <a class="atlas-map-tile" href="{% url 'profile' %}"><span class="atlas-status atlas-status--done">Done</span><strong>Dashboard</strong><code>/accounts/profile/</code><p>Greeting, stat tiles, profile summary, newsletter.</p></a>
+    <a class="atlas-map-tile" href="{% url 'settings' %}"><span class="atlas-status atlas-status--done">Done</span><strong>Settings</strong><code>/accounts/settings/</code><p>Profile, password, notifications tabs.</p></a>
+    <a class="atlas-map-tile" href="{% url 'notifications:list' %}"><span class="atlas-status atlas-status--done">Done</span><strong>Notifications</strong><code>/notifications/</code><p>List and header dropdown.</p></a>
+  </div>
+
+  <h3 class="atlas-sub">System</h3>
+  <div class="atlas-map">
+    <a class="atlas-map-tile" href="/this-page-does-not-exist/"><span class="atlas-status atlas-status--done">Done</span><strong>404 · 500</strong><code>errors/</code><p>Branded error pages with search and home links.</p></a>
+    <a class="atlas-map-tile" href="{% url 'styleguide' %}"><span class="atlas-status atlas-status--done">Done</span><strong>Atlas</strong><code>/design/</code><p>This page. Staff only in production.</p></a>
+    <a class="atlas-map-tile" href="/admin/"><span class="atlas-status atlas-status--placeholder">Placeholder</span><strong>Admin</strong><code>/admin/</code><p>Default Django admin; a branded theme is on the roadmap.</p></a>
+  </div>
+</section>

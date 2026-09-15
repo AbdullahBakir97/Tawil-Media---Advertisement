@@ -16,3 +16,9 @@ def times(count):
         return range(int(count))
     except (TypeError, ValueError):
         return range(0)
+
+
+@register.filter
+def split(value, sep=" "):
+    """``{% for s in "a b c"|split %}`` – split a string into a list."""
+    return str(value).split(sep)

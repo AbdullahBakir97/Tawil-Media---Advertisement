@@ -1,0 +1,54 @@
+{% extends "base/base.html" %}
+{% load static i18n %}
+{% block title %}Atlas – {{ SITE_NAME }}{% endblock %}
+
+{% block content %}
+<div class="container"
+     x-data="{ active: 'map', sections: [], init() {
+        this.sections = [...document.querySelectorAll('.atlas-section[id]')];
+        const io = new IntersectionObserver(entries => {
+          entries.forEach(e => { if (e.isIntersecting) this.active = e.target.id; });
+        }, { rootMargin: '-20% 0px -70% 0px' });
+        this.sections.forEach(s => io.observe(s));
+     } }">
+  <header class="page-header" data-hero>
+    <span class="eyebrow" data-hero-item>{{ SITE_NAME }} · Atlas</span>
+    <h1 data-hero-item>Everything in the project, on one page</h1>
+    <p class="lead max-w-measure" data-hero-item>The site map, every colour and type token, every component and pattern, the motion presets, and five live proposals for the home hero. Switch the language in the header to check Arabic and right-to-left, toggle the theme for dark mode. Nothing here is a mock-up: every element is the real CSS the site ships.</p>
+  </header>
+
+  <div class="atlas">
+    <nav class="atlas-nav" aria-label="Atlas sections">
+      <span class="atlas-nav-group">Map</span>
+      <a href="#map" :class="{ 'is-active': active === 'map' }">Site map</a>
+      <a href="#roadmap" :class="{ 'is-active': active === 'roadmap' }">Roadmap</a>
+      <span class="atlas-nav-group">Foundations</span>
+      <a href="#colour" :class="{ 'is-active': active === 'colour' }">Colour</a>
+      <a href="#type" :class="{ 'is-active': active === 'type' }">Typography</a>
+      <a href="#space" :class="{ 'is-active': active === 'space' }">Space, radius, shadow</a>
+      <a href="#motion" :class="{ 'is-active': active === 'motion' }">Motion</a>
+      <span class="atlas-nav-group">Components</span>
+      <a href="#buttons" :class="{ 'is-active': active === 'buttons' }">Buttons</a>
+      <a href="#forms" :class="{ 'is-active': active === 'forms' }">Forms</a>
+      <a href="#badges" :class="{ 'is-active': active === 'badges' }">Badges, tags, avatars</a>
+      <a href="#cards" :class="{ 'is-active': active === 'cards' }">Cards</a>
+      <a href="#feedback" :class="{ 'is-active': active === 'feedback' }">Alerts, toasts, states</a>
+      <a href="#navigation" :class="{ 'is-active': active === 'navigation' }">Navigation</a>
+      <span class="atlas-nav-group">Patterns</span>
+      <a href="#sections" :class="{ 'is-active': active === 'sections' }">Sections and bands</a>
+      <a href="#editorial" :class="{ 'is-active': active === 'editorial' }">Editorial blocks</a>
+      <span class="atlas-nav-group">Proposals</span>
+      <a href="#heroes" :class="{ 'is-active': active === 'heroes' }">Home hero · 5 options</a>
+    </nav>
+
+    <div class="min-w-0">
+      {% include "pages/atlas/map.html" %}
+      {% include "pages/atlas/roadmap.html" %}
+      {% include "pages/atlas/foundations.html" %}
+      {% include "pages/atlas/components.html" %}
+      {% include "pages/atlas/patterns.html" %}
+      {% include "pages/atlas/heroes.html" %}
+    </div>
+  </div>
+</div>
+{% endblock %}
