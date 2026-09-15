@@ -38,27 +38,27 @@
         <b>{{ media_count }}</b>
         <p>{% if media_missing_alt %}{% blocktrans count counter=media_missing_alt %}{{ counter }} picture still has no alt text.{% plural %}{{ counter }} pictures still have no alt text.{% endblocktrans %}{% else %}{% trans "Pictures with alt text, captions and a focal point for every crop." %}{% endif %}</p>
     </a>
-    <a class="studio-card" href="/admin/studio/adslot/">
+    <a class="studio-card" href="{% url 'studio:ad_slots' %}">
         <span class="eyebrow eyebrow--sky">{% trans "Ad slots" %}</span>
         <b>{{ ad_count }}</b>
         <p>{% trans "Booked placements with start and end dates." %}</p>
     </a>
-    <a class="studio-card" href="/admin/studio/partner/">
+    <a class="studio-card" href="{% url 'studio:partners' %}">
         <span class="eyebrow eyebrow--sky">{% trans "Partners" %}</span>
         <b>{{ partner_count }}</b>
         <p>{% trans "Logos for the hero strip and the about page." %}</p>
     </a>
-    <a class="studio-card" href="/admin/studio/testimonial/">
+    <a class="studio-card" href="{% url 'studio:testimonials' %}">
         <span class="eyebrow eyebrow--sky">{% trans "Testimonials" %}</span>
         <b>{{ testimonial_count }}</b>
         <p>{% trans "Quotes from advertisers and readers." %}</p>
     </a>
-    <a class="studio-card" href="/admin/studio/faq/">
+    <a class="studio-card" href="{% url 'studio:faq' %}">
         <span class="eyebrow eyebrow--sky">{% trans "FAQ" %}</span>
         <b>{{ faq_count }}</b>
         <p>{% trans "Questions for the help, advertising and about pages." %}</p>
     </a>
-    <a class="studio-card" href="/admin/studio/milestone/">
+    <a class="studio-card" href="{% url 'studio:timeline' %}">
         <span class="eyebrow eyebrow--sky">{% trans "Timeline" %}</span>
         <b>{{ milestone_count }}</b>
         <p>{% trans "The years that made the magazine." %}</p>
@@ -66,7 +66,7 @@
 </div>
 
 <section class="mt-12">
-    <div class="section-head"><div><span class="eyebrow">{% trans "Editions" %}</span><h2>{% trans "Flip-book pages" %}</h2></div><a href="/admin/content/magazine/add/" class="btn btn-outline btn-sm">{% trans "Add an edition" %}</a></div>
+    <div class="section-head"><div><span class="eyebrow">{% trans "Editions" %}</span><h2>{% trans "Flip-book pages" %}</h2></div><a href="{% url 'studio:magazines' %}?new=1" class="btn btn-outline btn-sm">{% trans "Add an edition" %}</a></div>
     <p class="text-secondary max-w-measure mb-4">{% trans "Upload an edition's PDF and its pages are rendered automatically. Readers then turn them like a printed magazine." %}</p>
     <div class="studio-rows">
         {% for magazine in magazines %}
@@ -84,7 +84,7 @@
                 <button class="btn btn-outline btn-sm" type="submit">{% if magazine.pages.exists %}{% trans "Re-render" %}{% else %}{% trans "Render pages" %}{% endif %}</button>
             </form>
             {% else %}
-            <a class="btn btn-outline btn-sm" href="/admin/content/magazine/{{ magazine.pk }}/change/">{% trans "Upload PDF" %}</a>
+            <a class="btn btn-outline btn-sm" href="{% url 'studio:magazine_edit' magazine.pk %}">{% trans "Upload PDF" %}</a>
             {% endif %}
         </div>
         {% empty %}

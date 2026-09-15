@@ -3,10 +3,10 @@ from django.contrib.auth import get_user_model
 from django.utils.text import Truncator
 from django.utils.translation import gettext_lazy as _
 
-from source.apps.content.models import Article, Category, Media
+from source.apps.content.models import Article, Category, Magazine, Media
 from source.apps.newsletter.models import Issue
 
-from .models import Announcement, HeroConfig, Theme
+from .models import FAQ, AdSlot, Announcement, HeroConfig, Milestone, Partner, Testimonial, Theme
 
 
 class HeroForm(forms.ModelForm):
@@ -236,3 +236,106 @@ class ArticleForm(forms.ModelForm):
         if cleaned.get("is_sponsored") and not cleaned.get("sponsor_name"):
             self.add_error("sponsor_name", _("Say who paid for it — a sponsored piece must name its sponsor."))
         return cleaned
+
+
+class AdSlotForm(forms.ModelForm):
+    class Meta:
+        model = AdSlot
+        fields = ("key", "format", "advertiser", "image", "url", "alt_text",
+                  "is_active", "starts_at", "ends_at", "weight")
+        widgets = {
+            "starts_at": forms.DateTimeInput(attrs={"type": "datetime-local"}),
+            "ends_at": forms.DateTimeInput(attrs={"type": "datetime-local"}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        _style(self)
+        self.fields["key"].help_text = _("Where it renders, e.g. home-leaderboard.")
+        self.fields["alt_text"].help_text = _("Describes the advert for anyone who cannot see it.")
+
+    def clean(self):
+        cleaned = super().clean()
+        starts, ends = cleaned.get("starts_at"), cleaned.get("ends_at")
+        if starts and ends and ends <= starts:
+            self.add_error("ends_at", _("The booking has to end after it starts."))
+        return cleaned
+
+
+class PartnerForm(forms.ModelForm):
+    class Meta:
+        model = Partner
+        fields = ("name", "logo", "url", "is_active", "order")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        _style(self)
+
+
+class TestimonialForm(forms.ModelForm):
+    class Meta:
+        model = Testimonial
+        fields = ("quote_de", "quote_ar", "quote_en", "name", "role", "avatar", "is_active", "order")
+        widgets = {f"quote_{lang}": forms.Textarea(attrs={"rows": 3}) for lang in ("de", "ar", "en")}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        _style(self)
+
+
+class FAQForm(forms.ModelForm):
+    class Meta:
+        model = FAQ
+        fields = ("page", "question_de", "question_ar", "question_en",
+                  "answer_de", "answer_ar", "answer_en", "is_active", "order")
+        widgets = {f"answer_{lang}": forms.Textarea(attrs={"rows": 3}) for lang in ("de", "ar", "en")}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        _style(self)
+
+
+class MilestoneForm(forms.ModelForm):
+    class Meta:
+        model = Milestone
+        fields = ("year", "title_de", "title_ar", "title_en",
+                  "text_de", "text_ar", "text_en", "is_active")
+        widgets = {f"text_{lang}": forms.Textarea(attrs={"rows": 3}) for lang in ("de", "ar", "en")}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        _style(self)
+
+
+class MagazineForm(forms.ModelForm):
+    """An edition's own details, and which pieces are in it. When it goes live
+    stays on the desk, like every other piece of content."""
+
+    class Meta:
+        model = Magazine
+        fields = ("title", "slug", "issue_number", "description",
+                  "cover_image", "pdf", "theme", "articles")
+        widgets = {
+            "description": forms.Textarea(attrs={"rows": 4}),
+            "articles": forms.CheckboxSelectMultiple,
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        _style(self)
+        self.fields["slug"].required = False
+        self.fields["slug"].help_text = _("Leave empty and one is made from the title.")
+        # Both lists are limited through a subquery rather than a slice: Django
+        # filters the queryset again to validate what was submitted, and a sliced
+        # queryset cannot be filtered.
+        self.fields["cover_image"].queryset = Media.objects.filter(
+            pk__in=Media.objects.filter(media_type="image").order_by("-created_at").values("pk")[:60]
+        ).order_by("-created_at")
+        self.fields["cover_image"].label_from_instance = _picture_label
+        self.fields["cover_image"].empty_label = _("No cover yet")
+        # An edition is created before its contents are picked.
+        self.fields["articles"].required = False
+        self.fields["articles"].queryset = Article.objects.filter(
+            pk__in=Article.objects.published().order_by("-published_at").values("pk")[:80]
+        ).order_by("-published_at")
+        self.fields["articles"].label_from_instance = lambda a: Truncator(a.title).chars(46, truncate="…")

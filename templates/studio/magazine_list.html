@@ -1,0 +1,38 @@
+{% extends "studio/base.html" %}
+{% load i18n media_tags %}
+{% block studio_title %}{% trans "Editions" %}{% endblock %}
+
+{% block studio_content %}
+<header class="studio-head">
+    <div>
+        <span class="eyebrow">{% trans "Studio" %}</span>
+        <h1>{% trans "Editions" %}</h1>
+        <p class="text-secondary mt-1">{% trans "Every issue of the magazine, its cover, its contents and its PDF." %}</p>
+    </div>
+    <a class="btn btn-primary btn-sm" href="{% url 'studio:magazines' %}?new=1">{% trans "New edition" %}</a>
+</header>
+
+<div class="edition-grid">
+    {% for magazine in magazines %}
+    <a class="edition-card" href="{% url 'studio:magazine_edit' magazine.pk %}">
+        <span class="edition-card-cover">
+            {% if magazine.cover_image %}{% picture magazine.cover_image sizes="12rem" alt="" %}
+            {% else %}<span class="edition-card-blank">{% trans "No cover" %}</span>{% endif %}
+        </span>
+        <span class="edition-card-body">
+            <strong>{{ magazine.title }}</strong>
+            <span class="collection-row-meta">
+                {% if magazine.issue_number %}{% blocktrans with n=magazine.issue_number %}Issue {{ n }}{% endblocktrans %} · {% endif %}
+                {{ magazine.get_status_display }}
+                {% if magazine.pdf %} · {% trans "PDF" %}{% endif %}
+            </span>
+        </span>
+    </a>
+    {% empty %}
+    <div class="empty-state">
+        <h3>{% trans "No editions yet" %}</h3>
+        <p>{% trans "Start one and it appears in the archive once it goes live." %}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
