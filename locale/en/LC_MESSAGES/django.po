@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-15 12:42+0200\n"
+"POT-Creation-Date: 2026-09-15 13:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: project/settings.py:57
+#: project/settings.py:58
 msgid "Founder & Creative Director"
 msgstr ""
 
-#: project/settings.py:60
+#: project/settings.py:61
 msgid ""
 "Leading innovation in media and advertising with over a decade of industry "
 "expertise. Committed to delivering excellence and creative solutions."
@@ -326,6 +326,8 @@ msgid "unread"
 msgstr ""
 
 #: templates/auth/profile/dashboard.html:26
+#: templates/base/hero/front-page.html:26
+#: templates/base/hero/front-page.html:38
 #: templates/content/magazine_list.html:8 templates/pages/home.html:75
 msgid "Editions"
 msgstr ""
@@ -334,7 +336,8 @@ msgstr ""
 msgid "Read the latest"
 msgstr ""
 
-#: templates/auth/profile/dashboard.html:28 templates/pages/home.html:46
+#: templates/auth/profile/dashboard.html:28
+#: templates/base/hero/front-page.html:17 templates/pages/home.html:46
 msgid "Almadina magazine"
 msgstr ""
 
@@ -710,6 +713,58 @@ msgstr ""
 msgid "Sign up"
 msgstr ""
 
+#: templates/base/hero/front-page.html:10
+msgid "Berlin"
+msgstr ""
+
+#: templates/base/hero/front-page.html:12
+msgid "Germany's first Arabic magazine"
+msgstr ""
+
+#: templates/base/hero/front-page.html:17
+#: templates/base/hero/front-page.html:41
+msgid "Out now"
+msgstr ""
+
+#: templates/base/hero/front-page.html:18
+msgid "Berlin's Arab voices, <em>in print</em> and on screen"
+msgstr ""
+
+#: templates/base/hero/front-page.html:19
+#, python-format
+msgid ""
+"Germany's first Arabic magazine, %(years)s years on: culture, business and "
+"community for half a million readers, in print, online and on social."
+msgstr ""
+
+#: templates/base/hero/front-page.html:21
+msgid "Read the edition"
+msgstr ""
+
+#: templates/base/hero/front-page.html:21 templates/pages/home.html:48
+msgid "Browse editions"
+msgstr ""
+
+#: templates/base/hero/front-page.html:22 templates/pages/home.html:105
+msgid "Advertise with us"
+msgstr ""
+
+#: templates/base/hero/front-page.html:25
+msgid "Readers a month"
+msgstr ""
+
+#: templates/base/hero/front-page.html:27
+msgid "Years in Berlin"
+msgstr ""
+
+#: templates/base/hero/front-page.html:43 templates/pages/home.html:78
+msgid "All editions"
+msgstr ""
+
+#: templates/base/hero/front-page.html:50
+msgid "Latest"
+msgstr ""
+
 #: templates/content/article_detail.html:15
 msgid "Draft"
 msgstr ""
@@ -914,10 +969,6 @@ msgid ""
 "print and online."
 msgstr ""
 
-#: templates/pages/home.html:48
-msgid "Browse editions"
-msgstr ""
-
 #: templates/pages/home.html:53
 msgid ""
 "Reach Arabic-speaking readers across Germany with print, digital and social "
@@ -954,16 +1005,8 @@ msgstr ""
 msgid "Recent magazines"
 msgstr ""
 
-#: templates/pages/home.html:78
-msgid "All editions"
-msgstr ""
-
 #: templates/pages/home.html:91
 msgid "Browse by category"
-msgstr ""
-
-#: templates/pages/home.html:105
-msgid "Advertise with us"
 msgstr ""
 
 #: templates/pages/home.html:106

@@ -37,13 +37,22 @@ class StaticPageView(TemplateView):
 
 
 class StyleGuideView(UserPassesTestMixin, TemplateView):
-    """Living design system. Visible to staff, and to everyone while DEBUG is on."""
+    """The Atlas: a visual map of every page, token, component, pattern and motion
+    preset in the project, plus live hero proposals. Staff only, or anyone while DEBUG is on."""
 
-    template_name = "pages/styleguide.html"
+    template_name = "pages/atlas/index.html"
     raise_exception = False
 
     def test_func(self):
         return settings.DEBUG or self.request.user.is_staff
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["atlas_magazines"] = list(Magazine.objects.published().select_related("cover_image")[:3])
+        context["atlas_articles"] = list(
+            Article.objects.published().select_related("author").prefetch_related("categories")[:4]
+        )
+        return context
 
 
 class SitemapView(TemplateView):

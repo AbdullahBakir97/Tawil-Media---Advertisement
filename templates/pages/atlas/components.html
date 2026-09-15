@@ -1,0 +1,182 @@
+{% load static i18n %}
+{# ---------- Buttons ---------- #}
+<section class="atlas-section" id="buttons">
+  <h2>Buttons</h2>
+  <p class="atlas-intro">Sky for the primary action, gold for the one brand action per page (Subscribe, Order), neutral for everything else. One primary per view.</p>
+  <div class="grid gap-4">
+    <div class="demo btn-group">
+      <button class="btn btn-primary">Primary</button>
+      <button class="btn btn-brand">Brand · Subscribe</button>
+      <button class="btn btn-secondary">Secondary</button>
+      <button class="btn btn-outline">Outline</button>
+      <button class="btn btn-link">Link button</button>
+      <button class="btn btn-danger">Delete</button>
+      <button class="btn btn-primary" disabled>Disabled</button>
+      <button class="btn btn-primary"><span class="btn-label">Loading</span><svg class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg></button>
+    </div>
+    <div class="demo btn-group items-center">
+      <button class="btn btn-primary btn-xs">Extra small</button>
+      <button class="btn btn-primary btn-sm">Small</button>
+      <button class="btn btn-primary">Default</button>
+      <button class="btn btn-primary btn-lg">Large</button>
+      <button class="btn btn-primary btn-xl btn-pill">Extra large pill</button>
+      <button class="btn btn-secondary btn-icon" aria-label="Search"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></button>
+      <button class="icon-btn" aria-label="Theme"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg></button>
+    </div>
+    <div class="demo demo--brand btn-group">
+      <button class="btn btn-brand">On navy · brand</button>
+      <button class="btn btn-ghost">On navy · ghost</button>
+      <button class="btn btn-primary">On navy · primary</button>
+      <button class="btn btn-ghost btn-sm">Ghost · small</button>
+    </div>
+  </div>
+</section>
+
+{# ---------- Forms ---------- #}
+<section class="atlas-section" id="forms">
+  <h2>Forms</h2>
+  <p class="atlas-intro">Labels above fields, help below, errors in rose with the field outlined. Every control has a visible focus ring. Inputs on navy use the on-brand variant.</p>
+  <div class="grid gap-6 lg:grid-cols-2">
+    <form class="panel grid gap-4" onsubmit="return false">
+      <div class="form-row">
+        <div class="form-group"><label class="form-label" for="at-first">First name</label><input id="at-first" class="form-input" value="Rania"></div>
+        <div class="form-group"><label class="form-label" for="at-last">Last name <span class="optional">optional</span></label><input id="at-last" class="form-input" placeholder="Haddad"></div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="at-email">E-mail</label>
+        <div class="input-group"><svg class="input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l9 6 9-6M4 6h16a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V7a1 1 0 011-1z"/></svg><input id="at-email" type="email" class="form-input is-invalid" value="rania@example"></div>
+        <p class="form-error">Enter a complete e-mail address, for example rania@example.com.</p>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label" for="at-topic">Topic</label><select id="at-topic" class="form-select"><option>Advertising</option><option>Subscriptions</option><option>Editorial</option></select></div>
+        <div class="form-group"><label class="form-label" for="at-date">Date</label><input id="at-date" type="date" class="form-input"></div>
+      </div>
+      <div class="form-group"><label class="form-label" for="at-msg">Message</label><textarea id="at-msg" class="form-textarea" placeholder="How can we help?"></textarea><p class="form-help">We reply within two working days.</p></div>
+      <div class="form-group"><label class="form-label" for="at-file">Attachment</label><input id="at-file" type="file" class="form-input form-input-sm"></div>
+      <label class="form-check"><input type="checkbox" class="form-checkbox" checked> Send me the weekly digest</label>
+      <div class="flex flex-wrap gap-4">
+        <label class="form-check"><input type="radio" name="at-plan" class="form-radio" checked> Monthly</label>
+        <label class="form-check"><input type="radio" name="at-plan" class="form-radio"> Yearly</label>
+      </div>
+      <label class="form-check justify-between"><span>Notifications</span><input type="checkbox" class="form-switch" checked></label>
+      <div class="flex gap-2 justify-end"><button class="btn btn-secondary" type="button">Cancel</button><button class="btn btn-primary" type="submit">Send message</button></div>
+    </form>
+    <div class="grid gap-6 content-start">
+      <div class="panel panel--brand grid gap-3">
+        <span class="eyebrow" style="color:var(--gold-400)">On navy</span>
+        <h3 class="text-on-brand">Stay informed</h3>
+        <p class="text-on-brand-muted">Get the latest edition and stories in your inbox.</p>
+        <div class="flex gap-2"><input class="form-input form-input--on-brand" placeholder="you@example.com" aria-label="E-mail"><button class="btn btn-brand">Subscribe</button></div>
+      </div>
+      <div class="panel grid gap-3">
+        <span class="eyebrow">Sizes</span>
+        <input class="form-input form-input-sm" placeholder="Small">
+        <input class="form-input" placeholder="Default">
+        <input class="form-input form-input-lg" placeholder="Large">
+        <div class="search-component"><input class="search-input" placeholder="Header search…"><svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{# ---------- Badges ---------- #}
+<section class="atlas-section" id="badges">
+  <h2>Badges, tags, avatars</h2>
+  <p class="atlas-intro">Category labels are sky, editorial picks gold, the Almadina tag red. Tags are hashed and quiet. Avatars fall back to initials.</p>
+  <div class="panel grid gap-5">
+    <div class="flex flex-wrap gap-2 items-center">
+      <span class="badge">Default</span><span class="badge badge-sky">Culture</span><span class="badge badge-gold">Editor's pick</span><span class="badge badge-navy">Print</span><span class="badge badge-almadina">Almadina</span><span class="badge badge-live">Live</span><span class="badge badge-success">Published</span><span class="badge badge-warning">Draft</span><span class="badge badge-error">Rejected</span><span class="badge badge-outline">Outline</span>
+    </div>
+    <div class="tag-list"><a class="tag" href="#badges">#berlin</a><a class="tag" href="#badges">#neukölln</a><a class="tag" href="#badges">#community</a><a class="tag" href="#badges">#citizenship</a></div>
+    <div class="flex items-center gap-3"><span class="avatar avatar-sm">RH</span><span class="avatar">MT</span><span class="avatar avatar-lg">OK</span><span class="avatar avatar-xl"><img src="{% static 'img/default-avatar.svg' %}" alt=""></span><span class="count-bubble">3</span><span class="notification-badge" style="position:static">12</span></div>
+    <div class="flex flex-wrap gap-2"><span class="filter-chip is-active">All</span><span class="filter-chip">Politics</span><span class="filter-chip">Culture</span><span class="filter-chip">Business</span><span class="filter-chip">Berlin</span></div>
+    <div class="divider">or continue with</div>
+  </div>
+</section>
+
+{# ---------- Cards ---------- #}
+<section class="atlas-section" id="cards">
+  <h2>Cards</h2>
+  <p class="atlas-intro">One card component, four variants: default, feature (cover with gradient), row (thumbnail beside text) and flat. Magazine covers use a portrait media ratio. Stat tiles and panels share the same surface.</p>
+  <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3" data-motion="stagger">
+    <article class="card card--lift">
+      <a class="card-media" href="#cards"><img src="{% static 'img/social-media-resources.jpg' %}" alt=""></a>
+      <div class="card-body"><span class="kicker">Culture</span><h3 class="card-title"><a href="#cards">The Neukölln bookshop keeping Arabic poetry alive</a></h3><p class="card-excerpt">How a family-run shop on Sonnenallee became a meeting point for three generations of readers.</p><div class="card-footer"><span>Rania Haddad · 14 Sep 2026</span><span>6 min</span></div></div>
+    </article>
+    <article class="card card--feature">
+      <div class="card-media"><img src="{% static 'img/almadina-background.jpg' %}" alt=""></div>
+      <div class="card-body"><span class="kicker">Edition 47</span><h3 class="card-title"><a href="#cards">Berlin's Arab voices, in print and on screen</a></h3><p class="card-excerpt">The winter edition is out now.</p><div class="card-footer"><span class="badge badge-almadina">Almadina</span><span>December 2026</span></div></div>
+    </article>
+    <div class="grid gap-4">
+      <article class="card card--row">
+        <a class="card-media" href="#cards"><img src="{% static 'img/magazine-tawil.png' %}" alt=""></a>
+        <div class="card-body"><span class="kicker">Business</span><h3 class="card-title"><a href="#cards">Twelve Syrian founders, one shared kitchen</a></h3><div class="card-footer"><span>Omar Khalil</span><span>8 min</span></div></div>
+      </article>
+      <div class="card"><div class="card-body"><div class="skeleton skeleton-media mb-3"></div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-text"></div><div class="skeleton skeleton-text w-2/3"></div></div></div>
+    </div>
+    <article class="card card--lift">
+      <a class="card-media card-media--portrait" href="#cards"><img src="{% static 'img/magazine-tawil.png' %}" alt=""></a>
+      <div class="card-body"><span class="kicker">September 2026</span><h3 class="card-title"><a href="#cards">Almadina · Edition 47</a></h3><p class="card-excerpt">Season issue</p></div>
+    </article>
+    <div class="card card--flat"><div class="card-body"><span class="eyebrow">Flat</span><h3 class="card-title">No shadow, hairline border</h3><p class="card-excerpt">For dense lists and settings.</p></div></div>
+    <div class="grid grid-cols-3 gap-3 content-start">
+      <div class="stat-tile"><div class="stat-value">500K+</div><div class="stat-label">Readers</div></div>
+      <div class="stat-tile"><div class="stat-value">47</div><div class="stat-label">Editions</div></div>
+      <div class="stat-tile"><div class="stat-value">20</div><div class="stat-label">Years</div></div>
+    </div>
+  </div>
+  <div class="grid gap-6 md:grid-cols-3 mt-6">
+    <div class="panel"><span class="eyebrow">panel</span><p class="text-sm mt-2">Default surface for grouped content.</p></div>
+    <div class="panel panel--brand"><span class="eyebrow" style="color:var(--gold-400)">panel--brand</span><p class="text-sm mt-2 text-on-brand-muted">Navy surface for promotional blocks.</p></div>
+    <div class="panel panel--glass" style="background-image:url('{% static 'img/almadina-background.jpg' %}');background-size:cover"><span class="eyebrow" style="color:var(--gold-400)">panel--glass</span><p class="text-sm mt-2 text-on-brand-muted">Frosted, over imagery.</p></div>
+  </div>
+</section>
+
+{# ---------- Feedback ---------- #}
+<section class="atlas-section" id="feedback" x-data="{ modal: false, toast: false }">
+  <h2>Alerts, toasts, states</h2>
+  <p class="atlas-intro">Alerts sit inline where the problem is. Toasts confirm background actions and dismiss themselves. Empty states explain and offer the next action.</p>
+  <div class="grid gap-6 lg:grid-cols-2">
+    <div class="grid gap-3 content-start">
+      <div class="alert alert-success"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><div class="alert-body"><span class="alert-title">Subscribed</span> Check your inbox to confirm.</div></div>
+      <div class="alert alert-info"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><div class="alert-body">The winter edition ships on 12 December.</div></div>
+      <div class="alert alert-warning"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M5.07 19h13.86c1.54 0 2.5-1.67 1.73-3L13.73 4c-.77-1.33-2.69-1.33-3.46 0L3.34 16c-.77 1.33.19 3 1.73 3z"/></svg><div class="alert-body">Your session ends in 5 minutes.</div></div>
+      <div class="alert alert-error"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><div class="alert-body"><span class="alert-title">Payment failed</span> Your card was declined. Try another card or contact your bank.</div><button class="alert-close" aria-label="Dismiss">&times;</button></div>
+    </div>
+    <div class="grid gap-3 content-start">
+      <div class="toast toast-success" style="position:static;transform:none;opacity:1"><div class="alert-body"><span class="alert-title">Saved</span> Your profile was updated.</div></div>
+      <div class="toast toast-error" style="position:static;transform:none;opacity:1"><div class="alert-body">Could not reach the server. Try again.</div></div>
+      <div class="empty-state"><h3>The archive is being digitised</h3><p>Editions appear here as they are scanned and catalogued.</p><a href="#feedback" class="btn btn-outline btn-sm mt-3">Browse magazines</a></div>
+      <div class="flex gap-2"><button class="btn btn-secondary" @click="modal = true">Open modal</button><button class="btn btn-secondary" @click="toast = true; setTimeout(() => toast = false, 2500)">Show toast</button></div>
+    </div>
+  </div>
+  <template x-if="modal">
+    <div class="modal-backdrop" @click.self="modal = false" style="position:fixed;inset:0;z-index:200;display:grid;place-items:center;background:rgb(3 20 40 / 0.6)">
+      <div class="modal-container panel" style="max-width:28rem">
+        <div class="modal-header flex items-center justify-between mb-3"><h3 class="modal-title">Unsubscribe?</h3><button class="modal-close icon-btn" @click="modal = false" aria-label="Close">&times;</button></div>
+        <div class="modal-body text-sm text-secondary">You will stop receiving the weekly digest. You can subscribe again at any time.</div>
+        <div class="modal-footer flex gap-2 justify-end mt-5"><button class="btn btn-secondary" @click="modal = false">Keep it</button><button class="btn btn-danger" @click="modal = false">Unsubscribe</button></div>
+      </div>
+    </div>
+  </template>
+  <div class="toast-stack" x-show="toast" x-transition x-cloak style="position:fixed;bottom:1.5rem;inset-inline-end:1.5rem;z-index:1000"><div class="toast toast-success" style="position:static;transform:none;opacity:1"><div class="alert-body">Toast shown from Alpine.</div></div></div>
+</section>
+
+{# ---------- Navigation ---------- #}
+<section class="atlas-section" id="navigation">
+  <h2>Navigation</h2>
+  <p class="atlas-intro">The header is in-flow (no fixed 100vh), glass over the brand background, with the letter-glow nav animation that skips Arabic text. Pagination elides long ranges. Breadcrumbs and a settings side-nav cover secondary navigation.</p>
+  <div class="grid gap-6">
+    <div class="demo demo--brand">
+      <nav class="site-nav-links flex gap-1"><a class="nav-link is-active" href="#navigation"><span data-nav-text>Home</span></a><a class="nav-link" href="#navigation"><span data-nav-text>Articles</span></a><a class="nav-link" href="#navigation"><span data-nav-text>Magazines</span></a><a class="nav-link" href="#navigation"><span data-nav-text>Archive</span></a><a class="nav-link" href="#navigation"><span data-nav-text>More</span> ▾</a></nav>
+    </div>
+    <div class="demo grid gap-4">
+      <nav aria-label="Breadcrumb" class="text-sm text-tertiary flex gap-2"><a href="#navigation">Magazines</a><span>/</span><span class="text-primary">Almadina · Edition 47</span></nav>
+      <nav class="pagination" aria-label="Pagination"><a class="pagination-page" href="#navigation">‹</a><span class="pagination-pages"><a class="pagination-page is-active" href="#navigation">1</a><a class="pagination-page" href="#navigation">2</a><a class="pagination-page" href="#navigation">3</a><span class="pagination-page">…</span><a class="pagination-page" href="#navigation">12</a></span><a class="pagination-page" href="#navigation">›</a></nav>
+      <div class="settings-nav" style="max-width:16rem"><button type="button" class="is-active">Profile</button><button type="button">Password</button><button type="button">Notifications</button><a href="#navigation">Back to account</a></div>
+    </div>
+    <div class="demo">
+      <div class="dropdown-menu" style="position:static;display:block;max-width:16rem"><a class="dropdown-menu-item" href="#navigation">Your account</a><a class="dropdown-menu-item" href="#navigation">Settings</a><a class="dropdown-menu-item" href="#navigation">Notifications <span class="count-bubble">3</span></a><div class="divider"></div><a class="dropdown-menu-item" href="#navigation">Sign out</a></div>
+    </div>
+  </div>
+</section>

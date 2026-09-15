@@ -1,0 +1,57 @@
+{% load static i18n %}
+{# Front-page hero. Needs header_magazines (context processor) and featured_articles (home view). #}
+{% with latest=header_magazines.0 %}
+<section class="hero-front" data-hero aria-labelledby="hero-title"
+         x-data="{ rx: 6, ry: -16, move(e) { const r = $refs.scene.getBoundingClientRect(); this.ry = ((e.clientX - r.left) / r.width - 0.5) * 34; this.rx = (0.5 - (e.clientY - r.top) / r.height) * 18; }, reset() { this.rx = 6; this.ry = -16; } }">
+    <div class="hero-front-bg" data-hero-bg aria-hidden="true"></div>
+
+    <div class="container">
+        <div class="hero-front-masthead" data-hero-item>
+            <span>{% trans "Berlin" %} · {% now "j F Y" %}</span>
+            <strong>Almadina</strong>
+            <span>{% if latest %}{{ latest.title }} · {{ latest.published_at|date:"F Y" }}{% else %}{% trans "Germany's first Arabic magazine" %}{% endif %}</span>
+        </div>
+
+        <div class="hero-front-body">
+            <div class="hero-front-text">
+                <span class="hero-front-kicker" data-hero-item>{% trans "Almadina magazine" %}{% if latest %} · {{ latest.published_at|date:"F Y" }}{% endif %}</span>
+                <h1 id="hero-title" class="hero-front-title" data-hero-item>{% blocktrans %}Berlin's Arab voices, <em>in print</em> and on screen{% endblocktrans %}</h1>
+                <p class="hero-front-dek" data-hero-item>{% blocktrans with years=YEARS_ACTIVE %}Germany's first Arabic magazine, {{ years }} years on: culture, business and community for half a million readers, in print, online and on social.{% endblocktrans %}</p>
+                <div class="hero-front-actions" data-hero-item>
+                    {% if latest %}<a class="btn btn-brand btn-lg" href="{{ latest.get_absolute_url }}">{% trans "Read the edition" %}</a>{% else %}<a class="btn btn-brand btn-lg" href="{% url 'magazines:list' %}">{% trans "Browse editions" %}</a>{% endif %}
+                    <a class="btn btn-ghost btn-lg" href="{% url 'advertise' %}">{% trans "Advertise with us" %}</a>
+                </div>
+                <div class="hero-front-stats" data-hero-item>
+                    <div><b class="stat-value" data-motion="count" data-count="500" data-suffix="K+">{{ ADVERTISING_STATS.monthly_readers }}</b><span>{% trans "Readers a month" %}</span></div>
+                    <div><b class="stat-value">{{ magazine_count }}</b><span>{% trans "Editions" %}</span></div>
+                    <div><b class="stat-value">{{ YEARS_ACTIVE }}</b><span>{% trans "Years in Berlin" %}</span></div>
+                </div>
+            </div>
+
+            <div class="hero-front-scene" data-hero-item x-ref="scene" @mousemove="move" @mouseleave="reset">
+                <div class="hero-front-stack">
+                    {% for magazine in header_magazines|slice:"1:3" %}
+                    <a class="hero-front-back hero-front-back--{{ forloop.counter }}" href="{{ magazine.get_absolute_url }}" aria-label="{{ magazine.title }}">
+                        {% if magazine.cover_image %}<img src="{{ magazine.cover_image.file.url }}" alt="" loading="lazy">{% else %}<img src="{% static 'img/magazine-tawil.png' %}" alt="" loading="lazy">{% endif %}
+                    </a>
+                    {% endfor %}
+                    <a class="hero-front-book" href="{% if latest %}{{ latest.get_absolute_url }}{% else %}{% url 'magazines:list' %}{% endif %}" :style="`transform: rotateY(${ry}deg) rotateX(${rx}deg)`" aria-label="{% if latest %}{{ latest.title }}{% else %}{% trans 'Editions' %}{% endif %}">
+                        {% if latest and latest.cover_image %}<img src="{{ latest.cover_image.file.url }}" alt="">{% else %}<img src="{% static 'img/magazine-tawil.png' %}" alt="">{% endif %}
+                    </a>
+                    {% if latest %}<span class="hero-front-badge">{% trans "Out now" %}</span>{% endif %}
+                </div>
+                {% if latest %}<p class="hero-front-caption">{{ latest.title }} · <a href="{% url 'magazines:list' %}">{% trans "All editions" %}</a></p>{% endif %}
+            </div>
+        </div>
+    </div>
+
+    {% if featured_articles %}
+    <div class="hero-front-ticker" data-hero-item>
+        <span class="hero-front-ticker-label">{% trans "Latest" %}</span>
+        <div class="hero-front-ticker-track">
+            <span>{% for article in featured_articles %}<a href="{{ article.get_absolute_url }}">{% if article.primary_category %}<span class="kicker">{{ article.primary_category.name }}</span>{% endif %}{{ article.title }}</a>{% endfor %}{% for article in featured_articles %}<a href="{{ article.get_absolute_url }}" aria-hidden="true" tabindex="-1">{% if article.primary_category %}<span class="kicker">{{ article.primary_category.name }}</span>{% endif %}{{ article.title }}</a>{% endfor %}</span>
+        </div>
+    </div>
+    {% endif %}
+</section>
+{% endwith %}

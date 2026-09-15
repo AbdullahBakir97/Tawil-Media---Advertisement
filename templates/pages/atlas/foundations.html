@@ -1,0 +1,134 @@
+{% load static i18n ui %}
+{# ---------- Colour ---------- #}
+<section class="atlas-section" id="colour"
+         x-data="{ hex(v) { const s = getComputedStyle(document.documentElement).getPropertyValue(v).trim(); return s.startsWith('#') ? s : (s.startsWith('var') ? this.hex(s.slice(4, -1)) : s); } }">
+  <h2>Colour</h2>
+  <p class="atlas-intro">Four families with fixed roles. Navy is the brand ground, gold the editorial voice, sky every interaction, red only the Almadina tag and live badges. Errors use rose so they never read as brand.</p>
+
+  <h3 class="atlas-sub">Navy · brand surfaces <code>--navy-*</code></h3>
+  <div class="swatch-row">
+    {% for s in "50 100 200 300 400 500 600 700 800 900"|split %}
+    <div class="swatch"><div class="swatch-chip" style="background:var(--navy-{{ s }})"></div><b>{{ s }}</b><code x-text="hex('--navy-{{ s }}')"></code></div>
+    {% endfor %}
+  </div>
+  <h3 class="atlas-sub">Gold · editorial <code>--gold-*</code></h3>
+  <div class="swatch-row">
+    {% for s in "50 100 200 300 400 500 600 700 800 900"|split %}
+    <div class="swatch"><div class="swatch-chip" style="background:var(--gold-{{ s }})"></div><b>{{ s }}</b><code x-text="hex('--gold-{{ s }}')"></code></div>
+    {% endfor %}
+  </div>
+  <h3 class="atlas-sub">Sky · interaction <code>--sky-*</code></h3>
+  <div class="swatch-row">
+    {% for s in "50 100 200 300 400 500 600 700 800 900"|split %}
+    <div class="swatch"><div class="swatch-chip" style="background:var(--sky-{{ s }})"></div><b>{{ s }}</b><code x-text="hex('--sky-{{ s }}')"></code></div>
+    {% endfor %}
+  </div>
+  <h3 class="atlas-sub">Gray · text and borders <code>--gray-*</code></h3>
+  <div class="swatch-row">
+    {% for s in "50 100 200 300 400 500 600 700 800 900"|split %}
+    <div class="swatch"><div class="swatch-chip" style="background:var(--gray-{{ s }})"></div><b>{{ s }}</b><code x-text="hex('--gray-{{ s }}')"></code></div>
+    {% endfor %}
+  </div>
+  <h3 class="atlas-sub">Accents and semantics</h3>
+  <div class="swatch-row">
+    <div class="swatch"><div class="swatch-chip" style="background:var(--red-500)"></div><b>Almadina red</b><code x-text="hex('--red-500')"></code></div>
+    <div class="swatch"><div class="swatch-chip" style="background:var(--red-600)"></div><b>red 600</b><code x-text="hex('--red-600')"></code></div>
+    <div class="swatch"><div class="swatch-chip" style="background:var(--color-success)"></div><b>success</b><code x-text="hex('--color-success')"></code></div>
+    <div class="swatch"><div class="swatch-chip" style="background:var(--color-warning)"></div><b>warning</b><code x-text="hex('--color-warning')"></code></div>
+    <div class="swatch"><div class="swatch-chip" style="background:var(--color-error)"></div><b>error</b><code x-text="hex('--color-error')"></code></div>
+    <div class="swatch"><div class="swatch-chip" style="background:var(--color-info)"></div><b>info</b><code x-text="hex('--color-info')"></code></div>
+  </div>
+  <h3 class="atlas-sub">Theme surfaces <code>light / dark swap these only</code></h3>
+  <div class="swatch-row">
+    {% for v in "bg-primary bg-secondary bg-tertiary bg-brand bg-brand-deep text-primary text-secondary text-tertiary border-primary border-secondary link accent accent-ink focus-ring"|split %}
+    <div class="swatch"><div class="swatch-chip" style="background:var(--{{ v }})"></div><b>{{ v }}</b><code x-text="hex('--{{ v }}')"></code></div>
+    {% endfor %}
+  </div>
+</section>
+
+{# ---------- Typography ---------- #}
+<section class="atlas-section" id="type">
+  <h2>Typography</h2>
+  <p class="atlas-intro">Playfair Display carries headlines, Source Sans 3 carries everything else. On Arabic pages Amiri and IBM Plex Sans Arabic take over automatically. All faces are self-hosted and subset per script.</p>
+
+  <div class="grid gap-8 lg:grid-cols-2">
+    <div class="panel grid gap-4">
+      <span class="eyebrow">Latin · Playfair Display / Source Sans 3</span>
+      <h1>The Neukölln bookshop keeping Arabic poetry alive</h1>
+      <h2>Twelve Syrian founders, one shared kitchen</h2>
+      <h3>What the new citizenship law means for you</h3>
+      <p class="lead">A lead paragraph sets the scene in a larger, lighter voice before the body begins.</p>
+      <p class="measure">On a grey Tuesday the shop is full. A student from Damascus reads Darwish aloud to a pensioner from Aleppo, and the owner refills the tea without being asked. <a class="link-underline" href="#type">An inline link</a> uses sky-blue with an offset underline.</p>
+      <p class="byline">Rania Haddad · 6 min read · 14 September 2026</p>
+      <blockquote class="pull-quote">“Half of these titles are out of print everywhere else in Europe.”</blockquote>
+      <span class="eyebrow">Eyebrow</span><span class="kicker">Kicker</span><p class="dek">A dek sits under a headline and summarises the piece in one line.</p><p class="meta">Meta text · 12px</p>
+    </div>
+    <div class="panel grid gap-4" lang="ar" dir="rtl">
+      <span class="eyebrow">Arabic · Amiri / IBM Plex Sans Arabic</span>
+      <h1>مكتبة نويكولن التي تُبقي الشعر العربي حيًا</h1>
+      <h2>اثنا عشر مؤسسًا سوريًا ومطبخ واحد مشترك</h2>
+      <h3>ماذا يعني قانون الجنسية الجديد لك؟</h3>
+      <p class="lead">فقرة تمهيدية تضع المشهد بصوت أكبر وأخف قبل أن يبدأ النص.</p>
+      <p class="measure">في يوم ثلاثاء رمادي يمتلئ المتجر. طالبة من دمشق تقرأ درويش بصوت عالٍ لمتقاعد من حلب، وصاحب المكتبة يعيد ملء الشاي دون أن يُطلب منه. <a class="link-underline" href="#type">رابط داخل النص</a> يستخدم اللون السماوي.</p>
+      <p class="byline">رانيا حداد · ٦ دقائق قراءة · ١٤ سبتمبر ٢٠٢٦</p>
+      <blockquote class="pull-quote">«نصف هذه العناوين نفد من كل مكان آخر في أوروبا.»</blockquote>
+      <span class="eyebrow">عنوان علوي</span><span class="kicker">تصنيف</span><p class="dek">سطر تعريفي يلخّص المقال تحت العنوان.</p><p class="meta">نص وصفي · ١٢ بكسل</p>
+    </div>
+  </div>
+
+  <h3 class="atlas-sub">Scale <code>--text-*</code></h3>
+  <div class="panel type-scale">
+    {% for s in "6xl 5xl 4xl 3xl 2xl xl lg base sm xs"|split %}
+    <div><code>text-{{ s }}</code><span class="font-display" style="font-size:var(--text-{{ s }});line-height:1.1">Almadina Berlin</span></div>
+    {% endfor %}
+  </div>
+</section>
+
+{# ---------- Space, radius, shadow ---------- #}
+<section class="atlas-section" id="space">
+  <h2>Space, radius, shadow</h2>
+  <p class="atlas-intro">A 4px grid for spacing, one radius ramp, one shadow ramp tinted navy in light mode and black in dark. Layer order lives in <code>--z-*</code>.</p>
+  <h3 class="atlas-sub">Spacing <code>--spacing-*</code></h3>
+  <div class="panel space-scale">
+    {% for s in "1 2 3 4 5 6 8 10 12 16 20 24"|split %}<div><i style="--s:var(--spacing-{{ s }})"></i>{{ s }}</div>{% endfor %}
+  </div>
+  <h3 class="atlas-sub">Radius <code>--radius-*</code></h3>
+  <div class="panel radius-scale">
+    {% for r in "sm base md lg xl 2xl 3xl full"|split %}<div style="border-radius:var(--radius-{{ r }})">{{ r }}</div>{% endfor %}
+  </div>
+  <h3 class="atlas-sub">Shadow <code>--shadow-*</code></h3>
+  <div class="panel demo--page shadow-scale">
+    {% for r in "sm base md lg xl"|split %}<div style="box-shadow:var(--shadow-{{ r }})">{{ r }}</div>{% endfor %}
+    <div style="box-shadow:var(--shadow-glow-gold);background:var(--navy-800);color:#fff">glow</div>
+  </div>
+  <h3 class="atlas-sub">Layers <code>--z-*</code></h3>
+  <div class="flex flex-wrap gap-2">
+    {% for z in "behind:-1 normal:1 above:10 high:20 highest:50 header:100 modal:200 toast:1000"|split %}<span class="badge badge-outline">{{ z }}</span>{% endfor %}
+  </div>
+</section>
+
+{# ---------- Motion ---------- #}
+<section class="atlas-section" id="motion">
+  <h2>Motion</h2>
+  <p class="atlas-intro">GSAP with ScrollTrigger. Add a <code>data-motion</code> attribute and the element animates when it scrolls into view; elements start visible so the page reads without JavaScript, and reduced-motion users see no animation. Timings: fast 150ms, normal 250ms, slow 400ms, ease-out <code>cubic-bezier(0.2, 0.8, 0.2, 1)</code>.</p>
+  <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+    <div class="panel" data-motion="fade-up" data-motion-once="false"><code>fade-up</code><p class="meta mt-1">Rises and fades in. The default for cards and sections.</p></div>
+    <div class="panel" data-motion="slide-start" data-motion-once="false"><code>slide-start</code><p class="meta mt-1">From the reading start; flips in RTL.</p></div>
+    <div class="panel" data-motion="scale-in" data-motion-once="false"><code>scale-in</code><p class="meta mt-1">Subtle zoom for media and covers.</p></div>
+    <div class="panel" data-motion="fade-in" data-motion-once="false"><code>fade-in</code><p class="meta mt-1">Opacity only, for text blocks.</p></div>
+  </div>
+  <h3 class="mt-8 max-w-3xl" data-motion="words" data-motion-once="false">Headline words rise one by one for hero titles</h3>
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6" data-motion="stagger" data-motion-once="false">
+    <div class="panel text-center">stagger 1</div><div class="panel text-center">stagger 2</div><div class="panel text-center">stagger 3</div><div class="panel text-center">stagger 4</div>
+  </div>
+  <div class="grid grid-cols-3 gap-6 mt-8 max-w-xl">
+    <div class="stat-tile"><div class="stat-value" data-motion="count" data-count="500" data-suffix="K+" data-motion-once="false">500K+</div><div class="stat-label">count</div></div>
+    <div class="stat-tile"><div class="stat-value" data-motion="count" data-count="47" data-motion-once="false">47</div><div class="stat-label">count</div></div>
+    <div class="stat-tile"><div class="stat-value" data-motion="count" data-count="20" data-motion-once="false">20</div><div class="stat-label">count</div></div>
+  </div>
+  <div class="grid gap-4 md:grid-cols-3 mt-8">
+    <div class="card card--lift p-5"><code>card--lift</code><p class="meta mt-1">Hover: rises 4px, shadow grows.</p></div>
+    <div class="panel"><code>data-hero</code><p class="meta mt-1">Page-load timeline: <code>data-hero-item</code> children rise in sequence, <code>data-hero-bg</code> zooms out slowly. Used on page headers and auth cards.</p></div>
+    <div class="panel"><code>data-motion="parallax"</code><p class="meta mt-1">Background drifts with scroll at <code>data-speed</code>. Used behind the brand band.</p></div>
+  </div>
+</section>

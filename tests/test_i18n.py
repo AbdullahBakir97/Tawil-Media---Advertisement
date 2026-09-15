@@ -40,5 +40,5 @@ class StyleGuideTests(TestCase):
         user = get_user_model().objects.create_user(email="s@example.com", password="a-long-passw0rd!", is_staff=True)
         self.client.force_login(user)
         response = self.client.get(reverse("styleguide"))
-        self.assertContains(response, "Components, tokens and motion")
+        self.assertContains(response, "Everything in the project, on one page")
         self.assertContains(response, 'data-motion="stagger"')

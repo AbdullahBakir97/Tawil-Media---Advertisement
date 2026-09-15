@@ -1,0 +1,49 @@
+{% load i18n %}
+<section class="atlas-section" id="roadmap">
+  <h2>Roadmap</h2>
+  <p class="atlas-intro">What is proposed next, grouped by the kind of work. Each item names the page or component it produces and the stack it uses. Nothing here is built yet unless marked.</p>
+
+  <div class="grid gap-6 lg:grid-cols-2">
+    <div class="panel grid gap-3">
+      <span class="eyebrow">Pages to add</span>
+      <ul class="grid gap-2 text-sm">
+        <li><strong>Advertising hub</strong> · rate cards, ad formats with live size previews, audience stats, media kit download, request-a-quote flow. <span class="atlas-status atlas-status--planned">Planned</span></li>
+        <li><strong>Campaign planner</strong> · pick editions, formats and placements, see a running estimate, send a request. First Vue island. <span class="atlas-status atlas-status--planned">Planned</span></li>
+        <li><strong>Magazine reader</strong> · read an edition online: page flip, thumbnails, fullscreen, share a page. Second Vue island. <span class="atlas-status atlas-status--planned">Planned</span></li>
+        <li><strong>About</strong> · story, timeline, team grid, partners marquee, testimonials, press. <span class="atlas-status atlas-status--planned">Planned</span></li>
+        <li><strong>Author pages</strong> · every byline links to a page with bio, photo and stories. <span class="atlas-status atlas-status--planned">Planned</span></li>
+        <li><strong>Category and topic hubs</strong> · curated landing per section with editor's picks. <span class="atlas-status atlas-status--planned">Planned</span></li>
+        <li><strong>Events</strong> · community calendar with filters and ICS export. <span class="atlas-status atlas-status--planned">Planned</span></li>
+        <li><strong>Press and media kit</strong> · logos, brand rules, contacts. <span class="atlas-status atlas-status--planned">Planned</span></li>
+        <li><strong>Newsletter archive and preferences</strong> · past issues, topic subscriptions, one-click unsubscribe. <span class="atlas-status atlas-status--planned">Planned</span></li>
+        <li><strong>Legal layout</strong> · privacy, terms, cookies with a sticky table of contents and last-updated dates. <span class="atlas-status atlas-status--planned">Planned</span></li>
+        <li><strong>Branded admin</strong> · Django admin themed to the system, with dashboard cards. <span class="atlas-status atlas-status--planned">Planned</span></li>
+      </ul>
+    </div>
+
+    <div class="panel grid gap-3">
+      <span class="eyebrow eyebrow--sky">Components to add</span>
+      <ul class="grid gap-2 text-sm">
+        <li><strong>Command palette</strong> · Ctrl+K search across stories, editions, pages and settings.</li>
+        <li><strong>Mega menu</strong> · sections with latest story previews and edition cover.</li>
+        <li><strong>Tabs, accordion, tooltip, popover, drawer</strong> · the missing primitives, keyboard accessible.</li>
+        <li><strong>Table of contents</strong> · sticky, scroll-spied, for long reads and legal pages.</li>
+        <li><strong>Reading progress bar</strong> and <strong>share sheet</strong> for articles.</li>
+        <li><strong>Image gallery and lightbox</strong> with captions and swipe.</li>
+        <li><strong>Timeline</strong>, <strong>testimonial carousel</strong>, <strong>logo marquee</strong>, <strong>team card</strong>, <strong>pricing tile</strong>, <strong>FAQ</strong>.</li>
+        <li><strong>Data display</strong> · table, key-value list, sparkline stat tile.</li>
+        <li><strong>Cookie consent</strong> banner tied to the privacy page.</li>
+        <li><strong>Skeleton and optimistic states</strong> for every HTMX swap.</li>
+      </ul>
+    </div>
+
+    <div class="panel panel--brand grid gap-3 lg:col-span-2">
+      <span class="eyebrow" style="color:var(--gold-400)">Architecture</span>
+      <div class="grid gap-6 md:grid-cols-3 text-sm text-on-brand-muted">
+        <div><h3 class="text-on-brand text-lg mb-1">1 · Vite build</h3>Replace the Tailwind CLI with Vite: one bundle for CSS and JS, hashed filenames, code splitting, dev server with hot reload, and a manifest Django reads. Alpine and GSAP tree-shaken.</div>
+        <div><h3 class="text-on-brand text-lg mb-1">2 · App-like navigation</h3>HTMX boost for every internal link and the View Transitions API for shared-element moves: a card cover grows into the article header, the page never flashes white. Pages stay server-rendered and indexable.</div>
+        <div><h3 class="text-on-brand text-lg mb-1">3 · Vue islands</h3>Vue 3 mounted only where a widget needs real state: the campaign planner, the magazine reader, the command palette. Props come from a JSON script tag rendered by Django; the rest of the page stays plain HTML.</div>
+      </div>
+    </div>
+  </div>
+</section>

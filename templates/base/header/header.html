@@ -18,23 +18,5 @@
         </div>
     </div>
 
-    {% if show_hero %}
-    <div class="container header-hero" data-hero>
-        <div class="header-left glass-panel" data-hero-item>
-            <div class="logos-section">
-                <div class="main-logo">{% include "base/header/main-logo.html" %}</div>
-                <div class="secondary-logo-container">{% include "base/header/secondary-logo.html" %}</div>
-            </div>
-            <div class="partners-tree">{% include "base/header/partners-tree.html" %}</div>
-            <div class="company-info">{% include "base/header/company-info.html" %}</div>
-        </div>
-        <div class="header-right">
-            <div class="owner-section" data-hero-item>
-                <div class="owner-info">{% include "base/header/owner-info.html" %}</div>
-                <div class="owner-image">{% include "base/header/owner-profile.html" %}</div>
-            </div>
-            <div class="magazine-section" data-hero-item>{% include "base/header/magazine-slider.html" %}</div>
-        </div>
-    </div>
-    {% endif %}
+    {% if show_hero %}{% include "base/hero/front-page.html" %}{% endif %}
 </header>

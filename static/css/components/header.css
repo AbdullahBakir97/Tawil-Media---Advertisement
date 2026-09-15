@@ -396,10 +396,11 @@
 }
 
 .auth-buttons {
-  display: flex;
+  display: none;
   align-items: center;
   gap: 0.5rem;
 }
+.nav-mobile .auth-buttons { display: flex; padding-top: 0.75rem; border-top: 1px solid var(--header-glass-border); }
 
 .btn-ghost {
   color: var(--header-text);
@@ -819,6 +820,10 @@
 
 @media (min-width: 768px) {
   .search-component {
+    display: flex;
+  }
+
+  .auth-buttons {
     display: flex;
   }
 
