@@ -95,7 +95,7 @@
     </div>
     <div class="tag-list" data-motion="stagger">
         {% for category in categories %}
-            <a href="{% url 'articles:by_category' category.slug %}" class="tag text-base">{{ category.name }}</a>
+            <a href="{% url 'articles:by_category' category.slug %}" class="tag text-base">{{ category.label }}</a>
         {% endfor %}
     </div>
 </section>

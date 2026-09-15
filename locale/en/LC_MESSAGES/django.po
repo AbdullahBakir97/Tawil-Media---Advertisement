@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-15 16:11+0200\n"
+"POT-Creation-Date: 2026-09-15 16:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -81,15 +81,15 @@ msgstr ""
 msgid "New campaign request: %(company)s"
 msgstr ""
 
-#: source/apps/content/models.py:70
+#: source/apps/content/models.py:96
 msgid "Image"
 msgstr ""
 
-#: source/apps/content/models.py:71
+#: source/apps/content/models.py:97
 msgid "Video"
 msgstr ""
 
-#: source/apps/content/models.py:72
+#: source/apps/content/models.py:98
 msgid "Document"
 msgstr ""
 
@@ -586,7 +586,7 @@ msgid "Anything we should know?"
 msgstr ""
 
 #: templates/advertising/partials/planner_form.html:38
-#: templates/base/footer/main.html:57
+#: templates/base/footer/main.html:58
 msgid "Privacy"
 msgstr ""
 
@@ -687,7 +687,7 @@ msgstr ""
 
 #: templates/auth/login.html:24 templates/auth/password/reset.html:21
 #: templates/auth/profile/settings.html:40 templates/auth/register.html:35
-#: templates/base/footer/main.html:43 templates/content/article_detail.html:69
+#: templates/base/footer/main.html:44 templates/content/article_detail.html:78
 msgid "E-mail address"
 msgstr ""
 
@@ -837,8 +837,8 @@ msgstr ""
 msgid "Edit profile"
 msgstr ""
 
-#: templates/auth/profile/dashboard.html:49 templates/base/footer/main.html:37
-#: templates/content/article_detail.html:65
+#: templates/auth/profile/dashboard.html:49 templates/base/footer/main.html:38
+#: templates/content/article_detail.html:74
 msgid "Newsletter"
 msgstr ""
 
@@ -985,7 +985,12 @@ msgstr ""
 msgid "Articles"
 msgstr ""
 
-#: templates/base/footer/main.html:30 templates/base/header/navigation.html:9
+#: templates/base/footer/main.html:30 templates/base/header/mega-menu.html:11
+#: templates/content/contributor_list.html:3
+msgid "Writers"
+msgstr ""
+
+#: templates/base/footer/main.html:31 templates/base/header/navigation.html:9
 #: templates/base/header/navigation.html:36
 #: templates/content/magazine_detail.html:10
 #: templates/content/magazine_list.html:3
@@ -993,39 +998,39 @@ msgstr ""
 msgid "Magazines"
 msgstr ""
 
-#: templates/base/footer/main.html:31
+#: templates/base/footer/main.html:32
 msgid "Archives"
 msgstr ""
 
-#: templates/base/footer/main.html:32
+#: templates/base/footer/main.html:33
 msgid "Help centre"
 msgstr ""
 
-#: templates/base/footer/main.html:38
+#: templates/base/footer/main.html:39
 msgid "The new edition and the best stories, once a week."
 msgstr ""
 
-#: templates/base/footer/main.html:45 templates/content/article_detail.html:70
+#: templates/base/footer/main.html:46 templates/content/article_detail.html:79
 msgid "you@example.com"
 msgstr ""
 
-#: templates/base/footer/main.html:46 templates/content/article_detail.html:71
+#: templates/base/footer/main.html:47 templates/content/article_detail.html:80
 msgid "Subscribe"
 msgstr ""
 
-#: templates/base/footer/main.html:54
+#: templates/base/footer/main.html:55
 msgid "All rights reserved."
 msgstr ""
 
-#: templates/base/footer/main.html:56
+#: templates/base/footer/main.html:57
 msgid "Terms"
 msgstr ""
 
-#: templates/base/footer/main.html:58
+#: templates/base/footer/main.html:59
 msgid "Cookies"
 msgstr ""
 
-#: templates/base/footer/main.html:59
+#: templates/base/footer/main.html:60
 msgid "Sitemap"
 msgstr ""
 
@@ -1094,11 +1099,13 @@ msgstr ""
 msgid "New editions are published here."
 msgstr ""
 
-#: templates/base/header/mega-menu.html:6 templates/pages/home.html:19
+#: templates/base/header/mega-menu.html:6
+#: templates/content/category_hub.html:39
+#: templates/content/contributor_detail.html:41 templates/pages/home.html:19
 msgid "All articles"
 msgstr ""
 
-#: templates/base/header/mega-menu.html:25
+#: templates/base/header/mega-menu.html:26
 msgid "read now"
 msgstr ""
 
@@ -1281,33 +1288,33 @@ msgstr ""
 msgid "Request media kit"
 msgstr ""
 
-#: templates/content/article_detail.html:27
+#: templates/content/article_detail.html:36
 #: templates/content/partials/article_card.html:18
 #, python-format
 msgid "%(minutes)s min read"
 msgstr ""
 
-#: templates/content/article_detail.html:46
+#: templates/content/article_detail.html:55
 msgid "Share"
 msgstr ""
 
-#: templates/content/article_detail.html:51
+#: templates/content/article_detail.html:60
 msgid "Copy link"
 msgstr ""
 
-#: templates/content/article_detail.html:57 templates/pages/home.html:92
+#: templates/content/article_detail.html:66 templates/pages/home.html:92
 msgid "Topics"
 msgstr ""
 
-#: templates/content/article_detail.html:66
+#: templates/content/article_detail.html:75
 msgid "Stories like this, weekly."
 msgstr ""
 
-#: templates/content/article_detail.html:81
+#: templates/content/article_detail.html:90
 msgid "Gallery"
 msgstr ""
 
-#: templates/content/article_detail.html:102
+#: templates/content/article_detail.html:111
 msgid "Related stories"
 msgstr ""
 
@@ -1332,6 +1339,7 @@ msgid "Categories"
 msgstr ""
 
 #: templates/content/article_list.html:15
+#: templates/content/category_hub.html:19
 #: templates/studio/partials/toolbar.html:7
 msgid "All"
 msgstr ""
@@ -1344,6 +1352,17 @@ msgstr ""
 msgid "New stories are published every week. Check back soon."
 msgstr ""
 
+#: templates/content/category_hub.html:4
+#, python-format
+msgid "Everything we publish under %(name)s."
+msgstr ""
+
+#: templates/content/category_hub.html:11
+msgid "Section"
+msgstr ""
+
+#: templates/content/category_hub.html:14
+#: templates/content/contributor_detail.html:19
 #: templates/content/magazine_detail.html:29
 #: templates/studio/partials/media_details.html:50
 #, python-format
@@ -1351,6 +1370,77 @@ msgid "%(counter)s article"
 msgid_plural "%(counter)s articles"
 msgstr[0] ""
 msgstr[1] ""
+
+#: templates/content/category_hub.html:18
+msgid "Sections"
+msgstr ""
+
+#: templates/content/category_hub.html:37
+msgid "Nothing in this section yet"
+msgstr ""
+
+#: templates/content/category_hub.html:38
+msgid "The first stories filed here will appear on this page."
+msgstr ""
+
+#: templates/content/category_hub.html:50
+msgid "Bylines"
+msgstr ""
+
+#: templates/content/category_hub.html:51
+#, python-format
+msgid "Who writes %(name)s"
+msgstr ""
+
+#: templates/content/category_hub.html:53
+#: templates/content/contributor_detail.html:45
+msgid "All writers"
+msgstr ""
+
+#: templates/content/contributor_detail.html:4
+#, python-format
+msgid "Articles by %(name)s in Almadina."
+msgstr ""
+
+#: templates/content/contributor_detail.html:14
+msgid "Writer"
+msgstr ""
+
+#: templates/content/contributor_detail.html:22
+msgid "Website"
+msgstr ""
+
+#: templates/content/contributor_detail.html:39
+msgid "No articles yet"
+msgstr ""
+
+#: templates/content/contributor_detail.html:40
+msgid "Everything this author publishes will be collected here."
+msgstr ""
+
+#: templates/content/contributor_list.html:4
+msgid "The reporters, photographers and columnists behind Almadina."
+msgstr ""
+
+#: templates/content/contributor_list.html:9
+msgid "The team"
+msgstr ""
+
+#: templates/content/contributor_list.html:10
+msgid "Who writes for us"
+msgstr ""
+
+#: templates/content/contributor_list.html:11
+msgid "Reporters, photographers and columnists in Berlin and across Germany. Every name here has a page with their work."
+msgstr ""
+
+#: templates/content/contributor_list.html:34
+msgid "The team page is being prepared"
+msgstr ""
+
+#: templates/content/contributor_list.html:35
+msgid "Names, portraits and short biographies appear here as soon as they are entered."
+msgstr ""
 
 #: templates/content/magazine_detail.html:33
 msgid "Advertise in the next edition"

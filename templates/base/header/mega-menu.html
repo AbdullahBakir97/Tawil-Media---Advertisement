@@ -4,15 +4,16 @@
     <div class="mega-sections">
         <a href="{% url 'articles:list' %}" class="is-active" role="menuitem">{% trans "All articles" %}</a>
         {% for category in header_categories %}
-        <a href="{% url 'articles:by_category' category.slug %}" role="menuitem">{{ category.name }}</a>
+        <a href="{% url 'articles:by_category' category.slug %}" role="menuitem">{{ category.label }}</a>
         {% endfor %}
         <a href="{% url 'archives:browse' %}" role="menuitem">{% trans "Archive" %}</a>
+        <a href="{% url 'authors:list' %}" role="menuitem">{% trans "Writers" %}</a>
     </div>
     <div class="mega-stories">
         {% for article in header_preview_articles %}
         <a class="mega-story" href="{{ article.get_absolute_url }}" role="menuitem">
             {% if article.cover %}<img src="{{ article.cover.file.url }}" alt="" loading="lazy">{% else %}<span class="mega-thumb"></span>{% endif %}
-            <span class="kicker">{{ article.primary_category.name|default:"" }}</span>
+            <span class="kicker">{{ article.primary_category.label|default:"" }}</span>
             <span class="mega-story-title">{{ article.title }}</span>
         </a>
         {% endfor %}

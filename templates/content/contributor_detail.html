@@ -1,0 +1,47 @@
+{% extends "base/base.html" %}
+{% load i18n media_tags %}
+{% block title %}{{ contributor.name }} – {{ SITE_NAME }}{% endblock %}
+{% block meta_description %}{% if contributor.bio %}{{ contributor.bio|truncatewords:28 }}{% else %}{% blocktrans with name=contributor.name %}Articles by {{ name }} in Almadina.{% endblocktrans %}{% endif %}{% endblock %}
+
+{% block content %}
+<header class="author-hero" data-hero>
+    <div class="container author-hero-inner">
+        <span class="author-portrait author-portrait--lg" data-hero-item>
+            {% if contributor.portrait %}{% picture contributor.portrait sizes="10rem" alt="" loading="eager" %}
+            {% else %}<span class="author-initials" aria-hidden="true">{{ contributor.initials }}</span>{% endif %}
+        </span>
+        <div class="author-hero-text">
+            <span class="eyebrow" style="color:var(--gold-400)" data-hero-item>{% trans "Writer" %}</span>
+            <h1 data-hero-item>{{ contributor.name }}</h1>
+            {% if contributor.role %}<p class="author-role author-role--lg" data-hero-item>{{ contributor.role }}</p>{% endif %}
+            {% if contributor.bio %}<p class="lead text-on-brand-muted max-w-measure mt-2" data-hero-item>{{ contributor.bio }}</p>{% endif %}
+            <div class="author-links" data-hero-item>
+                {% if article_count %}<span class="author-count">{% blocktrans count counter=article_count %}{{ counter }} article{% plural %}{{ counter }} articles{% endblocktrans %}</span>{% endif %}
+                {% if contributor.email %}<a class="link-on-brand" href="mailto:{{ contributor.email }}">{{ contributor.email }}</a>{% endif %}
+                {% if contributor.social_url %}<a class="link-on-brand" href="{{ contributor.social_url }}" rel="me noopener" target="_blank">{{ contributor.social_handle|default:contributor.social_url }}</a>{% endif %}
+                {% if contributor.website %}<a class="link-on-brand" href="{{ contributor.website }}" rel="noopener" target="_blank">{% trans "Website" %}</a>{% endif %}
+            </div>
+        </div>
+    </div>
+</header>
+
+<section class="container section">
+    {% if lead %}
+    <div class="mb-8" data-motion="fade-up">{% include "content/partials/article_card.html" with article=lead variant="feature" %}</div>
+    {% endif %}
+
+    {% if articles %}
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" data-motion="stagger">
+        {% for article in articles %}{% include "content/partials/article_card.html" with article=article %}{% endfor %}
+    </div>
+    {% elif not lead %}
+    <div class="empty-state">
+        <h3>{% trans "No articles yet" %}</h3>
+        <p>{% trans "Everything this author publishes will be collected here." %}</p>
+        <a class="btn btn-outline btn-sm mt-3" href="{% url 'articles:list' %}">{% trans "All articles" %}</a>
+    </div>
+    {% endif %}
+
+    <p class="mt-8"><a class="link-underline" href="{% url 'authors:list' %}">{% trans "All writers" %}</a></p>
+</section>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "base/base.html" %}
+{% load i18n media_tags %}
+{% block title %}{% trans "Writers" %} – {{ SITE_NAME }}{% endblock %}
+{% block meta_description %}{% trans "The reporters, photographers and columnists behind Almadina." %}{% endblock %}
+
+{% block content %}
+<section class="container section-tight" data-hero>
+    <div class="page-head">
+        <span class="eyebrow" data-hero-item>{% trans "The team" %}</span>
+        <h1 data-hero-item>{% trans "Who writes for us" %}</h1>
+        <p class="lead max-w-measure mt-3" data-hero-item>{% trans "Reporters, photographers and columnists in Berlin and across Germany. Every name here has a page with their work." %}</p>
+    </div>
+</section>
+
+<section class="container section-tight">
+    {% if contributors %}
+    <div class="author-grid" data-motion="stagger">
+        {% for contributor in contributors %}
+        <a class="author-card" href="{{ contributor.get_absolute_url }}">
+            <span class="author-portrait">
+                {% if contributor.portrait %}{% picture contributor.portrait sizes="7rem" alt="" %}
+                {% else %}<span class="author-initials" aria-hidden="true">{{ contributor.initials }}</span>{% endif %}
+            </span>
+            <span class="author-card-body">
+                <strong class="author-name">{{ contributor.name }}</strong>
+                {% if contributor.role %}<span class="author-role">{{ contributor.role }}</span>{% endif %}
+                {% if contributor.bio %}<span class="author-line">{{ contributor.bio|truncatewords:18 }}</span>{% endif %}
+            </span>
+        </a>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <h3>{% trans "The team page is being prepared" %}</h3>
+        <p>{% trans "Names, portraits and short biographies appear here as soon as they are entered." %}</p>
+    </div>
+    {% endif %}
+</section>
+{% endblock %}

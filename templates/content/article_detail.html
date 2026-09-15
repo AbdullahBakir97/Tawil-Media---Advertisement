@@ -11,16 +11,25 @@
         <div class="max-w-3xl mx-auto text-center">
             <div class="flex flex-wrap justify-center gap-2 mb-5" data-hero-item>
                 {% for category in article.categories.all %}
-                    <a href="{% url 'articles:by_category' category.slug %}" class="badge badge-category">{{ category.name }}</a>
+                    <a href="{% url 'articles:by_category' category.slug %}" class="badge badge-category">{{ category.label }}</a>
                 {% endfor %}
                 {% if not article.is_published %}<span class="badge badge-warning">{% trans "Draft" %}</span>{% endif %}
             </div>
             <h1 class="article-title" data-hero-item>{{ article.title }}</h1>
             <p class="lead mt-5" data-hero-item>{{ article.excerpt }}</p>
             <div class="article-byline" data-hero-item>
-                {% if article.author %}
+                {% if article.byline %}
+                    <a class="byline" href="{{ article.byline.get_absolute_url }}">
+                        <span class="author-portrait author-portrait--sm" aria-hidden="true">
+                            {% if article.byline.portrait %}{% picture article.byline.portrait sizes="2.25rem" alt="" %}
+                            {% else %}<span class="author-initials">{{ article.byline.initials }}</span>{% endif %}
+                        </span>
+                        <span class="font-semibold text-primary">{{ article.byline.name }}</span>
+                    </a>
+                    <span aria-hidden="true">·</span>
+                {% elif article.author %}
                     <span class="avatar avatar-sm" aria-hidden="true">{{ article.author.first_name|first|default:"T" }}{{ article.author.last_name|first }}</span>
-                    <span class="font-semibold text-primary">{{ article.author.get_full_name|default:article.author.email }}</span>
+                    <span class="font-semibold text-primary">{{ article.byline_name }}</span>
                     <span aria-hidden="true">·</span>
                 {% endif %}
                 {% if article.published_at %}<time datetime="{{ article.published_at|date:'c' }}">{{ article.published_at|date:"j F Y" }}</time><span aria-hidden="true">·</span>{% endif %}

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Article, Category, Magazine, Media
+from .models import Article, Category, Contributor, Magazine, Media
 
 
 @admin.register(Category)
@@ -8,6 +8,27 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug')
     search_fields = ('name',)
     prepopulated_fields = {'slug': ('name',)}  # Automatically populate slug from name
+    list_display = ('name', 'slug', 'order', 'is_active')
+    list_editable = ('order', 'is_active')
+    fieldsets = (
+        (None, {'fields': ('name', 'slug', 'description', 'is_active', 'order', 'accent')}),
+        ('Translations', {'fields': ('name_de', 'name_ar', 'name_en', 'intro_de', 'intro_ar', 'intro_en')}),
+    )
+
+
+@admin.register(Contributor)
+class ContributorAdmin(admin.ModelAdmin):
+    list_display = ('name', 'role_de', 'user', 'is_active', 'order')
+    list_editable = ('is_active', 'order')
+    list_filter = ('is_active',)
+    search_fields = ('name', 'role_de', 'role_ar', 'role_en', 'user__email')
+    prepopulated_fields = {'slug': ('name',)}
+    fieldsets = (
+        (None, {'fields': ('name', 'slug', 'user', 'portrait', 'is_active', 'order')}),
+        ('Role', {'fields': ('role_de', 'role_ar', 'role_en')}),
+        ('Biography', {'fields': ('bio_de', 'bio_ar', 'bio_en')}),
+        ('Contact', {'fields': ('email', 'website', 'social_handle', 'social_url')}),
+    )
 
 @admin.register(Media)
 class MediaAdmin(admin.ModelAdmin):

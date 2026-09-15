@@ -1,20 +1,20 @@
 {% extends "base/base.html" %}
 {% load i18n %}
-{% block title %}{% if category %}{{ category.name }}{% elif tag %}#{{ tag }}{% else %}{% trans "Articles" %}{% endif %} – {{ SITE_NAME }}{% endblock %}
+{% block title %}{% if category %}{{ category.label }}{% elif tag %}#{{ tag }}{% else %}{% trans "Articles" %}{% endif %} – {{ SITE_NAME }}{% endblock %}
 
 {% block content %}
 <div class="container">
     <header class="page-header" data-motion="fade-up">
         <span class="eyebrow">{% if category %}{% trans "Category" %}{% elif tag %}{% trans "Tag" %}{% else %}{% trans "Journal" %}{% endif %}</span>
-        <h1>{% if category %}{{ category.name }}{% elif tag %}#{{ tag }}{% else %}{% trans "Articles" %}{% endif %}</h1>
-        {% if category.description %}<p class="lead max-w-measure">{{ category.description }}</p>{% elif not category and not tag %}<p class="lead max-w-measure">{% trans "Reporting, culture and community from Berlin and beyond." %}</p>{% endif %}
+        <h1>{% if category %}{{ category.label }}{% elif tag %}#{{ tag }}{% else %}{% trans "Articles" %}{% endif %}</h1>
+        {% if category.intro %}<p class="lead max-w-measure">{{ category.intro }}</p>{% elif not category and not tag %}<p class="lead max-w-measure">{% trans "Reporting, culture and community from Berlin and beyond." %}</p>{% endif %}
     </header>
 
     {% if categories %}
     <nav class="filter-bar" aria-label="{% trans 'Categories' %}">
         <a href="{% url 'articles:list' %}" class="filter-chip{% if not category %} is-active{% endif %}">{% trans "All" %}</a>
         {% for item in categories %}
-            <a href="{% url 'articles:by_category' item.slug %}" class="filter-chip{% if category == item %} is-active{% endif %}">{{ item.name }}</a>
+            <a href="{% url 'articles:by_category' item.slug %}" class="filter-chip{% if category == item %} is-active{% endif %}">{{ item.label }}</a>
         {% endfor %}
     </nav>
     {% endif %}

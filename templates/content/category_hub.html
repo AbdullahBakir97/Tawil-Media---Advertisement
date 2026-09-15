@@ -1,0 +1,71 @@
+{% extends "base/base.html" %}
+{% load i18n media_tags %}
+{% block title %}{{ category.label }} – {{ SITE_NAME }}{% endblock %}
+{% block meta_description %}{% if category.intro %}{{ category.intro|truncatewords:28 }}{% else %}{% blocktrans with name=category.label %}Everything we publish under {{ name }}.{% endblocktrans %}{% endif %}{% endblock %}
+
+{% block content %}
+{% comment %}The header takes the section's own accent when one is set, so each
+hub reads as its own place without a separate template per category.{% endcomment %}
+<header class="hub-hero" data-hero{% if category.accent %} style="--hub-accent: {{ category.accent }}"{% endif %}>
+    <div class="container hub-hero-inner">
+        <span class="eyebrow hub-eyebrow" data-hero-item>{% trans "Section" %}</span>
+        <h1 data-hero-item>{{ category.label }}</h1>
+        {% if category.intro %}<p class="lead max-w-measure mt-3" data-hero-item>{{ category.intro }}</p>{% endif %}
+        <p class="hub-count" data-hero-item>{% blocktrans count counter=paginator.count %}{{ counter }} article{% plural %}{{ counter }} articles{% endblocktrans %}</p>
+    </div>
+</header>
+
+<nav class="container hub-nav" aria-label="{% trans 'Sections' %}">
+    <a href="{% url 'articles:list' %}" class="filter-chip">{% trans "All" %}</a>
+    <a href="{{ category.get_absolute_url }}" class="filter-chip is-active">{{ category.label }}</a>
+    {% for item in siblings %}<a href="{{ item.get_absolute_url }}" class="filter-chip">{{ item.label }}</a>{% endfor %}
+</nav>
+
+<div class="container section-tight">
+    {% if lead %}
+    <div class="mb-8" data-motion="fade-up">{% include "content/partials/article_card.html" with article=lead variant="feature" %}</div>
+    {% endif %}
+
+    {% if rest %}
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" data-motion="stagger">
+        {% for article in rest %}{% include "content/partials/article_card.html" %}{% endfor %}
+    </div>
+    {% endif %}
+
+    {% if not lead and not rest %}
+    <div class="empty-state">
+        <h3>{% trans "Nothing in this section yet" %}</h3>
+        <p>{% trans "The first stories filed here will appear on this page." %}</p>
+        <a class="btn btn-outline btn-sm mt-3" href="{% url 'articles:list' %}">{% trans "All articles" %}</a>
+    </div>
+    {% endif %}
+
+    {% include "base/components/pagination.html" %}
+</div>
+
+{% if contributors %}
+<section class="container section-tight">
+    <div class="section-head" data-motion="fade-up">
+        <div>
+            <span class="eyebrow">{% trans "Bylines" %}</span>
+            <h2>{% blocktrans with name=category.label %}Who writes {{ name }}{% endblocktrans %}</h2>
+        </div>
+        <a class="btn btn-outline btn-sm" href="{% url 'authors:list' %}">{% trans "All writers" %}</a>
+    </div>
+    <div class="author-row" data-motion="stagger">
+        {% for contributor in contributors %}
+        <a class="author-chip" href="{{ contributor.get_absolute_url }}">
+            <span class="author-portrait author-portrait--sm">
+                {% if contributor.portrait %}{% picture contributor.portrait sizes="3rem" alt="" %}
+                {% else %}<span class="author-initials" aria-hidden="true">{{ contributor.initials }}</span>{% endif %}
+            </span>
+            <span>
+                <strong>{{ contributor.name }}</strong>
+                {% if contributor.role %}<small>{{ contributor.role }}</small>{% endif %}
+            </span>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+{% endblock %}
