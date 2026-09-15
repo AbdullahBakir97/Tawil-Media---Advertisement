@@ -1,6 +1,7 @@
 // Import core modules
 import Utils from './core/utils.js';
 import state from './core/state.js';
+import motion from './core/motion.js';
 
 // Import components
 import SearchComponent from './components/search.js';
@@ -71,6 +72,12 @@ class App {
 
         // Initialize theme handling
         this.initializeTheme();
+
+        // Scroll/entrance motion (GSAP) for [data-motion] elements
+        motion.initMotion();
+        motion.initHoverLift();
+        motion.bindHtmx();
+        motion.playHero(document.querySelector('[data-hero]') || document);
     }
 
     async initializeAnalytics() {

@@ -8,6 +8,7 @@
  */
 
 @import 'tailwindcss/base';
+@import './base/fonts.css';
 @import './base/variables.css';
 @import './base/typography.css';
 @import './base/colors.css';
@@ -18,6 +19,8 @@
 @import './components/forms.css';
 @import './components/cards.css';
 @import './components/modals.css';
+@import './components/alerts.css';
+@import './components/badges.css';
 @import './components/header.css';
 
 @import './layouts/grid.css';

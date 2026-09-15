@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.db.models import Q
 from django.shortcuts import render
 from django.views.generic import ListView, TemplateView
@@ -33,6 +34,16 @@ class StaticPageView(TemplateView):
         if self.page == "advertise":
             context.update(settings.ADVERTISING_STATS)
         return context
+
+
+class StyleGuideView(UserPassesTestMixin, TemplateView):
+    """Living design system. Visible to staff, and to everyone while DEBUG is on."""
+
+    template_name = "pages/styleguide.html"
+    raise_exception = False
+
+    def test_func(self):
+        return settings.DEBUG or self.request.user.is_staff
 
 
 class SitemapView(TemplateView):

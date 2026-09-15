@@ -10,7 +10,7 @@
     <div class="owner-stats">
         {% for stat in DIRECTOR.stats %}
         <div class="stat-item">
-            <span class="stat-number">{{ stat.value }}</span>
+            <span class="stat-number" data-motion="count" data-count="{{ stat.value|slice:":-1" }}" data-suffix="{{ stat.value|slice:"-1:" }}">{{ stat.value }}</span>
             <span class="stat-label">{{ stat.label }}</span>
         </div>
         {% endfor %}

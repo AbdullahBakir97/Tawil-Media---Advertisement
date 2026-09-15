@@ -1,5 +1,22 @@
-{% load static %}
+{% load static i18n %}
+{% get_current_language as CURRENT_LANGUAGE %}{% get_available_languages as AVAILABLE_LANGUAGES %}
 <div class="user-menu">
+    <div class="relative" x-data="{ open: false }" @click.away="open = false" @keydown.escape.window="open = false">
+        <button type="button" class="icon-btn lang-btn" @click="open = !open" :aria-expanded="open" aria-label="{% trans 'Change language' %}">
+            <span class="lang-code">{{ CURRENT_LANGUAGE|upper }}</span>
+        </button>
+        <div class="dropdown-menu" x-show="open" x-cloak x-transition role="menu">
+            {% for code, name in AVAILABLE_LANGUAGES %}
+            <form action="{% url 'set_language' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="language" value="{{ code }}">
+                <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                <button type="submit" class="dropdown-menu-item w-full text-start{% if code == CURRENT_LANGUAGE %} is-active{% endif %}" role="menuitem" lang="{{ code }}">{{ name }}</button>
+            </form>
+            {% endfor %}
+        </div>
+    </div>
+
     <button type="button" x-data @click="$store.theme.toggle()" class="icon-btn" aria-label="Toggle dark mode">
         <svg class="hidden dark:block w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
         <svg class="block dark:hidden w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>

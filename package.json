@@ -6,7 +6,7 @@
   "scripts": {
     "build:css": "tailwindcss -i ./static/css/index.css -o ./static/css/dist/main.css --minify",
     "watch:css": "tailwindcss -i ./static/css/index.css -o ./static/css/dist/main.css --watch",
-    "vendor": "cp node_modules/htmx.org/dist/htmx.min.js static/js/vendor/htmx.min.js && cp node_modules/alpinejs/dist/cdn.min.js static/js/vendor/alpine.min.js",
+    "vendor": "cp node_modules/htmx.org/dist/htmx.min.js static/js/vendor/htmx.min.js && cp node_modules/alpinejs/dist/cdn.min.js static/js/vendor/alpine.min.js && cp node_modules/gsap/dist/gsap.min.js node_modules/gsap/dist/ScrollTrigger.min.js static/js/vendor/ && cp node_modules/@fontsource/playfair-display/files/playfair-display-latin*-{500,700}-normal.woff2 node_modules/@fontsource/source-sans-3/files/source-sans-3-latin*-{400,600}-{normal,italic}.woff2 node_modules/@fontsource/amiri/files/amiri-arabic-{400,700}-normal.woff2 node_modules/@fontsource/ibm-plex-sans-arabic/files/ibm-plex-sans-arabic-arabic-{400,500,600}-normal.woff2 static/fonts/",
     "build": "npm run vendor && npm run build:css"
   },
   "devDependencies": {
@@ -15,7 +15,12 @@
     "tailwindcss": "^3.4.17"
   },
   "dependencies": {
+    "@fontsource/amiri": "^5.3.0",
+    "@fontsource/ibm-plex-sans-arabic": "^5.3.0",
+    "@fontsource/playfair-display": "^5.3.0",
+    "@fontsource/source-sans-3": "^5.3.0",
     "alpinejs": "^3.14.1",
+    "gsap": "^3.12.5",
     "htmx.org": "^1.9.12"
   }
 }

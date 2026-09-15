@@ -1,0 +1,56 @@
+/* Alerts, toasts and inline notices. Status colours are semantic, not brand. */
+
+.alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid;
+  font-size: var(--text-sm);
+  line-height: 1.45;
+  background: var(--bg-secondary);
+  border-color: var(--border-primary);
+  color: var(--text-primary);
+}
+
+.alert svg { width: 1.2rem; height: 1.2rem; flex-shrink: 0; margin-top: 0.05rem; }
+.alert-title { font-weight: 600; display: block; }
+.alert-body { flex: 1; }
+.alert-close { margin-inline-start: auto; background: none; border: 0; color: inherit; opacity: 0.7; cursor: pointer; padding: 0.1rem; line-height: 1; }
+.alert-close:hover { opacity: 1; }
+
+.alert-success, .alert-ok { color: var(--color-success); background: color-mix(in srgb, var(--color-success) 10%, var(--bg-secondary)); border-color: color-mix(in srgb, var(--color-success) 35%, transparent); }
+.alert-warning { color: var(--color-warning); background: color-mix(in srgb, var(--color-warning) 12%, var(--bg-secondary)); border-color: color-mix(in srgb, var(--color-warning) 35%, transparent); }
+.alert-error, .alert-danger { color: var(--color-error); background: color-mix(in srgb, var(--color-error) 10%, var(--bg-secondary)); border-color: color-mix(in srgb, var(--color-error) 35%, transparent); }
+.alert-info, .alert-debug { color: var(--color-info); background: color-mix(in srgb, var(--color-info) 10%, var(--bg-secondary)); border-color: color-mix(in srgb, var(--color-info) 35%, transparent); }
+
+/* Toasts (created by htmx-conf.js) */
+.toast-stack {
+  position: fixed;
+  inset-block-end: calc(1rem + env(safe-area-inset-bottom, 0px));
+  inset-inline-end: 1rem;
+  display: grid;
+  gap: 0.5rem;
+  z-index: var(--z-toast);
+  max-width: min(22rem, calc(100% - 2rem));
+}
+.toast {
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-lg);
+  background: var(--navy-900);
+  color: var(--text-on-brand);
+  border: 1px solid rgb(255 255 255 / 0.12);
+  box-shadow: var(--shadow-xl);
+  font-size: var(--text-sm);
+  animation: toast-in 0.35s var(--ease-out);
+}
+.toast-success { border-inline-start: 3px solid var(--color-success); }
+.toast-error { border-inline-start: 3px solid var(--color-error); }
+.toast-warning { border-inline-start: 3px solid var(--color-warning); }
+.toast-info { border-inline-start: 3px solid var(--sky-400); }
+@keyframes toast-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* Empty state */
+.empty-state { text-align: center; padding: 3rem 1.5rem; color: var(--text-tertiary); border: 1px dashed var(--border-secondary); border-radius: var(--radius-xl); }
+.empty-state h3 { font-size: var(--text-lg); color: var(--text-secondary); margin-bottom: 0.5rem; }
