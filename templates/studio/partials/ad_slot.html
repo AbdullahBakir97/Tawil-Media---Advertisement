@@ -1,0 +1,15 @@
+{% load i18n %}
+{% if slot %}
+<div class="ad-slot-wrap">
+    <span class="ad-slot-label">{% trans "Advertisement" %}</span>
+    <div class="ad-slot ad-slot--{{ slot.format }}">
+        {% if slot.url %}<a href="{{ slot.url }}" rel="noopener sponsored" target="_blank"><img src="{{ slot.image.url }}" alt="{{ slot.alt_text|default:slot.advertiser }}" loading="lazy"></a>
+        {% else %}<img src="{{ slot.image.url }}" alt="{{ slot.alt_text|default:slot.advertiser }}" loading="lazy">{% endif %}
+    </div>
+</div>
+{% elif studio_enabled %}
+<div class="ad-slot-wrap">
+    <span class="ad-slot-label">{% trans "Advertisement" %}</span>
+    <div class="ad-slot ad-slot--{{ fmt }} ad-slot--empty">{{ key }} · {% trans "free" %}</div>
+</div>
+{% endif %}

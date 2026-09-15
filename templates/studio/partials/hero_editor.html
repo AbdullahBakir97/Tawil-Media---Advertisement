@@ -1,0 +1,58 @@
+{% load i18n %}
+<form id="hero-editor" class="studio-panel" method="post" action="{% url 'studio:hero' %}" enctype="multipart/form-data"
+      hx-post="{% url 'studio:hero' %}" hx-encoding="multipart/form-data" hx-target="#hero-editor" hx-swap="outerHTML"
+      x-data="{ tab: 'de' }">
+    {% csrf_token %}
+    <h2>{% trans "Copy and blocks" %}</h2>
+    {% if form.errors %}<div class="alert alert-error"><div class="alert-body">{% trans "Check the highlighted fields." %}</div></div>{% endif %}
+
+    <div class="studio-tabs" role="tablist">
+        <button type="button" role="tab" :class="{ 'is-active': tab === 'de' }" @click="tab = 'de'">Deutsch</button>
+        <button type="button" role="tab" :class="{ 'is-active': tab === 'ar' }" @click="tab = 'ar'">العربية</button>
+        <button type="button" role="tab" :class="{ 'is-active': tab === 'en' }" @click="tab = 'en'">English</button>
+    </div>
+
+    <div class="studio-fields" x-show="tab === 'de'" x-cloak>
+        <label>{% trans "Kicker" %} {{ form.kicker_de }}</label>
+        <label>{% trans "Headline" %} {{ form.headline_de }}<span class="helptext">{% trans "Wrap a word in *asterisks* to colour it gold." %}</span></label>
+        <label>{% trans "Dek" %} {{ form.dek_de }}</label>
+        <label>{% trans "Primary button" %} {{ form.primary_label_de }}</label>
+        <label>{% trans "Secondary button" %} {{ form.secondary_label_de }}</label>
+    </div>
+    <div class="studio-fields" x-show="tab === 'ar'" x-cloak>
+        <label>{% trans "Kicker" %} {{ form.kicker_ar }}</label>
+        <label>{% trans "Headline" %} {{ form.headline_ar }}</label>
+        <label>{% trans "Dek" %} {{ form.dek_ar }}</label>
+        <label>{% trans "Primary button" %} {{ form.primary_label_ar }}</label>
+        <label>{% trans "Secondary button" %} {{ form.secondary_label_ar }}</label>
+    </div>
+    <div class="studio-fields" x-show="tab === 'en'" x-cloak>
+        <label>{% trans "Kicker" %} {{ form.kicker_en }}</label>
+        <label>{% trans "Headline" %} {{ form.headline_en }}</label>
+        <label>{% trans "Dek" %} {{ form.dek_en }}</label>
+        <label>{% trans "Primary button" %} {{ form.primary_label_en }}</label>
+        <label>{% trans "Secondary button" %} {{ form.secondary_label_en }}</label>
+    </div>
+
+    <div class="divider">{% trans "Blocks" %}</div>
+    <div class="studio-toggles">
+        <label class="studio-toggle"><span>{% trans "Masthead with dateline" %}</span>{{ form.show_masthead }}</label>
+        <label class="studio-toggle"><span>{% trans "Statistics" %}</span>{{ form.show_stats }}</label>
+        <label class="studio-toggle"><span>{% trans "Edition facts and contents" %}</span>{{ form.show_issue_facts }}</label>
+        <label class="studio-toggle"><span>{% trans "Partner strip" %}</span>{{ form.show_partners }}</label>
+        <label class="studio-toggle"><span>{% trans "Story ticker" %}</span>{{ form.show_ticker }}</label>
+    </div>
+
+    <div class="divider">{% trans "Links, facts, look" %}</div>
+    <div class="studio-fields">
+        <label>{% trans "Primary link" %} {{ form.primary_url }}</label>
+        <label>{% trans "Secondary link" %} {{ form.secondary_url }}</label>
+        <label>{% trans "Extent" %} {{ form.pages_label }}</label>
+        <label>{% trans "Price" %} {{ form.price_label }}</label>
+        <label>{% trans "Theme" %} {{ form.theme }}</label>
+        <label>{% trans "Background image" %} {{ form.background }}</label>
+        <input type="hidden" name="variant" value="{{ hero.variant }}">
+    </div>
+
+    <button class="btn btn-primary btn-block" type="submit">{% trans "Save and update the site" %}</button>
+</form>

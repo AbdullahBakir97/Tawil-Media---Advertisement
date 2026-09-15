@@ -1,0 +1,20 @@
+{% load i18n %}
+{% comment %}Edition facts and the "in this issue" list under the book.{% endcomment %}
+{% with latest=header_magazines.0 %}
+{% if latest and hero.show_issue_facts %}
+<div class="hero-facts">
+    <div><span class="eyebrow">{% trans "Edition" %}</span><b>{% if latest.issue_number %}{% trans "No." %} {{ latest.issue_number }} · {% endif %}{{ latest.published_at|date:"F Y" }}</b></div>
+    {% if hero.pages_label %}<div><span class="eyebrow">{% trans "Extent" %}</span><b>{{ hero.pages_label }}</b></div>{% elif latest.pages.exists %}<div><span class="eyebrow">{% trans "Extent" %}</span><b>{% blocktrans count n=latest.pages.count %}{{ n }} page{% plural %}{{ n }} pages{% endblocktrans %}</b></div>{% endif %}
+    {% if hero.price_label %}<div><span class="eyebrow">{% trans "Price" %}</span><b>{{ hero.price_label }}</b></div>{% endif %}
+</div>
+{% with issue_articles=latest.articles.all|slice:":3" %}
+{% if issue_articles %}
+<div class="hero-issue">
+    <span class="eyebrow">{% trans "In this issue" %}</span>
+    {% for article in issue_articles %}<a href="{{ article.get_absolute_url }}"><span class="hero-issue-n">{{ forloop.counter|stringformat:"02d" }}</span>{{ article.title }}</a>{% endfor %}
+    <a class="hero-issue-all" href="{% url 'magazines:list' %}">{% trans "All editions" %} <span aria-hidden="true" class="rtl:rotate-180 inline-block">→</span></a>
+</div>
+{% endif %}
+{% endwith %}
+{% endif %}
+{% endwith %}

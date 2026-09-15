@@ -1,0 +1,49 @@
+/* Booked ad placements and sponsored stories. Every slot is labelled. */
+
+.ad-slot {
+  display: grid; place-items: center;
+  margin-inline: auto;
+  max-width: 100%;
+  overflow: hidden;
+}
+.ad-slot img { display: block; max-width: 100%; height: auto; }
+.ad-slot-label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--text-tertiary);
+  text-align: center;
+}
+.ad-slot--empty {
+  border: 1px dashed var(--border-secondary);
+  border-radius: var(--radius-md);
+  background: var(--bg-secondary);
+  color: var(--text-tertiary);
+  font-size: var(--text-xs); letter-spacing: 0.1em; text-transform: uppercase;
+  text-align: center;
+  padding: 1rem;
+}
+.ad-slot--leaderboard { width: 728px; min-height: 90px; }
+.ad-slot--billboard { width: 970px; min-height: 250px; }
+.ad-slot--rectangle { width: 300px; min-height: 250px; }
+.ad-slot--skyscraper { width: 300px; min-height: 600px; }
+.ad-slot--mobile { width: 320px; min-height: 100px; }
+@media (max-width: 1024px) {
+  .ad-slot--leaderboard, .ad-slot--billboard { width: 100%; min-height: 0; }
+}
+
+.ad-band { padding-block: 2rem; }
+
+/* Sponsored story card */
+.card--sponsored { border-color: var(--gold-300); }
+.card--sponsored .card-body { position: relative; }
+.sponsor-tag {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  align-self: flex-start;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
+  background: var(--gold-100);
+  color: var(--gold-800);
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+}
+:root.dark .sponsor-tag { background: rgb(242 178 92 / 0.18); color: var(--gold-300); }

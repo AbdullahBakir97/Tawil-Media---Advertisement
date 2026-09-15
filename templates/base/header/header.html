@@ -1,5 +1,6 @@
 {% load static i18n %}
 <header class="site-header{% if show_hero %} site-header--hero{% endif %}">
+    {% include "base/header/announcements.html" %}
     <div class="header-background" aria-hidden="true">
         <img src="{% static 'img/almadina-background.jpg' %}" alt="" data-hero-bg>
     </div>
@@ -18,5 +19,5 @@
         </div>
     </div>
 
-    {% if show_hero %}{% include "base/hero/front-page.html" %}{% endif %}
+    {% if show_hero %}{% include "base/hero/index.html" %}{% endif %}
 </header>

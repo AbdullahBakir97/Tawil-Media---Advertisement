@@ -1,0 +1,13 @@
+{% load static i18n %}<!doctype html>
+<html lang="{{ LANGUAGE_CODE }}" dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1440">
+    <title>{{ hero.get_variant_display }}</title>
+    <link rel="stylesheet" href="{% static 'css/dist/main.css' %}">
+    <style>body { width: 1440px; overflow: hidden; } .hero-front, .hero-immersive { min-height: 900px; }</style>
+</head>
+<body class="bg-primary text-primary">
+    {% include "base/hero/index.html" %}
+</body>
+</html>

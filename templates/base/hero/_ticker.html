@@ -1,0 +1,19 @@
+{% load i18n studio %}
+{% if hero.show_partners %}
+{% partners as partner_list %}
+<div class="hero-partners">
+    <span>{% trans "With the support of" %}</span>
+    <div class="hero-partners-logos">
+        {% for partner in partner_list %}<a href="{{ partner.url|default:'#' }}" title="{{ partner.name }}"><img src="{{ partner.logo.url }}" alt="{{ partner.name }}" loading="lazy"></a>{% empty %}<span class="hero-partners-empty">{% trans "Partner logos appear here" %}</span>{% endfor %}
+    </div>
+    <a href="{% url 'advertise' %}">{% trans "Become a partner" %} <span aria-hidden="true" class="rtl:rotate-180 inline-block">→</span></a>
+</div>
+{% endif %}
+{% if hero.show_ticker and featured_articles %}
+<div class="hero-front-ticker" data-hero-item>
+    <span class="hero-front-ticker-label">{% trans "Latest" %}</span>
+    <div class="hero-front-ticker-track">
+        <span>{% for article in featured_articles %}<a href="{{ article.get_absolute_url }}">{% if article.primary_category %}<span class="kicker">{{ article.primary_category.name }}</span>{% endif %}{{ article.title }}</a>{% endfor %}{% for article in featured_articles %}<a href="{{ article.get_absolute_url }}" aria-hidden="true" tabindex="-1">{% if article.primary_category %}<span class="kicker">{{ article.primary_category.name }}</span>{% endif %}{{ article.title }}</a>{% endfor %}</span>
+    </div>
+</div>
+{% endif %}

@@ -1,0 +1,59 @@
+{% extends "studio/base.html" %}
+{% load i18n %}
+{% block studio_title %}{% trans "Announcements" %}{% endblock %}
+
+{% block studio_content %}
+<header class="studio-head">
+    <div>
+        <span class="eyebrow">Studio</span>
+        <h1>{% trans "The line above the navbar" %}</h1>
+        <p>{% trans "Editorial notices, booked advertising lines and live banners. Items scroll in order and can be scheduled with a start and end date." %}</p>
+    </div>
+</header>
+
+<div class="studio-editor">
+    <form class="studio-panel" method="post">
+        {% csrf_token %}
+        <h2>{% trans "New item" %}</h2>
+        {% if form.errors %}<div class="alert alert-error"><div class="alert-body">{{ form.errors }}</div></div>{% endif %}
+        <div class="studio-fields">
+            <label>{% trans "Kind" %} {{ form.kind }}</label>
+            <label>{% trans "Text · Deutsch" %} {{ form.text_de }}</label>
+            <label>{% trans "Text · العربية" %} {{ form.text_ar }}</label>
+            <label>{% trans "Text · English" %} {{ form.text_en }}</label>
+            <label>{% trans "Link" %} {{ form.url }}</label>
+            <label>{% trans "Starts" %} {{ form.starts_at }}</label>
+            <label>{% trans "Ends" %} {{ form.ends_at }}</label>
+            <label>{% trans "Order" %} {{ form.order }}</label>
+            <label class="studio-toggle"><span>{% trans "Active" %}</span>{{ form.is_active }}</label>
+        </div>
+        <button class="btn btn-primary btn-block" type="submit">{% trans "Add to the line" %}</button>
+    </form>
+
+    <div>
+        <div class="studio-preview mb-4">
+            <div class="studio-preview-bar"><span class="eyebrow">{% trans "Live preview" %}</span></div>
+            <div class="studio-preview-body">{% include "base/header/announcements.html" %}</div>
+        </div>
+        <div class="studio-rows">
+            {% for item in items %}
+            <div class="studio-row">
+                <span class="badge {% if item.kind == 'ad' %}badge-gold{% elif item.kind == 'live' %}badge-live{% else %}badge-sky{% endif %}">{{ item.get_kind_display }}</span>
+                <div class="studio-row-main">
+                    <strong>{{ item.text_de }}</strong>
+                    <p class="text-tertiary">{% if item.starts_at %}{{ item.starts_at|date:"j M Y" }}{% endif %}{% if item.ends_at %} – {{ item.ends_at|date:"j M Y" }}{% endif %}{% if not item.is_active %} · {% trans "off" %}{% endif %}</p>
+                </div>
+                <form method="post" onsubmit="return confirm('{% trans "Delete this announcement?" %}')">
+                    {% csrf_token %}
+                    <input type="hidden" name="pk" value="{{ item.pk }}">
+                    <input type="hidden" name="action" value="delete">
+                    <button class="btn btn-ghost btn-sm" type="submit">{% trans "Delete" %}</button>
+                </form>
+            </div>
+            {% empty %}
+            <div class="empty-state"><h3>{% trans "The line is empty" %}</h3><p>{% trans "Nothing shows above the navbar until you add an item." %}</p></div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

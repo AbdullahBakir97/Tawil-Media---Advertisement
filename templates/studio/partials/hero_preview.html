@@ -1,0 +1,11 @@
+{% load i18n %}
+<div id="hero-preview" class="studio-preview">
+    <div class="studio-preview-bar">
+        <span class="eyebrow">{% trans "Live preview" %}</span>
+        <span>{{ hero.get_variant_display }}</span>
+        <a class="btn btn-outline btn-xs ms-auto" href="{% url 'home' %}" target="_blank" rel="noopener">{% trans "Full size" %}</a>
+    </div>
+    <div class="studio-preview-body">
+        {% include "base/hero/index.html" %}
+    </div>
+</div>

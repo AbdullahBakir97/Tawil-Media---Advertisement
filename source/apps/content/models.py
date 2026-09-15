@@ -106,6 +106,8 @@ class Article(TimeStampedModel):
     media = models.ManyToManyField(Media, related_name="article_media", blank=True, verbose_name="Media Attachments")
     is_published = models.BooleanField(default=False, verbose_name="Is Published")
     published_at = models.DateTimeField(null=True, blank=True, verbose_name="Published At")
+    is_sponsored = models.BooleanField(default=False, verbose_name="Sponsored content")
+    sponsor_name = models.CharField(max_length=120, blank=True, verbose_name="Sponsor")
 
     objects = ArticleManager()
 
@@ -215,6 +217,12 @@ class Magazine(TimeStampedModel):
     )
     is_published = models.BooleanField(default=False, verbose_name="Is Published")
     published_at = models.DateTimeField(null=True, blank=True, verbose_name="Published At")
+    pdf = models.FileField(upload_to="magazines/pdf/", blank=True, verbose_name="Edition PDF")
+    pdf_rendered = models.CharField(max_length=255, blank=True, editable=False, verbose_name="Rendered PDF")
+    issue_number = models.PositiveIntegerField(null=True, blank=True, verbose_name="Issue number")
+    theme = models.ForeignKey(
+        "studio.Theme", on_delete=models.SET_NULL, null=True, blank=True, related_name="magazines", verbose_name="Theme"
+    )
 
     objects = MagazineManager()
 

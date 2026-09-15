@@ -1,0 +1,18 @@
+{% load i18n studio %}
+{% milestones as milestone_list %}
+{% if milestone_list %}
+<section class="section" data-motion="fade-up">
+    <div class="container">
+        <div class="section-head"><div><span class="eyebrow">{% trans "Our story" %}</span><h2>{% blocktrans with years=YEARS_ACTIVE %}{{ years }} years in Berlin{% endblocktrans %}</h2></div></div>
+        <div class="timeline" data-motion="stagger">
+            {% for milestone in milestone_list %}
+            <div class="timeline-step">
+                <span class="timeline-year">{{ milestone.year }}</span>
+                <span class="timeline-title">{{ milestone.title }}</span>
+                {% if milestone.text %}<p>{{ milestone.text }}</p>{% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}

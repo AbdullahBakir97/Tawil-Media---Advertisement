@@ -1,0 +1,16 @@
+{% load static i18n %}
+{% comment %}The latest edition as a book, two previous editions fanned behind. Needs x-data with rx/ry on an ancestor.{% endcomment %}
+{% with latest=header_magazines.0 %}
+<div class="hero-front-stack">
+    {% for magazine in header_magazines|slice:"1:3" %}
+    <a class="hero-front-back hero-front-back--{{ forloop.counter }}" href="{{ magazine.get_absolute_url }}" aria-label="{{ magazine.title }}">
+        {% if magazine.cover_image %}<img src="{{ magazine.cover_image.file.url }}" alt="" loading="lazy">{% else %}<img src="{% static 'img/magazine-tawil.png' %}" alt="" loading="lazy">{% endif %}
+    </a>
+    {% endfor %}
+    <a class="hero-front-book" href="{% if latest %}{% if latest.pages.exists %}{% url 'magazines:read' latest.slug %}{% else %}{{ latest.get_absolute_url }}{% endif %}{% else %}{% url 'magazines:list' %}{% endif %}" :style="`transform: rotateY(${ry}deg) rotateX(${rx}deg)`" aria-label="{% if latest %}{{ latest.title }}{% else %}{% trans 'Editions' %}{% endif %}">
+        {% if latest and latest.cover_image %}<img src="{{ latest.cover_image.file.url }}" alt="">{% else %}<img src="{% static 'img/magazine-tawil.png' %}" alt="">{% endif %}
+        <span class="hero-front-spine" aria-hidden="true"></span>
+    </a>
+    {% if latest %}<span class="hero-front-badge">{% trans "Out now" %}</span>{% endif %}
+</div>
+{% endwith %}

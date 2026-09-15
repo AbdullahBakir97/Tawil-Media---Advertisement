@@ -1,0 +1,71 @@
+/* Announcement line above the navbar: editorial notices, booked ad lines, live banners. */
+
+.announce {
+  display: flex; align-items: stretch;
+  min-width: 0;
+  background: var(--gold-400);
+  color: var(--navy-900);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+.announce--live { background: var(--red-500); color: #fff; }
+
+.announce-label {
+  flex: none;
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  padding: 0.55rem 1.25rem;
+  background: var(--navy-900);
+  color: var(--gold-400);
+  font-size: 0.62rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+  white-space: nowrap;
+}
+.announce--live .announce-label { background: #fff; color: var(--red-600); }
+.announce-label svg { width: 0.85rem; height: 0.85rem; }
+
+.announce-track {
+  flex: 1; min-width: 0;
+  display: flex; align-items: center;
+  overflow: hidden; white-space: nowrap;
+  padding-inline: 1.25rem;
+  mask-image: linear-gradient(to right, transparent, #000 3%, #000 97%, transparent);
+}
+.announce-track > span { display: inline-block; animation: announce-marquee 45s linear infinite; }
+.announce:hover .announce-track > span { animation-play-state: paused; }
+[dir="rtl"] .announce-track > span { animation-name: announce-marquee-rtl; }
+@keyframes announce-marquee { to { transform: translateX(-50%); } }
+@keyframes announce-marquee-rtl { to { transform: translateX(50%); } }
+
+.announce-item {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  margin-inline-end: 2.75rem;
+  color: inherit;
+}
+.announce-item:hover { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.announce-item::before {
+  content: ""; flex: none;
+  width: 0.4rem; height: 0.4rem; border-radius: 50%;
+  background: currentColor; opacity: 0.55;
+}
+.announce-tag {
+  padding: 0.1rem 0.4rem; border-radius: var(--radius-sm);
+  background: rgb(3 20 40 / 0.14);
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+}
+.announce--live .announce-tag { background: rgb(255 255 255 / 0.2); }
+
+.announce-cta {
+  flex: none;
+  display: none; align-items: center; gap: 0.4rem;
+  padding: 0.55rem 1.25rem;
+  border-inline-start: 1px solid rgb(3 20 40 / 0.16);
+  color: inherit;
+  font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase;
+  white-space: nowrap;
+}
+.announce-cta:hover { color: inherit; background: rgb(3 20 40 / 0.08); }
+@media (min-width: 768px) { .announce-cta { display: inline-flex; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .announce-track > span { animation: none; }
+  .announce-track { overflow-x: auto; mask-image: none; }
+}

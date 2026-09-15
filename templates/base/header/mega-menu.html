@@ -1,0 +1,29 @@
+{% load static i18n %}
+{% comment %}Sections menu with story previews and the current edition. Needs header_categories and header_preview_articles.{% endcomment %}
+<div class="mega" role="menu" x-show="megaOpen" x-cloak x-transition @mouseleave="megaOpen = false">
+    <div class="mega-sections">
+        <a href="{% url 'articles:list' %}" class="is-active" role="menuitem">{% trans "All articles" %}</a>
+        {% for category in header_categories %}
+        <a href="{% url 'articles:by_category' category.slug %}" role="menuitem">{{ category.name }}</a>
+        {% endfor %}
+        <a href="{% url 'archives:browse' %}" role="menuitem">{% trans "Archive" %}</a>
+    </div>
+    <div class="mega-stories">
+        {% for article in header_preview_articles %}
+        <a class="mega-story" href="{{ article.get_absolute_url }}" role="menuitem">
+            {% if article.cover %}<img src="{{ article.cover.file.url }}" alt="" loading="lazy">{% else %}<span class="mega-thumb"></span>{% endif %}
+            <span class="kicker">{{ article.primary_category.name|default:"" }}</span>
+            <span class="mega-story-title">{{ article.title }}</span>
+        </a>
+        {% endfor %}
+        {% with latest=header_magazines.0 %}
+        {% if latest %}
+        <a class="mega-edition" href="{% if latest.pages.exists %}{% url 'magazines:read' latest.slug %}{% else %}{{ latest.get_absolute_url }}{% endif %}" role="menuitem">
+            {% if latest.cover_image %}<img src="{{ latest.cover_image.file.url }}" alt="" loading="lazy">{% else %}<img src="{% static 'img/magazine-tawil.png' %}" alt="" loading="lazy">{% endif %}
+            <strong>{{ latest.title }}</strong>
+            <span>{{ latest.published_at|date:"F Y" }} · {% trans "read now" %}</span>
+        </a>
+        {% endif %}
+        {% endwith %}
+    </div>
+</div>

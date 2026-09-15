@@ -1,5 +1,5 @@
 {% extends "base/base.html" %}
-{% load static i18n %}
+{% load static i18n studio %}
 {% block title %}{{ article.title }} – {{ SITE_NAME }}{% endblock %}
 {% block meta_description %}{{ article.excerpt }}{% endblock %}
 
@@ -40,6 +40,7 @@
         </div>
 
         <aside class="article-aside">
+            {% ad_slot "article-rectangle" "rectangle" %}
             <div class="article-share">
                 <span class="eyebrow">{% trans "Share" %}</span>
                 <div class="flex gap-2 mt-2">

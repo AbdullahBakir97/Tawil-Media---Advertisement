@@ -1,0 +1,36 @@
+{% extends "studio/base.html" %}
+{% load i18n %}
+{% block studio_title %}{% trans "Themes" %}{% endblock %}
+
+{% block studio_content %}
+<header class="studio-head">
+    <div>
+        <span class="eyebrow">Studio</span>
+        <h1>{% trans "Themes" %}</h1>
+        <p>{% trans "A theme is a set of colours and a display face. Mark one as the site default, or give a single edition its own so its page, cover frame and reader follow it." %}</p>
+    </div>
+    <a href="{% url 'studio:theme_new' %}" class="btn btn-primary btn-sm">{% trans "New theme" %}</a>
+</header>
+
+<div class="studio-rows">
+    {% for theme in themes %}
+    <div class="studio-row">
+        <div class="studio-swatches">
+            <i style="background:{{ theme.brand }}"></i><i style="background:{{ theme.brand_deep }}"></i><i style="background:{{ theme.accent }}"></i><i style="background:{{ theme.interaction }}"></i>
+        </div>
+        <div class="studio-row-main">
+            <strong>{{ theme.name }}</strong>
+            <p class="text-tertiary">{{ theme.get_display_font_display }} · {% trans "radius" %} {{ theme.radius }}px · {{ theme.magazines.count }} {% trans "editions" %}</p>
+        </div>
+        {% if theme.is_default %}<span class="badge badge-gold">{% trans "Site default" %}</span>{% endif %}
+        <a class="btn btn-outline btn-sm" href="{% url 'studio:theme_edit' theme.pk %}">{% trans "Edit" %}</a>
+    </div>
+    {% empty %}
+    <div class="empty-state">
+        <h3>{% trans "No themes yet" %}</h3>
+        <p>{% trans "Create one to change the site's colours, or to give an edition its own look." %}</p>
+        <a href="{% url 'studio:theme_new' %}" class="btn btn-primary btn-sm mt-3">{% trans "New theme" %}</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

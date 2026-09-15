@@ -1,0 +1,9 @@
+{% load i18n %}
+<div class="studio-toolbar" x-data="{ open: true }" x-show="open" x-cloak>
+    <span class="studio-toolbar-brand">Studio</span>
+    <a href="{% url 'studio:hero' %}"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M3 20h18"/></svg>{% trans "Hero" %}</a>
+    <a href="{% url 'studio:themes' %}"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="9" cy="10" r="1.2" fill="currentColor" stroke="none"/><circle cx="15" cy="10" r="1.2" fill="currentColor" stroke="none"/></svg>{% trans "Theme" %}</a>
+    <a href="{% url 'studio:announcements' %}"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5L6 9H2v6h4l5 4V5z"/></svg>{% trans "Announce" %}</a>
+    <a href="{% url 'studio:dashboard' %}"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>{% trans "All" %}</a>
+    <button type="button" @click="open = false" aria-label="{% trans 'Hide the Studio bar' %}"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18L18 6M6 6l12 12"/></svg></button>
+</div>

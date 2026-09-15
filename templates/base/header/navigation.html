@@ -1,8 +1,11 @@
 {% load i18n %}
-<nav class="site-nav" aria-label="{% trans 'Main navigation' %}" x-data="{ mobileOpen: false, moreOpen: false }">
+<nav class="site-nav" aria-label="{% trans 'Main navigation' %}" x-data="{ mobileOpen: false, moreOpen: false, megaOpen: false }">
     <div class="site-nav-links">
         <a href="{% url 'home' %}" class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}"><span data-nav-text>{% trans "Home" %}</span></a>
-        <a href="{% url 'articles:list' %}" class="nav-link {% if request.resolver_match.namespace == 'articles' %}active{% endif %}"><span data-nav-text>{% trans "Articles" %}</span></a>
+        <div class="relative" @mouseenter="megaOpen = true" @keydown.escape.window="megaOpen = false">
+            <a href="{% url 'articles:list' %}" class="nav-link {% if request.resolver_match.namespace == 'articles' %}active{% endif %}" @focus="megaOpen = true"><span data-nav-text>{% trans "Articles" %}</span></a>
+            {% include "base/header/mega-menu.html" %}
+        </div>
         <a href="{% url 'magazines:list' %}" class="nav-link {% if request.resolver_match.namespace == 'magazines' %}active{% endif %}"><span data-nav-text>{% trans "Magazines" %}</span></a>
         <a href="{% url 'archives:browse' %}" class="nav-link {% if request.resolver_match.namespace == 'archives' %}active{% endif %}"><span data-nav-text>{% trans "Archive" %}</span></a>
 

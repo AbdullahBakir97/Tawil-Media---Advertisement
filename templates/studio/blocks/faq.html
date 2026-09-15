@@ -1,0 +1,20 @@
+{% load i18n studio %}
+{% faqs faq_page|default:"help" as faq_list %}
+{% if faq_list %}
+<section class="section" data-motion="fade-up">
+    <div class="container">
+        <div class="section-head"><div><span class="eyebrow">{% trans "Questions" %}</span><h2>{% trans "Frequently asked" %}</h2></div><a href="{% url 'contact' %}" class="btn btn-outline btn-sm">{% trans "Ask us directly" %}</a></div>
+        <div class="faq max-w-measure-wide" x-data="{ open: 0 }">
+            {% for item in faq_list %}
+            <div class="faq-item" :class="{ 'is-open': open === {{ forloop.counter0 }} }">
+                <button type="button" class="faq-q" @click="open = open === {{ forloop.counter0 }} ? null : {{ forloop.counter0 }}" :aria-expanded="open === {{ forloop.counter0 }}">
+                    {{ item.question }}
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+                </button>
+                <div class="faq-a" x-show="open === {{ forloop.counter0 }}" x-collapse x-cloak>{{ item.answer|linebreaksbr }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}

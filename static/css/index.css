@@ -23,7 +23,12 @@
 @import './components/badges.css';
 @import './components/layout.css';
 @import './components/header.css';
+@import './components/announce.css';
 @import './components/hero.css';
+@import './components/ads.css';
+@import './components/trust.css';
+@import './components/reader.css';
+@import './components/studio.css';
 @import './components/atlas.css';
 
 @import './layouts/grid.css';

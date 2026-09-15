@@ -1,0 +1,14 @@
+{% comment %}
+Home hero dispatcher. `hero` (HeroConfig) picks the variant; each variant template
+reads the same context: hero, header_magazines, featured_articles, YEARS_ACTIVE,
+ADVERTISING_STATS, magazine_count. Preview pages pass `hero` explicitly.
+{% endcomment %}
+{% with variant=hero.variant|default:"front" %}
+<div class="hero-root hero-root--{{ variant }}"{% if hero.theme %} style="{{ hero.theme.css_vars }}"{% endif %}>
+    {% if variant == "light" %}{% include "base/hero/light.html" %}
+    {% elif variant == "immersive" %}{% include "base/hero/immersive.html" %}
+    {% elif variant == "newsroom" %}{% include "base/hero/newsroom.html" %}
+    {% elif variant == "classic" %}{% include "base/hero/classic.html" %}
+    {% else %}{% include "base/hero/front-page.html" %}{% endif %}
+</div>
+{% endwith %}
