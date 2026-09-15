@@ -11,7 +11,7 @@ large image-led card, "row" for a horizontal list item). Default is the grid car
     </div>
     <div class="card-body">
         {% if article.is_sponsored %}<span class="sponsor-tag">{% trans "Advertisement" %}{% if article.sponsor_name %} · {{ article.sponsor_name }}{% endif %}</span>{% elif category %}<a href="{% url 'articles:by_category' category.slug %}" class="kicker">{{ category.label }}</a>{% endif %}
-        <h3 class="card-title"><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h3>
+        <h3 class="card-title"><a href="{{ article.get_absolute_url }}">{{ article.label }}</a></h3>
         <p class="card-excerpt line-clamp-2">{{ article.excerpt }}</p>
         <div class="card-footer">
             <span>{% if article.byline %}<a class="byline-link" href="{{ article.byline.get_absolute_url }}">{{ article.byline.name }}</a>{% else %}{{ article.byline_name }}{% endif %}</span>
@@ -26,7 +26,7 @@ large image-led card, "row" for a horizontal list item). Default is the grid car
     </a>
     <div class="card-body">
         {% if category %}<span class="kicker">{{ category.label }}</span>{% endif %}
-        <h3 class="card-title text-base"><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h3>
+        <h3 class="card-title text-base"><a href="{{ article.get_absolute_url }}">{{ article.label }}</a></h3>
         <div class="card-footer">
             <span>{{ article.published_at|date:"j M Y" }}</span>
             <span>{% blocktrans with minutes=article.reading_time %}{{ minutes }} min{% endblocktrans %}</span>
@@ -40,7 +40,7 @@ large image-led card, "row" for a horizontal list item). Default is the grid car
     </a>
     <div class="card-body">
         {% if category %}<a href="{% url 'articles:by_category' category.slug %}" class="kicker relative z-10">{{ category.label }}</a>{% endif %}
-        <h3 class="card-title"><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h3>
+        <h3 class="card-title"><a href="{{ article.get_absolute_url }}">{{ article.label }}</a></h3>
         <p class="card-excerpt line-clamp-3">{{ article.excerpt }}</p>
         <div class="card-footer">
             <span>{% if article.byline %}<a class="byline-link" href="{{ article.byline.get_absolute_url }}">{{ article.byline.name }}</a> · {% elif article.byline_name %}{{ article.byline_name }} · {% endif %}{{ article.published_at|date:"j M Y" }}</span>

@@ -4,6 +4,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils.html import strip_tags
 from django.utils.text import Truncator, slugify
+from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
 from taggit.managers import TaggableManager
 
@@ -249,20 +250,52 @@ class Contributor(TimeStampedModel):
         )
 
 
+def _reader_text(obj, field, fallback):
+    """The reader's own language, then the site default, then the desk's wording.
+
+    Deliberately narrower than :func:`localized`: that helper will reach for any
+    language rather than return nothing, which suits a category name but not a
+    headline — an English reader should get the desk's working title, never a
+    headline in Arabic they cannot read.
+    """
+    lang = (get_language() or settings.LANGUAGE_CODE).split("-")[0]
+    default = settings.LANGUAGE_CODE.split("-")[0]
+    for code in (lang, default):
+        value = getattr(obj, f"{field}_{code}", "")
+        if value:
+            return value
+    return fallback
+
+
 class Article(Editorial, TimeStampedModel):
-    title = models.CharField(max_length=255, verbose_name="Title")
-    slug = models.SlugField(max_length=255, unique=True, verbose_name="Slug")
-    content = models.TextField(verbose_name="Content")
+    #: `title` and `content` are the desk's own wording — what the newsroom
+    #: calls the piece while it is being worked on. The per-language fields
+    #: below are what a reader sees; each falls back to the desk's version
+    #: until it has been translated, exactly as categories and writers do.
+    title = models.CharField(max_length=255, verbose_name=_("Title"))
+    slug = models.SlugField(max_length=255, unique=True, verbose_name=_("Slug"))
+    content = models.TextField(verbose_name=_("Content"))
+
+    title_de = models.CharField(max_length=255, blank=True, verbose_name=_("Title (German)"))
+    title_ar = models.CharField(max_length=255, blank=True, verbose_name=_("Title (Arabic)"))
+    title_en = models.CharField(max_length=255, blank=True, verbose_name=_("Title (English)"))
+    standfirst_de = models.TextField(blank=True, verbose_name=_("Standfirst (German)"),
+                                     help_text=_("The line under the headline. Leave empty to take the opening of the text."))
+    standfirst_ar = models.TextField(blank=True, verbose_name=_("Standfirst (Arabic)"))
+    standfirst_en = models.TextField(blank=True, verbose_name=_("Standfirst (English)"))
+    content_de = models.TextField(blank=True, verbose_name=_("Text (German)"))
+    content_ar = models.TextField(blank=True, verbose_name=_("Text (Arabic)"))
+    content_en = models.TextField(blank=True, verbose_name=_("Text (English)"))
     author = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name="article_author", verbose_name="Author"
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name="article_author", verbose_name=_("Author")
     )
-    categories = models.ManyToManyField(Category, related_name="article_categories", verbose_name="Categories")
+    categories = models.ManyToManyField(Category, related_name="article_categories", verbose_name=_("Categories"))
     tags = TaggableManager(blank=True)
-    media = models.ManyToManyField(Media, related_name="article_media", blank=True, verbose_name="Media Attachments")
-    is_published = models.BooleanField(default=False, verbose_name="Is Published")
-    published_at = models.DateTimeField(null=True, blank=True, verbose_name="Published At")
-    is_sponsored = models.BooleanField(default=False, verbose_name="Sponsored content")
-    sponsor_name = models.CharField(max_length=120, blank=True, verbose_name="Sponsor")
+    media = models.ManyToManyField(Media, related_name="article_media", blank=True, verbose_name=_("Media Attachments"))
+    is_published = models.BooleanField(default=False, verbose_name=_("Is Published"))
+    published_at = models.DateTimeField(null=True, blank=True, verbose_name=_("Published At"))
+    is_sponsored = models.BooleanField(default=False, verbose_name=_("Sponsored content"))
+    sponsor_name = models.CharField(max_length=120, blank=True, verbose_name=_("Sponsor"))
 
     objects = ArticleManager()
 
@@ -292,13 +325,25 @@ class Article(Editorial, TimeStampedModel):
         return None
 
     @property
+    def label(self):
+        """The headline a reader sees, in their language."""
+        return _reader_text(self, "title", self.title)
+
+    @property
+    def body(self):
+        """The text a reader sees, in their language."""
+        return _reader_text(self, "content", self.content)
+
+    @property
     def excerpt(self):
-        return Truncator(strip_tags(self.content)).words(32, truncate=" …")
+        """The written standfirst, or the opening of the text when there is none."""
+        written = _reader_text(self, "standfirst", "")
+        return written or Truncator(strip_tags(self.body)).words(32, truncate=" …")
 
     @property
     def reading_time(self):
         """Minutes at ~200 words per minute, never below 1."""
-        words = len(strip_tags(self.content).split())
+        words = len(strip_tags(self.body).split())
         return max(1, round(words / 200))
 
     @property

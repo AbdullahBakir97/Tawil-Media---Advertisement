@@ -1,0 +1,134 @@
+{% extends "studio/base.html" %}
+{% load i18n %}
+{% block studio_title %}{% if is_new %}{% trans "New article" %}{% else %}{{ article.title }}{% endif %}{% endblock %}
+
+{% block studio_content %}
+<header class="studio-head">
+    <div>
+        <span class="eyebrow">{% trans "Writing" %}</span>
+        <h1>{% if is_new %}{% trans "New article" %}{% else %}{{ article.title }}{% endif %}</h1>
+        {% if not is_new %}
+        <p class="text-secondary mt-1">
+            {{ article.get_status_display }}
+            {% if article.published_at %} · {% blocktrans with when=article.published_at|date:"j M Y" %}live since {{ when }}{% endblocktrans %}{% endif %}
+            · {% blocktrans count minutes=article.reading_time %}{{ minutes }} min read{% plural %}{{ minutes }} min read{% endblocktrans %}
+        </p>
+        {% endif %}
+    </div>
+    <div class="btn-group">
+        {% if not is_new %}<a class="btn btn-outline btn-sm" href="{{ preview_url }}" target="_blank" rel="noopener">{% trans "Preview" %}</a>{% endif %}
+        <a class="btn btn-outline btn-sm" href="{% url 'studio:desk' %}">{% trans "The desk" %}</a>
+    </div>
+</header>
+
+<form method="post" class="article-editor"
+      action="{% if is_new %}{% url 'studio:article_new' %}{% else %}{% url 'studio:article_edit' article.pk %}{% endif %}">
+    {% csrf_token %}
+
+    <div class="article-editor-main">
+        {# ---------- What the desk calls it ---------- #}
+        <section class="nl-panel">
+            <h2 class="nl-panel-title">{% trans "The piece" %}</h2>
+            <p class="form-hint">{% trans "The desk's own wording. Readers see a translation below when there is one, and this until then." %}</p>
+            {% for field in form %}{% if field.name == "title" or field.name == "slug" or field.name == "content" %}
+            <div class="form-group">
+                <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}<p class="form-hint">{{ field.help_text }}</p>{% endif %}
+                {% for error in field.errors %}<p class="form-error">{{ error }}</p>{% endfor %}
+            </div>
+            {% endif %}{% endfor %}
+        </section>
+
+        {# ---------- Per language ---------- #}
+        <section class="nl-panel">
+            <h2 class="nl-panel-title">{% trans "For readers" %}</h2>
+            <div class="lang-tabs" role="tablist">
+                {% for code, name in languages %}
+                <button type="button" class="lang-tab {% if forloop.first %}is-active{% endif %}"
+                        role="tab" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+                        aria-controls="lang-{{ code }}" data-lang-tab="{{ code }}">{{ name }}</button>
+                {% endfor %}
+            </div>
+            {% for code, name in languages %}
+            <div class="lang-panel {% if not forloop.first %}is-hidden{% endif %}" id="lang-{{ code }}" role="tabpanel" data-lang-panel="{{ code }}">
+                {% for field in form %}{% if field.name == "title_"|add:code or field.name == "standfirst_"|add:code or field.name == "content_"|add:code %}
+                <div class="form-group">
+                    <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.help_text %}<p class="form-hint">{{ field.help_text }}</p>{% endif %}
+                    {% for error in field.errors %}<p class="form-error">{{ error }}</p>{% endfor %}
+                </div>
+                {% endif %}{% endfor %}
+            </div>
+            {% endfor %}
+        </section>
+    </div>
+
+    <aside class="article-editor-side">
+        <section class="nl-panel">
+            <h2 class="nl-panel-title">{% trans "Save" %}</h2>
+            <button class="btn btn-primary btn-block" type="submit" name="action" value="save">{% trans "Save" %}</button>
+            {% if is_new or article.status == "draft" %}
+            <button class="btn btn-outline btn-block" type="submit" name="action" value="save-and-review">{% trans "Save and send to review" %}</button>
+            {% endif %}
+            <p class="form-hint">{% trans "Saving never publishes. Moving a piece along is a separate click on the desk." %}</p>
+        </section>
+
+        <section class="nl-panel">
+            <h2 class="nl-panel-title">{% trans "Byline and filing" %}</h2>
+            {% for field in form %}{% if field.name == "author" or field.name == "categories" or field.name == "tags" %}
+            <div class="form-group">
+                <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {% if field.name == "categories" %}<div class="check-list">{{ field }}</div>{% else %}{{ field }}{% endif %}
+                {% for error in field.errors %}<p class="form-error">{{ error }}</p>{% endfor %}
+            </div>
+            {% endif %}{% endfor %}
+        </section>
+
+        <section class="nl-panel">
+            <h2 class="nl-panel-title">{% trans "Pictures" %}</h2>
+            <p class="form-hint">{% trans "The first one becomes the cover." %}</p>
+            <div class="check-list check-list--media">{% for field in form %}{% if field.name == "media" %}{{ field }}{% endif %}{% endfor %}</div>
+            <a class="link-underline text-sm" href="{% url 'studio:media' %}">{% trans "Upload more" %}</a>
+        </section>
+
+        <section class="nl-panel">
+            <h2 class="nl-panel-title">{% trans "Sponsorship" %}</h2>
+            {% for field in form %}{% if field.name == "is_sponsored" or field.name == "sponsor_name" %}
+            <div class="form-group {% if field.name == 'is_sponsored' %}form-group--inline{% endif %}">
+                <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% for error in field.errors %}<p class="form-error">{{ error }}</p>{% endfor %}
+            </div>
+            {% endif %}{% endfor %}
+        </section>
+
+        {% if not is_new %}
+        <section class="nl-panel nl-panel--danger">
+            <h2 class="nl-panel-title">{% trans "Delete" %}</h2>
+            <button class="btn btn-ghost btn-block btn-danger" type="submit" name="action" value="delete"
+                    onclick="return confirm('{% trans "Delete this article for good?" %}')">{% trans "Delete this article" %}</button>
+        </section>
+        {% endif %}
+    </aside>
+</form>
+
+<script>
+  // Language tabs: plain show/hide, so the fields stay in the one form and a
+  // half-written translation is never lost by switching tab.
+  document.querySelectorAll('[data-lang-tab]').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      var code = tab.dataset.langTab;
+      document.querySelectorAll('[data-lang-tab]').forEach(function (t) {
+        var on = t === tab;
+        t.classList.toggle('is-active', on);
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      document.querySelectorAll('[data-lang-panel]').forEach(function (panel) {
+        panel.classList.toggle('is-hidden', panel.dataset.langPanel !== code);
+      });
+    });
+  });
+</script>
+{% endblock %}

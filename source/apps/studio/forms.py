@@ -1,7 +1,9 @@
 from django import forms
+from django.contrib.auth import get_user_model
+from django.utils.text import Truncator
 from django.utils.translation import gettext_lazy as _
 
-from source.apps.content.models import Media
+from source.apps.content.models import Article, Category, Media
 from source.apps.newsletter.models import Issue
 
 from .models import Announcement, HeroConfig, Theme
@@ -80,6 +82,8 @@ class AnnouncementForm(forms.ModelForm):
 def _style(form):
     """The studio's own input classes, applied once for every field."""
     for name, field in form.fields.items():
+        if isinstance(field.widget, forms.CheckboxSelectMultiple):
+            continue  # styled by .check-list in the stylesheet
         if isinstance(field.widget, forms.CheckboxInput):
             field.widget.attrs.setdefault("class", "form-checkbox")
         elif isinstance(field.widget, forms.Select):
@@ -168,3 +172,67 @@ class IssueForm(forms.ModelForm):
         self.fields["subject"].widget.attrs["placeholder"] = _("What the inbox shows first")
         self.fields["preheader"].widget.attrs["placeholder"] = _("The line after the subject")
         self.fields["intro"].widget.attrs["placeholder"] = _("A few lines from the desk")
+
+
+def _picture_label(picture):
+    """What a picture is called in the picker: its caption, else its file name.
+
+    Kept to one line — a picker is for recognising a picture at a glance, and a
+    full sentence of alt text wraps to three lines and makes the list unreadable.
+    """
+    name = picture.alt_text or picture.caption or picture.file.name.rsplit("/", 1)[-1]
+    return Truncator(name).chars(38, truncate="…")
+
+
+class ArticleForm(forms.ModelForm):
+    """Writing an article, in the Studio rather than the admin.
+
+    The desk's own title and text come first, because that is what a piece is
+    called while it is being worked on. The per-language fields sit behind
+    tabs: an article can go live with only the desk's wording, and each
+    translation replaces it for readers of that language as it arrives.
+    """
+
+    class Meta:
+        model = Article
+        fields = (
+            "title", "slug", "content",
+            "title_de", "title_ar", "title_en",
+            "standfirst_de", "standfirst_ar", "standfirst_en",
+            "content_de", "content_ar", "content_en",
+            "author", "categories", "media", "tags",
+            "is_sponsored", "sponsor_name",
+        )
+        widgets = {
+            "content": forms.Textarea(attrs={"rows": 18}),
+            **{f"content_{lang}": forms.Textarea(attrs={"rows": 18}) for lang in ("de", "ar", "en")},
+            **{f"standfirst_{lang}": forms.Textarea(attrs={"rows": 3}) for lang in ("de", "ar", "en")},
+            "categories": forms.CheckboxSelectMultiple,
+            "media": forms.CheckboxSelectMultiple,
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        _style(self)
+        self.fields["slug"].required = False
+        self.fields["slug"].help_text = _("Leave empty and one is made from the title.")
+        self.fields["title"].widget.attrs["placeholder"] = _("What the desk calls this piece")
+        # "Content" reads as a plural in German; in the editor it is simply the text.
+        self.fields["content"].label = _("Text")
+        self.fields["categories"].queryset = Category.objects.all()
+        # Only pictures are worth attaching by hand; the first one becomes the cover.
+        # The limit goes through a subquery: a sliced queryset cannot be filtered
+        # again, and Django filters it to validate the submitted value, so slicing
+        # it directly makes every choice come back as "not a valid value".
+        self.fields["media"].queryset = Media.objects.filter(
+            pk__in=Media.objects.filter(media_type="image").order_by("-created_at").values("pk")[:60]
+        ).order_by("-created_at")
+        self.fields["media"].label_from_instance = _picture_label
+        self.fields["author"].queryset = get_user_model().objects.filter(is_active=True).order_by("first_name", "email")
+        self.fields["author"].empty_label = _("No byline yet")
+
+    def clean(self):
+        cleaned = super().clean()
+        if cleaned.get("is_sponsored") and not cleaned.get("sponsor_name"):
+            self.add_error("sponsor_name", _("Say who paid for it — a sponsored piece must name its sponsor."))
+        return cleaned

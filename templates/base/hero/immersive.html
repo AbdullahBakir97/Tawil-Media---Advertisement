@@ -20,7 +20,7 @@
                 {% for article in featured_articles|slice:"1:4" %}
                 <a href="{{ article.get_absolute_url }}" class="hero-immersive-card">
                     {% if article.cover %}<img src="{{ article.cover.file.url }}" alt="" loading="lazy">{% else %}<span class="hero-immersive-thumb"></span>{% endif %}
-                    <span><span class="kicker">{{ article.primary_category.label|default:"" }}</span><span class="hero-immersive-card-title">{{ article.title }}</span></span>
+                    <span><span class="kicker">{{ article.primary_category.label|default:"" }}</span><span class="hero-immersive-card-title">{{ article.label }}</span></span>
                 </a>
                 {% endfor %}
             </div>

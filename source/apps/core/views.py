@@ -59,6 +59,23 @@ class SitemapView(TemplateView):
     template_name = "pages/sitemap.html"
 
 
+
+def article_search(query, headlines_only=False):
+    """Match a search term against every language an article is written in.
+
+    A reader searching in Arabic must find the Arabic headline, not only the
+    desk's own working title, so each translated field is searched alongside it.
+    """
+    fields = ["title", "title_de", "title_ar", "title_en"]
+    if not headlines_only:
+        fields += ["content", "content_de", "content_ar", "content_en",
+                   "standfirst_de", "standfirst_ar", "standfirst_en"]
+    condition = Q()
+    for field in fields:
+        condition |= Q(**{f"{field}__icontains": query})
+    return condition
+
+
 class SearchView(ListView):
     template_name = "pages/search.html"
     context_object_name = "results"
@@ -73,7 +90,7 @@ class SearchView(ListView):
             return Article.objects.none()
         return (
             Article.objects.published()
-            .filter(Q(title__icontains=query) | Q(content__icontains=query))
+            .filter(article_search(query))
             .select_related("author")
         )
 
@@ -93,7 +110,11 @@ class SearchSuggestionsView(ListView):
         query = self.request.GET.get("q", "").strip()
         if len(query) < 2:
             return Article.objects.none()
-        return Article.objects.published().filter(title__icontains=query).only("title", "slug")[:5]
+        return (
+            Article.objects.published()
+            .filter(article_search(query, headlines_only=True))
+            .only("title", "title_de", "title_ar", "title_en", "slug")[:5]
+        )
 
 
 def page_not_found(request, exception=None):

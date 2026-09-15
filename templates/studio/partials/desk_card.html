@@ -1,6 +1,9 @@
 {% load i18n %}
 <article class="desk-card {% if item.is_due %}is-due{% endif %}">
-    <h3 class="desk-card-title"><a href="{% if item.is_live %}{{ item.get_absolute_url }}{% else %}{{ item.preview_url }}{% endif %}">{{ item.title }}</a></h3>
+    <h3 class="desk-card-title">
+        {% if kind == "article" %}<a href="{% url 'studio:article_edit' item.pk %}">{{ item.title }}</a>
+        {% else %}<a href="{% if item.is_live %}{{ item.get_absolute_url }}{% else %}{{ item.preview_url }}{% endif %}">{{ item.title }}</a>{% endif %}
+    </h3>
 
     <p class="desk-card-meta">
         {% if kind == "article" %}{% if item.author %}{{ item.author.get_full_name|default:item.author.email }} · {% endif %}{% endif %}

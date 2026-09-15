@@ -103,3 +103,51 @@
 }
 [dir="rtl"] .nl-preview { transform-origin: top right; }
 .nl-rule { border: 0; border-top: 1px solid var(--border-primary); margin: 0.25rem 0; }
+
+/* ---------- Article editor ---------- */
+.article-editor { display: grid; gap: 1.5rem; align-items: start; }
+@media (min-width: 72rem) { .article-editor { grid-template-columns: minmax(0, 1fr) 20rem; gap: 2rem; } }
+.article-editor-main, .article-editor-side { display: grid; gap: 1rem; align-content: start; }
+.article-editor-side { position: sticky; top: calc(var(--header-nav-height, 4.5rem) + 1rem); }
+
+.lang-tabs { display: flex; gap: 0.25rem; border-bottom: 1px solid var(--border-primary); }
+.lang-tab {
+  padding: 0.45rem 0.85rem; border: 0; background: none;
+  font-size: var(--text-sm); color: var(--text-tertiary);
+  border-bottom: 2px solid transparent; margin-bottom: -1px;
+}
+.lang-tab:hover { color: var(--text-primary); }
+.lang-tab.is-active { color: var(--accent-ink); border-bottom-color: var(--gold-400); font-weight: 600; }
+.lang-panel { display: grid; gap: 0.85rem; padding-top: 1rem; }
+.lang-panel.is-hidden { display: none; }
+
+/* A scrolling box inside a grid has an automatic minimum size of zero, so it
+   collapses to a single row unless it is given a floor of its own. */
+.check-list {
+  display: grid; gap: 0.3rem; align-content: start;
+  min-height: 7rem; max-height: 14rem; overflow-y: auto;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--border-primary); border-radius: var(--radius-md);
+  background: var(--bg-primary);
+}
+/* Django renders this widget as nested <div>s, one per option. */
+.check-list > div { display: grid; gap: 0.35rem; min-width: 0; }
+.check-list > div > div { min-width: 0; }
+/* Grid, not flex: a flex text node shrinks to its min-content — one character
+   per line in a narrow column. A 1fr column lets the label wrap normally. */
+.check-list label {
+  display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0.5rem;
+  align-items: start; font-size: var(--text-sm); line-height: 1.35; cursor: pointer;
+}
+.check-list label > input { margin-top: 0.15rem; }
+.check-list input[type="checkbox"] {
+  width: 1rem; height: 1rem; margin: 0; flex: none;
+  accent-color: var(--link);
+}
+.check-list--media { min-height: 10rem; max-height: 18rem; }
+
+.form-group--inline { display: flex; align-items: center; gap: 0.6rem; }
+.form-group--inline .form-label { margin: 0; }
+.nl-panel--danger { border-color: rgb(225 29 72 / 0.35); }
+.btn-danger { color: var(--rose-500, #e11d48); }
+.btn-danger:hover { background: rgb(225 29 72 / 0.08); }

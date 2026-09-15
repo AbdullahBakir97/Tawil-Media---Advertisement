@@ -9,6 +9,7 @@
         <h1>{% trans "The desk" %}</h1>
         <p class="text-secondary mt-1">{% trans "Everything the team is working on, from the first draft to the moment it goes live." %}</p>
     </div>
+    <a class="btn btn-primary btn-sm" href="{% url 'studio:article_new' %}">{% trans "New article" %}</a>
     {% if due_now %}
     <p class="desk-due" role="status">{% blocktrans count counter=due_now %}{{ counter }} piece is past its time and waiting for the scheduler.{% plural %}{{ counter }} pieces are past their time and waiting for the scheduler.{% endblocktrans %}</p>
     {% endif %}
