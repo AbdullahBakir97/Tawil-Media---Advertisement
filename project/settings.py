@@ -49,6 +49,25 @@ CONTACT_DETAILS = {
         "country": os.environ.get("COMPANY_COUNTRY", "Germany"),
     },
 }
+# Director block in the home-page header. Set DIRECTOR_PHOTO to a path under static/ (e.g. "img/director.jpg").
+DIRECTOR = {
+    "name": os.environ.get("DIRECTOR_NAME", "Mohamad Tawil"),
+    "title": os.environ.get("DIRECTOR_TITLE", "Founder & Creative Director"),
+    "bio": os.environ.get(
+        "DIRECTOR_BIO",
+        "Leading innovation in media and advertising with over a decade of industry expertise. "
+        "Committed to delivering excellence and creative solutions.",
+    ),
+    "photo": os.environ.get("DIRECTOR_PHOTO", ""),
+    "initials": "MT",
+    "linkedin": os.environ.get("DIRECTOR_LINKEDIN", ""),
+    "twitter": os.environ.get("DIRECTOR_TWITTER", ""),
+    "stats": [
+        {"value": "10+", "label": "Years experience"},
+        {"value": "500+", "label": "Projects"},
+        {"value": "100+", "label": "Happy clients"},
+    ],
+}
 ADVERTISING_STATS = {"monthly_readers": "500K+", "engagement_rate": "85%", "industry_reach": "20+"}
 
 # ---------------------------------------------------------------------------
@@ -110,6 +129,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "source.apps.core.context_processors.site",
                 "source.apps.notifications.context_processors.notifications",
+                "source.apps.content.context_processors.header_magazines",
             ],
         },
     },

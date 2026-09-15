@@ -15,6 +15,7 @@ class HomeView(TemplateView):
         context["featured_articles"] = articles[:6]
         context["latest_magazines"] = Magazine.objects.published().select_related("cover_image")[:3]
         context["categories"] = Category.objects.active()[:8]
+        context["show_hero"] = True
         return context
 
 
