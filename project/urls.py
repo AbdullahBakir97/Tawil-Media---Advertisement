@@ -12,6 +12,8 @@ urlpatterns = [
     path("articles/", include("source.apps.content.urls.articles", namespace="articles")),
     path("magazines/", include("source.apps.content.urls.magazines", namespace="magazines")),
     path("archives/", include("source.apps.archives.urls", namespace="archives")),
+    path("newsletter/", include("source.apps.newsletter.urls", namespace="newsletter")),
+    path("notifications/", include("source.apps.notifications.urls", namespace="notifications")),
 ]
 
 if settings.DEBUG:

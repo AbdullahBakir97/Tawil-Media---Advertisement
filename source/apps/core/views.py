@@ -1,13 +1,8 @@
-import logging
-
-from django import forms
 from django.db.models import Q
 from django.shortcuts import render
-from django.views.generic import FormView, ListView, TemplateView
+from django.views.generic import ListView, TemplateView
 
 from source.apps.content.models import Article, Category, Magazine
-
-logger = logging.getLogger(__name__)
 
 
 class HomeView(TemplateView):
@@ -70,29 +65,6 @@ class SearchSuggestionsView(ListView):
         if len(query) < 2:
             return Article.objects.none()
         return Article.objects.published().filter(title__icontains=query).only("title", "slug")[:5]
-
-
-class NewsletterForm(forms.Form):
-    email = forms.EmailField()
-
-
-class NewsletterSubscribeView(FormView):
-    """Accepts newsletter sign-ups and answers with an HTMX-friendly partial.
-
-    Persisting subscribers is not implemented yet; the address is logged so the
-    form is usable end to end while the subscriptions app grows into it.
-    """
-
-    form_class = NewsletterForm
-    template_name = "partials/newsletter_response.html"
-    http_method_names = ["post"]
-
-    def form_valid(self, form):
-        logger.info("Newsletter subscription requested for %s", form.cleaned_data["email"])
-        return render(self.request, self.template_name, {"success": True})
-
-    def form_invalid(self, form):
-        return render(self.request, self.template_name, {"success": False, "form": form}, status=400)
 
 
 def page_not_found(request, exception=None):

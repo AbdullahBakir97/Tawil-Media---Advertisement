@@ -24,7 +24,7 @@
         <!-- Notifications -->
         <div class="relative">
             <button class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                    hx-get="{% url 'notifications:list' %}"
+                    hx-get="{% url 'notifications:notifications_dropdown' %}"
                     hx-target="#notifications-dropdown"
                     hx-trigger="click"
                     hx-on::after-swap="document.getElementById('notifications-dropdown').classList.toggle('hidden')"

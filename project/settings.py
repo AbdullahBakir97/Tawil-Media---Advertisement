@@ -49,6 +49,7 @@ DJANGO_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.humanize",
 ]
 
 THIRD_PARTY_APPS = [
@@ -64,6 +65,8 @@ LOCAL_APPS = [
     "source.apps.subscriptions",
     "source.apps.payments",
     "source.apps.seo_analytics",
+    "source.apps.newsletter",
+    "source.apps.notifications",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -93,6 +96,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "source.apps.core.context_processors.site",
+                "source.apps.notifications.context_processors.notifications",
             ],
         },
     },
@@ -179,6 +183,9 @@ DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "Tawil Media <noreply@
 # ---------------------------------------------------------------------------
 
 TAGGIT_CASE_INSENSITIVE = True
+
+# Read notifications older than this are removed by `manage.py cleanup_notifications`.
+NOTIFICATION_CLEANUP_DAYS = 30
 
 # ---------------------------------------------------------------------------
 # Security (only enforced outside DEBUG)

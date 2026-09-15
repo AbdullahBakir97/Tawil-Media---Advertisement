@@ -1,13 +1,6 @@
-from django.urls import include, path
+from django.urls import path
 
 from . import views
-
-notification_patterns = (
-    [
-        path("", views.NotificationListView.as_view(), name="list"),
-    ],
-    "notifications",
-)
 
 urlpatterns = [
     path("login/", views.LoginView.as_view(), name="login"),
@@ -26,5 +19,4 @@ urlpatterns = [
     path("settings/profile/", views.UpdateProfileView.as_view(), name="update_profile"),
     path("settings/security/", views.UpdateSecurityView.as_view(), name="update_security"),
     path("settings/notifications/", views.UpdateNotificationsView.as_view(), name="update_notifications"),
-    path("notifications/", include(notification_patterns)),
 ]

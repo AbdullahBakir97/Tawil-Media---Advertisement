@@ -152,9 +152,3 @@ class UpdateNotificationsView(View):
     def post(self, request):
         messages.info(request, _("Notification preferences will be available soon."))
         return _hx_redirect(request, reverse("settings"))
-
-
-class NotificationListView(LoginRequiredMixin, TemplateView):
-    """HTMX partial for the header notifications dropdown."""
-
-    template_name = "partials/notifications.html"
